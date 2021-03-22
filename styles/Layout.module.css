@@ -1,0 +1,35 @@
+.layout{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+
+.sideBar {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 25%;
+}
+.content{
+  padding: 2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--quaternary);
+}
+
+
+@media (--screen-sm) {  
+  .layout {
+    flex-direction: column;
+  }
+  .sideBar{
+    width: 100vw;
+  }
+  .content{
+    width: 100vw;
+  }
+}

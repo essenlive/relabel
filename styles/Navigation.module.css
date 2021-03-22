@@ -1,0 +1,13 @@
+.title {
+  font-family: var(--font-header);
+  font-size:var(--fontSize-2xl);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.links {
+  margin-bottom: 0.25rem;
+}
+
+.links:hover {
+  color:red;
+}

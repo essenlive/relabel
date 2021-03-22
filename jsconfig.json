@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": [
+                "components/*"
+            ],
+            "@styles/*": [
+                "styles/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "public"
+    ]
+}
