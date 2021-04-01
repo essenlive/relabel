@@ -17,8 +17,8 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background-color: var(--quaternary);
+  /* justify-content: center; */
+  background-color: var(--coolGray-300);
 }
 
 

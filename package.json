@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "airtable-plus": "^1.0.4",
     "next": "10.0.9",
     "normalize.css": "^8.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",
