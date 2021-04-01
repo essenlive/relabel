@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from "@styles/Navigation.module.css";
 
-const Navigation = (props)=>{
-
+export default function Navigation(props) {
   const router = useRouter()
 
     return (
@@ -41,6 +40,3 @@ const Navigation = (props)=>{
       </nav>
     );
 }
-
-
-export default Navigation

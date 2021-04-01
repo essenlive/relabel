@@ -1,0 +1,12 @@
+.article{
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media (--screen-sm) {  
+  .article {
+    padding: 1rem;
+  }
+}

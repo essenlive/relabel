@@ -1,87 +1,42 @@
-// import React, { useState, useEffect } from 'react';
-// import ReactMap, { Layer, Feature, Popup, ZoomControl } from 'react-mapbox-gl';
-// import Link from 'next/link'
-// import styles from "@styles/Map.module.css";
+import React, { useState, useRef, useEffect } from 'react';
+import mapboxgl from 'mapbox-gl';
+import styles from "@styles/Map.module.css";
+
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOXTOKEN;
+
+export default function Map(props){
+
+    useEffect(() => {
+        const map = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k',
+        center: [lng, lat],
+        zoom: zoom
+        });
+        // add navigation control (the +/- zoom buttons)
+        // map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+        return () => map.remove();  
+    }, []);
+
+    const mapContainer = useRef(null);
+    const [lng, setLng] = useState(2.35183);
+    const [lat, setLat] = useState(48.85658);
+    const [zoom, setZoom] = useState(11);
+
+    // const [selection, setSelection] = useState({selection : undefined});
 
 
-// const MapBox = ReactMap({ accessToken: process.env.REACT_APP_MAPBOX_TOKEN });
-
-// const Map = (props) => {
-
-//     const [organisations, setOrganisations] = useState([]);
-//     const [map, setMap] = useState({
-//     fitBounds: undefined,
-//     center: [2.35183, 48.85658],
-//     zoom: [11],
-//     });
-//     const [selection, setSelection] = useState({selection : undefined});
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-
-//             try {
-//                 let organisations = await fetch('/.netlify/functions/getData?organisations=all');
-//                 organisations = await organisations.json(); 
-//                 setOrganisations(organisations);
-//             } catch (error) { console.log(error); }
-//         };
-
-//         fetchData();
-//     }, []);
-
-//     const close = () => { if (selection) setSelection({ selection: undefined }); };
-//     const onToggleHover = (cursor, organisation, {type, map}) => {        
-//         map.getCanvas().style.cursor = cursor; 
-//     }
+    // const close = () => { if (selection) setSelection({ selection: undefined }); };
+    // const onToggleHover = (cursor, organisation, {type, map}) => {        
+    //     map.getCanvas().style.cursor = cursor; 
+    // }
 
 //     const markerClick = (organisation) => {
 //         setSelection({ selection: organisation })
 //         setMap({ center: organisation.coordinates, zoom: [14] });
 //     };
 
-//     return(
-//         <section>
-//             <MapBox
-//                 // eslint-disable-next-line
-//                 style={'mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k'}
-//                 // fitBounds= {map.fitbounds}
-//                 containerStyle={{ height: '100%', width: '100%' }}
-//                 center={map.center}
-//                 onDrag={close.bind(this)}
-//                 zoom={map.zoom}
-//                 flyToOptions={{ speed: 0.8 }}
-//             >
-//                 <ZoomControl />
-
-//                 <Layer type="circle" id="organisations" >
-//                     {organisations.map((item, i) => {
-//                         return (
-//                             <Feature
-//                                 key={i}
-//                                 onMouseEnter={onToggleHover.bind(this, 'pointer', item)}
-//                                 onMouseLeave={onToggleHover.bind(this, '', 'undefined')}
-//                                 onClick={markerClick.bind(this, item)}
-//                                 coordinates={item.coordinates}
-//                             />
-//                         )
-//                     })}
-//                 </Layer>
-
-
-//                 {selection.selection && (
-//                     <Popup coordinates={selection.selection.coordinates} maxWidth={"300px"} >
-//                         <div>
-//                             <div className='Section  Section--Simple'>
-//                                     <h3 className='Section__Title'>{selection.selection.name}</h3>
-//                                     <div className='Section__Subtitle'>{selection.selection.type}</div>
-//                             </div>
-//                             <div className="Close__Button"  onClick={close}> </div>
-//                         </div>
-//                     </Popup>
-//                 )}
-
-//             </MapBox>
-//         </section>)
-// }
-
-// export default Map
+    return( 
+        <section className={styles.map} ref={mapContainer}>
+        </section>)
+}

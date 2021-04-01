@@ -4,7 +4,13 @@ import Layout from '@components/Layout'
 export default function GoodPractices() {
   return (
     <Layout title='Bonnes Pratiques'>
-      Bonnes pratiques
+      <article>
+      <h1>
+        Bonnes pratiques
+      </h1>
+      <section>
+      </section>
+      </article>
     </Layout>
   );
 }
