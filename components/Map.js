@@ -14,7 +14,7 @@ export default function Map(props){
         zoom: zoom
         });
         // add navigation control (the +/- zoom buttons)
-        // map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         return () => map.remove();  
     }, []);
 

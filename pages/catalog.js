@@ -23,16 +23,16 @@ export default function Catalog({data}) {
                           {item.fields.StrucID}
                         </h2>
                         <div>
-                          Gestion : {item.fields.StrucGESTION}
+                          Gestion : {item.fields.StrucGESTION * 100} %
                         </div>
                         <div>
-                          Production : {item.fields.StrucPRODUCTION}
+                          Production : {item.fields.StrucPROD * 100} %
                         </div>
                         <div>
                           Partenaires : {item.fields.StrucPARTENAIRES}
                         </div>
                         <div>
-                          Matériaux : {item.fields.StrucMATERIAUX}
+                          Matériaux : {item.fields.StrucMATERIAUX * 100} %
                         </div>
                       </div>
                   )
