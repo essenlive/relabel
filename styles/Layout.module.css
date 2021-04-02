@@ -45,4 +45,7 @@
   .content{
     width: 100vw;
   }
+  .content article{
+    padding: 1rem;
+  }
 }
