@@ -4,6 +4,7 @@ import styles from "@styles/Map.module.css";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOXTOKEN;
 
+console.log(Marker);
 export default function Map(props){
 
     useEffect(() => {
@@ -15,6 +16,12 @@ export default function Map(props){
         });
         // add navigation control (the +/- zoom buttons)
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+        map.on('move', () => {
+            setLng(map.getCenter().lng.toFixed(4));
+            setLat(map.getCenter().lat.toFixed(4));
+            setZoom(map.getZoom().toFixed(2));
+        });
         return () => map.remove();  
     }, []);
 
@@ -23,18 +30,7 @@ export default function Map(props){
     const [lat, setLat] = useState(48.85658);
     const [zoom, setZoom] = useState(11);
 
-    // const [selection, setSelection] = useState({selection : undefined});
 
-
-    // const close = () => { if (selection) setSelection({ selection: undefined }); };
-    // const onToggleHover = (cursor, organisation, {type, map}) => {        
-    //     map.getCanvas().style.cursor = cursor; 
-    // }
-
-//     const markerClick = (organisation) => {
-//         setSelection({ selection: organisation })
-//         setMap({ center: organisation.coordinates, zoom: [14] });
-//     };
 
     return( 
         <section className={styles.map} ref={mapContainer}>

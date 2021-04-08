@@ -9,6 +9,15 @@ export default function GetLabeled() {
         Obtenir le label
       </h1>
       <section>
+          <iframe 
+          class="airtable-embed"
+          src="https://airtable.com/embed/shrv2s7UcuFgYsJIb?backgroundColor=gray" frameborder="0" 
+          onmousewheel="" 
+          width="100%" 
+          height="800" 
+          >
+
+          </iframe>
       </section>
       </article>
     </Layout>
