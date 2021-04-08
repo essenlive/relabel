@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import styles from "@styles/Map.module.css";
 
 
@@ -9,22 +9,18 @@ export default function ReactMap({data}){
         longitude: 2.3518,
         zoom: 11
     });
-    const [showPopup, togglePopup] = React.useState(false);
-    const [selection, setSelection] = useState({selection : undefined});
+    const [selection, setSelection] = useState(undefined);
 
 
-    const close = () => { if (selection) setSelection({ selection: undefined }); };
-    // const onToggleHover = (cursor, organisation, {type, map}) => {        
-    //     map.getCanvas().style.cursor = cursor; 
-    // }
+    const close = () => { if (selection) setSelection(undefined); };
 
     const markerClick = (organisation) => {
-        setSelection({ selection: organisation })
-        setViewPort({
+        setViewport({
             latitude: organisation.latitude,
             longitude: organisation.longitude,
-            zoom: 14
+            zoom: viewport.zoom + 1
         });
+        setSelection(organisation)
     };
 
     return( 
@@ -38,30 +34,42 @@ export default function ReactMap({data}){
                 onViewportChange={(viewport) => setViewport(viewport)}
             >
                 {data.map((el,i)=>{
-                    console.log(el);
+                    let organisation = {
+                        longitude: el.fields.StrucLONG,
+                        latitude: el.fields.StrucLAT,
+                        name: el.fields.StrucID,
+                    }
                     return(
                         <Marker
                             className={styles.marker}
                             key={i}
-                            latitude={el.fields.StrucLAT}
-                            longitude={el.fields.StrucLONG}
-                            offsetLeft={-12}
-                            offsetTop={-24}
+                            latitude={organisation.latitude}
+                            longitude={organisation.longitude}
+                            offsetLeft={-6}
+                            offsetTop={-6}
+                            onClick={()=>{
+                                markerClick(organisation)
+                            }}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="black">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 12 12" stroke="none">
+                                
+                                <circle cx="6" cy="6" r="6"/>
                             </svg>
                         </Marker>
                     )
                 })}
-                {showPopup && <Popup
-                    latitude={48.85658}
-                    longitude={2.3518}
+                {selection && <Popup                    
+                    latitude={selection.latitude}
+                    longitude={selection.longitude}
                     closeButton={true}
-                    closeOnClick={false}
-                    onClose={() => togglePopup(false)}
+                    closeOnClick={true}
+                    onClose={() => close()}
                     anchor="top" >
-                    <div>You are here</div>
+                    <div className={styles.popup}>
+                        <h3>
+                            {selection.name}
+                        </h3>
+                    </div>
                 </Popup>}
 
             </ReactMapGL>

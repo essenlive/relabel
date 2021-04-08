@@ -5,7 +5,11 @@
     position: relative
 }
 .marker{
-    width: 24px;
+    width: 12px;
+    cursor: pointer;
+}
+.popup{
+    padding: 1rem;
 }
 @media (--screen-sm) {  
     .map{
