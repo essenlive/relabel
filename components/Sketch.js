@@ -4,184 +4,214 @@ const P5Wrapper = dynamic(
 
 
 export default function Sketch({data}) {
-    const sketch = (p5) => {
+    function sketch(p5) {
+        // Constantes graphiques
+        const width = 600;
+        const height = width;
+        const dim = 100;
+        const nbCases = width / dim;
+        const ep = 20;
 
-        let PARTNERS = [], IDStructure = [], PROD = [], MATERIO = [], GESTION = [];
-        let nbStruct;
-        let modules = [];
-        let width = 500;
-        let height = 500;
-        let tileSize = 50;
-        let gridResolutionX = p5.round(width / tileSize) + 2;
-        let gridResolutionY = p5.round(height / tileSize) + 2;
-        let tiles = [];
-        let tilesBase = [];
+        let dataPartner, dataMaterio, dataGestion, dataProd;
+        let PARTNERS = [];
+        let IDStructure = [];
+        let PROD = [];
+        let MATERIO = [];
+        let GESTION = [];
+        let c1, c2, c3, c4;
 
-        p5.setup = function () {
-            let canva = p5.createCanvas(width, height);
-            initTiles();
-            prepareData(data);
-            canva.mouseClicked(toggleTileMouse);
-        }
+        let noeuds = [];
+        let couleursDispo = [];
+
 
         p5.preload = function () {
+            // Get first structure
+            PARTNERS = data[0].fields.StrucPARTENAIRES;
+            IDStructure = data[0].fields.StrucID;
+            PROD = data[0].fields.StrucPROD;
+            MATERIO = data[0].fields.StrucMATERIAUX;
+            GESTION = data[0].fields.StrucGESTION;
+        }
 
-            // load svg modules
-            modules[0] = p5.loadImage("/data/00.svg");
-            modules[1] = p5.loadImage("/data/01.svg");
-            modules[2] = p5.loadImage("/data/02.svg");
-            modules[3] = p5.loadImage("/data/03.svg");
-            modules[4] = p5.loadImage("/data/04.svg");
-            modules[5] = p5.loadImage("/data/05.svg");
-            modules[6] = p5.loadImage("/data/06.svg");
-            modules[7] = p5.loadImage("/data/07.svg");
-            modules[8] = p5.loadImage("/data/08.svg");
-            modules[9] = p5.loadImage("/data/09.svg");
-            modules[10] = p5.loadImage("/data/10.svg");
-            modules[11] = p5.loadImage("/data/11.svg");
-            modules[12] = p5.loadImage("/data/12.svg");
-            modules[13] = p5.loadImage("/data/13.svg");
-            modules[14] = p5.loadImage("/data/14.svg");
-            modules[15] = p5.loadImage("/data/15.svg");
 
+        p5.setup = function () {
+            p5.createCanvas(width, height);
+            p5.strokeCap(p5.ROUND);
+            c1 = p5.color(123, 186, 126),
+            c2 = p5.color(42, 90, 125),
+            c3 = p5.color(78, 103, 94),
+            c4 = p5.color(125);
+            
+            calculateDatas()
+            initAvailableColors()
+            initNodes(nbCases)
+            initPartnerNodes(dataPartner);
+        }
+
+        // Setup and calculate datas
+        function calculateDatas() {
+            let total = MATERIO * 100 + GESTION * 100 + PROD * 100;
+            let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4 ;
+            dataPartner = PARTNERS;
+            dataMaterio = p5.floor(ratio * MATERIO * 100 / total);
+            dataGestion = p5.floor(ratio * GESTION * 100 / total);
+            dataProd = p5.floor(ratio * PROD * 100 / total);
+        }
+        // Fill couleursDispo colorstack 
+        function initAvailableColors() {
+            const materiaux = Array(dataMaterio).fill(c1)
+            const gestion = Array(dataGestion).fill(c2)
+            const production = Array(dataProd).fill(c3)
+            couleursDispo = [...materiaux, ...gestion, ...production];
+        }
+        // Initialize false node grid
+        function initNodes(nbCases) {
+            for (let i = 0; i < nbCases  ; i++)  noeuds[i] = Array(nbCases).fill(false);
+        }
+        // Create partner nodes in node grid
+        function initPartnerNodes(partnerNodes) {
+            var compteur = 0;
+            while (compteur < partnerNodes) {
+                let togglei = p5.floor(p5.random(1, nbCases - 1));
+                let togglej = p5.floor(p5.random(1, nbCases - 1));
+                if (noeuds[togglei][togglej] == false) {
+                    noeuds[togglei][togglej] = true;
+                    compteur++;
+                }
+            }
+            console.table(noeuds)
+
+        }
+        // Pick a color from the color stack
+        function pickColorFromStack() {
+            let toggleColor = p5.floor(p5.random(couleursDispo.length));
+            let maCouleur = couleursDispo[toggleColor];
+            couleursDispo.splice(toggleColor, 1);
+            return maCouleur;
+        }
+        // Reset on mousepress
+        p5.mousePressed = function () {
+            initAvailableColors()
+            initNodes(nbCases)
+            initPartnerNodes(dataPartner);
+            p5.loop();
         }
 
         p5.draw = function () {
-            p5.background(220);
-            drawGrid()
-            drawModules();
-        }
+            p5.background(255);
+            p5.push();
+            p5.translate(width / 2, height / 2);
+            p5.rotate(p5.PI / 4);
 
+            let maCouleur;
+            // Draw center grid
+            for (let i = 1; i < nbCases - 1; i++) {
+                for (let j = 1; j < nbCases - 1; j++) {
+                    
+                    // Pick a random color from couleursDispo
+                    maCouleur = pickColorFromStack();
+                    // If it is a partner use a circle else use a random pattern
+                    if (noeuds[i][j] == true) {
+                        picto5(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                    } else {
+                        var toggle = p5.floor(p5.random(3));
+                        switch (toggle) {
+                            case 0:
+                                picto1(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                                break;
+                            case 1:
+                                picto2(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                                break;
 
-        function prepareData(data) {
-            nbStruct = data.length;
+                            case 2:
+                                picto4(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                                break;
 
-            for (var i = 0; i < nbStruct; i++) {
-                PARTNERS.push(data[i].fields.StrucPARTENAIRES);
-                IDStructure.push(data[i].fields.StrucID);
-                PROD.push(data[i].fields.StrucPROD);
-                MATERIO.push(data[i].fields.StrucMATERIAUX);
-                GESTION.push(data[i].fields.StrucGESTION);
-            }
-
-            // INIT DES POINTS D'ANCRAGE PARTNERS
-            if (PARTNERS[0] > 0) {
-                for (let k = 0; k < PARTNERS[0]; k++) {
-                    var m = p5.int(p5.map(k, 0, PARTNERS[0], gridResolutionX / 4, 3 * gridResolutionX / 4));
-                    var l = 1 + p5.int(gridResolutionY / 2 + (p5.map(p5.random(GESTION[0] * 1000), 0, 100, (-1) * gridResolutionY / 3, gridResolutionY / 3)));
-
-                    p5.print(m, " ", l);
-                    setTile(m, l);
-                    setTile(m + 1, l);
-                    setTile(m, l + 1);
-                    setTile(m + 1, l + 1);
-                }
-            }
-
-            // LIENS ENTRE LES NOEUDS DE DEPART SELON PROD
-            for (let gridY = 1; gridY < gridResolutionY - 1; gridY++) {
-                for (let gridX = 1; gridX < gridResolutionX - 1; gridX++) {
-                    // use only active tiles
-                    if (tilesBase[gridX][gridY] == '1') {
-
-                        for (let n = 0; n < PROD[0] * 5; n++) {
-                            var toggle = p5.int(p5.random(0, 4));
-                            if (toggle == 0) {
-                                if (gridX + n < gridResolutionX) setTile(gridX + n, gridY);
-                            } else if (toggle == 1) {
-                                if (gridY + n < gridResolutionY) setTile(gridX, gridY + n);
-                            } else if (toggle == 2) {
-                                if (gridY - n > gridResolutionY) setTile(gridX, gridY - n);
-                            } else if (toggle == 3) {
-                                if (gridX - n > 1) setTile(gridX - n, gridY);
-                            }
-                        }
-
-                        /// echappees selon materiaux
-                        for (let p = 0; p < MATERIO[0] * 10; p++) {
-                            var toggle2 = p5.int(p5.random(0, 2));
-                            p5.print(toggle2, p);
-                            if (toggle2 == 0) {
-                                setTile(gridX, gridY + p);
-                            } else {
-                                setTile(gridX, gridY - p);
-                            }
+                            default:
                         }
                     }
                 }
-
-
-
             }
-        }
-
-        function drawModules() {
-            p5.imageMode(p5.CENTER);
-            for (let gridY = 1; gridY < gridResolutionY - 1; gridY++) {
-                for (let gridX = 1; gridX < gridResolutionX - 1; gridX++) {
-                    // use only active tiles
-                    if (tiles[gridX][gridY] == '1') {
-                        // check the four neighbours, each can be 0 or 1
-                        var east = p5.int(tiles[gridX + 1][gridY]);
-                        var south = p5.int(tiles[gridX][gridY + 1]);
-                        var west = p5.int(tiles[gridX - 1][gridY]);
-                        var north = p5.int(tiles[gridX][gridY - 1]);
-                        // create a binary result out of it, eg. 1011
-                        var decimalResult = 1 * east + 2 * south + 4 * west + 8 * north;
-                        var posX = tileSize * gridX - tileSize / 2;
-                        var posY = tileSize * gridY - tileSize / 2;
-                        // decimalResult is the also the index for the shape array
-                        // p5.print(decimalResult);
-                        p5.image(modules[decimalResult], posX, posY, tileSize, tileSize);
-
-
-                    }
-                }
+            // Draw grid edges
+            for (var k = 1; k < nbCases - 2; k++) {
+                maCouleur = pickColorFromStack();
+                if (typeof(maCouleur) !== "undefined") picto6((nbCases - 1) * dim - width / 2, dim * (k + 0.5) - height / 2, dim, maCouleur, ep);
+                maCouleur = pickColorFromStack();
+                if (typeof (maCouleur) !== "undefined") picto7(-width / 2, dim * (k + 0.5) - height / 2, dim, maCouleur, ep);
             }
-        }
 
-        function initTiles() {
-            for (let gridX = 0; gridX < gridResolutionX; gridX++) {
-                tiles[gridX] = [];
-                tilesBase[gridX] = [];
-                for (let gridY = 0; gridY < gridResolutionY; gridY++) {
-                    tiles[gridX][gridY] = '0';
-                    tilesBase[gridX][gridY] = '0';
-                }
+            for (var l = 1; l < nbCases - 2; l++) {
+                maCouleur = pickColorFromStack();
+                if (typeof (maCouleur) !== "undefined") picto8(dim * l - width / 2, -height / 2, dim, maCouleur, ep);
+                maCouleur = pickColorFromStack();
+                if (typeof (maCouleur) !== "undefined") picto9(dim * l - width / 2, (nbCases - 1) * dim - height / 2, dim, maCouleur, ep);
             }
+            p5.pop();
+            p5.noLoop();
         }
 
-        function drawGrid() {
-            p5.rectMode(p5.CENTER);
-            for (let gridY = 0; gridY < gridResolutionY; gridY++) {
-                for (let gridX = 0; gridX < gridResolutionX; gridX++) {
-                    var posX = tileSize * gridX - tileSize / 2;
-                    var posY = tileSize * gridY - tileSize / 2;
-                    p5.strokeWeight(0.15);
-                    p5.fill(255);
-                    p5.rect(posX, posY, tileSize, tileSize);
-                }
-            }
+
+        function picto1(posX, posY, dim, couleur, ep) {
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.arc(posX, posY, dim, dim, 0, p5.PI / 2);
+            p5.arc(posX + dim, posY + dim, dim, dim, -p5.PI, -p5.PI / 2);
+        }
+        function picto2(posX, posY, dim, couleur, ep) {
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.arc(posX, posY + dim, dim, dim, -p5.PI / 2, 0);
+            p5.arc(posX + dim, posY, dim, dim, p5.PI / 2, p5.PI);
+        }
+        function picto3(posX, posY, dim, couleur, ep) { // point central 
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.ellipse(posX + dim / 2, posY + dim / 2, dim / 2, dim / 2);
+        }
+        function picto4(posX, posY, dim, couleur, ep) {
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.line(posX + dim / 2, posY, posX + dim / 2, posY + dim);
+            p5.line(posX, posY + dim / 2, posX + dim, posY + dim / 2);
+        }
+        function picto5(posX, posY, dim, couleur, ep) {
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.line(posX + dim / 2, posY, posX + dim / 2, posY + dim);
+            p5.line(posX, posY + dim / 2, posX + dim, posY + dim / 2);
+            p5.fill(255);
+            p5.ellipse(posX + dim / 2, posY + dim / 2, dim / 2, dim / 2);
+        }
+        function picto6(posX, posY, dim, couleur, ep) { // courbe de bord
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.arc(posX, posY + dim / 2, dim, dim, -p5.PI / 2, p5.PI / 2);
+        }
+        function picto7(posX, posY, dim, couleur, ep) { // courbe de bord
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.arc(posX + dim, posY + dim / 2, dim, dim, p5.PI / 2, 3 * p5.PI / 2);
+        }
+        function picto8(posX, posY, dim, couleur, ep) { // courbe de bord
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.arc(posX + dim, posY + dim, dim, dim, p5.PI, 2 * p5.PI);
+        }
+        function picto9(posX, posY, dim, couleur, ep) { // courbe de bord
+            p5.strokeWeight(ep);
+            p5.stroke(couleur);
+            p5.noFill();
+            p5.arc(posX + dim, posY, dim, dim, 0, p5.PI);
         }
 
-        // CONVERT MOUSE POSITION TO GRID COORDINATES
-        function setTile(index, indey) {
-            tiles[index][indey] = '1';
-            tilesBase[index][indey] = '1';
-        }
-
-        function toggleTileMouse() {
-            let [gridX, gridY] = getTilesCoordinates(p5.mouseX, p5.mouseY)
-            tiles[gridX][gridY] = `${(p5.int(tiles[gridX][gridY]) + 1) % 2}`
-        }
-        // CONVERT MOUSE POSITION TO GRID COORDINATES
-        function getTilesCoordinates(mouseX, mouseY) {
-            let gridX = p5.floor(p5.float(mouseX) / tileSize) + 1;
-            gridX = p5.constrain(gridX, 1, gridResolutionX - 2);
-            let gridY = p5.floor(p5.float(mouseY) / tileSize) + 1;
-            gridY = p5.constrain(gridY, 1, gridResolutionY - 2);
-            return [gridX, gridY]
-        }
 
     };
     return (<P5Wrapper sketch={sketch} />)
