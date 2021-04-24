@@ -32,11 +32,6 @@ export default function Navigation(props) {
             <a>Bonnes Pratiques</a>
           </div>
         </Link>
-        <Link href="/get-labeled">
-          <div className={router.route === '/get-labeled' ? styles.linkActive : styles.links}>
-            <a>Obtenir le label</a>
-          </div>
-        </Link>
       </nav>
     );
 }
