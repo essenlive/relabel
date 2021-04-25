@@ -3,25 +3,28 @@ import Layout from '@components/Layout'
 import Sketch from '@components/Sketch';
 import { useRouter } from 'next/router'
 
-
-
 const airtable = new AirtablePlus({
     baseID: process.env.AIRTABLE_BASEID,
     apiKey: process.env.AIRTABLE_APIKEY,
     tableName: 'StructuresDatas',
 });
 
-export default function Home({ data }) {
+export default function Structure(props) {
 
     const router = useRouter()
     const { id } = router.query
     return (
-        <Layout title='Home'>
+        <Layout title={id}>
             <article>
                 <h1>
                     {id}
-                 </h1>
-                <Sketch data={data} />
+                </h1>
+                <Sketch
+                    partners={props.partners}
+                    production={props.production}
+                    gestion={props.gestion}
+                    materials={props.materials}
+                />
             </article>
         </Layout>
     );
@@ -31,11 +34,17 @@ export default function Home({ data }) {
 
 
 export async function getStaticProps({params}) {
-    const data = await airtable.read({
+    let data = await airtable.read({
         filterByFormula: `Structure = "${params.id}"`,
         maxRecords: 1
     });
-    return { props: { data } }
+    data = {
+        production : data[0].fields.StrucPROD,
+        gestion: data[0].fields.StrucGESTION,
+        partners: data[0].fields.StrucPARTENAIRES,
+        materials: data[0].fields.StrucMATERIAUX
+    }
+    return { props: data }
 }
 export async function getStaticPaths() {
     let paths = await airtable.read({

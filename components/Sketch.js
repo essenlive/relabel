@@ -3,7 +3,7 @@ const P5Wrapper = dynamic(
   () => import('react-p5-wrapper'), { ssr: false })
 
 
-export default function Sketch({data}) {
+export default function Sketch({ partners, production, materials, gestion }) {
     function sketch(p5) {
         // Constantes graphiques
         const width = 600;
@@ -13,26 +13,10 @@ export default function Sketch({data}) {
         const ep = 20;
 
         let dataPartner, dataMaterio, dataGestion, dataProd;
-        let PARTNERS = [];
-        let IDStructure = [];
-        let PROD = [];
-        let MATERIO = [];
-        let GESTION = [];
         let c1, c2, c3, c4;
 
         let noeuds = [];
         let couleursDispo = [];
-
-
-        p5.preload = function () {
-            // Get first structure
-            IDStructure = data[0].fields.StrucID;
-            PARTNERS = data[0].fields.StrucPARTENAIRES;
-            PROD = data[0].fields.StrucPROD;
-            MATERIO = data[0].fields.StrucMATERIAUX;
-            GESTION = data[0].fields.StrucGESTION;
-            // console.log(IDStructure);
-        }
 
 
         p5.setup = function () {
@@ -51,12 +35,13 @@ export default function Sketch({data}) {
 
         // Setup and calculate datas
         function calculateDatas() {
-            let total = MATERIO * 100 + GESTION * 100 + PROD * 100;
+            let total = materials * 100 + gestion * 100 + production * 100;
             let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4 ;
-            dataPartner = PARTNERS;
-            dataMaterio = p5.floor(ratio * MATERIO * 100 / total);
-            dataGestion = p5.floor(ratio * GESTION * 100 / total);
-            dataProd = p5.floor(ratio * PROD * 100 / total);
+            dataPartner = partners < (nbCases - 2) * (nbCases - 2) ? partners : (nbCases - 2) * (nbCases - 2);
+            dataMaterio = p5.floor(ratio * materials * 100 / total);
+            dataGestion = p5.floor(ratio * gestion * 100 / total);
+            // To have exactly the right number of colors in the stack
+            dataProd = ratio - dataMaterio - dataGestion;
         }
         // Fill couleursDispo colorstack 
         function initAvailableColors() {
@@ -90,12 +75,12 @@ export default function Sketch({data}) {
             return maCouleur;
         }
         // Reset on mousepress
-        p5.mousePressed = function () {
-            initAvailableColors()
-            initNodes(nbCases)
-            initPartnerNodes(dataPartner);
-            p5.loop();
-        }
+        // p5.mousePressed = function () {
+        //     initAvailableColors()
+        //     initNodes(nbCases)
+        //     initPartnerNodes(dataPartner);
+        //     p5.loop();
+        // }
 
         p5.draw = function () {
             p5.background(255);

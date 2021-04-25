@@ -27,11 +27,11 @@ export default function Navigation(props) {
             <a>Projets</a>
           </div>
         </Link>
-        <Link href="/good-practices">
+        {/* <Link href="/good-practices">
           <div className={router.route === '/good-practices' ? styles.linkActive : styles.links}>
             <a>Bonnes Pratiques</a>
           </div>
-        </Link>
+        </Link> */}
       </nav>
     );
 }
