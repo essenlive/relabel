@@ -1,7 +1,8 @@
 import AirtablePlus from 'airtable-plus';
 import Layout from '@components/Layout';
+import Card from '@components/Card';
 import Link from 'next/link';
-// import styles from "@styles/Catalog.module.css";
+import styles from "@styles/Projects.module.css";
 
 
 const airtable = new AirtablePlus({
@@ -9,32 +10,35 @@ const airtable = new AirtablePlus({
     apiKey: process.env.AIRTABLE_APIKEY,
     tableName: 'Structure',
 });
-export default function Catalog({data}) {
+export default function Projects({data}) {
   return (
-    <Layout title='Catalog'>
+    <Layout title='Projets'>
       <article>
         <h1>
           Projets
         </h1>
-        <section>
+        <section className={styles.projectGrid}>
           {data.map((item, i) => {
                   return (
-                      <div key={item.id}>
-                        <h2>
-                          {item.fields.Name}
-                        </h2>
-                        <div>
-                          {item.fields.Typology}
-                      </div>
-                      <Link
-                        href={{
-                          pathname: '/projects/[id]',
-                          query: { id: item.fields.Name },
+                    <div 
+                      className={styles.projectItem}
+                      key={item.id}>
+                      <Card
+                        image={{
+                          url: item.fields.Image[0].thumbnails.large.url,
+                          alt:"Photo d'illustration"
                         }}
-                      >
-                        <a>Voir projet</a>
-                      </Link>
-                      </div>
+                        title={item.fields.Name}
+                        subtitle={item.fields.Typology}
+                        // tags={}
+                        // content={}
+                        link={{
+                            pathname: '/projects/[id]',
+                            query: { id: item.fields.Name },
+                          }}
+                      />
+                    </div>
+
                   )
               })}
         </section>

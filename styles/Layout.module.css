@@ -23,15 +23,15 @@
 .content h5,
 .content h6{
   font-family: var(--font-header);
-  margin: 0 0 1rem 0;
-  padding: 0
+  /* margin: 0 0 1rem 0;
+  padding: 0 */
 }
-.content article{
-  padding: 4rem;
+.content > article{
+  padding: 2rem;
   display: flex;
   flex-direction: column;
 }
-.content article div{
+.content > article > div{
   margin-bottom: 1rem;
   font-size: var(--fontSize-lg);
 }
@@ -45,8 +45,5 @@
   }
   .content{
     width: 100vw;
-  }
-  .content article{
-    padding: 2rem;
   }
 }

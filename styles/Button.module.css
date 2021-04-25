@@ -1,0 +1,13 @@
+.button{
+    font-size: var(--fontSize-sm);
+    height: min-content;
+    width: auto;
+    padding: 0.2rem 0.4rem;
+    background-color:var(--primary);
+    color: var(--white);
+    border: var(--borderWidth-md) var(--primary) solid;
+}
+.button:hover{
+    background-color: var(--white);
+    color:var(--primary);
+}

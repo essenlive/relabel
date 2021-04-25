@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Link from 'next/link'
 import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
+import Card from '@components/Card'
 import styles from "@styles/Map.module.css";
 
 
@@ -70,17 +70,23 @@ export default function ReactMap({data}){
                     closeOnClick={false}
                     onClose={() => close()}
                     anchor="top" >
+                        
                     <div className={styles.popup}>
-                        <h3>{selection.name}</h3>
-                        <p>{selection.activity}</p>
-                        <p>{selection.status}</p>
-                        <p>{selection.adress}</p>
-                        <Link href={{
+
+                        <Card
+                            // image={{
+                            //     url: item.fields.Image[0].thumbnails.large.url,
+                            //     alt: "Photo d'illustration"
+                            // }}
+                            title={selection.name}
+                            subtitle={selection.status}
+                            tags={selection.activity}
+                            content={selection.adress}
+                            link={{
                                 pathname: '/community/[id]',
                                 query: { id: selection.name },
-                        }}>
-                            <a>Voir structure</a>
-                        </Link>
+                            }}
+                        />
                     </div>
                 </Popup>}
 

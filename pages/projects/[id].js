@@ -23,8 +23,6 @@ export default function Home({ data }) {
                 </h1>
                 <Image
                     src={data[0].fields.Image[0].thumbnails.large.url}
-                    width={data[0].fields.Image[0].thumbnails.width}
-                    height={data[0].fields.Image[0].thumbnails.height}
                     layout='fill'
                 />
                 <div>

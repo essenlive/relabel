@@ -1,0 +1,36 @@
+.card{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+}
+.text{
+    padding: 1rem;
+}
+.image, .image div, .image img{
+    aspect-ratio: 4/3;
+    object-fit: cover;
+}
+.title{
+    margin: 0 0 0.5rem 0;
+    text-transform: capitalize;
+    font-size: var(--fontSize-xl);
+}
+.subtitle{
+    margin: 0 0 0.5rem 0rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: var(--fontSize-sm);
+    color: var(--gray-900)
+}
+/* .tags{
+    color : red;
+    
+}
+.content{
+    color : red;
+} */
+@media (--screen-sm) {  
+    
+}

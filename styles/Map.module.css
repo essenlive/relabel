@@ -4,15 +4,23 @@
     overflow: hidden;
     position: relative
 }
+
+.map .mapboxgl-popup{
+    width: 50%;
+} 
+.map .mapboxgl-popup-close-button{
+    z-index: 100;
+}
 .marker{
     width: 12px;
     cursor: pointer;
-}
-.popup{
-    padding: 1rem;
 }
 @media (--screen-sm) {  
     .map{
         height: 90vh;
     }
+    .map .mapboxgl-popup{
+        width: 90%;
+    }
+
 }

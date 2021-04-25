@@ -1,0 +1,11 @@
+.tag{
+    font-size: var(--fontSize-xs);
+    margin-right: 0.5rem;
+    height: min-content;
+    width: auto;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    background-color:var(--primary);
+    color: var(--white);
+    border-radius: var(--borderRadius);
+}
