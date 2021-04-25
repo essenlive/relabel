@@ -26,11 +26,12 @@ export default function Sketch({data}) {
 
         p5.preload = function () {
             // Get first structure
-            PARTNERS = data[0].fields.StrucPARTENAIRES;
             IDStructure = data[0].fields.StrucID;
+            PARTNERS = data[0].fields.StrucPARTENAIRES;
             PROD = data[0].fields.StrucPROD;
             MATERIO = data[0].fields.StrucMATERIAUX;
             GESTION = data[0].fields.StrucGESTION;
+            // console.log(IDStructure);
         }
 
 
@@ -79,7 +80,6 @@ export default function Sketch({data}) {
                     compteur++;
                 }
             }
-            console.table(noeuds)
 
         }
         // Pick a color from the color stack

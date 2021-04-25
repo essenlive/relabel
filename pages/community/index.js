@@ -9,14 +9,16 @@ const airtable = new AirtablePlus({
   tableName: 'Structure',
 });
 
-export default function Community({data}) {
+export default function Community({ data }) {
   return <Layout title="Communauté">
-        <ReactMap data={data}/>
-    </Layout>;
+    <ReactMap data={data} />
+  </Layout>;
 }
 
-
-export async function getServerSideProps() {
-  const data = await airtable.read();
+export async function getStaticProps({ params }) {
+  const data = await airtable.read({
+    filterByFormula: `NOT({StructureDatas} = '')`}, {
+    tableName: 'StructuresID'
+  });
   return { props: { data } }
 }

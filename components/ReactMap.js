@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import Link from 'next/link'
 import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import styles from "@styles/Map.module.css";
 
 
 export default function ReactMap({data}){
+
     const [viewport, setViewport] = useState({
         latitude: 48.85658,
         longitude: 2.3518,
@@ -35,9 +37,12 @@ export default function ReactMap({data}){
             >
                 {data.map((el,i)=>{
                     let organisation = {
-                        longitude: el.fields.StrucLONG,
-                        latitude: el.fields.StrucLAT,
+                        longitude: el.fields.Longitude,
+                        latitude: el.fields.Latitude,
                         name: el.fields.StrucID,
+                        adress: el.fields.Adress,
+                        status: el.fields.Status,
+                        activity: el.fields.Activity,
                     }
                     return(
                         <Marker
@@ -62,13 +67,22 @@ export default function ReactMap({data}){
                     latitude={selection.latitude}
                     longitude={selection.longitude}
                     closeButton={true}
-                    closeOnClick={true}
+                    closeOnClick={false}
                     onClose={() => close()}
                     anchor="top" >
                     <div className={styles.popup}>
-                        <h3>
-                            {selection.name}
-                        </h3>
+                        <h3>{selection.name}</h3>
+                        <p>{selection.activity}</p>
+                        <p>{selection.status}</p>
+                        <p>{selection.adress}</p>
+                        <Link
+                            href={{
+                                pathname: '/community/[id]',
+                                query: { id: selection.name },
+                            }}
+                        >
+                            <a>Voir label</a>
+                        </Link>
                     </div>
                 </Popup>}
 
