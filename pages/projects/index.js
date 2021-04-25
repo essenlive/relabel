@@ -1,5 +1,6 @@
 import AirtablePlus from 'airtable-plus';
-import Layout from '@components/Layout'
+import Layout from '@components/Layout';
+import Link from 'next/link';
 // import styles from "@styles/Catalog.module.css";
 
 
@@ -13,27 +14,26 @@ export default function Catalog({data}) {
     <Layout title='Catalog'>
       <article>
         <h1>
-          Catalogue
+          Projets
         </h1>
         <section>
           {data.map((item, i) => {
                   return (
                       <div key={item.id}>
                         <h2>
-                          {item.fields.StrucID}
+                          {item.fields.Name}
                         </h2>
                         <div>
-                          Gestion : {item.fields.StrucGESTION * 100} %
-                        </div>
-                        <div>
-                          Production : {item.fields.StrucPROD * 100} %
-                        </div>
-                        <div>
-                          Partenaires : {item.fields.StrucPARTENAIRES}
-                        </div>
-                        <div>
-                          Matériaux : {item.fields.StrucMATERIAUX * 100} %
-                        </div>
+                          {item.fields.Typology}
+                      </div>
+                      <Link
+                        href={{
+                          pathname: '/projects/[id]',
+                          query: { id: item.fields.Name },
+                        }}
+                      >
+                        <a>Voir projet</a>
+                      </Link>
                       </div>
                   )
               })}
@@ -43,7 +43,12 @@ export default function Catalog({data}) {
   );
 }
 
-export async function getServerSideProps() {
-  const data = await airtable.read();
+
+export async function getStaticProps({ params }) {
+  const data = await airtable.read({
+    filterByFormula: `NOT({Image} = '')`
+  }, {
+    tableName: 'Projects'
+  });
   return { props: { data } }
 }

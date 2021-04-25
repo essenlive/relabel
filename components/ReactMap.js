@@ -9,7 +9,7 @@ export default function ReactMap({data}){
     const [viewport, setViewport] = useState({
         latitude: 48.85658,
         longitude: 2.3518,
-        zoom: 11
+        zoom: 10
     });
     const [selection, setSelection] = useState(undefined);
 
@@ -75,13 +75,11 @@ export default function ReactMap({data}){
                         <p>{selection.activity}</p>
                         <p>{selection.status}</p>
                         <p>{selection.adress}</p>
-                        <Link
-                            href={{
+                        <Link href={{
                                 pathname: '/community/[id]',
                                 query: { id: selection.name },
-                            }}
-                        >
-                            <a>Voir label</a>
+                        }}>
+                            <a>Voir structure</a>
                         </Link>
                     </div>
                 </Popup>}

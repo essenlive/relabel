@@ -22,9 +22,9 @@ export default function Navigation(props) {
             <a>Communauté</a>
           </div>
         </Link>
-        <Link href="/catalog">
-          <div className={router.route === '/catalog' ? styles.linkActive : styles.links}>
-            <a>Catalogue</a>
+        <Link href="/projects">
+          <div className={router.route === '/projects' ? styles.linkActive : styles.links}>
+            <a>Projets</a>
           </div>
         </Link>
         <Link href="/good-practices">
