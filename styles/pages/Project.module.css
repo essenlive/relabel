@@ -1,0 +1,28 @@
+.illustration, .illustration div, .illustration img{
+    aspect-ratio: 2/1;
+    object-fit: cover;
+    width : 100%;
+    position: relative;
+}
+
+.content{
+    padding: 1rem;
+    position: relative;
+}
+.label{
+    position: absolute;
+    right: 2rem;
+    top: -10rem;
+    width: 30%;
+}
+
+@media (--screen-md) {  
+    .projectItem{
+        width: 45%;
+    }
+}
+@media (--screen-sm) {  
+    .projectItem{
+        width: 100%;
+    }
+}

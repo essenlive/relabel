@@ -11,7 +11,7 @@ const airtable = new AirtablePlus({
 });
 export default function Projects({data}) {
   return (
-    <Layout title='Projets'>
+    <Layout title='Projets' padded>
       <article>
         <h1>
           Projets
@@ -29,7 +29,7 @@ export default function Projects({data}) {
                         }}
                         title={item.fields.Name}
                         subtitle={item.fields.Typology}
-                        // tags={}
+                        tags={item.fields.Team}
                         // content={}
                         link={{
                             pathname: '/projects/[id]',

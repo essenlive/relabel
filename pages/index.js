@@ -1,8 +1,6 @@
-import AirtablePlus from 'airtable-plus';
 import {useState} from 'react';
 import Layout from '@components/Layout'
-import styles from "@styles/pages/Home.module.css";
-import Sketch from '@components/Sketch';
+import Label from '@components/Label';
 
 
 export default function Home({data}) {
@@ -59,11 +57,17 @@ export default function Home({data}) {
           </label>
         </div>
 
-        <Sketch 
-          partners={partners}
-          production={production}
-          gestion={gestion}
-          materials={materials}
+        <Label 
+          title={'WoMa'}
+          status={'Association'}
+          date={'15.11.90'}
+          data={{
+            partners: partners ,
+            production: production ,
+            gestion: gestion ,
+            materials: materials ,
+          }}
+          
         />
       </article>
     </Layout>

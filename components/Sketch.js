@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+
 const P5Wrapper = dynamic(
   () => import('react-p5-wrapper'), { ssr: false })
 
@@ -83,7 +84,7 @@ export default function Sketch({ partners, production, materials, gestion }) {
         // }
 
         p5.draw = function () {
-            p5.background(255);
+            // p5.background(255);
             p5.push();
             p5.translate(width / 2, height / 2);
             p5.rotate(p5.PI / 4);

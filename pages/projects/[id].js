@@ -1,9 +1,9 @@
 import AirtablePlus from 'airtable-plus';
 import Layout from '@components/Layout'
-import Image from 'next/image'
 import Tag from '@components/Tag'
-import { useRouter } from 'next/router'
-import Sketch from '@components/Sketch';
+import Label from '@components/Label';
+import styles from "@styles/pages/Project.module.css";
+import Carousel from "@components/Carousel";
 
 
 
@@ -14,35 +14,53 @@ const airtable = new AirtablePlus({
 });
 
 export default function Project({ Name, Illustration, Address, Typology, Team, Duration, Partners, Production, Gestion, Materials, PartnersCount }) {
-    const router = useRouter()
-    const { id } = router.query
     return (
-        <Layout title={id}>
+        <Layout title={Name}>
             <article>
-                {Illustration && (<Image
-                    src={Illustration[0].thumbnails.large.url}
-                    layout='fill'
-                    />)}
-                {Name && (<h1> {Name} </h1>)}
-                {Typology && (<div> {Typology} </div>)}
-                {Team && (<div>
-                    {Team.map((item, i) => (<Tag key={i} content={item} />))} 
-                </div>)}
-                {Address && ( <div>
-                    {Address}
-                </div>)}
-                {Duration && ( <div>
-                    {Duration}
-                </div>)}
-                {Partners && ( <div>
-                    {Partners.map((item, i) => (<Tag key={i} content={item} />))}
-                </div>)}
-                <Sketch
-                    partners={PartnersCount}
-                    materials={Materials}
-                    gestion={Gestion}
-                    production={Production}
-                />
+
+                {Illustration && (
+                    <div
+                        className={styles.illustration}>
+
+                    <Carousel
+                        images={Illustration}
+                        />
+                    </div>
+                )}
+                <div className={styles.content}>
+                    <div className={styles.label}>
+
+                        <Label
+                            title={Name}
+                            status={Typology}
+                            date={Duration}
+                            data={{
+                                partners: PartnersCount,
+                                materials: Materials,
+                                gestion: Gestion,
+                                production: Production
+                            }}
+                        />
+                    </div>
+
+                    {Name && (<h1> {Name} </h1>)}
+                    {Typology && (<div> {Typology} </div>)}
+                    {Team && (<div>
+                        {Team.map((item, i) => (<Tag key={i} content={item} />))} 
+                    </div>)}
+                    {/* {Address && ( <div>
+                        {Address}
+                    </div>)}
+                    {Duration && ( <div>
+                        {Duration}
+                    </div>)} */}
+                    {Partners && ( <div>
+                        {Partners.map((item, i) => (<Tag key={i} content={item} />))}
+                    </div>)}
+
+
+                </div>
+
             </article>
         </Layout>
     );

@@ -3,12 +3,14 @@ import Layout from '@components/Layout'
 
 export default function Manifesto() {
   return (
-    <Layout title='Manifesto'>
+    <Layout 
+      title='Manifesto'
+      padded
+    >
       <article>
-        <h1>
-          Manifeste
-        </h1>
-        <section>
+          <h1>
+            Manifeste
+          </h1>
           <div>
             RE-label est un agrégateur et valorisateur de pratiques collaboratives sur le réemploi à l'échelle d'un territoire restreint. Il offre aussi une lecture à plus grande échelle de toutes les initiatives RE-label.
           </div>
@@ -27,7 +29,6 @@ export default function Manifesto() {
           <div>
             En adhérent à un groupe représentant RE-Label, les utilisateurs bénéficient de la méthode et des outils (générateur de label, certificat d'authenticité, cartographie, réseau, catalogue) pour construire un indicateur de confiance commun et un générateur de valeur dédié.
           </div>
-        </section>
       </article>
     </Layout>
   );

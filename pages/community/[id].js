@@ -14,7 +14,7 @@ export default function Structure(props) {
     const router = useRouter()
     const { id } = router.query
     return (
-        <Layout title={id}>
+        <Layout title={id} padded>
             <article>
                 <h1>
                     {id}

@@ -3,7 +3,7 @@ import Layout from '@components/Layout'
 
 export default function GoodPractices() {
   return (
-    <Layout title='Bonnes Pratiques'>
+    <Layout title='Bonnes Pratiques' padded>
       <article>
       <h1>
         Bonnes pratiques

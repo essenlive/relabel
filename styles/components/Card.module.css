@@ -24,11 +24,10 @@
     font-size: var(--fontSize-sm);
     color: var(--gray-900)
 }
-/* .tags{
-    color : red;
-    
+.tags{
+   margin-bottom: 1rem;
 }
-.content{
+/* .content{
     color : red;
 } */
 @media (--screen-sm) {  

@@ -1,0 +1,47 @@
+.label{
+  border: var(--borderWidth-lg) var(--black) solid;
+  border-radius: var(--borderRadius-3xl);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  height: auto;
+  z-index: 10;
+  background-color: var(--white);
+}
+
+.sketch {
+  width: 100%;
+  padding: 7%;
+  height: auto;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sketch canvas{
+    z-index: 0;
+    position: relative;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 !important;
+}
+.infos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-top: var(--borderWidth-lg) var(--black) solid;
+}
+.infos > *{
+  font-size: var(--fontSize-base);
+  padding: 1rem 0.5rem;
+}
+.title{
+  text-transform: uppercase;
+}
+.date{
+  border-left: var(--borderWidth-lg) var(--black) solid;
+}
+@media (--screen-sm) {  
+}
