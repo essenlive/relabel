@@ -1,5 +1,5 @@
 import Layout from '@components/Layout'
-// import styles from "@styles/GoodPractices.module.css";
+// import styles from "@styles/pages/GoodPractices.module.css";
 
 export default function GoodPractices() {
   return (

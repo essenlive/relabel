@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styles from "@styles/Navigation.module.css";
+import styles from "@styles/components/Navigation.module.css";
 
 export default function Navigation(props) {
   const router = useRouter()

@@ -1,5 +1,5 @@
 import Layout from '@components/Layout'
-// import styles from "@styles/Manifesto.module.css";
+// import styles from "@styles/pages/Manifesto.module.css";
 
 export default function Manifesto() {
   return (

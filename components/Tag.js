@@ -1,4 +1,4 @@
-import styles from "@styles/Tags.module.css";
+import styles from "@styles/components/Tags.module.css";
 
 export default function Button({ content }) {
 

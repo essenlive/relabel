@@ -1,8 +1,7 @@
 import AirtablePlus from 'airtable-plus';
 import Layout from '@components/Layout';
 import Card from '@components/Card';
-import Link from 'next/link';
-import styles from "@styles/Projects.module.css";
+import styles from "@styles/pages/Projects.module.css";
 
 
 const airtable = new AirtablePlus({
@@ -25,7 +24,7 @@ export default function Projects({data}) {
                       key={item.id}>
                       <Card
                         image={{
-                          url: item.fields.Image[0].thumbnails.large.url,
+                          url: item.fields.Illustration[0].thumbnails.large.url,
                           alt:"Photo d'illustration"
                         }}
                         title={item.fields.Name}
@@ -50,7 +49,7 @@ export default function Projects({data}) {
 
 export async function getStaticProps({ params }) {
   const data = await airtable.read({
-    filterByFormula: `NOT({Image} = '')`
+    filterByFormula: `NOT({Illustration} = '')`
   }, {
     tableName: 'Projects'
   });

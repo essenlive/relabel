@@ -1,20 +1,21 @@
 import Head from "next/head";
 import Navigation from "@components/Navigation";
-import styles from "@styles/Layout.module.css";
+import classNames from "classnames"
+import styles from "@styles/components/Layout.module.css";
 
-const Layout = (props)=>{
+const Layout = ({title, padded, children})=>{
   return (
     <div className={styles.layout}>
       <Head>
-        <title>Re-label | {props.title}</title>
+        <title>Re-label | {title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.sideBar}>
         <Navigation />
       </div>
 
-        <main className={styles.content}>
-          {props.children}
+      <main className={classNames(styles.content, {[`${styles.padded}`] : padded})}>
+          {children}
         </main>
     </div>
   );

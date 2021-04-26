@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import Card from '@components/Card'
-import styles from "@styles/Map.module.css";
+import styles from "@styles/components/Map.module.css";
 
 
 export default function ReactMap({data}){
@@ -39,7 +39,7 @@ export default function ReactMap({data}){
                     let organisation = {
                         longitude: el.fields.Longitude,
                         latitude: el.fields.Latitude,
-                        name: el.fields.StrucID,
+                        name: el.fields.Name,
                         adress: el.fields.Adress,
                         status: el.fields.Status,
                         activity: el.fields.Activity,

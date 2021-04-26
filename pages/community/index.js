@@ -6,7 +6,7 @@ import AirtablePlus from 'airtable-plus';
 const airtable = new AirtablePlus({
   baseID: process.env.AIRTABLE_BASEID,
   apiKey: process.env.AIRTABLE_APIKEY,
-  tableName: 'Structure',
+  tableName: 'Structures',
 });
 
 export default function Community({ data }) {
@@ -17,8 +17,8 @@ export default function Community({ data }) {
 
 export async function getStaticProps({ params }) {
   const data = await airtable.read({
-    filterByFormula: `NOT({StructureDatas} = '')`}, {
-    tableName: 'StructuresID'
+    filterByFormula: `NOT({Datas} = '')`}, {
+    tableName: 'Structures'
   });
   return { props: { data } }
 }

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 const airtable = new AirtablePlus({
     baseID: process.env.AIRTABLE_BASEID,
     apiKey: process.env.AIRTABLE_APIKEY,
-    tableName: 'StructuresDatas',
+    tableName: 'Datas',
 });
 
 export default function Structure(props) {
@@ -39,24 +39,24 @@ export async function getStaticProps({params}) {
         maxRecords: 1
     });
     data = {
-        production : data[0].fields.StrucPROD,
-        gestion: data[0].fields.StrucGESTION,
-        partners: data[0].fields.StrucPARTENAIRES,
-        materials: data[0].fields.StrucMATERIAUX
+        production : data[0].fields.Production,
+        gestion: data[0].fields.Gestion,
+        partners: data[0].fields.PartnersCount,
+        materials: data[0].fields.Materials
     }
     return { props: data }
 }
 export async function getStaticPaths() {
     let paths = await airtable.read({
-        filterByFormula: `NOT({StructureDatas} = '')`},{
-        tableName: 'StructuresID'
+        filterByFormula: `NOT({Datas} = '')`},{
+        tableName: 'Structures'
     });
     paths = paths.map((el,i)=>{
-        return({params : {id : el.fields.StrucID}})
+        return({params : {id : el.fields.Name}})
     })
 
     return {
         paths: paths,
-        fallback: false // See the "fallback" section below
+        fallback: false
   };
 }

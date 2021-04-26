@@ -1,7 +1,7 @@
 import AirtablePlus from 'airtable-plus';
 import {useState} from 'react';
 import Layout from '@components/Layout'
-import styles from "@styles/Home.module.css";
+import styles from "@styles/pages/Home.module.css";
 import Sketch from '@components/Sketch';
 
 
@@ -12,7 +12,7 @@ export default function Home({data}) {
   const [materials, setMaterials] = useState(0.4)
 
   return (
-    <Layout title='Home'>
+    <Layout title='Home' padded>
       <article>
           <h1>
             Generator

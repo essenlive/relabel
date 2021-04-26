@@ -12,7 +12,7 @@
           "custom-properties": false,
           "custom-media-queries": true
         },
-        "importFrom": "./styles/mediaqueries.css"
+        "importFrom": "./styles/globals/mediaqueries.css"
       }
     ]
   ]

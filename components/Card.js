@@ -1,7 +1,7 @@
 import Button from '@components/Button'
 import Tag from '@components/Tag'
 import Image from 'next/image'
-import styles from "@styles/Card.module.css";
+import styles from "@styles/components/Card.module.css";
 
 
 export default function Card({ image, title, subtitle, tags, content, link }) {

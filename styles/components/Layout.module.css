@@ -27,9 +27,11 @@
   padding: 0 */
 }
 .content > article{
-  padding: 2rem;
   display: flex;
   flex-direction: column;
+}
+.padded > article{
+  padding: 2rem;
 }
 .content > article > div{
   margin-bottom: 1rem;
