@@ -1,21 +1,22 @@
 .projectGrid{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
 }
 .projectItem{
-    width: 30%;
+    /* width: 30%; */
     margin-bottom:2rem;
     height: auto;
 }
 @media (--screen-md) {  
-    .projectItem{
-        width: 45%;
+    .projectGrid{
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 @media (--screen-sm) {  
-    .projectItem{
-        width: 100%;
+    .projectGrid{
+  grid-template-columns: repeat(1, 1fr);
     }
 }

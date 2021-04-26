@@ -1,11 +1,14 @@
 import Sketch from '@components/Sketch'
+import classNames from "classnames"
 import styles from "@styles/components/Label.module.css";
 
-
-export default function Label({ data, title, status, date }) {
+export default function Label({ data, title, status, date, size}) {
 
     return (
-        <div className={styles.label}>
+        <div className={classNames(styles.label, 
+        { [`${styles.small}`]: size === "small" },
+        { [`${styles.medium}`]: size === "medium" },
+        { [`${styles.large}`]: size === "large" })}>
             <div className={styles.sketch}>
                <Sketch
                     partners={data.partners}

@@ -1,5 +1,5 @@
 import Layout from '@components/Layout'
-// import styles from "@styles/pages/Manifesto.module.css";
+import styles from "@styles/pages/Manifesto.module.css";
 
 export default function Manifesto() {
   return (
@@ -7,7 +7,7 @@ export default function Manifesto() {
       title='Manifesto'
       padded
     >
-      <article>
+      <article className={styles.article}>
           <h1>
             Manifeste
           </h1>

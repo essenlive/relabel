@@ -4,9 +4,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Carousel({images}) {
     return(<Slider 
-    autoPlay
-    infiniteLoop
-     >
+        autoPlay
+        infiniteLoop
+        showThumbs={false}
+        showStatus={false}
+        showIndicators={false}
+        >
         {images.map((item, i) => (
             <div key={i} >
                 <Image

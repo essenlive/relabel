@@ -1,6 +1,5 @@
 .project{
     position: relative;
-    min-height: 100vh
 }
 .illustration, .illustration div, .illustration img{
     object-fit: cover;
@@ -20,7 +19,7 @@
   grid-template-rows: 25% 6em 1fr;
   gap: 0px 1rem;
   grid-template-areas:
-    "label label infos infos"
+    "label label . ."
     "label label infos infos"
     "label label infos infos";
 }

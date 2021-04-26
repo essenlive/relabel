@@ -13,17 +13,17 @@ const airtable = new AirtablePlus({
     tableName: 'Projects',
 });
 
-export default function Project({ Name, Illustration, Address, Typology, Team, Duration, Partners, Production, Gestion, Materials, PartnersCount }) {
+export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnersCount }) {
     return (
-        <Layout title={Name}>
-            <article>
+        <Layout title={name}>
+            <article className={styles.project}>
 
-                {Illustration && (
+                {illustrations && (
                     <div
                         className={styles.illustration}>
 
                     <Carousel
-                        images={Illustration}
+                        images={illustrations}
                         />
                     </div>
                 )}
@@ -31,32 +31,36 @@ export default function Project({ Name, Illustration, Address, Typology, Team, D
                     <div className={styles.label}>
 
                         <Label
-                            title={Name}
-                            status={Typology}
-                            date={Duration}
+                            size="small"
+                            title={name}
+                            status={typology}
+                            date={duration}
                             data={{
-                                partners: PartnersCount,
-                                materials: Materials,
-                                gestion: Gestion,
-                                production: Production
+                                partners: partnersCount,
+                                materials: materials,
+                                gestion: gestion,
+                                production: production
                             }}
                         />
                     </div>
 
-                    {Name && (<h1> {Name} </h1>)}
-                    {Typology && (<div> {Typology} </div>)}
-                    {Team && (<div>
-                        {Team.map((item, i) => (<Tag key={i} content={item} />))} 
+                    <div className={styles.infos}>
+                        {name && (<h1 className={styles.name}> {name} </h1>)}
+                        {typology && (<div><Tag content={typology} /></div>)}
+                        {team && (<div>
+                            {team.map((item, i) => (<span key={i}>{item} </span>))} 
+                        </div>)}
+                        {description && (<div> {description} </div>)}
+                    {/* {address && ( <div>
+                        {address}
                     </div>)}
-                    {/* {Address && ( <div>
-                        {Address}
-                    </div>)}
-                    {Duration && ( <div>
-                        {Duration}
+                    {duration && ( <div>
+                        {duration}
                     </div>)} */}
-                    {Partners && ( <div>
-                        {Partners.map((item, i) => (<Tag key={i} content={item} />))}
+                    {partners && ( <div>
+                        {partners.map((item, i) => (<span key={i}>{item} </span>))}
                     </div>)}
+                    </div>
 
 
                 </div>
@@ -75,7 +79,22 @@ export async function getStaticProps({params}) {
         maxRecords: 1
     });
     data = data[0].fields;
-    return { props: data }
+    const mapping = {
+        name : "Name",
+        illustrations: "Illustration",
+        description: "Description",
+        address: "Address",
+        typology: "Typology",
+        team: "Team",
+        duration: "Duration",
+        partners: "Partners",
+        production: "Production",
+        gestion: "Gestion",
+        materials: "Materials",
+        partnersCount: "PartnersCount"
+    }
+    for (const key in mapping) { mapping[key] = typeof data[mapping[key]] !== 'undefined' ? data[mapping[key]] : null;}
+    return { props: mapping}
 }
 export async function getStaticPaths() {
     let paths = await airtable.read({

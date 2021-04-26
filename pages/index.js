@@ -12,9 +12,6 @@ export default function Home({data}) {
   return (
     <Layout title='Home' padded>
       <article>
-          <h1>
-            Generator
-          </h1>
       <div> 
 
           <label>

@@ -13,9 +13,6 @@ export default function Projects({data}) {
   return (
     <Layout title='Projets' padded>
       <article>
-        <h1>
-          Projets
-        </h1>
         <section className={styles.projectGrid}>
           {data.map((item, i) => {
                   return (

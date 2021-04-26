@@ -6,6 +6,7 @@
   --font-body: 'Open Sans', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif';
   --font-mono: 'ui-monospace','SFMono-Regular','Menlo','Monaco','Consolas','"Liberation Mono"','"Courier New"','monospace';
    /* Font sizes  */
+  --fontSize-2xs: 0.5rem;
   --fontSize-xs: 0.75rem;
   --fontSize-sm: 0.875rem;
   --fontSize-base: 1rem;
@@ -39,7 +40,7 @@
   --borderRadius-md: 0.375rem;
   --borderRadius-lg: 0.5rem;
   --borderRadius-xl: 0.75rem;
-  --borderRadius-xxl: 1rem;
+  --borderRadius-2xl: 1rem;
   --borderRadius-3xl: 1.5rem;
   --borderRadius-full: 9999px;
   /* Border widths */
@@ -48,6 +49,7 @@
   --borderWidth-md: 2px;
   --borderWidth-lg: 4px;
   --borderWidth-xl: 8px;
+  --borderWidth-2xl: 12px;
   /* Box shadows */
   --boxShadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --boxShadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);

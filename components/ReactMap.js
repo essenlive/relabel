@@ -74,10 +74,10 @@ export default function ReactMap({data}){
                     <div className={styles.popup}>
 
                         <Card
-                            // image={{
-                            //     url: item.fields.Image[0].thumbnails.large.url,
+                            // image={selection.illustration && ({
+                            //     url: selection.illustration,
                             //     alt: "Photo d'illustration"
-                            // }}
+                            // })}
                             title={selection.name}
                             subtitle={selection.status}
                             tags={selection.activity}

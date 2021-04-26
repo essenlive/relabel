@@ -7,7 +7,7 @@
 }
 .title {
   font-family: var(--font-header);
-  font-size:var(--fontSize-2xl);
+  font-size:var(--fontSize-4xl) !important;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -17,6 +17,7 @@
   cursor: pointer;
   width: max-content;
   position: relative;
+  font-size:var(--fontSize-xl);
   z-index: 1;
 }
 .links a, .title, .linkActive a{
