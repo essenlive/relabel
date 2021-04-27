@@ -36,6 +36,10 @@ export default function Sketch({ partners, production, materials, gestion }) {
 
         // Setup and calculate datas
         function calculateDatas() {
+            // partners = partners <= 0 ? 1 : partners
+            production = production <= 0 ? 1 : production
+            gestion = gestion <= 0 ? 1 : gestion
+            materials = materials <= 0 ? 1 : materials
             let total = materials * 100 + gestion * 100 + production * 100;
             let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4 ;
             dataPartner = partners < (nbCases - 2) * (nbCases - 2) ? partners : (nbCases - 2) * (nbCases - 2);
