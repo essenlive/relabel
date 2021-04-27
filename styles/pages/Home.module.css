@@ -9,7 +9,16 @@
 }
 
 .form input{
-    display: block;    
+    display: block;
+    border: transparent;
+    border-bottom: var(--borderWidth-lg) var(--black) solid;
+    font-size: var(--fontSize-base);
+    background: transparent;
+    padding: 0.5rem 0.3rem;
+    margin-bottom: 0.5rem;
+    width: 80%;
+    font-weight: 700;
+    font-family: var(--font-header);
 }
 @media (--screen-sm) {  
   .home {

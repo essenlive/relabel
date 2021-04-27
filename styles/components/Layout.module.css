@@ -52,3 +52,12 @@
     width: 100vw;
   }
 }
+
+@media print {
+  .layout {
+    flex-direction: column;
+  }
+  .sideBar{
+    display: none;
+  }
+}

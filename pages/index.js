@@ -15,10 +15,10 @@ export default function Home() {
             name: '',
             date: '',
             status: '',
-            partnersCount: '1',
-            materials: '1',
-            production: '1',
-            gestion: '1',
+            partnersCount: 0,
+            materials: 0,
+            production: 0,
+            gestion: 0,
           }}
         // onSubmit={(values, { setSubmitting }) => {
         //   setTimeout(() => {
@@ -35,7 +35,6 @@ export default function Home() {
             handleSubmit,
             isSubmitting,
           }) =>{
-            console.log(values); 
             return(
             <>
               <div className={styles.form}>
@@ -55,32 +54,36 @@ export default function Home() {
                     value={values.status}
                   />
                   <input
+                    type="number"
                     name="partnersCount"
                     placeholder="Nombre de partenaires"
                     value={values.partnersCount}
                     onBlur={handleBlur}
                     onChange={handleChange} />
                   <input
+                    type="number"
                     name="materials"
                     placeholder="Pourcentage de materiaux"
                     value={values.materials}
                     onBlur={handleBlur}
                     onChange={handleChange} />
                   <input
+                    type="number"
                     name="production"
                     placeholder="Pourcentage de production"
                     value={values.production}
                     onBlur={handleBlur}
                     onChange={handleChange} />
                   <input
+                    type="number"
                     name="gestion"
                     placeholder="Pourcentage de gestion"
                     value={values.gestion}
                     onBlur={handleBlur}
                     onChange={handleChange} />
-                  <button type="submit" disabled={isSubmitting}>
+                  {/* <button type="submit" disabled={isSubmitting}>
                     Submit
-           </button>
+           </button> */}
                 </form>
               </div>
 
