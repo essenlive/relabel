@@ -16,9 +16,25 @@ export default function Community({ data }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await airtable.read({
+  const rawData = await airtable.read({
     filterByFormula: `NOT({Datas} = '')`}, {
     tableName: 'Structures'
   });
+  const mapping = {
+    name: "Name",
+    illustrations: "Illustration",
+    satuts: "Status",
+    activity: "Activity",
+    adress: "Adress",
+    longitude: "Longitude",
+    latitude: "Latitude"
+  }
+  const data = Array(rawData.length)
+  rawData.forEach((el, i) => {
+    data[i] = {};
+    for (const key in mapping) {
+      data[i][key] = typeof (el.fields[mapping[key]]) !== 'undefined' ? el.fields[mapping[key]] : null;
+    }
+  })
   return { props: { data } }
 }

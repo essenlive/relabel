@@ -35,14 +35,15 @@ export default function ReactMap({data}){
                 mapStyle="mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k"
                 onViewportChange={(viewport) => setViewport(viewport)}
             >
-                {data.map((el,i)=>{
+                {data.map((item,i)=>{
                     let organisation = {
-                        longitude: el.fields.Longitude,
-                        latitude: el.fields.Latitude,
-                        name: el.fields.Name,
-                        adress: el.fields.Adress,
-                        status: el.fields.Status,
-                        activity: el.fields.Activity,
+                        longitude: item.longitude,
+                        latitude: item.latitude,
+                        name: item.name,
+                        adress: item.adress,
+                        status: item.status,
+                        activity: item.activity,
+                        illustrations: item.illustrations,
                     }
                     return(
                         <Marker
@@ -74,14 +75,15 @@ export default function ReactMap({data}){
                     <div className={styles.popup}>
 
                         <Card
-                            // image={selection.illustration && ({
-                            //     url: selection.illustration,
-                            //     alt: "Photo d'illustration"
-                            // })}
+                            image={selection.illustrations && ({
+                                url: selection.illustrations[0].thumbnails.large.url,
+                                alt: "Photo d'illustration"
+                            })}
                             title={selection.name}
                             subtitle={selection.status}
                             tags={selection.activity}
                             content={selection.adress}
+                            padded={false}
                             link={{
                                 pathname: '/community/[id]',
                                 query: { id: selection.name },

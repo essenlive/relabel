@@ -12,7 +12,6 @@ const airtable = new AirtablePlus({
 });
 
 export default function Structure({ name, date, illustrations, status, description, adress, activity, partners, production, gestion, materials, partnersCount }) {
-    console.log(name, date, illustrations, status, description, adress, activity, partners, production, gestion, materials, partnersCount);
     return (
         <Layout title={name}>
             <article className={styles.project}>

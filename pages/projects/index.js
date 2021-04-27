@@ -9,7 +9,7 @@ const airtable = new AirtablePlus({
     apiKey: process.env.AIRTABLE_APIKEY,
     tableName: 'Structure',
 });
-export default function Projects({data}) {
+export default function Projects({ data }) {
   return (
     <Layout title='Projets' padded>
       <article>
@@ -18,19 +18,18 @@ export default function Projects({data}) {
                   return (
                     <div 
                       className={styles.projectItem}
-                      key={item.id}>
+                      key={i}>
                       <Card
                         image={{
-                          url: item.fields.Illustration[0].thumbnails.large.url,
+                          url: item.illustrations[0].thumbnails.large.url,
                           alt:"Photo d'illustration"
                         }}
-                        title={item.fields.Name}
-                        subtitle={item.fields.Typology}
-                        tags={item.fields.Team}
-                        // content={}
+                        title={item.name}
+                        subtitle={item.typology}
+                        tags={item.team}
                         link={{
                             pathname: '/projects/[id]',
-                            query: { id: item.fields.Name },
+                          query: { id: item.name },
                           }}
                       />
                     </div>
@@ -44,11 +43,25 @@ export default function Projects({data}) {
 }
 
 
-export async function getStaticProps({ params }) {
-  const data = await airtable.read({
+export async function getStaticProps({ params }){
+  const rawData = await airtable.read({
     filterByFormula: `NOT({Illustration} = '')`
   }, {
     tableName: 'Projects'
   });
-  return { props: { data } }
+  const mapping = {
+    name: "Name",
+    illustrations: "Illustration",
+    typology: "Typology",
+    team: "Team",
+    duration: "Duration",
+  }
+  const data = Array(rawData.length)
+  rawData.forEach((el, i)=>{
+    data[i] = {};
+    for (const key in mapping) {
+      data[i][key] = typeof (el.fields[mapping[key]]) !== 'undefined' ? el.fields[mapping[key]] : null;
+    }
+  })
+  return { props: {data} }
 }

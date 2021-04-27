@@ -57,9 +57,9 @@ export default function Project({ name, illustrations, description, address, typ
                     {duration && ( <div>
                         {duration}
                     </div>)} */}
-                    {partners && ( <div>
+                    {/* {partners && ( <div>
                         {partners.map((item, i) => (<span key={i}>{item} </span>))}
-                    </div>)}
+                    </div>)} */}
                     </div>
 
 

@@ -2,14 +2,15 @@ import Button from '@components/Button'
 import Tag from '@components/Tag'
 import Image from 'next/image'
 import Link from 'next/link'
+import classNames from "classnames"
 import styles from "@styles/components/Card.module.css";
 
 
-export default function Card({ image, title, subtitle, tags, content, link }) {
+export default function Card({ image, title, subtitle, tags, content, link, padded = true }) {
 
     const BasicCard = (
         <Link href={link ? link : ''}>
-            <div className={styles.card}>
+            <div className={classNames(styles.card, { [`${styles.padded}`]: padded })}>
                 {image && (<div className={styles.image}>
                     <Image
                         src={image.url}

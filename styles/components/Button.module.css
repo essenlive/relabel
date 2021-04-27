@@ -3,6 +3,7 @@
     height: min-content;
     width: auto;
     padding: 0.2rem 0.4rem;
+    margin: 1rem 0;
     background-color:var(--primary);
     color: var(--white);
     border: var(--borderWidth-md) var(--primary) solid;
