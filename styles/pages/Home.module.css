@@ -6,19 +6,36 @@
 .form{
     display: block;  
     width: 50%;
+    margin-right: 2rem;
 }
 
-.form input{
+.input {
     display: block;
-    border: transparent;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: var(--borderWidth-lg) var(--black) solid;
     font-size: var(--fontSize-base);
-    background: transparent;
-    padding: 0.5rem 0.3rem;
-    margin-bottom: 0.5rem;
-    width: 80%;
-    font-weight: 700;
     font-family: var(--font-header);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.3rem;
+  }
+  .input input, .input select, .input option{
+    border: transparent;
+    background: transparent;
+    text-align: right;
+    font-weight: 700;
+}
+.input label{
+    font-weight: 700;
+    text-align: right;
+    width: min-content;
+    margin-left: 1rem;
+}
+.input span{
+  width: 80%;
 }
 @media (--screen-sm) {  
   .home {
