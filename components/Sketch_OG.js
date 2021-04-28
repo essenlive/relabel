@@ -13,7 +13,7 @@ export default function Sketch({ partners, production, materials, gestion }) {
         const nbCases = width / dim;
         const ep = 20;
 
-        let dataPartner, dataMaterio, dataGestion, dataProd, dataEmpty;
+        let dataPartner, dataMaterio, dataGestion, dataProd;
         let c1, c2, c3, c4;
 
         let noeuds = [];
@@ -26,7 +26,7 @@ export default function Sketch({ partners, production, materials, gestion }) {
             c1 = p5.color(123, 186, 126),
             c2 = p5.color(42, 90, 125),
             c3 = p5.color(78, 103, 94),
-            c4 = p5.color(175);
+            c4 = p5.color(125);
             
             calculateDatas()
             initAvailableColors()
@@ -47,19 +47,18 @@ export default function Sketch({ partners, production, materials, gestion }) {
             total = total <= 0 ? 1 : total;
             let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4 ;
             dataPartner = partners < (nbCases - 2) * (nbCases - 2) ? partners : (nbCases - 2) * (nbCases - 2);
-            dataMaterio = p5.ceil(ratio / 3 * materials);
-            dataGestion = p5.ceil(ratio / 3 * gestion);
-            dataProd = p5.ceil(ratio / 3 * production);
+            dataMaterio = p5.floor(ratio * materials * 100 / total);
+            dataGestion = p5.floor(ratio * gestion * 100 / total);
             // To have exactly the right number of colors in the stack
-            dataEmpty = ratio - dataMaterio - dataGestion - dataProd < 0 ? 0 : ratio - dataMaterio - dataGestion - dataProd;
+            dataProd = ratio - dataMaterio - dataGestion;
+
         }
         // Fill couleursDispo colorstack 
         function initAvailableColors() {
             const materiaux = Array(dataMaterio).fill(c1)
             const gestion = Array(dataGestion).fill(c2)
             const production = Array(dataProd).fill(c3)
-            const empty = Array(dataEmpty).fill(c4)
-            couleursDispo = [...materiaux, ...gestion, ...production, ...empty];
+            couleursDispo = [...materiaux, ...gestion, ...production];
         }
         // Initialize false node grid
         function initNodes(nbCases) {

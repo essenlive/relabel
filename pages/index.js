@@ -14,7 +14,7 @@ export default function Home() {
           initialValues={{
             name: '',
             date: '',
-            status: '',
+            status: 'Association',
             partnersCount: 0,
             materials: 0,
             production: 0,
