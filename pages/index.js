@@ -1,9 +1,19 @@
-import { useState } from 'react';
 import Layout from '@components/Layout'
 import Label from '@components/Label';
 import styles from "@styles/pages/Home.module.css";
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
+const Schema = Yup.object().shape({
+  name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  date: Yup.date().default(function () { return new Date(); }),
+  email: Yup.string().email('Invalid email').required('Required'),
+  status: Yup.string().required('Required'),
+  partnersCount: Yup.number().required().positive().required('Required'),
+  materials: Yup.number().min(0).max(100).required('Required'),
+  production: Yup.number().min(0).max(100).required('Required'),
+  gestion: Yup.number().min(0, 'Ca doit etre au moins 0 non').max(100).required('Required'),
+});
 
 export default function Home() {
 
@@ -20,9 +30,14 @@ export default function Home() {
             production: 0,
             gestion: 0,
           }}
+          validationSchema={Schema}
+          onSubmit={values => {
+            // same shape as initial values
+            console.log(values);
+          }}
         // onSubmit={(values, { setSubmitting }) => {
         //   setTimeout(() => {
-        //     alert(JSON.stringify(values, null, 2));
+        //     alert(JSON.stringify(value, 2));
         //     setSubmitting(false);
         //   }, 400);
         // }}
@@ -34,14 +49,19 @@ export default function Home() {
             handleBlur,
             handleSubmit,
             isSubmitting,
+            errors,
+            touched
           }) => {
             return (
               <>
                 <div className={styles.form}>
                   <form onSubmit={handleSubmit}>
+                    {errors.name && (
+                      <div>{errors.name}</div>
+                    )}
                     <div className={styles.input}>
                       <span>
-                        Nom : 
+                        Nom :
                       </span>
                       <input
                         name="name"
@@ -51,6 +71,9 @@ export default function Home() {
                         value={values.name}
                       />
                     </div>
+                    {errors.status && (
+                      <div>{errors.status}</div>
+                    )}
                     <div className={styles.input}>
                       <span>
                         Type :
@@ -69,8 +92,11 @@ export default function Home() {
                         <option value="Association">Association</option>
                         <option value="SCOP">SCOP</option>
                         <option value="SCIC">SCIC</option>
-                      </select>        
+                      </select>
                     </div>
+                    {errors.partnersCount && (
+                      <div>{errors.partnersCount}</div>
+                    )}
                     <div className={styles.input}>
                       <span>
                         Nombre de partenaires :
@@ -84,6 +110,9 @@ export default function Home() {
                         onChange={handleChange} />
                       <label>partenaire.s</label>
                     </div>
+                    {errors.materials && (
+                      <div>{errors.materials}</div>
+                    )}
                     <div className={styles.input}>
                       <span>
                         Pourcentage de matériaux :
@@ -95,8 +124,11 @@ export default function Home() {
                         value={values.materials}
                         onBlur={handleBlur}
                         onChange={handleChange} />
-                        <label>%</label>
+                      <label>%</label>
                     </div>
+                    {errors.production && (
+                      <div>{errors.production}</div>
+                    )}
                     <div className={styles.input}>
                       <span>
                         Pourcentage de production :
@@ -110,6 +142,9 @@ export default function Home() {
                         onChange={handleChange} />
                       <label>%</label>
                     </div>
+                    {errors.gestion && (
+                      <div>{errors.gestion}</div>
+                    )}
                     <div className={styles.input}>
                       <span>
                         Pourcentage de gestion :
@@ -123,9 +158,6 @@ export default function Home() {
                         onChange={handleChange} />
                       <label>%</label>
                     </div>
-                    {/* <button type="submit" disabled={isSubmitting}>
-                    Submit
-           </button> */}
                   </form>
                 </div>
 

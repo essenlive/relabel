@@ -20,6 +20,8 @@
     font-size: var(--fontSize-base);
     font-family: var(--font-header);
     margin-bottom: 0.5rem;
+  }
+  .input > * {
     padding: 0.5rem 0.3rem;
   }
   .input input, .input select, .input option{
@@ -27,7 +29,10 @@
     background: transparent;
     text-align: right;
     font-weight: 700;
-}
+  }
+    .input input:focus-visible, .input select:focus-visible, .input option{
+      outline: none;
+  }
 .input label{
     font-weight: 300;
     text-align: right;
