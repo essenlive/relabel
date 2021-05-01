@@ -1,17 +1,12 @@
-import AirtablePlus from 'airtable-plus';
+import airtable_api from '@libs/airtable_api';
 import Layout from '@components/Layout'
 import Tag from '@components/Tag'
 import Label from '@components/Label';
 import styles from "@styles/pages/Project.module.css";
 import Carousel from "@components/Carousel";
 
-const airtable = new AirtablePlus({
-    baseID: process.env.AIRTABLE_BASEID,
-    apiKey: process.env.AIRTABLE_APIKEY,
-    tableName: 'Datas',
-});
 
-export default function Structure({ name, date, illustrations, status, description, adress, activity, partners, production, gestion, materials, partnersCount }) {
+export default function Structure({ name, date, illustrations, status, description, adress, activity, datas }) {
     return (
         <Layout title={name}>
             <article className={styles.project}>
@@ -32,12 +27,12 @@ export default function Structure({ name, date, illustrations, status, descripti
                             size="small"
                             title={name}
                             status={status}
-                            date={date.split("-")[0]}
+                            date={datas.date.split("-")[0]}
                             data={{
-                                partners: partnersCount,
-                                materials: materials,
-                                gestion: gestion,
-                                production: production
+                                partners: datas.partnersCount,
+                                materials: datas.materials,
+                                gestion: datas.gestion,
+                                production: datas.production
                             }}
                         />
                     </div>
@@ -46,9 +41,6 @@ export default function Structure({ name, date, illustrations, status, descripti
                         {name && (<h1 className={styles.name}> {name} </h1>)}
                         {activity && (<div>{ activity.map((item, i) => (<Tag key={i} content={item} />))}</div>)}
                         {adress && (<div> {adress} </div>)}
-                        {partners && ( <div>
-                            {/* {partners.map((item, i) => (<span key={i}>{item} </span>))} */}
-                        </div>)}
                     </div>
 
 
@@ -63,48 +55,19 @@ export default function Structure({ name, date, illustrations, status, descripti
 
 
 export async function getStaticProps({ params }) {
-    let data;
-    let structureData = await airtable.read({
-        filterByFormula: `Structure = "${params.id}"`,
-        maxRecords: 1,
-    }, {
-        tableName: 'Datas'
-    });
-    let structure = await airtable.read({
-        filterByFormula: `Name = "${params.id}"`,
-        maxRecords: 1,
-    }, {
-        tableName: 'Structures'
-    });
-    data = { ...structureData[0].fields, ...structure[0].fields };
-    const mapping = {
-        name: "Name",
-        illustrations: "Illustration",
-        description: "Description",
-        adress: "Adress",
-        date: "Year",
-        status: "Status",
-        activity: "Activity",
-        partners: "Partners",
-        production: "Production",
-        gestion: "Gestion",
-        materials: "Materials",
-        partnersCount: "PartnersCount"
-    }
-    for (const key in mapping) {mapping[key] = typeof data[mapping[key]] !== 'undefined' ? data[mapping[key]] : null;}
-    return { props: mapping }
+    let structure = await airtable_api.getStructures({ name: params.id });
+    structure = structure[0];
+    console.log('structure', structure, structure.datas[0]);
+    structure.datas = await airtable_api.getDatas({ id: structure.datas[0] })
+    structure.datas = structure.datas[0];
+    console.log(structure.datas);
+   
+    return { props: structure }
 }
-export async function getStaticPaths() {
-    let paths = await airtable.read({
-        filterByFormula: `NOT({Datas} = '')`},{
-        tableName: 'Structures'
-    });
-    paths = paths.map((el,i)=>{
-        return({params : {id : el.fields.Name}})
-    })
 
-    return {
-        paths: paths,
-        fallback: false
-  };
+
+export async function getStaticPaths() {
+    let paths = await airtable_api.getStructures({ datas: true });
+    paths = paths.map((el) => ({ params: { id: el.name } }))
+    return { paths: paths, fallback: false };
 }

@@ -46,4 +46,8 @@
   .home {
     flex-direction: column;
   }
+  .form{
+      width: 100%;
+      margin-bottom: 2rem;
+  }
 }

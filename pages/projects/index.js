@@ -1,20 +1,14 @@
-import AirtablePlus from 'airtable-plus';
 import Layout from '@components/Layout';
 import Card from '@components/Card';
+import airtable_api from '@libs/airtable_api.js'
 import styles from "@styles/pages/Projects.module.css";
 
-
-const airtable = new AirtablePlus({
-    baseID: process.env.AIRTABLE_BASEID,
-    apiKey: process.env.AIRTABLE_APIKEY,
-    tableName: 'Structure',
-});
-export default function Projects({ data }) {
+export default function Projects({ projects }) {
   return (
     <Layout title='Projets' padded>
       <article>
         <section className={styles.projectGrid}>
-          {data.map((item, i) => {
+          {projects.map((item, i) => {
                   return (
                     <div 
                       className={styles.projectItem}
@@ -28,7 +22,7 @@ export default function Projects({ data }) {
                         subtitle={item.typology}
                         tags={item.team}
                         link={{
-                            pathname: '/projects/[id]',
+                          pathname: '/projects/[id]',
                           query: { id: item.name },
                           }}
                       />
@@ -43,25 +37,7 @@ export default function Projects({ data }) {
 }
 
 
-export async function getStaticProps({ params }){
-  const rawData = await airtable.read({
-    filterByFormula: `NOT({Illustration} = '')`
-  }, {
-    tableName: 'Projects'
-  });
-  const mapping = {
-    name: "Name",
-    illustrations: "Illustration",
-    typology: "Typology",
-    team: "Team",
-    duration: "Duration",
-  }
-  const data = Array(rawData.length)
-  rawData.forEach((el, i)=>{
-    data[i] = {};
-    for (const key in mapping) {
-      data[i][key] = typeof (el.fields[mapping[key]]) !== 'undefined' ? el.fields[mapping[key]] : null;
-    }
-  })
-  return { props: {data} }
+export async function getStaticProps(){
+  const projects = await airtable_api.getProjects({ illustrations: true});
+  return { props: {projects} }
 }

@@ -9,7 +9,7 @@ const Schema = Yup.object().shape({
   date: Yup.date().default(function () { return new Date(); }),
   email: Yup.string().email('Invalid email').required('Required'),
   status: Yup.string().required('Required'),
-  partnersCount: Yup.number().required().positive().required('Required'),
+  partnersCount: Yup.number().required().min(0).required('Required'),
   materials: Yup.number().min(0).max(100).required('Required'),
   production: Yup.number().min(0).max(100).required('Required'),
   gestion: Yup.number().min(0, 'Ca doit etre au moins 0 non').max(100).required('Required'),
@@ -23,7 +23,7 @@ export default function Home() {
         <Formik
           initialValues={{
             name: '',
-            date: '',
+            date: new Date(),
             status: 'Association',
             partnersCount: 0,
             materials: 0,
@@ -165,7 +165,7 @@ export default function Home() {
                 <Label
                   title={values.name}
                   status={values.status}
-                  date={'2021'}
+                  date={values.date.getFullYear()}
                   size={'medium'}
                   data={{
                     partners: Number(values.partnersCount),
