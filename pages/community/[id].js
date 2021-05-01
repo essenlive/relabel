@@ -57,17 +57,27 @@ export default function Structure({ name, date, illustrations, status, descripti
 export async function getStaticProps({ params }) {
     let structure = await airtable_api.getStructures({ name: params.id });
     structure = structure[0];
-    console.log('structure', structure, structure.datas[0]);
-    structure.datas = await airtable_api.getDatas({ id: structure.datas[0] })
-    structure.datas = structure.datas[0];
-    console.log(structure.datas);
-   
+    if (!!structure.datas) {
+        structure.datas = await airtable_api.getDatas({ id: structure.datas[0] })
+        structure.datas = structure.datas[0];
+    }
+    else{
+        structure.datas = {
+            date : 'NC-01-01',
+            partners: [],
+            production: 0,
+            gestion: 0,
+            materials: 0,
+            partnersCount : 0
+        }
+    }   
     return { props: structure }
 }
 
 
 export async function getStaticPaths() {
-    let paths = await airtable_api.getStructures({ datas: true });
+    // let paths = await airtable_api.getStructures({ datas: true });
+    let paths = await airtable_api.getStructures();
     paths = paths.map((el) => ({ params: { id: el.name } }))
     return { paths: paths, fallback: false };
 }
