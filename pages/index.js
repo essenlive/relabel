@@ -102,12 +102,12 @@ export default function Home() {
                         Nombre de partenaires :
                       </span>
                       <input
-                        type="number"
+                      type="number"
                         name="partnersCount"
-                        placeholder="Nombre de partenaires"
-                        value={values.partnersCount}
-                        onBlur={handleBlur}
-                        onChange={handleChange} />
+                      placeholder="Nombre de partenaires"
+                      value={values.partnersCount}
+                      onBlur={handleBlur}
+                      onChange={handleChange}/>
                       <label>partenaire.s</label>
                     </div>
                     {errors.materials && (
@@ -115,15 +115,17 @@ export default function Home() {
                     )}
                     <div className={styles.input}>
                       <span>
-                        Pourcentage de matériaux :
+                          Pourcentage de matériaux :
                       </span>
                       <input
-                        type="number"
+                        type="range"
                         name="materials"
                         placeholder="Pourcentage de materiaux"
                         value={values.materials}
                         onBlur={handleBlur}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        min="0"
+                        max="100"/>
                       <label>%</label>
                     </div>
                     {errors.production && (
@@ -131,15 +133,17 @@ export default function Home() {
                     )}
                     <div className={styles.input}>
                       <span>
-                        Pourcentage de production :
+                            Pourcentage de production :
                       </span>
                       <input
-                        type="number"
+                        type="range"
                         name="production"
                         placeholder="Pourcentage de production"
                         value={values.production}
                         onBlur={handleBlur}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        min="0"
+                        max="100"/>
                       <label>%</label>
                     </div>
                     {errors.gestion && (
@@ -150,12 +154,14 @@ export default function Home() {
                         Pourcentage de gestion :
                       </span>
                       <input
-                        type="number"
+                        type="range"
                         name="gestion"
                         placeholder="Pourcentage de gestion"
                         value={values.gestion}
                         onBlur={handleBlur}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        min="0"
+                        max="100" />
                       <label>%</label>
                     </div>
                   </form>
