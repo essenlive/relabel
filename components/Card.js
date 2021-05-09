@@ -1,5 +1,4 @@
-import Button from '@components/Button'
-import Tag from '@components/Tag'
+import { Badge, Button } from '@mantine/core';
 import Image from 'next/image'
 import Link from 'next/link'
 import classNames from "classnames"
@@ -23,14 +22,14 @@ export default function Card({ image, title, subtitle, tags, content, link, padd
                     {subtitle && (<div className={styles.subtitle}>{subtitle}</div>)}
                     {tags && (
                         <div className={styles.tags}>
-                            {tags.map((item, i) => (<Tag key={i} content={item} />))}
+                            {tags.map((item, i) => (<Badge key={i}>{item}</Badge>))}
                         </div>)}
                     {content && (<p className={styles.content}>{content}</p>)}
-                    {link && (<Button
-                        link={link}
-                        content="Plus d'informations"
-                    >
-                    </Button>)}
+                    {link && (<Link href={link ? link : ''}>
+                        <Button variant="light" color="green" radius="xs">
+                            Voir projet
+                        </Button>
+                    </Link>)}
                 </div>
             </div>
         </Link>)

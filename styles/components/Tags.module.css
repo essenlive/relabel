@@ -5,8 +5,11 @@
     width: auto;
     text-transform: uppercase;
     padding: 0.2rem 0.5rem;
-    margin: 1rem 0.5rem 1rem *;
+    margin: 0.5rem 0;
     background-color:var(--secondary);
     color: var(--white);
     border-radius: var(--borderRadius);
+}
+.tag:not(:first-child){
+    margin-left: 0.5rem;
 }
