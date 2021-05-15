@@ -15,34 +15,24 @@
     width: 100%;
     position: absolute;
     bottom: 0;
-    display: grid;
-    grid-template-columns: 15% 15% 1fr 1fr;
-    grid-template-rows: 25% 6em 1fr;
-    gap: 0px 1rem;
-    grid-template-areas:
-        "label label infos infos"
-        "label label infos infos"
-        "label label infos infos";
+    display: flex;
+    flex-direction: row;
+    z-index: 10;
 }
 .content::before{
     content: "";
     position: absolute;
     z-index: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(0deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 65%, rgba(0,0,0,0) 100%);
 }
-
-.label { grid-area: label; margin-bottom: 0.5rem;  z-index: 1;}
-.infos { grid-area: infos;  margin-bottom: 0.5rem; z-index: 1;}
-.infos > * {  margin-bottom: 1rem;}
-.infos > h1 {  margin-bottom: 0.3rem;}
+.label, .infos{
+    margin-right: 1rem;
+    position: relative;
+}
 
 @media (--screen-md) { 
 .content{
-        display: flex;
         flex-direction: column;
     }
 }

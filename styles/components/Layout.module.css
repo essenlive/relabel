@@ -7,31 +7,18 @@
 }
 
 .sideBar {
-  width: 25%;
+  width: 20%;
   flex-shrink: 0;
   position: fixed;
 }
 .content{
-  width: 75%;
-  margin-left: 25% ;
+  width: 80%;
+  margin-left: 20% ;
   flex-grow: 1;
   background-color: var(--coolGray-100);
   min-height: 100vh;
 }
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5,
-.content h6{
-  font-family: var(--font-header);
-  /* margin: 0 0 1rem 0;
-  padding: 0 */
-}
-.content > article > h1{
-  margin-bottom: 1rem;
-}
-.padded > article{
+.padded{
   padding: 2rem;
 }
 .content > article > div{

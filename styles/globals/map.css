@@ -1,0 +1,14 @@
+.mapboxgl-popup-close-button{
+    z-index: 100;
+    background: rgba(255,255,255,0.5);
+    /* margin: 0.5rem; */
+    border-bottom-left-radius: 0.2rem;
+    color: black !important;
+}
+.mapboxgl-popup-close-button:hover{
+    background: rgb(255, 255, 255);
+
+}
+.mapboxgl-popup-content{
+    padding : 0 !important;
+}

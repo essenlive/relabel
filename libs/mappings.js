@@ -16,6 +16,7 @@ const mappings = {
             ['ess', "ESS"],
             ['status', "Status"],
             ['datas', "Datas"],
+            ['website', "Website"],
             ['datasPartners', "DatasPartners"],
             ['projects', "projects"],
             ['projectsPartners', "ProjectsPartners"],

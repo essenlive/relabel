@@ -1,7 +1,6 @@
 import Layout from '@components/Layout'
-import ReactMap from '@components/ReactMap'
+import ReactMap from '@components/Map'
 import airtable_api from '@libs/airtable_api.js'
-// import styles from "@styles/Community.module.css";
 
 
 export default function Community({ structures }) {
@@ -11,6 +10,6 @@ export default function Community({ structures }) {
 }
 
 export async function getStaticProps() {
-  const structures = await airtable_api.getStructures({datas : true});
+  const structures = await airtable_api.getStructures({adress : true});
   return { props: { structures } }
 }

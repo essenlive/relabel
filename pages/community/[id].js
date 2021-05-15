@@ -1,12 +1,16 @@
 import airtable_api from '@libs/airtable_api';
 import Layout from '@components/Layout'
-import Tag from '@components/Tag'
 import Label from '@components/Label';
-import styles from "@styles/pages/Project.module.css";
+import styles from "@styles/pages/SinglePage.module.css";
 import Carousel from "@components/Carousel";
+import { Title, Text, Badge, Button, useMantineTheme } from '@mantine/core';
+import Link from 'next/link'
 
 
-export default function Structure({ name, date, illustrations, status, description, adress, activity, datas }) {
+export default function Structure({ name, website, illustrations, status, description, adress, activity, datas }) {
+    const theme = useMantineTheme();
+    let colorsKeys = Object.keys(theme.colors).slice(1);
+    let activities = Array.from(new Set(activity))
     return (
         <Layout title={name}>
             <article className={styles.project}>
@@ -37,10 +41,22 @@ export default function Structure({ name, date, illustrations, status, descripti
                         />
                     </div>
 
-                    <div className={styles.infos}>
-                        {name && (<h1 className={styles.name}> {name} </h1>)}
-                        {activity && (<div>{ activity.map((item, i) => (<Tag key={i} content={item} />))}</div>)}
-                        {adress && (<div> {adress} </div>)}
+                    <div className={styles.infos} style={{ maxWidth: 300 }} >
+                        {name && (<Title order={1}> {name} </Title>)}
+                        {activity && (<div style= {{marginBottom: 10, }} >{
+                            activity.map((item, i) => (
+                                <Badge key={i} variant='filled' color={colorsKeys[activities.indexOf(item)]}>{item}</Badge>
+                            ))}
+                        </div>)}
+                        {/* {team && (<div>
+                            {team.map((item, i) => (<Text component="span" key={i}>{item} </Text>))}
+                        </div>)} */}
+                        {adress && (<Text weight="bold" component="div"> {adress} </Text>)}
+                        {description && (<Text component="div"> {description} </Text>)}
+                        {website && (<Link
+                            href={website}>
+                            <Button style={{ marginTop: 10 }} variant='light'> Voir le site </Button>
+                        </Link>)}
                     </div>
 
 
@@ -76,7 +92,6 @@ export async function getStaticProps({ params }) {
 
 
 export async function getStaticPaths() {
-    // let paths = await airtable_api.getStructures({ datas: true });
     let paths = await airtable_api.getStructures();
     paths = paths.map((el) => ({ params: { id: el.name } }))
     return { paths: paths, fallback: false };
