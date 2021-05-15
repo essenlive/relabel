@@ -60,9 +60,9 @@ export default function ReactMap({ data }) {
                 mapStyle="mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k"
                 onViewportChange={(viewport) => setViewport(viewport)}
             >
-                <Source id="my-data" type="geojson" data={geojson}>
+                {/* <Source id="my-data" type="geojson" data={geojson}>
                     <Layer {...layerStyle} />
-                </Source>
+                </Source> */}
                 {data.map((item,i)=>{
                     return(
                         <Marker
