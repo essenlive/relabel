@@ -11,6 +11,7 @@ const airtable_api = {
     data : {},
     initData : async function(table){
         console.log(`airtable request : "${table}"`);
+        await new Promise(resolve => setTimeout(resolve, 200));
         const rawData = await airtable.read(null, {
             tableName: tablesMapping.get(table)
         });

@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# makersxcovid-expo
 
-## Getting Started
+This is website uses [Next.js](https://nextjs.org/) with [Mantine](https://mantine.dev/) for the front-end and set up to be instantly deployed to [Vercel](https://vercel.com/)
 
-First, run the development server:
+
+## Getting started
+
+First of all you will need node installed. Get it [here](https://nodejs.org/en/) if needed.
+
+Then, clone repo and install npm packages:
+
+```bash
+git clone https://github.com/essenlive/relabel
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Editing the P5.js sketch
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The P5.js sketch file is located in `components/Sketch.js` and the definition is inside the `Sketch({ partners, production, materials, gestion })` function.
 
-## Learn More
+The `{ partners, production, materials, gestion }` props are passed by the label component and correspond to the sliders or the entities data depending on where the component is used.
 
-To learn more about Next.js, take a look at the following resources:
+All native P5.js function have to be prefixed by `p5.` to avoid instances conflicts. For example : 
+- To use [draw()](https://p5js.org/reference/#/p5/draw) you would use `p5.draw = function () {*** content ***}`.
+- To use a primitive like [stroke(***color***)](https://p5js.org/reference/#/p5/stroke) you would use `p5.stroke(***color***)`. 
+- Or for a constant like [PI](https://p5js.org/reference/#/p5/PI)  you would use `p5.PI`.
+
+On the other hand you have all the tools of javascript.
+
+
+## Deployment
+
+The website will be automatically deployed [here](http://relabel.vercel.app/) on each pushed commit if the build is successful.
+
+
+## Tools documentation
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Mantine documentation](https://mantine.dev/) - Quickly get the css classes you need.

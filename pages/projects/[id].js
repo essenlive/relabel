@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 
 export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnersCount, structure }) {
+    console.log(structure);
     return (
         <Layout title={name}>
             <article className={styles.project}>
