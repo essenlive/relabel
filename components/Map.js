@@ -41,8 +41,8 @@ export default function ReactMap({ data }) {
 
     const markerClick = (organisation) => {
         setViewport({
-            latitude: organisation.latitude,
-            longitude: organisation.longitude,
+            latitude: Number(organisation.latitude),
+            longitude: Number(organisation.longitude),
             zoom: viewport.zoom,
             transitionDuration: 500,
             transitionInterpolator: new FlyToInterpolator(),
@@ -68,8 +68,8 @@ export default function ReactMap({ data }) {
                         <Marker
                             className={styles.marker}
                             key={i}
-                            latitude={item.latitude}
-                            longitude={item.longitude}
+                            latitude={Number(item.latitude)}
+                            longitude={Number(item.longitude)}
                             offsetLeft={-6}
                             offsetTop={-6}
                             onClick={()=>{
@@ -84,8 +84,8 @@ export default function ReactMap({ data }) {
                     )
                 })}
                 {selection && <Popup                    
-                    latitude={selection.latitude}
-                    longitude={selection.longitude}
+                    latitude={Number(selection.latitude)}
+                    longitude={Number(selection.longitude)}
                     closeButton={true}
                     closeOnClick={false}
                     onClose={() => close()}
@@ -93,7 +93,7 @@ export default function ReactMap({ data }) {
                     <Link
                         href={{
                             pathname: '/community/[id]',
-                            query: { id: selection.name },
+                            query: { id: selection.id },
                         }}>
                         <Card
                             style={{ cursor: 'pointer', maxWidth: 300}}
@@ -101,7 +101,7 @@ export default function ReactMap({ data }) {
                             >
 
                             {selection.illustrations && (<Image
-                                src={selection.illustrations[0].thumbnails.large.url}
+                                src={selection.illustrations[0]}
                                 height={200}
                                 alt="Photo d'illustration"
                             />)}
@@ -134,7 +134,7 @@ export default function ReactMap({ data }) {
                             <Link
                                 href={{
                                     pathname: '/community/[id]',
-                                    query: { id: selection.name },
+                                    query: { id: selection.id },
                                 }}>
                                 <Button size="sm" variant="light" fullWidth style={{ marginTop: 10 }}>
                                     Voir structure

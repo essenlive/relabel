@@ -15,7 +15,6 @@ export default function Projects({ projects }) {
   let colorsKeys = Object.keys(theme.colors).slice(1)
   let typologies = Array.from(new Set(projects.map((el) => (el.typology))))
 
-
   return (
     <Layout title='Projets' padded>
       <article>
@@ -28,14 +27,14 @@ export default function Projects({ projects }) {
                 key={i}
                 href={{
                   pathname: '/projects/[id]',
-                  query: { id: item.name },
+                  query: { id: item.id },
                 }}>
                 <Card key={i}
                   shadow="sm"
                   style={{ cursor: 'pointer' }}>
                     
                   {item.illustrations && (<Image
-                    src={item.illustrations[0].thumbnails.large.url}
+                    src={item.illustrations[0]}
                     height={200}
                     alt="Photo d'illustration"
                   />)}
@@ -69,7 +68,7 @@ export default function Projects({ projects }) {
                   <Link
                     href={{
                       pathname: '/projects/[id]',
-                      query: { id: item.name },
+                      query: { id: item.id },
                     }}>
                     <Button size="sm" variant="light" fullWidth style={{ marginTop: 10 }}>
                       Voir projet

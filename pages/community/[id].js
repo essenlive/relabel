@@ -31,9 +31,9 @@ export default function Structure({ name, website, illustrations, status, descri
                             size="small"
                             title={name}
                             status={status}
-                            date={datas.date.split("-")[0]}
+                            date={datas.year.split("-")[0]}
                             data={{
-                                partners: datas.partnersCount,
+                                partners: datas.partnerscount,
                                 materials: datas.materials,
                                 gestion: datas.gestion,
                                 production: datas.production
@@ -71,28 +71,28 @@ export default function Structure({ name, website, illustrations, status, descri
 
 
 export async function getStaticProps({ params }) {
-    let structure = await airtable_api.getStructures({ name: params.id });
+    let structure = await airtable_api.getStructures({ id: params.id });
     structure = structure[0];
-    if (!!structure.datas) {
+    if (structure.datas != false) {
         structure.datas = await airtable_api.getDatas({ id: structure.datas[0] })
         structure.datas = structure.datas[0];
     }
     else{
         structure.datas = {
-            date : 'NC-01-01',
+            year : 'NC-01-01',
             partners: [],
             production: 0,
             gestion: 0,
             materials: 0,
-            partnersCount : 0
+            partnerscount : 0
         }
-    }   
+    }
     return { props: structure }
 }
 
 
 export async function getStaticPaths() {
     let paths = await airtable_api.getStructures();
-    paths = paths.map((el) => ({ params: { id: el.name } }))
+    paths = paths.map((el) => ({ params: { id: el.id } }))
     return { paths: paths, fallback: false };
 }

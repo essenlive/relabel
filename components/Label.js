@@ -3,7 +3,6 @@ import classNames from "classnames"
 import styles from "@styles/components/Label.module.css";
 
 export default function Label({ data, title, status, date, size}) {
-
     return (
         <div className={classNames(styles.label, 
         { [`${styles.small}`]: size === "small" },

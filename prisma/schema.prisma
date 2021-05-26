@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Community {
+  id           String    @id @default(uuid())
+  created_time DateTime? @db.Timestamptz(6)
+  description  String?
+  members      String[]
+  name         String?
+  status       Boolean?  @default(false)
+
+  @@map("community")
+}
+
+model Data {
+  id            String    @id @default(uuid())
+  created_time  DateTime? @db.Timestamptz(6)
+  dataid        String?
+  gestion       Decimal?  @db.Decimal
+  materials     Decimal?  @db.Decimal
+  partners      String[]
+  partnerscount Decimal?  @db.Decimal
+  production    Decimal?  @db.Decimal
+  structure     String[]
+  year          DateTime? @db.Date
+
+  @@map("datas")
+}
+
+model GoodPractice {
+  id           String    @id @default(uuid())
+  created_time DateTime? @db.Timestamptz(6)
+  attachments  String[]
+  name         String?
+  notes        String?
+  status       String?
+  type         String[]
+  valid        Boolean?  @default(false)
+
+  @@map("good_practices")
+}
+
+model Project {
+  id            String    @id @default(uuid())
+  created_time  DateTime? @db.Timestamptz(6)
+  address       String?
+  description   String?
+  duration      Decimal?  @db.Decimal
+  gestion       Decimal?  @db.Decimal
+  illustrations String[]
+  materials     Decimal?  @db.Decimal
+  name          String?
+  partners      String[]
+  partnerscount Decimal?  @db.Decimal
+  production    Decimal?  @db.Decimal
+  structure     String[]
+  team          String[]
+  typology      String?
+
+  @@map("projects")
+}
+
+model Structure {
+  id               String    @id @default(uuid())
+  created_time     DateTime? @db.Timestamptz(6)
+  activity         String[]
+  adress           String?
+  community        String[]
+  datas            String[]
+  dataspartners    String[]
+  description      String?
+  ess              String[]
+  illustrations    String[]
+  latitude         Decimal?  @db.Decimal
+  longitude        Decimal?  @db.Decimal
+  name             String?
+  projects         String[]
+  projectspartners String[]
+  status           String?
+  website          String?
+
+  @@map("structures")
+}

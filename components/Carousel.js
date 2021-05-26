@@ -18,7 +18,7 @@ export default function Carousel({ images }) {
             <div key={i} >
                 <div className={classNames(styles.placeholder, { [`${styles.loaded}`]: loaded })}></div>
                 <Image
-                    src={item.thumbnails.large.url}
+                    src={item}
                     layout='fill'
                     onLoad={() => setLoaded(true)}
                 />

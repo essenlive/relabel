@@ -7,8 +7,7 @@ import { Title, Text, Badge, Button } from '@mantine/core';
 import Link from 'next/link'
 
 
-export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnersCount, structure }) {
-    console.log(structure);
+export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnerscount, structure }) {
     return (
         <Layout title={name}>
             <article className={styles.project}>
@@ -27,7 +26,7 @@ export default function Project({ name, illustrations, description, address, typ
                             status={typology}
                             date={duration}
                             data={{
-                                partners: partnersCount,
+                                partners: partnerscount,
                                 materials: materials,
                                 gestion: gestion,
                                 production: production
@@ -39,7 +38,7 @@ export default function Project({ name, illustrations, description, address, typ
                         {structure && (<Link
                             href={{
                                 pathname: '/community/[id]',
-                                query: { id: structure[0].name },
+                                query: { id: structure[0].id },
                             }}>
                             <Button variant="link" > {structure[0].name} </Button>
                         </Link>)}
@@ -72,7 +71,7 @@ export default function Project({ name, illustrations, description, address, typ
 
 
 export async function getStaticProps({params}) {
-    let project = await airtable_api.getProjects({ name: params.id });
+    let project = await airtable_api.getProjects({ id: params.id });
     project[0].structure = await Promise.all(project[0].structure.map(async (el)=>{
         let structure = await airtable_api.getStructures({ id: el });
         return structure[0]
@@ -81,6 +80,6 @@ export async function getStaticProps({params}) {
 }
 export async function getStaticPaths() {
     let paths = await airtable_api.getProjects({ illustrations: true });
-    paths = paths.map((el) => ({ params: { id: el.name } }))
+    paths = paths.map((el) => ({ params: { id: el.id } }))
     return { paths: paths, fallback: false };
 }
