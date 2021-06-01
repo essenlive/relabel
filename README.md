@@ -1,4 +1,4 @@
-# makersxcovid-expo
+# relabel
 
 This is website uses [Next.js](https://nextjs.org/) with [Mantine](https://mantine.dev/) for the front-end and set up to be instantly deployed to [Vercel](https://vercel.com/)
 
@@ -13,6 +13,7 @@ Then, clone repo and install npm packages:
 git clone https://github.com/essenlive/relabel
 npm install
 ```
+You will need to setup your environment variables for POSTGRE, in an .env file. 
 
 Then, run the development server:
 
