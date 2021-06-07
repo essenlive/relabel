@@ -3,10 +3,6 @@ import mappings from '@libs/mappings'
 import prisma from '@libs/prisma.js'
 let {tablesMapping, columnsMapping} = mappings;
 
-const airtable = new AirtablePlus({
-    baseID: process.env.AIRTABLE_BASEID,
-    apiKey: process.env.AIRTABLE_APIKEY
-});
 
 const airtable_api = {
     validateData: function (data) {
