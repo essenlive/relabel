@@ -37,6 +37,7 @@
 }
 .padded > h1 {
   margin-left: 200px;
+  color: var(--secondary);
 }
 .content > article > div{
   font-size: var(--fontSize-lg);

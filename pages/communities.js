@@ -6,7 +6,6 @@ import airtable_api from '@libs/airtable_api.js'
 
 
 export default function Communities({communities}) {
-  console.log("communities",communities);
   const Card = (props) =>(
     <div className={styles.card}>
       <div className={styles.icon}></div>

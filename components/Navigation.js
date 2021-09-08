@@ -30,16 +30,16 @@ export default function Navigation(props) {
               <a>Productions</a>
             </div>
           </Link>
-          <Link href="/practices">
+          {/* <Link href="/practices">
             <div className={router.route === '/practices' ? styles.linkActive : styles.links}>
               <a>Pratiques</a>
             </div>
-          </Link>
-          <Link href="/contact">
+          </Link> */}
+          {/* <Link href="/contact">
             <div className={router.route === '/contact' ? styles.linkActive : styles.linksEmphasis}>
               <a>Nous rejoindre</a>
             </div>
-          </Link>
+          </Link> */}
         </div>
 
       </nav>
