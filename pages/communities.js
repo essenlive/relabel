@@ -2,11 +2,11 @@ import Layout from '@components/Layout'
 import { Title, Text } from '@mantine/core'
 import classNames from "classnames"
 import styles from "@styles/pages/Communities.module.css";
-// import airtable_api from '@libs/airtable_api.js'
+import airtable_api from '@libs/airtable_api.js'
 
 
 export default function Communities({communities}) {
-  // console.log("communities",communities);
+  console.log("communities",communities);
   const Card = (props) =>(
     <div className={styles.card}>
       <div className={styles.icon}></div>
@@ -20,9 +20,12 @@ export default function Communities({communities}) {
       padded
     >
       <div id="communities-grid" className={styles.communities}>
-        <Card title="Fab City Store" />
-        <Card title="Fab City Store"/>
-        <Card title="Fab City Store" />
+
+        {communities.map((item, i) => {
+          return(
+            <Card title={item.name} />
+          )
+        })}
       </div>
     </Layout>
   );
@@ -30,9 +33,7 @@ export default function Communities({communities}) {
 
 
 export async function getStaticProps() {
-  let communities = {};
-  // let communities = await airtable_api.getCommunities();
-  // console.log(communities);
+  let communities = await airtable_api.getCommunities({ status: true });
   return { props: { communities } }
 
 }
