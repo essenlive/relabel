@@ -1,4 +1,4 @@
-import AirtablePlus from 'airtable-plus';
+// import AirtablePlus from 'airtable-plus';
 import mappings from '@libs/mappings'
 import prisma from '@libs/prisma.js'
 let {tablesMapping, columnsMapping} = mappings;
@@ -42,7 +42,7 @@ const airtable_api = {
     },
     getCommunities: async function (filter) {
         console.log('getCommunities');
-        let data = await prisma.communities.findMany();
+        let data = await prisma.community.findMany();
         data = airtable_api.filterData(data, filter);
         return airtable_api.validateData(data)
     }

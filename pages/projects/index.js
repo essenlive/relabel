@@ -91,7 +91,7 @@ export async function getStaticProps() {
   let projects = await airtable_api.getProjects({ illustrations: true });
   projects = await Promise.all(projects.map(async (project) => {
     project.structure = await Promise.all(project.structure.map(async (structure) => {
-      let structureName = await airtable_api.getStructures({ id: structure });
+      let structureName = await airtable_api.getStructures({ id: structure });   
       return structureName[0].name
     }))
     return project

@@ -7,8 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model Community {
+  id           String    @id
+  created_time DateTime? @db.Timestamptz(6)
+  description  String?
+  members      String[]
+  name         String?
+  status       Boolean?  @default(false)
+
+  @@map("communities")
+}
+
 model Data {
-  id            String    @id @default(uuid())
+  id            String    @id
   created_time  DateTime? @db.Timestamptz(6)
   dataid        String?
   field_9       String?
@@ -20,13 +32,11 @@ model Data {
   structure     String[]
   year          DateTime? @db.Date
 
-  @@index([partners], name: "partners_560t7j79fnh4lbg_idx")
-  @@index([structure], name: "structure_mmbpsq0seisgwev_idx")
   @@map("datas")
 }
 
-model GoodPractice {
-  id           String    @id @default(uuid())
+model GoodPractices {
+  id           String    @id
   created_time DateTime? @db.Timestamptz(6)
   attachments  String[]
   name         String?
@@ -36,11 +46,11 @@ model GoodPractice {
   valid        Boolean?  @default(false)
   place        String?
 
-  @@map("good_practices")
+    @@map("good_practices")
 }
 
 model Project {
-  id            String    @id @default(uuid())
+  id            String    @id
   created_time  DateTime? @db.Timestamptz(6)
   address       String?
   description   String?
@@ -56,13 +66,11 @@ model Project {
   team          String[]
   typology      String?
 
-  @@index([partners], name: "partners_b7kbvyh5tartg4v_idx")
-  @@index([structure], name: "structure_6tht979nmc6zc3v_idx")
   @@map("projects")
 }
 
 model Structure {
-  id               String    @id @default(uuid())
+  id               String    @id
   created_time     DateTime? @db.Timestamptz(6)
   activity         String[]
   adress           String?
@@ -80,64 +88,6 @@ model Structure {
   status           String?
   website          String?
 
-  @@index([community], name: "community_6ot5e2hay4kj8pe_idx")
-  @@index([datas], name: "datas_6eqyaom9rytfzd9_idx")
-  @@index([dataspartners], name: "dataspartners_7xvwvup1dwri5uw_idx")
-  @@index([projects], name: "projects_u9e14hegdjous15_idx")
-  @@index([projectspartners], name: "projectspartners_n2n5igml7wsde9s_idx")
+  
   @@map("structures")
-}
-
-model airtable_schema {
-  id          Int       @id @default(dbgenerated("nextval('_airtable_schema_id_seq'::regclass)"))
-  resource_id String    @db.Uuid
-  payload     Json
-  fingerprint String
-  inserted_at DateTime? @default(now()) @db.Timestamptz(6)
-
-  @@unique([resource_id, fingerprint], name: "idx_resource_id_fingerprint")
-  @@map("_airtable_schema")
-}
-
-model sync_meta {
-  id            Int                      @id
-  started_at    DateTime?                @db.Timestamptz(6)
-  completed_at  DateTime?                @db.Timestamptz(6)
-
-  @@map("_sync_meta")
-}
-
-model colors {
-  id           String    @id
-  created_time DateTime? @db.Timestamptz(6)
-  b            Decimal?  @db.Decimal
-  name         String?
-  r            Decimal?  @db.Decimal
-  v            Decimal?  @db.Decimal
-}
-
-model communities {
-  id           String    @id
-  created_time DateTime? @db.Timestamptz(6)
-  description  String?
-  members      String[]
-  name         String?
-  status       Boolean?  @default(false)
-
-  @@index([members], name: "members_nkj0m8qtg71uxe9_idx")
-}
-
-model structure {
-  id               String    @id
-  created_time     DateTime? @db.Timestamptz(6)
-  active           Boolean?  @default(false)
-  strucadresse     String?
-  strucgestion     Decimal?  @db.Decimal
-  strucid          String?
-  struclat         Decimal?  @db.Decimal
-  struclong        Decimal?  @db.Decimal
-  strucmateriaux   Decimal?  @db.Decimal
-  strucpartenaires Decimal?  @db.Decimal
-  strucprod        Decimal?  @db.Decimal
-  year             Decimal?  @db.Decimal
 }
