@@ -16,7 +16,7 @@ export default function Projects({ projects }) {
   let typologies = Array.from(new Set(projects.map((el) => (el.typology))))
 
   return (
-    <Layout title='Projets' padded>
+    <Layout title='Production' padded>
       <article>
 
         <CardsGrid cardsPerRow={cardsPerRow}>

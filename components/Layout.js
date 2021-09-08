@@ -10,7 +10,7 @@ const Layout = ({title, padded, children})=>{
         <title>Re-label | {title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.sideBar}>
+      <div className={styles.menu}>
         <Navigation />
       </div>
 

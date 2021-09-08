@@ -21,10 +21,10 @@ function MyApp({ Component, pageProps }) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: 'light',
-          fontFamily: 'Open Sans, sans-serif',
+          fontFamily: "'Barlow', 'system-ui', '-apple-system', 'BlinkMacSystemFont'",
           lineHeight: 1.2,
           primaryColor: 'teal', 
-        headings: { fontFamily: 'Roboto Slab, system-ui, serif' },
+          headings: { fontFamily: "'Barlow', 'system-ui', '-apple-system', 'BlinkMacSystemFont'" },
         }}
       >
         <Component {...pageProps} />

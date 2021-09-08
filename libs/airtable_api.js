@@ -39,6 +39,12 @@ const airtable_api = {
         let data = await prisma.data.findMany();
         data = airtable_api.filterData(data, filter);
         return airtable_api.validateData(data)
+    },
+    getCommunities: async function (filter) {
+        console.log('getCommunities');
+        let data = await prisma.communities.findMany();
+        data = airtable_api.filterData(data, filter);
+        return airtable_api.validateData(data)
     }
 
 }

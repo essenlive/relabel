@@ -1,0 +1,39 @@
+.communities{
+  margin-top: 100px !important;
+  display: flex;
+  flex-direction: row;
+}
+.communities > div {
+  width: 25%;
+  margin: 1rem;
+  height: min-content;
+}
+
+.card{
+  padding: 1.5rem;
+  border: var(--secondary) var(--borderWidth-lg) solid;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  box-shadow: var(--boxShadow-2xl);
+}
+
+.card h2{
+  padding: 0.5rem;
+  border: var(--secondary) var(--borderWidth-lg) solid;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--primary);
+  width: auto;
+}
+
+
+.icon{
+  height: 200px;
+  width: 200px;
+  border-radius: var(--borderRadius-full);
+  background-color: var(--primary);
+  margin-bottom: 3rem;
+  align-self: center;
+}

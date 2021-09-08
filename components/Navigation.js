@@ -8,30 +8,40 @@ export default function Navigation(props) {
     return (
       <nav  className={styles.nav}>
         <Link href="/">
-          <div className={styles.title}>
-            <a>Re-Label</a>
+          <div className={styles.logo}>
+            <a>
+              <img src="/assets/logo.png" alt="logo relabel" />
+            </a>
           </div>
         </Link>
-        <Link href="/manifesto">
-          <div className={router.route === '/manifesto' ? styles.linkActive : styles.links}>
-            <a>Manifeste</a>
-          </div>
-        </Link>
-        <Link href="/community">
-          <div className={router.route === '/community' ? styles.linkActive : styles.links}>
-            <a>Communauté</a>
-          </div>
-        </Link>
-        <Link href="/projects">
-          <div className={router.route === '/projects' ? styles.linkActive : styles.links}>
-            <a>Projets</a>
-          </div>
-        </Link>
-        {/* <Link href="/good-practices">
-          <div className={router.route === '/good-practices' ? styles.linkActive : styles.links}>
-            <a>Bonnes Pratiques</a>
-          </div>
-        </Link> */}
+        <div className={styles.menu}>
+          <Link href="/community">
+            <div className={router.route === '/community' ? styles.linkActive : styles.links}>
+              <a>Carte</a>
+            </div>
+          </Link>
+          <Link href="/communities">
+            <div className={router.route === '/communities' ? styles.linkActive : styles.links}>
+              <a>Communautés</a>
+            </div>
+          </Link>
+          <Link href="/projects">
+            <div className={router.route === '/projects' ? styles.linkActive : styles.links}>
+              <a>Productions</a>
+            </div>
+          </Link>
+          <Link href="/practices">
+            <div className={router.route === '/practices' ? styles.linkActive : styles.links}>
+              <a>Pratiques</a>
+            </div>
+          </Link>
+          <Link href="/contact">
+            <div className={router.route === '/contact' ? styles.linkActive : styles.linksEmphasis}>
+              <a>Nous rejoindre</a>
+            </div>
+          </Link>
+        </div>
+
       </nav>
     );
 }

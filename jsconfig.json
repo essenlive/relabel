@@ -4,7 +4,8 @@
         "paths": {
             "@components/*": ["components/*"],
             "@styles/*": ["styles/*"],
-            "@libs/*": ["libs/*"]
+            "@libs/*": ["libs/*"],
+            "@public/*": ["public/*"]
         }
     },
     "exclude": [

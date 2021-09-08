@@ -1,191 +1,63 @@
 import Layout from '@components/Layout'
-import Label from '@components/Label';
+import { Title, Text } from '@mantine/core';
+import classNames from "classnames"
 import styles from "@styles/pages/Home.module.css";
-import { Formik } from 'formik';
-import * as Yup from 'yup';
 
-const Schema = Yup.object().shape({
-  name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-  date: Yup.date().default(function () { return new Date(); }),
-  email: Yup.string().email('Invalid email').required('Required'),
-  status: Yup.string().required('Required'),
-  partnersCount: Yup.number().required().min(0).required('Required'),
-  materials: Yup.number().min(0).max(100).required('Required'),
-  production: Yup.number().min(0).max(100).required('Required'),
-  gestion: Yup.number().min(0, 'Ca doit etre au moins 0 non').max(100).required('Required'),
-});
-
-export default function Home() {
-
+export default function Manifesto() {
   return (
-    <Layout title='Home' padded>
-      <article className={styles.home}>
-        <Formik
-          initialValues={{
-            name: '',
-            date: new Date(),
-            status: 'Association',
-            partnersCount: 0,
-            materials: 0,
-            production: 0,
-            gestion: 0,
-          }}
-          validationSchema={Schema}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
-          }}
-        // onSubmit={(values, { setSubmitting }) => {
-        //   setTimeout(() => {
-        //     alert(JSON.stringify(value, 2));
-        //     setSubmitting(false);
-        //   }, 400);
-        // }}
-        >
+    <Layout
+      title='Manifesto'
+      padded
+    >
 
-          {({
-            values,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-            errors,
-            touched
-          }) => {
-            return (
-              <>
-                <div className={styles.form}>
-                  <form onSubmit={handleSubmit}>
-                    {errors.name && (
-                      <div>{errors.name}</div>
-                    )}
-                    <div className={styles.input}>
-                      <span>
-                        Nom :
-                      </span>
-                      <input
-                        name="name"
-                        placeholder="Nom de la structure"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.name}
-                      />
-                    </div>
-                    {errors.status && (
-                      <div>{errors.status}</div>
-                    )}
-                    <div className={styles.input}>
-                      <span>
-                        Type :
-                      </span>
-                      <select
-                        dir="rtl"
-                        name="status"
-                        placeholder="Type de structure"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.status}
-                      >
-                        <option value="SARL">SARL</option>
-                        <option value="SAS">SAS</option>
-                        <option value="SA">SA</option>
-                        <option value="Association">Association</option>
-                        <option value="SCOP">SCOP</option>
-                        <option value="SCIC">SCIC</option>
-                      </select>
-                    </div>
-                    {errors.partnersCount && (
-                      <div>{errors.partnersCount}</div>
-                    )}
-                    <div className={styles.input}>
-                      <span>
-                        Nombre de partenaires :
-                      </span>
-                      <input
-                      type="number"
-                        name="partnersCount"
-                      placeholder="Nombre de partenaires"
-                      value={values.partnersCount}
-                      onBlur={handleBlur}
-                      onChange={handleChange}/>
-                      <label>partenaire.s</label>
-                    </div>
-                    {errors.materials && (
-                      <div>{errors.materials}</div>
-                    )}
-                    <div className={styles.input}>
-                      <span>
-                          Pourcentage de matériaux :
-                      </span>
-                      <input
-                        type="range"
-                        name="materials"
-                        placeholder="Pourcentage de materiaux"
-                        value={values.materials}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        min="0"
-                        max="100"/>
-                      <label>%</label>
-                    </div>
-                    {errors.production && (
-                      <div>{errors.production}</div>
-                    )}
-                    <div className={styles.input}>
-                      <span>
-                            Pourcentage de production :
-                      </span>
-                      <input
-                        type="range"
-                        name="production"
-                        placeholder="Pourcentage de production"
-                        value={values.production}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        min="0"
-                        max="100"/>
-                      <label>%</label>
-                    </div>
-                    {errors.gestion && (
-                      <div>{errors.gestion}</div>
-                    )}
-                    <div className={styles.input}>
-                      <span>
-                        Pourcentage de gestion :
-                      </span>
-                      <input
-                        type="range"
-                        name="gestion"
-                        placeholder="Pourcentage de gestion"
-                        value={values.gestion}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        min="0"
-                        max="100" />
-                      <label>%</label>
-                    </div>
-                  </form>
-                </div>
+      <div className={styles.banner}>
+        <div className={styles.header}>
+          <Title order={1}> Re-Label </Title>
+          <Title order={2}> Valorisateur des pratiques du réemploi </Title>
+          <Text size="xl" style={{ marginTop: 10 }}>
+            <strong>RE-label</strong> est un agrégateur et valorisateur de pratiques collaboratives sur le réemploi à l'échelle d'un territoire restreint. Il offre aussi une lecture à plus grande échelle de toutes les initiatives RE-label.
+          </Text>
+
+        </div>
+        <div className={styles.items}>
+          <div>
+            <div className={styles.icon}></div>
+            <Title order={2}> Quantifier </Title>
+            <Text size="xl" style={{ marginTop: 10 }}>
+              <strong>RE-label</strong> qualifie, quantifie puis certifie des pratiques et des objets manufacturés en s'appuyant sur des informations utiles : matériau, provenance, travail et durabilité.
+            </Text>
+          </div>
+          <div>
+            <div className={styles.icon}></div>
+            <Title order={2}> Accompagner </Title>
+            <Text size="xl" style={{ marginTop: 10 }}>
+              <strong>RE-label</strong> observe, accompagne et valorise des pratiques de gestion et d'utilisation de matériaux à recycler ou employé, et récompense des actes d'achats responsables tout en sensibilisant les consommateurs.
+            </Text>
+          </div>
+          <div>
+            <div className={styles.icon}></div>
+            <Title order={2}> Local </Title>
+            <Text size="xl" style={{ marginTop: 10 }}>
+              <strong>RE-label</strong> est un outil de confiance qui se déploie sur un territoire restreint, un quartier, une commune ou une communauté de communes. Il est mis en place par une association, une coopérative, une collectivité qui en assure la gestion pour l'ensemble des parties prenantes.
+            </Text>
+          </div>
+          <div>
+            <div className={styles.icon}></div>
+            <Title order={2}> Collectif </Title>
+            <Text size="xl" style={{ marginTop: 10 }}>
+              <strong>RE-label</strong> s'active lorsqu'un groupe d'utilisateurs est prêt à incarner les valeurs et les objectifs du label (créateurs-trices, designers, architectes, artisan-nes, gérant-es d'atelier, ressourceries ou stocks, et que les usagers favorisent son développement).
+            </Text>
+          </div>
+          {/* <div>
+            <Title order={2}> Manifeste </Title>
+            <Text size="xl" style={{ marginTop: 10 }}>
+              En adhérent à un groupe représentant RE-Label, les utilisateurs bénéficient de la méthode et des outils (générateur de label, certificat d'authenticité, cartographie, réseau, catalogue) pour construire un indicateur de confiance commun et un générateur de valeur dédié.
+            </Text>
+          </div> */}
+        </div>
+      </div>
 
 
-                <Label
-                  title={values.name}
-                  status={values.status}
-                  date={values.date.getFullYear()}
-                  size={'medium'}
-                  data={{
-                    partners: Number(values.partnersCount),
-                    production: Number(values.production / 100),
-                    gestion: Number(values.gestion / 100),
-                    materials: Number(values.materials / 100),
-                  }} />
-              </>
-            )
-          }}
-        </Formik>
-
-
-      </article>
     </Layout>
   );
 }

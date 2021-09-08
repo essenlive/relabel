@@ -1,43 +1,62 @@
 .nav {
   display: flex;
-  flex-direction: column;
-  align-items: left;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
   flex-grow: 0;
-  padding: 2rem;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
 }
-.title {
+.logo {
+  width: auto;
+  height: 150px;
   font-family: var(--font-header);
-  font-size:var(--fontSize-4xl) !important;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  align-self: flex-start;
+  place-self: start;
+  cursor: pointer;
 }
-.links, .title, .linkActive {
-  margin-left : -0.25rem;
+.logo img{
+  height: 100%;
+}
+.menu{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.links, .linkActive, .linksEmphasis {
+  margin : 0.5rem 1rem;
   padding: 0.25rem ;
   cursor: pointer;
   width: max-content;
   position: relative;
+  font-weight: 800;
+  text-transform: uppercase;
   font-size:var(--fontSize-xl);
   z-index: 1;
+  color:var(--secondary)
 }
-.links a, .title, .linkActive a{
+.linkActive, .linksEmphasis {  color:var(--primary)}
+.links a, .linkActive a{
   position: relative;
   z-index: 1;
 }
-.links::after, .title::after, .linkActive::after {
+.links::after, .linkActive::after, .linksEmphasis::after {
   content : "";
   display: block ;
-  height: 100%;
+  height: 3px;
   width: 0%;
+  margin: 0 10px;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   background-color:var(--primary);
   transition: all 0.25s ease-in-out;
 }
 
-.links:hover::after, .linkActive::after {
-  width: 100%;
+.links:hover::after, .linkActive::after, .linksEmphasis:hover::after {
+  width: calc(100% - 20px);
 }
 @media (--screen-sm) {  
   .nav{

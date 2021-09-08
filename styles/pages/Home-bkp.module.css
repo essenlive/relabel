@@ -1,0 +1,53 @@
+.home{
+    display: flex;
+    flex-direction: row;
+}
+
+.form{
+    display: block;  
+    width: 50%;
+    margin-right: 2rem;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--borderWidth-lg) var(--black) solid;
+    font-size: var(--fontSize-base);
+    font-family: var(--font-header);
+    margin-bottom: 0.5rem;
+  }
+  .input > * {
+    padding: 0.5rem 0.3rem;
+  }
+  .input input, .input select, .input option{
+    border: transparent;
+    background: transparent;
+    text-align: right;
+    font-weight: 700;
+  }
+    .input input:focus-visible, .input select:focus-visible, .input option{
+      outline: none;
+  }
+.input label{
+    font-weight: 300;
+    text-align: right;
+    width: min-content;
+    margin-left: 1rem;
+}
+.input span{
+  width: 80%;
+}
+@media (--screen-sm) {  
+  .home {
+    flex-direction: column;
+  }
+  .form{
+      width: 100%;
+      margin-bottom: 2rem;
+  }
+}
