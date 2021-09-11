@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Community {
   id           String    @id
   created_time DateTime? @db.Timestamptz(6)
@@ -15,6 +14,7 @@ model Community {
   members      String[]
   name         String?
   status       Boolean?  @default(false)
+  website      String?
 
   @@map("communities")
 }
@@ -46,7 +46,7 @@ model GoodPractices {
   valid        Boolean?  @default(false)
   place        String?
 
-    @@map("good_practices")
+  @@map("good_practices")
 }
 
 model Project {
@@ -88,6 +88,5 @@ model Structure {
   status           String?
   website          String?
 
-  
   @@map("structures")
 }

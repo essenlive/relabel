@@ -7,7 +7,7 @@ const P5Wrapper = dynamic(
 export default function Sketch({ partners, production, materials, gestion }) {
     function sketch(p5) {
         // Constantes graphiques
-        const width = 1200;
+        const width = 600;
         const height = width;
         const dim = 100;
         const nbCases = width / dim;

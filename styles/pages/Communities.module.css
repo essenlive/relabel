@@ -1,29 +1,59 @@
 .communities{
   margin-top: 100px !important;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
+  width: 100%;
 }
 .communities > div {
-  width: 25%;
+  width: calc(25% - 2 * 1rem);
   margin: 1rem;
-  height: min-content;
 }
-
-.card{
-  padding: 1.5rem;
-  border: var(--secondary) var(--borderWidth-lg) solid;
-  background: var(--white);
+.recto{
   display: flex;
   flex-direction: column;
   align-content: center;
-  box-shadow: var(--boxShadow-2xl);
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.verso{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  background: var(--white);
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  transition: all 0.25s ease-in-out;
+  opacity: 0;
 }
 
-.card h2{
+.card{
+  border: var(--secondary) var(--borderWidth-lg) solid;
+  height: 400px;
+  background: var(--white);
+  position: relative;
+  box-shadow: var(--boxShadow-2xl);
+}
+.card:hover > div:last-child{
+  opacity: 100;
+}
+
+.recto h2{
   padding: 0.5rem;
   border: var(--secondary) var(--borderWidth-lg) solid;
   text-transform: uppercase;
   text-align: center;
+  color: var(--primary);
+  width: auto;
+}
+.verso h2{
+  padding: 0.5rem 0;
+  text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
@@ -36,4 +66,34 @@
   background-color: var(--primary);
   margin-bottom: 3rem;
   align-self: center;
+}
+.add{
+  border: var(--secondary) var(--borderWidth-lg) solid;
+  height: 400px;
+  background: var(--white);
+  box-shadow: var(--boxShadow-2xl);
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.add h2{
+  padding: 0.5rem 0;
+  text-transform: uppercase;
+  color: var(--primary);
+  width: auto;
+}
+
+
+@media (--screen-md) {  
+ .communities{
+  margin-top: 0px !important;
+  flex-direction: column;
+}
+  .communities > div {
+    width: calc(100% - 2 * 1rem);
+    margin: 1rem;
+}
 }
