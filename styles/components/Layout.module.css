@@ -18,19 +18,19 @@
 .content{
   width: 100%;
   flex-grow: 1;
-  min-height: 100vh;
+  min-height: calc(100vh - 200px);
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-.content > div {
+/* .content > div {
   width: 100%;
 }
 .section{
   width: 100%;
   flex-grow: 1;
   min-height: 100vh;
-}
+} */
 .padded{
   padding: 2rem;
   margin-top: 50px;;
@@ -38,9 +38,6 @@
 .padded > h1 {
   margin-left: 200px;
   color: var(--secondary);
-}
-.content > article > div{
-  font-size: var(--fontSize-lg);
 }
 
 @media (--screen-sm) {  
@@ -52,8 +49,9 @@
     width: 100vw;
   }
   .content{
-    position: static;
+    position: absolute;
     margin-left: initial;
+    margin-top: 150px;
     width: 100vw;
   }
 }
