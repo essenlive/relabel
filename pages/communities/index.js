@@ -1,5 +1,5 @@
 import Layout from '@components/Layout'
-import { Title, Text, Button } from '@mantine/core'
+import { Title, Image, Text, Button } from '@mantine/core'
 import classNames from "classnames"
 import Link from 'next/link'
 import styles from "@styles/pages/Communities.module.css";
@@ -10,26 +10,36 @@ export default function Communities({ communities }) {
   const Card = (props) => (
     <div className={styles.card}>
       <div className={styles.recto}>
-        <div className={styles.icon}></div>
+        <div className={styles.icon}><Image
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+          src="/assets/label-comm-placeholder.png"
+          height={200}
+          alt="Photo d'illustration"
+        /></div>
         <Title order={2}> {props.title}</Title>
       </div>
       <div className={styles.verso}>
         <Title order={2}> {props.title}</Title>
         <Text size="xl">{props.description}</Text>
 
-        {props.website && (
-         <Link
-          href={props.website}>
-          <Button variant="light" color="gray">Voir le site</Button>
+        <Link
+          href={{
+            pathname: '/communities/[id]',
+            query: { id: props.id },
+          }}>
+          <Button variant="light" color="gray">Voir la communautée</Button>
           </Link>
-        )}
       </div>
     </div>
   )
 
   return (
     <Layout
-      title='Pratiques'
+      title='Communautées'
       padded
     >
       <div id="communities-grid" className={styles.communities}>
@@ -40,6 +50,7 @@ export default function Communities({ communities }) {
               title={item.name}
               description={item.description}
               website={item.website}
+              id={item.id}
             />
           )
         })}

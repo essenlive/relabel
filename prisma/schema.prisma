@@ -12,6 +12,7 @@ model Community {
   created_time DateTime? @db.Timestamptz(6)
   description  String?
   members      String[]
+  cities      String[]
   name         String?
   status       Boolean?  @default(false)
   website      String?
@@ -23,7 +24,6 @@ model Data {
   id            String    @id
   created_time  DateTime? @db.Timestamptz(6)
   dataid        String?
-  field_9       String?
   gestion       Decimal?  @db.Decimal
   materials     Decimal?  @db.Decimal
   partners      String[]

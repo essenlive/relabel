@@ -15,8 +15,8 @@ export default function Navigation(props) {
           </div>
         </Link>
         <div className={styles.menu}>
-          <Link href="/community">
-            <div className={router.route === '/community' ? styles.linkActive : styles.links}>
+          <Link href="/structures">
+            <div className={router.route === '/structures' ? styles.linkActive : styles.links}>
               <a>Carte</a>
             </div>
           </Link>
@@ -37,7 +37,7 @@ export default function Navigation(props) {
           </Link> */}
           {/* <Link href="/contact">
             <div className={router.route === '/contact' ? styles.linkActive : styles.linksEmphasis}>
-              <a>Nous rejoindre</a>
+              <a>Nous contacter</a>
             </div>
           </Link> */}
         </div>

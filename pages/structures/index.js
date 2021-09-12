@@ -3,7 +3,7 @@ import ReactMap from '@components/Map'
 import airtable_api from '@libs/airtable_api.js'
 
 
-export default function Community({ structures }) {
+export default function Structures({ structures }) {
   return <Layout title="Communauté">
     <ReactMap data={structures} />
   </Layout>;
