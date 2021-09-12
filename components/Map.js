@@ -92,7 +92,7 @@ export default function ReactMap({ data }) {
                     anchor="top" >
                     <Link
                         href={{
-                            pathname: '/community/[id]',
+                            pathname: '/structures/[id]',
                             query: { id: selection.id },
                         }}>
                         <Card
