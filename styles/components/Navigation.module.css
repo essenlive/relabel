@@ -74,11 +74,13 @@
     top: 0;
     right: 0;
     display: block;
+    cursor: pointer;
   }
   .MobileToggle > span{
     display: flex;
     flex-direction: row;
     font-weight: 700;
+    text-transform: uppercase;
     color: var(--secondary);
   }
   .MobileToggle svg{

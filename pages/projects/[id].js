@@ -1,72 +1,58 @@
 import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
-import Label from '@components/Label';
-import styles from "@styles/pages/SinglePage.module.css";
+// import Label from '@components/Label';
+import styles from "@styles/pages/SingleProject.module.css";
 import Carousel from "@components/Carousel";
-import { Title, Text, Badge, Button } from '@mantine/core';
+import { Title, Text, Image } from '@mantine/core';
 import Link from 'next/link'
 
 
 export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnerscount, structure }) {
     return (
-        <Layout title={name}>
-            <article className={styles.project}>
+        <Layout padded title={name}>
+            <div className={styles.banner}>
+                <div className={styles.title}>
+                    {name && (<Title order={1}> {name} </Title>)}
+                </div>
+                <div className={styles.description}>
+                    {description && (<Text size="xl"> {description} </Text>)}
+                </div>
 
-                {illustrations && (
-                    <div className={styles.illustration}>
+                <div className={styles.carousel}>
+                    {illustrations && (
                         <Carousel images={illustrations} />
-                    </div>
-                )}
-                <div className={styles.content}>
-                    <div className={styles.label}>
+                    )}
+                </div>
 
-                        <Label
-                            size="small"
-                            title={name}
-                            status={typology}
-                            date={duration}
-                            data={{
-                                partners: partnerscount,
-                                materials: materials,
-                                gestion: gestion,
-                                production: production
-                            }}
-                        />
-                    </div>
 
-                    <div className={styles.infos}>
-                        {structure && (<Link
-                            href={{
-                                pathname: '/community/[id]',
-                                query: { id: structure[0].id },
-                            }}>
-                            <Button variant="link" > {structure[0].name} </Button>
-                        </Link>)}
-                        {name && (<Title order={1}> {name} </Title>)}
-                        {typology && (<Badge variant="filled">{typology}</Badge>)}
-                        {/* {team && (<div>
-                            {team.map((item, i) => (<Text component="span" key={i}>{item} </Text>))}
-                        </div>)} */}
-                        {description && (<Text component="div"> {description} </Text>)}
-                    {/* {address && ( <div>
-                        {address}
-                    </div>)}
-                    {duration && ( <div>
-                        {duration}
-                    </div>)} */}
-                    {/* {partners && ( <div>
-                        {partners.map((item, i) => (<span key={i}>{item} </span>))}
-                    </div>)} */}
-                    </div>
+                <div className={styles.certificate}>
+                    <Link href={""}>
+                        <Text size="xl" weight={700} transform='uppercase'> Voir le certificat </Text>
+                    </Link>
+                </div>
 
+                <div className={styles.label}>
+
+                    <div className={styles.icon}><Image
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                        }}
+                        src="/assets/label-comm-placeholder.png"
+                        height={200}
+                        alt="Photo d'illustration"
+                    /></div>
+                    <Title order={2}> {name}</Title>
 
                 </div>
 
-            </article>
+            </div>
         </Layout>
     );
 }
 
+   
 
 
 

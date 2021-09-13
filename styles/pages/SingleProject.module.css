@@ -1,12 +1,12 @@
 .banner{
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 100px 150px 400px; 
+  grid-template-rows: 100px 150px 400px;; 
   gap: 0px 0px; 
   grid-template-areas: 
     ". title title title"
-    ". description description website"
-    "label structures structures cities"; 
+    ". description description certificate"
+    "label carousel carousel carousel"; 
     width: 80%;
     min-height: 80vh;
 }
@@ -31,64 +31,36 @@
     border-left: var(--secondary) var(--borderWidth-lg) solid;
     border-right: var(--secondary) var(--borderWidth-lg) solid;
 }
-.website { grid-area: website; 
+.certificate { 
+    grid-area: certificate; 
     padding: 1rem;
     background: var(--primary);
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     justify-content: space-around;
+    text-align: center;
     border-right: var(--secondary) var(--borderWidth-lg) solid;
 }
-.website:hover{
+.certificate:hover{
     background-color: var(--white);
 }
-.website:hover div{
+.certificate:hover div{
     color: var(--primary);
 }
-.website div{
+.certificate div{
     cursor: pointer;
     color: var(--white);
     font-size: 2rem;
 }
-.structures { grid-area: structures;
+.carousel { grid-area: carousel;
     background: var(--white);
     border: var(--secondary) var(--borderWidth-lg) solid;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
-.structuresTitle {
-    padding: 1rem;
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
-    color: var(--secondary);
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    font-weight: 800;
-}
-.structuresTitle span{
- color: var(--primary);   
-}
-.structuresList {
-    padding: 1rem;
-    height: 100%;
-}
-.structuresList > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-}
-.structuresListName{
-    font-size: 1rem;
-    color: var(--secondary);
-    font-weight: 700;
-}
-.structuresListProject{
-    font-size: 1rem;
-    color: var(--primary);
-    font-weight: 700;
-}
+
 .label { grid-area: label;
     padding: 1rem;
     display: flex;
@@ -107,26 +79,6 @@
   text-align: center;
   color: var(--primary);
   width: auto;
-}
-.cities { grid-area: cities;
-    padding: 1rem;
-    background-image:  url("/assets/background-bw.png");
-    background-color:  white;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    
-    border-right: var(--secondary) var(--borderWidth-lg) solid;
-    border-top: var(--secondary) var(--borderWidth-lg) solid;
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
-}
-.cities div{
-    color: var(--primary);
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: 2rem;
-    text-align: center;
 }
 
 @media (--screen-md) {  

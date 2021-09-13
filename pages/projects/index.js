@@ -1,6 +1,5 @@
 import Layout from '@components/Layout';
-import { Image, Text, Button, Title, useMantineTheme } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Image, Text, Button, Title } from '@mantine/core';
 import Link from 'next/link'
 import styles from "@styles/pages/Projects.module.css";
 import airtable_api from '@libs/airtable_api.js'

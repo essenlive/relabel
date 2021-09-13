@@ -1,9 +1,0 @@
-.loaded{
-    opacity: 0 !important;
-}
-.placeholder{
-    transition: 0.5s ease-in-out;
-    background-size: 100% 100%;
-    background: var(--tertiary);
-    z-index: 10;
-}

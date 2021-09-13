@@ -1,6 +1,5 @@
 import Layout from '@components/Layout'
 import { Title, Image, Text, Button } from '@mantine/core'
-import classNames from "classnames"
 import Link from 'next/link'
 import styles from "@styles/pages/Communities.module.css";
 import airtable_api from '@libs/airtable_api.js'

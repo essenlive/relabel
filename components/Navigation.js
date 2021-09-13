@@ -47,8 +47,8 @@ export default function Navigation(props) {
            </Link>
 
            <div className={styles.MobileToggle} onClick={() => { setMenuOpen(!menuOpen) }}>
-            {menuOpen && (<span><FiX /></span>)}
-            {!menuOpen && (<span>MENU <FiMenu /></span>)}
+            {menuOpen && (<span>Fermer <FiX /></span>)}
+            {!menuOpen && (<span>Menu <FiMenu /></span>)}
            </div>
          </div>
 
