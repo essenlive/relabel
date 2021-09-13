@@ -62,8 +62,19 @@
   display: none;
   padding: 1rem;
 }
+.signature{display: none;}
 
-@media (--screen-sm) {  
+@media (--screen-md) {  
+  .signature{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    font-size: var(--fontSize-sm);
+    margin : 1.5rem;
+    font-weight: 500;
+  }
+
   .nav{
     width: 100vw;
     position: relative;
@@ -71,10 +82,12 @@
   }
   .MobileToggle{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0.5rem;
+    right: 0.5rem;
     display: block;
     cursor: pointer;
+    background-color: var(--white);
+    border-radius: 0.5rem;
   }
   .MobileToggle > span{
     display: flex;
