@@ -10,16 +10,11 @@ export default function Communities({ communities }) {
   const Card = (props) => (
     <div className={styles.card}>
       <div className={styles.recto}>
-        <div className={styles.icon}><Image
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
-          }}
+        <Image
           src="/assets/label-comm-placeholder.png"
           height={200}
           alt="Photo d'illustration"
-        /></div>
+        />
         <Title order={2}> {props.title}</Title>
       </div>
       <div className={styles.verso}>

@@ -8,7 +8,7 @@
     ". description description website"
     "label structures structures cities"; 
     width: 80%;
-    height: 80vh;
+    min-height: 80vh;
 }
 .title { 
     grid-area: title; 
@@ -39,6 +39,12 @@
     justify-content: space-around;
     padding: 1rem;
     border-right: var(--secondary) var(--borderWidth-lg) solid;
+}
+.website:hover{
+    background-color: var(--white);
+}
+.website:hover div{
+    color: var(--primary);
 }
 .website div{
     cursor: pointer;
@@ -106,12 +112,13 @@
     background-image:  url("/assets/background-bw.png");
     background-color:  white;
     background-size: cover;
-    border-right: var(--secondary) var(--borderWidth-lg) solid;
-    border-top: var(--secondary) var(--borderWidth-lg) solid;
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    
+    border-right: var(--secondary) var(--borderWidth-lg) solid;
+    border-top: var(--secondary) var(--borderWidth-lg) solid;
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
 }
 .cities div{
     color: var(--primary);
@@ -119,4 +126,18 @@
     font-weight: 800;
     font-size: 2rem;
     text-align: center;
+}
+
+@media (--screen-md) {  
+    .banner{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+    .banner > div{    
+        border: var(--secondary) var(--borderWidth-lg) solid;
+    }
+    .banner > div:not(:last-child){    
+        border-bottom: transparent;
+    }
 }
