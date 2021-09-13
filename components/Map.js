@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Source, Layer, Marker, Popup, FlyToInterpolator } from 'react-map-gl';
-import { Button, Card, Hr, Image, Text, Badge, Title, useMantineTheme } from '@mantine/core';
+import { Button, Card, Hr, Image, Text, Badge, Title } from '@mantine/core';
 import styles from "@styles/components/Map.module.css";
 import Link from 'next/link'
 
@@ -24,10 +24,9 @@ import Link from 'next/link'
 //     }
 // };
 export default function ReactMap({ data }) {
-    const theme = useMantineTheme();
-    let colorsKeys = Object.keys(theme.colors).slice(1);
+    let colors = ["primary", "secondary", "tertiary", "quaternary", "pink-500", "cyan-500" ];
     let activities = Array.from(new Set(data.map((el) => (el.activity)).flat()))
-
+    console.log(activities);
 
     const [viewport, setViewport] = useState({
         latitude: 48.85658,
@@ -76,7 +75,7 @@ export default function ReactMap({ data }) {
                                 markerClick(item)
                             }}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 12 12" stroke="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill={`var(--${ colors[activities.indexOf(item.activity[0])]})`} viewBox="0 0 12 12" stroke="none">
                                 
                                 <circle cx="6" cy="6" r="6"/>
                             </svg>
@@ -116,7 +115,7 @@ export default function ReactMap({ data }) {
                             >
                                 <Title order={4} weight={500}>{selection.name}</Title>
                                 {selection.activity && (<div>{selection.activity.map((item, i) => (
-                                <Badge key={i} color={colorsKeys[activities.indexOf(item)]}>{item}</Badge>
+                                <Badge key={i} >{item}</Badge>
                                 ))}</div>)}
                             </div>
 

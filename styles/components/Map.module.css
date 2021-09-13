@@ -13,9 +13,6 @@
     cursor: pointer;
 }
 @media (--screen-sm) {  
-    .map{
-        height: 90vh;
-    }
     .map .mapboxgl-popup{
         width: 90%;
     }
