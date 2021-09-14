@@ -1,20 +1,122 @@
-.map{
+.map {
     height: 100vh;
     width: 100%;
     overflow: hidden;
     position: relative
 }
 
-.map .mapboxgl-popup{
+.map .mapboxgl-popup {
     width: 50%;
-} 
-.marker{
+}
+
+.marker {
     width: 12px;
     cursor: pointer;
 }
-@media (--screen-sm) {  
-    .map .mapboxgl-popup{
+
+.card {
+    border: var(--secondary) var(--borderWidth-lg) solid;
+    width: 300px;
+    height: 400px;
+    background: var(--white);
+    position: relative;
+    box-shadow: var(--boxShadow-2xl);
+}
+
+.card:hover>div:last-child {
+    opacity: 100;
+}
+
+.recto {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.recto img {
+    object-fit: cover !important;
+    height: 300px;
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+.community {
+    object-fit: cover !important;
+}
+
+.verso {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    background: var(--white);
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    transition: all 0.25s ease-in-out;
+    opacity: 0;
+}
+
+.cardTitle {
+    padding: 0.25rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--white);
+    background-color: var(--secondary);
+    font-size: var(--fontSize-md);
+    width: 200px;
+    height: 2rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardAdress {
+    padding: 0.25rem;
+    text-align: center;
+    text-transform: lowercase;
+    border: var(--secondary) var(--borderWidth-lg) solid;
+    font-size: var(--fontSize-xs);
+    width: 200px;
+    background-color: var(--white);
+    height: 2rem;
+    position: absolute;
+    top: calc(3rem - var(--borderWidth-lg));
+    left: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+.cardCommunities {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.verso h2 {
+    padding: 0.5rem 0;
+    text-transform: uppercase;
+    color: var(--primary);
+    width: auto;
+}
+
+@media (--screen-sm) {
+    .map .mapboxgl-popup {
         width: 90%;
     }
-
 }

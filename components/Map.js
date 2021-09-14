@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Source, Layer, Marker, Popup, FlyToInterpolator } from 'react-map-gl';
-import { Button, Card, Hr, Image, Text, Badge, Title } from '@mantine/core';
+import { Text, Title } from '@mantine/core';
 import styles from "@styles/components/Map.module.css";
 import Link from 'next/link'
 
@@ -26,7 +26,6 @@ import Link from 'next/link'
 export default function ReactMap({ data }) {
     let colors = ["primary", "secondary", "tertiary", "quaternary", "pink-500", "cyan-500" ];
     let activities = Array.from(new Set(data.map((el) => (el.activity)).flat()))
-    console.log(activities);
 
     const [viewport, setViewport] = useState({
         latitude: 48.85658,
@@ -89,59 +88,32 @@ export default function ReactMap({ data }) {
                     closeOnClick={false}
                     onClose={() => close()}
                     anchor="top" >
-                    <Link
-                        href={{
-                            pathname: '/structures/[id]',
-                            query: { id: selection.id },
-                        }}>
-                        <Card
-                            style={{ cursor: 'pointer', maxWidth: 300}}
-                            shadow="lg"
-                            >
-
-                            {selection.illustrations && (<Image
-                                src={selection.illustrations[0]}
-                                height={200}
-                                alt="Photo d'illustration"
-                            />)}
-
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    marginBottom: 10,
-                                }}
-                            >
-                                <Title order={4} weight={500}>{selection.name}</Title>
-                                {selection.activity && (<div>{selection.activity.map((item, i) => (
-                                <Badge key={i} >{item}</Badge>
+                        <div className={styles.card}>
+                            <div className={styles.recto}>
+                                <img
+                                    src="/assets/label-comm-placeholder.png"
+                                    height={200}
+                                    alt="Photo d'illustration"
+                                />
+                                {selection.name && (<h2 className={styles.cardTitle}>{selection.name}</h2>)}
+                                {selection.adress && (<div className={styles.cardAdress}>{selection.adress}</div>)}
+                            {selection.community && (<div className={styles.cardCommunities}>{selection.community.map((el)=>(
+                                    <h3>{el}</h3>
                                 ))}</div>)}
                             </div>
+                            <div className={styles.verso}>
+                                <h2> {selection.name}</h2>
+                                <div>{selection.description}</div>
 
-                            {selection.status && (<Title order={6}>{selection.status}</Title>)}
-                            {selection.adress && (<Text size="sm">{selection.adress}</Text>)}
-
-                            {selection.description && (
-                            <>
-                                <Hr />
-                                <Text size="sm">
-                                    {selection.description}
-                                </Text>
-                            </>
-                            )}
-                            <Link
-                                href={{
-                                    pathname: '/community/[id]',
-                                    query: { id: selection.id },
-                                }}>
-                                <Button size="sm" variant="light" fullWidth style={{ marginTop: 10 }}>
-                                    Voir structure
-                                </Button>
-                            </Link>
-
-                        </Card>
-                    </Link>
+                                <Link
+                                    href={{
+                                        pathname: '/structure/[id]',
+                                        query: { id: selection.id },
+                                    }}>
+                                        Voir la structure
+                                </Link>
+                            </div>
+                        </div>
                 </Popup>}
 
             </ReactMapGL>
