@@ -1,14 +1,9 @@
 import Layout from '@components/Layout';
-import { Image, Text, Button, Title } from '@mantine/core';
 import Link from 'next/link'
 import styles from "@styles/pages/Projects.module.css";
 import airtable_api from '@libs/airtable_api.js'
 
 export default function Projects({ projects }) {
-
-  // const theme = useMantineTheme();
-  // let colorsKeys = Object.keys(theme.colors).slice(1)
-  // let typologies = Array.from(new Set(projects.map((el) => (el.typology))))
 
   const Card = (props) => (
   <Link
@@ -19,13 +14,8 @@ export default function Projects({ projects }) {
     <div className={styles.card}>
 
         <div className={styles.recto}>
-          {props.illustrations && (<Image
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
+          {props.illustrations && (
+          <img
             src={props.illustrations[0]}
             height={200}
             alt="Photo d'illustration"
@@ -34,24 +24,18 @@ export default function Projects({ projects }) {
 
         <div className={styles.verso}>
           <div className={styles.label}>
-          <Image
-            style={{
-              position: 'static',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
+          <img
             src="/assets/label-placeholder.png"
             height={200}
             alt="Photo d'illustration"
           />
           </div>
           <div className={styles.name}>
-            <Title order={2} weight={500}>{props.name}</Title>
+            <h2>{props.name}</h2>
           </div>
           <div className={styles.designer}>
           {props.structure.map((el, i)=>(
-            <Text weight={500} size="lg">{el}</Text>
+            <p>{el}</p>
           ))}
 
           </div>
@@ -78,11 +62,10 @@ export default function Projects({ projects }) {
         })}
 
         <div className={styles.add}>
-          <Title order={2}>Votre projet ?</Title>
-          <Text size="xl">Vous voulez documenter un projet éco-conçu et en quantifier la démarche ?</Text>
-
+          <h2>Votre projet ?</h2>
+          <p>Vous voulez documenter un projet éco-conçu et en quantifier la démarche ?</p>
           <Link href="">
-            <Button variant="light" color="gray">Labeliser un projet</Button>
+            <p className='link'>Labeliser un projet</p>
           </Link>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Source, Layer, Marker, Popup, FlyToInterpolator } from 'react-map-gl';
-import { Text, Title } from '@mantine/core';
 import styles from "@styles/components/Map.module.css";
 import Link from 'next/link'
 
@@ -107,10 +106,10 @@ export default function ReactMap({ data }) {
 
                                 <Link
                                     href={{
-                                        pathname: '/structure/[id]',
+                                        pathname: '/structures/[id]',
                                         query: { id: selection.id },
                                     }}>
-                                        Voir la structure
+                                        <p className='link'>Voir la structure</p>
                                 </Link>
                             </div>
                         </div>

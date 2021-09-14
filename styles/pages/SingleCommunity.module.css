@@ -1,7 +1,7 @@
 .banner{
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 100px 150px 400px; 
+  grid-template-rows: 100px 100px 400px; 
   gap: 0px 0px; 
   grid-template-areas: 
     ". title title title"
@@ -44,13 +44,15 @@
 .website:hover{
     background-color: var(--white);
 }
-.website:hover div{
+.website:hover p{
     color: var(--primary);
 }
-.website div{
+.website p{
     cursor: pointer;
     color: var(--white);
     font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 .structures { grid-area: structures;
     background: var(--white);

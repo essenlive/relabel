@@ -1,15 +1,17 @@
-.communities{
-  margin-top: 100px !important;
+.communities {
+  /* margin-top: 100px !important; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
 }
-.communities > div {
+
+.communities>div {
   width: calc(25% - 2 * 1rem);
   margin: 1rem;
 }
-.recto{
+
+.recto {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -17,10 +19,12 @@
   padding: 1.5rem;
   height: 100%;
 }
-.recto img{
+
+.recto img {
   object-fit: contain !important;
 }
-.verso{
+
+.verso {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -36,18 +40,19 @@
   opacity: 0;
 }
 
-.card{
+.card {
   border: var(--secondary) var(--borderWidth-lg) solid;
   height: 400px;
   background: var(--white);
   position: relative;
   box-shadow: var(--boxShadow-2xl);
 }
-.card:hover > div:last-child{
+
+.card:hover>div:last-child {
   opacity: 100;
 }
 
-.recto h2{
+.recto h2 {
   padding: 0.5rem;
   border: var(--secondary) var(--borderWidth-lg) solid;
   text-transform: uppercase;
@@ -55,15 +60,15 @@
   color: var(--primary);
   width: auto;
 }
-.verso h2{
+
+.verso h2 {
   padding: 0.5rem 0;
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
 
-
-.add{
+.add {
   border: var(--secondary) var(--borderWidth-lg) solid;
   height: 400px;
   background: var(--white);
@@ -75,21 +80,26 @@
   padding: 1.5rem;
 }
 
-.add h2{
+.add h2 {
   padding: 0.5rem 0;
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
 
+@media (--screen-lg) {
+  .communities>div {
+    width: calc(50% - 2 * 1rem);
+  }
+}
 
-@media (--screen-md) {  
- .communities{
-  margin-top: 0px !important;
-  flex-direction: column;
-}
-  .communities > div {
-    width: calc(100% - 2 * 1rem);
+@media (--screen-md) {
+  .communities {
+    margin-top: 0px !important;
+    flex-direction: column;
+  }
+  .communities>div {
+    width: calc(100% - (2 * 1rem));
     margin: 1rem;
-}
+  }
 }

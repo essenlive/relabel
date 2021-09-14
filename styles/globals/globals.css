@@ -6,7 +6,30 @@ html, body {
   box-sizing: border-box;
   font-weight: 400;
   color: var(--secondary);
-  font-size: var(--fontSize-lg);
+  font-size: var(--fontSize-base);
+}
+
+.link {
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+  text-decoration: none;
+  width: min-content;
+  cursor: pointer;
+}
+
+.link::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--borderWidth-lg);
+  background-color: var(--secondary);
+}
+
+.link:hover::after {
+  background-color: transparent;
 }
 
 strong {
@@ -15,6 +38,8 @@ strong {
 
 *, *::before, *::after {
   box-sizing: inherit;
+  padding: 0;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {

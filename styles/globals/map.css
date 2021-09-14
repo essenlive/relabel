@@ -1,14 +1,20 @@
-.mapboxgl-popup-close-button{
+.mapboxgl-popup-close-button {
     z-index: 100;
-    background: rgba(255,255,255,0.5);
+    background: transparent;
     /* margin: 0.5rem; */
     border-bottom-left-radius: 0.2rem;
-    color: black !important;
+    color: var(--secondary) !important;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2rem;
 }
-.mapboxgl-popup-close-button:hover{
-    background: rgb(255, 255, 255);
 
+.mapboxgl-popup-close-button:hover {
+    background: transparent !important;
+    color: var(--primary) !important;
 }
-.mapboxgl-popup-content{
-    padding : 0 !important;
+
+.mapboxgl-popup-content {
+    padding: 0 !important;
 }

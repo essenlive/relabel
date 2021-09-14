@@ -1,17 +1,18 @@
-.projects{
-  margin-top: 100px !important;
+.projects {
+  /* margin-top: 100px !important; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
 }
-.projects > div {
+
+.projects>div {
   width: calc(25% - 2 * 1rem);
   margin: 1rem;
   height: min-content;
 }
 
-.card{
+.card {
   border: var(--secondary) var(--borderWidth-lg) solid;
   background: var(--white);
   display: flex;
@@ -22,59 +23,71 @@
   position: relative;
   cursor: pointer;
 }
-.card:hover > div:first-child{ display: none;}
 
+.card:hover>div:first-child {
+  display: none;
+}
 
-.recto{
+.recto {
   position: absolute;
   width: 100%;
   height: 100%;
-
 }
 
-.verso{
-   display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
-    gap: 0px 0px;  
-    grid-template-areas: 
-    "label label label label designer"
-    "label label label label designer"
-    "label label label label designer"
-    "label label label label designer"
-    "name name name name name"; 
-    height: 100%;
-    width: 100%;
+.recto img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.label { 
-  grid-area: label; 
+
+.verso {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "label label label label designer" "label label label label designer" "label label label label designer" "label label label label designer" "name name name name name";
+  height: 100%;
+  width: 100%;
 }
-.designer { 
-   border-left: var(--secondary) var(--borderWidth-lg) solid;
- grid-area: designer; 
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
-   writing-mode: sideways-lr;
+
+.label {
+  grid-area: label;
+}
+
+.label img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.designer {
+  border-left: var(--secondary) var(--borderWidth-lg) solid;
+  grid-area: designer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  writing-mode: sideways-lr;
   align-items: center;
+  font-weight: 700;
 }
+
 .name {
   border-top: var(--secondary) var(--borderWidth-lg) solid;
-   grid-area: name;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
-   align-items: center;
+  grid-area: name;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.name h2{
+.name h2 {
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
 
-
-.add{
+.add {
   border: var(--secondary) var(--borderWidth-lg) solid;
   background: var(--white);
   display: flex;
@@ -87,21 +100,26 @@
   justify-content: space-between;
   padding: 1.5rem;
 }
-.add h2{
+
+.add h2 {
   padding: 0.5rem 0;
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
 
+@media (--screen-lg) {
+  .projects>div {
+    width: calc(50% - 2 * 1rem);
+  }
+}
 
-@media (--screen-md) {  
- .projects{
-  margin-top: 0px !important;
-  flex-direction: column;
-}
-  .projects > div {
+@media (--screen-md) {
+  .projects {
+    margin-top: 0px !important;
+    flex-direction: column;
+  }
+  .projects>div {
     width: calc(100% - 2 * 1rem);
-    margin: 1rem;
-}
+  }
 }

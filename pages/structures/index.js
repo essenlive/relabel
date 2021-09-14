@@ -10,12 +10,12 @@ export default function Structures({ structures }) {
 }
 
 export async function getStaticProps() {
-  const structures = await airtable_api.getStructures({adress : true});
+  let structures = await airtable_api.getStructures({adress : true});
   console.log(structures);
 
   structures = await Promise.all(structures.map(async (structure) => {
     structure.community = await Promise.all(structure.community.map(async (community) => {
-      let communityName = await airtable_api.getCommunity({ id: community });
+      let communityName = await airtable_api.getCommunities({ id: community });
       return communityName[0].name
       }))
     return structure

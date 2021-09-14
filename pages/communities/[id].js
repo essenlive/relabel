@@ -1,7 +1,6 @@
 import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
 import styles from "@styles/pages/SingleCommunity.module.css";
-import { Title, Text, Image } from '@mantine/core';
 import Link from 'next/link'
 
 
@@ -10,32 +9,27 @@ export default function Community({ name, members, description, website, cities 
         <Layout padded title={name}>
             <div className={styles.banner}>
                 <div className={styles.title}>
-                    {name && (<Title order={1}> {name} </Title>)}
+                    {name && (<h1> {name} </h1>)}
                 </div>
                 <div className={styles.description}>
-                    {description && (<Text size="xl"> {description} </Text>)}
+                    {description && (<p> {description} </p>)}
                 </div>
                 <div className={styles.website}>
                     {website && (
                     <Link href={website}>
-                            <Text size="xl" weight={700} transform='uppercase'> Voir le site </Text>
+                            <p> Voir le site </p>
                     </Link>
                     )}
                 </div>
 
                 <div className={styles.label}>
 
-                    <div className={styles.icon}><Image
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
-                        }}
+                    <div className={styles.icon}><img
                         src="/assets/label-comm-placeholder.png"
                         height={200}
                         alt="Photo d'illustration"
                     /></div>
-                    <Title order={2}> {name}</Title>
+                    <h2> {name}</h2>
                 
                 </div>
 

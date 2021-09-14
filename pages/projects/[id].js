@@ -12,10 +12,10 @@ export default function Project({ name, illustrations, description, address, typ
         <Layout padded title={name}>
             <div className={styles.banner}>
                 <div className={styles.title}>
-                    {name && (<Title order={1}> {name} </Title>)}
+                    {name && (<h1> {name} </h1>)}
                 </div>
                 <div className={styles.description}>
-                    {description && (<Text size="xl"> {description} </Text>)}
+                    {description && (<p> {description} </p>)}
                 </div>
 
                 <div className={styles.carousel}>
@@ -27,7 +27,7 @@ export default function Project({ name, illustrations, description, address, typ
 
                 <div className={styles.certificate}>
                     <Link href={""}>
-                        <Text size="xl" weight={700} transform='uppercase'> Voir le certificat </Text>
+                        <p> Voir le certificat </p>
                     </Link>
                 </div>
 
@@ -43,7 +43,7 @@ export default function Project({ name, illustrations, description, address, typ
                         height={200}
                         alt="Photo d'illustration"
                     /></div>
-                    <Title order={2}> {name}</Title>
+                    <h2> {name}</h2>
 
                 </div>
 
