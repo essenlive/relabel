@@ -14,7 +14,7 @@ html, body {
   position: relative;
   padding-bottom: 0.5rem;
   text-decoration: none;
-  width: min-content;
+  /* width: min-content; */
   cursor: pointer;
 }
 

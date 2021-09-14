@@ -1,0 +1,203 @@
+.banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px 400px;
+    gap: 0px 0px;
+    grid-template-areas: ". title title title" ". description description website" "label carousel carousel productions";
+    width: 80%;
+    min-height: 80vh;
+}
+
+.title {
+    grid-area: title;
+    background: var(--secondary);
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.title h1 {
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+.description {
+    grid-area: description;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-left: var(--secondary) var(--borderWidth-lg) solid;
+    border-right: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+.website {
+    grid-area: website;
+    padding: 1rem;
+    background: var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    border-right: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+.website:hover {
+    background-color: var(--white);
+}
+
+.website:hover p {
+    color: var(--primary);
+}
+
+.website p {
+    cursor: pointer;
+    color: var(--white);
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.productions {
+    grid-area: productions;
+    background: var(--white);
+    border: var(--secondary) var(--borderWidth-lg) solid;
+    display: flex;
+    flex-direction: column;
+    border-left: none;
+}
+
+.productionsTitle {
+    padding: 1rem;
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+    color: var(--secondary);
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.productionsTitle span {
+    color: var(--primary);
+}
+
+.productionsList {
+    padding: 1rem;
+    height: 100%;
+}
+
+.productionsList>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.productionsListName {
+    font-size: 1rem;
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.productionsListProject {
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.cardTitle {
+    padding: 0.25rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--white);
+    background-color: var(--secondary);
+    font-size: var(--fontSize-md);
+    width: 200px;
+    height: 2rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardAdress {
+    padding: 0.25rem;
+    text-align: center;
+    text-transform: lowercase;
+    border: var(--secondary) var(--borderWidth-lg) solid;
+    font-size: var(--fontSize-xs);
+    width: 200px;
+    background-color: var(--white);
+    height: 2rem;
+    position: absolute;
+    top: calc(3rem - var(--borderWidth-lg));
+    left: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+.cardCommunities {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.label {
+    grid-area: label;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    background: var(--white);
+    border-left: var(--secondary) var(--borderWidth-lg) solid;
+    border-top: var(--secondary) var(--borderWidth-lg) solid;
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+.label img {
+    object-fit: cover !important;
+    height: 300px;
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+.cardCommunities {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.carousel {
+    grid-area: carousel;
+    background: var(--white);
+    border: var(--secondary) var(--borderWidth-lg) solid;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+@media (--screen-md) {
+    .banner {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+    .banner>div {
+        border: var(--secondary) var(--borderWidth-lg) solid;
+    }
+    .banner>div:not(:last-child) {
+        border-bottom: transparent;
+    }
+}

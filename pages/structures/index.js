@@ -11,7 +11,6 @@ export default function Structures({ structures }) {
 
 export async function getStaticProps() {
   let structures = await airtable_api.getStructures({adress : true});
-  console.log(structures);
 
   structures = await Promise.all(structures.map(async (structure) => {
     structure.community = await Promise.all(structure.community.map(async (community) => {

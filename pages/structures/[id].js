@@ -1,68 +1,70 @@
 import airtable_api from '@libs/airtable_api';
 import Layout from '@components/Layout'
-import Label from '@components/Label';
-import styles from "@styles/pages/SinglePage.module.css";
+import styles from "@styles/pages/SingleStructure.module.css";
 import Carousel from "@components/Carousel";
-import { Title, Text, Badge, Button, useMantineTheme } from '@mantine/core';
 import Link from 'next/link'
 
 
-export default function Structure({ name, website, illustrations, status, description, adress, activity, datas }) {
-    const theme = useMantineTheme();
-    let colorsKeys = Object.keys(theme.colors).slice(1);
-    let activities = Array.from(new Set(activity))
+export default function Structure({ name, website, illustrations, status, description, adress, activity, datas, community, projects }) {
+    
     return (
-        <Layout title={name}>
-            <article className={styles.project}>
-
-                {illustrations && (
-                    <div
-                        className={styles.illustration}>
-
-                    <Carousel
-                        images={illustrations}
-                        />
-                    </div>
-                )}
-                <div className={styles.content}>
-                    <div className={styles.label}>
-
-                        <Label
-                            size="small"
-                            title={name}
-                            status={status}
-                            date={datas.year.split("-")[0]}
-                            data={{
-                                partners: datas.partnerscount,
-                                materials: datas.materials,
-                                gestion: datas.gestion,
-                                production: datas.production
-                            }}
-                        />
-                    </div>
-
-                    <div className={styles.infos} style={{ maxWidth: 300 }} >
-                        {name && (<Title order={1}> {name} </Title>)}
-                        {activity && (<div style= {{marginBottom: 10, }} >{
-                            activity.map((item, i) => (
-                                <Badge key={i} variant='filled' color={colorsKeys[activities.indexOf(item)]}>{item}</Badge>
-                            ))}
-                        </div>)}
-                        {/* {team && (<div>
-                            {team.map((item, i) => (<Text component="span" key={i}>{item} </Text>))}
-                        </div>)} */}
-                        {adress && (<Text weight="bold" component="div"> {adress} </Text>)}
-                        {description && (<Text component="div"> {description} </Text>)}
-                        {website && (<Link
-                            href={website}>
-                            <Button style={{ marginTop: 10 }} variant='light'> Voir le site </Button>
-                        </Link>)}
-                    </div>
-
-
+        <Layout padded title={name}>
+            <div className={styles.banner}>
+                <div className={styles.title}>
+                    {name && (<h1> {name} </h1>)}
+                </div>
+                <div className={styles.description}>
+                    {description && (<p> {description} </p>)}
+                </div>
+                <div className={styles.website}>
+                    {website && (
+                        <Link href={website}>
+                            <p> Voir le site </p>
+                        </Link>
+                    )}
                 </div>
 
-            </article>
+                <div className={styles.label}>
+                    <img
+                        src="/assets/label-comm-placeholder.png"
+                        height={200}
+                        alt="Photo d'illustration"
+                    />
+                    {name && (<h2 className={styles.cardTitle}>{name}</h2>)}
+                    {adress && (<div className={styles.cardAdress}>{adress}</div>)}
+                    {community && (<div className={styles.cardCommunities}>{community.map((el) => (
+                        <h3>{el}</h3>
+                    ))}</div>)}
+                </div>
+
+                <div className={styles.productions}>
+                    <div className={styles.productionsTitle}>
+                        <span>{projects.length}</span> production.s
+                    </div>
+                    <div className={styles.productionsList}>
+                        {projects && projects.map((el) => (
+                        <Link
+                            href={{
+                            pathname: '/projects/[id]',
+                            query: { id: el.id },
+                            }}>
+                            <div className='link'>
+                                <div className={styles.productionsListName}> {el.name} </div>
+                                <div className={styles.productionsListProject}> {el.team[0]} </div>
+                            </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
+                <div className={styles.carousel}>
+                    {illustrations && (
+                        <Carousel images={illustrations} />
+                    )}
+                </div>
+
+
+            </div>
         </Layout>
     );
 }
@@ -87,6 +89,15 @@ export async function getStaticProps({ params }) {
             partnerscount : 0
         }
     }
+
+    structure.community = await Promise.all(structure.community.map(async (community) => {
+        let communityName = await airtable_api.getCommunities({ id: community });
+        return communityName[0].name
+    }))
+    structure.projects = await Promise.all(structure.projects.map(async (el) => {
+        let project = await airtable_api.getProjects({ id: el });
+        return project[0]
+    }))
     return { props: structure }
 }
 
