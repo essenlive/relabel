@@ -26,7 +26,6 @@
     background: var(--white);
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 1rem;
     border-left: var(--secondary) var(--borderWidth-lg) solid;
     border-right: var(--secondary) var(--borderWidth-lg) solid;
@@ -91,7 +90,9 @@
     color: var(--primary);
     font-weight: 700;
 }
-.label { grid-area: label;
+.label {
+    
+     grid-area: label;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -109,6 +110,10 @@
   text-align: center;
   color: var(--primary);
   width: auto;
+}
+.label img{
+    width: auto;
+    object-fit: contain;
 }
 .cities { grid-area: cities;
     padding: 1rem;

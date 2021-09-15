@@ -33,17 +33,17 @@ export default function Project({ name, illustrations, description, address, typ
 
                 <div className={styles.label}>
 
-                    <div className={styles.icon}><Image
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
-                        }}
+                    <img
                         src="/assets/label-comm-placeholder.png"
                         height={200}
                         alt="Photo d'illustration"
-                    /></div>
+                    />
                     <h2> {name}</h2>
+                    <div>
+                        {structure.map((el) => (
+                            <p>{el.name}</p>
+                        ))}
+                    </div>
 
                 </div>
 

@@ -1,5 +1,6 @@
 import airtable_api from '@libs/airtable_api';
 import Layout from '@components/Layout'
+import classNames from 'classnames';
 import styles from "@styles/pages/SingleStructure.module.css";
 import Carousel from "@components/Carousel";
 import Link from 'next/link'
@@ -48,8 +49,8 @@ export default function Structure({ name, website, illustrations, status, descri
                             pathname: '/projects/[id]',
                             query: { id: el.id },
                             }}>
-                            <div className='link'>
-                                <div className={styles.productionsListName}> {el.name} </div>
+                            <div>
+                                <div className={classNames(styles.productionsListName, 'link')}> {el.name} </div>
                                 <div className={styles.productionsListProject}> {el.team[0]} </div>
                             </div>
                             </Link>

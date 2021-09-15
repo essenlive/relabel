@@ -13,23 +13,13 @@ html, body {
   font-weight: 600;
   position: relative;
   padding-bottom: 0.5rem;
-  text-decoration: none;
-  /* width: min-content; */
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
   cursor: pointer;
 }
 
-.link::after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: var(--borderWidth-lg);
-  background-color: var(--secondary);
-}
-
-.link:hover::after {
-  background-color: transparent;
+.link:hover {
+  opacity: 0.8;
 }
 
 strong {

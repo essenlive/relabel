@@ -1,10 +1,9 @@
 .banner {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 100px 100px 400px;
-    ;
+    grid-template-columns: 250px 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px 200px 250px;
     gap: 0px 0px;
-    grid-template-areas: ". title title title" ". description description certificate" "label carousel carousel carousel";
+    grid-template-areas: ". title title title" ". description description certificate" ". carousel carousel carousel" "label carousel carousel carousel";
     width: 80%;
     min-height: 80vh;
 }
@@ -72,11 +71,13 @@
 
 .label {
     grid-area: label;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas: "labelImage labelImage labelImage labelImage projectDesigner" "labelImage labelImage labelImage labelImage projectDesigner" "labelImage labelImage labelImage labelImage projectDesigner" "labelImage labelImage labelImage labelImage projectDesigner" "projectName projectName projectName projectName projectName";
+    height: 100%;
+    width: 100%;
     background: var(--white);
     border-left: var(--secondary) var(--borderWidth-lg) solid;
     border-top: var(--secondary) var(--borderWidth-lg) solid;
@@ -84,12 +85,31 @@
 }
 
 .label h2 {
+    grid-area: projectName;
     padding: 0.5rem;
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    border-top: var(--secondary) var(--borderWidth-lg) solid;
     text-transform: uppercase;
     text-align: center;
     color: var(--primary);
     width: auto;
+}
+
+.label img {
+    grid-area: labelImage;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.label div {
+    border-left: var(--secondary) var(--borderWidth-lg) solid;
+    grid-area: projectDesigner;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    writing-mode: sideways-lr;
+    align-items: center;
+    font-weight: 700;
 }
 
 @media (--screen-md) {

@@ -1,5 +1,6 @@
 import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
+import classNames from "classnames"
 import styles from "@styles/pages/SingleCommunity.module.css";
 import Link from 'next/link'
 
@@ -23,12 +24,11 @@ export default function Community({ name, members, description, website, cities 
                 </div>
 
                 <div className={styles.label}>
-
-                    <div className={styles.icon}><img
+                    <img
                         src="/assets/label-comm-placeholder.png"
                         height={200}
                         alt="Photo d'illustration"
-                    /></div>
+                    />
                     <h2> {name}</h2>
                 
                 </div>
@@ -39,10 +39,16 @@ export default function Community({ name, members, description, website, cities 
                     </div>
                     <div className={styles.structuresList}>
                         {members && members.map((el, i) => (
+                        <Link
+                            href={{
+                            pathname: '/structures/[id]',
+                            query: { id: el.id },
+                            }}>
                             <div>
-                                <div className={styles.structuresListName}> {el.name} </div>
+                                <div className={classNames(styles.structure, 'link')}> {el.name} </div>
                                 <div className={styles.structuresListProject}> {el.projects.length} </div>
                             </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
