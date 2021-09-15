@@ -158,12 +158,16 @@
     .banner {
         display: flex;
         flex-direction: column;
-        width: 90%;
+        margin: 200px 1rem 1rem 1rem;
+        width: 100%;
     }
     .banner>div {
         border: var(--secondary) var(--borderWidth-lg) solid;
     }
     .banner>div:not(:last-child) {
         border-bottom: transparent;
+    }
+    .label {
+        height: inherit;
     }
 }
