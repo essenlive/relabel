@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnerscount, structure }) {
     return (
-        <Layout padded title={name}>
+        <Layout title={name}>
             <div className={styles.banner}>
                 <div className={styles.title}>
                     {name && (<h1> {name} </h1>)}
@@ -65,7 +65,7 @@ export async function getStaticProps({params}) {
     return { props: project[0]}
 }
 export async function getStaticPaths() {
-    let paths = await airtable_api.getProjects({ illustrations: true });
+    let paths = await airtable_api.getProjects();
     paths = paths.map((el) => ({ params: { id: el.id } }))
     return { paths: paths, fallback: false };
 }

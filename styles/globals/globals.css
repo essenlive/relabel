@@ -12,7 +12,6 @@ html, body {
 .link {
   font-weight: 600;
   position: relative;
-  padding-bottom: 0.5rem;
   text-decoration: underline;
   text-decoration-thickness: 3px;
   cursor: pointer;

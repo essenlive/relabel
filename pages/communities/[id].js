@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default function Community({ name, members, description, website, cities }) {
     return (
-        <Layout padded title={name}>
+        <Layout title={name}>
             <div className={styles.banner}>
                 <div className={styles.title}>
                     {name && (<h1> {name} </h1>)}
@@ -74,11 +74,10 @@ export async function getStaticProps({ params }) {
         let member = await airtable_api.getStructures({ id: el });
         return member[0]
     }))
-    console.log(community[0]);
     return { props: community[0] }
 }
 export async function getStaticPaths() {
-    let paths = await airtable_api.getCommunities({ status: true });
+    let paths = await airtable_api.getCommunities();
     paths = paths.map((el) => ({ params: { id: el.id } }))
     return { paths: paths, fallback: false };
 }

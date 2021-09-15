@@ -1,4 +1,4 @@
-.layout{
+.layout {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -16,7 +16,8 @@
   flex-shrink: 0;
   z-index: 100;
 }
-.content{
+
+.content {
   width: 100%;
   flex-grow: 1;
   min-height: calc(100vh - 200px);
@@ -24,23 +25,28 @@
   flex-direction: row;
   justify-content: space-around;
 }
-.content:not(.padded){
-    position: absolute;
-}
-.padded{
-  padding: 1rem 2rem;
-  margin-top: 100px;
+
+.content:not(.padded) {
+  position: absolute;
 }
 
-@media (--screen-md) {  
+.padded {
+  padding: 0 1rem 1rem;
+  margin-top: 200px;
+}
+
+@media (--screen-md) {
   .layout {
     flex-direction: column;
   }
-  .menu{
+  .menu {
     position: static;
     width: 100vw;
   }
-  .content{
+  .padded{
+    margin-top: 0;
+  }
+  .content {
     margin-left: initial;
     width: 100vw;
     min-height: 100vh;

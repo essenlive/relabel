@@ -9,7 +9,7 @@ import Link from 'next/link'
 export default function Structure({ name, website, illustrations, status, description, adress, activity, datas, community, projects }) {
     
     return (
-        <Layout padded title={name}>
+        <Layout  title={name}>
             <div className={styles.banner}>
                 <div className={styles.title}>
                     {name && (<h1> {name} </h1>)}
