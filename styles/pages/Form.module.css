@@ -1,6 +1,6 @@
 .form {
   min-width: 60%;
-  height: auto;
+  height: 80%;
   box-shadow: var(--boxShadow-2xl);
   background-color: var(--white);
 }
@@ -8,5 +8,6 @@
 @media (--screen-md) {
   .form {
     min-width: 90%;
+    height: 600px;
   }
 }

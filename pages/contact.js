@@ -21,27 +21,27 @@ export default function Contact() {
           <div>
             <h3> Référencer une structure </h3>
             <p>
-              Remplissez les informations liées à votre structure sur ce <Link href=""><span className={'link'}>formulaire</span></Link>.
+              Remplissez les informations liées à votre structure sur ce <Link href={{ pathname: '/structures/add' }}><span className={'link'}>formulaire</span></Link>.
             </p>
           </div>
           <div>
             <h3> Proposer une communauté </h3>
             <p>
-              Remplissez le <Link href=""><span className={'link'}>formulaire</span></Link> et nous validerons votre communautée au plus vite.
+              Remplissez le <Link href={{ pathname: '/communities/add' }}><span className={'link'}>formulaire</span></Link> et nous validerons votre communautée au plus vite.
             </p>
           </div>
           <div>
             <h3> Documenter une production </h3>
             <p>
-              Utilisez le <Link href=""><span className={'link'}>générateur de label</span></Link> et votre projet sera référencé dans la foulée.
+              Utilisez le <Link href={{pathname: '/projects/add'}}><span className={'link'}>générateur de label</span></Link> et votre projet sera référencé dans la foulée.
             </p>
           </div>
-          <div>
+          {/* <div>
             <h3> Partager une bonne pratique </h3>
             <p>
               Partagez une de vos bonnes pratiques en remplissant ce <Link href=""><span className={'link'}>formulaire</span></Link>.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </Layout>

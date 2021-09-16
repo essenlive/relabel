@@ -43,13 +43,13 @@
     position: static;
     width: 100vw;
   }
-  .padded{
+  .padded {
     margin-top: 0;
   }
   .content {
     margin-left: initial;
     width: 100vw;
-    min-height: 100vh;
+    min-height: calc(100vh - 200px);
   }
 }
 
