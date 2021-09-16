@@ -5,7 +5,7 @@ import styles from "@styles/pages/Home.module.css";
 export default function Manifesto() {
   return (
     <Layout
-      title='Manifesto'
+      title='Re-Label'
       padded
     >
 

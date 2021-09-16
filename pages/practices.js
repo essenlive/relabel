@@ -1,6 +1,5 @@
 import Layout from '@components/Layout'
 import airtable_api from '@libs/airtable_api.js'
-import { Title, Text} from '@mantine/core'
 
 
 export default function Pratiques({projects}) {
@@ -11,9 +10,6 @@ export default function Pratiques({projects}) {
       title='Pratiques'
       padded
     >
-        <Title order={1}> Pratiques </Title>
-        <Text size="xl" style={{ marginTop: 10 }}>
-          </Text>
   
     </Layout>
   );

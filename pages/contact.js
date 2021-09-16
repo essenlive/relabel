@@ -1,26 +1,49 @@
 import Layout from '@components/Layout'
-import airtable_api from '@libs/airtable_api.js'
-import { Title, Text} from '@mantine/core'
+import styles from '@styles/pages/Contact.module.css'
+import Link from 'next/link';
 
 
-export default function Test({projects}) {
-  console.log(projects);
+export default function Contact() {
   
   return (
     <Layout 
-      title='Test'
+      title='Contact'
       padded
     >
-        <Title order={1}> Manifeste </Title>
-        <Text size="xl" style={{ marginTop: 10 }}>
-          </Text>
-  
+      <div className={styles.banner}>
+        <div className={styles.header}>
+          <h1> Nous contacter </h1>
+          <p>
+            Le projet <strong>RE-label</strong> est porté à Paris dans le cadre du projet ReFlow, par l'équipe de Ars Longa. Si vous avez des questions, des suggestions ou autre, contactez nous directement à <Link href="mailto:info@arslonga.fr"><span className={'link'}>info@arslonga.fr</span></Link>
+          </p>
+        </div>
+        <div className={styles.items}>
+          <div>
+            <h3> Référencer une structure </h3>
+            <p>
+              Remplissez les informations liées à votre structure sur ce <Link href=""><span className={'link'}>formulaire</span></Link>.
+            </p>
+          </div>
+          <div>
+            <h3> Proposer une communauté </h3>
+            <p>
+              Remplissez le <Link href=""><span className={'link'}>formulaire</span></Link> et nous validerons votre communautée au plus vite.
+            </p>
+          </div>
+          <div>
+            <h3> Documenter une production </h3>
+            <p>
+              Utilisez le <Link href=""><span className={'link'}>générateur de label</span></Link> et votre projet sera référencé dans la foulée.
+            </p>
+          </div>
+          <div>
+            <h3> Partager une bonne pratique </h3>
+            <p>
+              Partagez une de vos bonnes pratiques en remplissant ce <Link href=""><span className={'link'}>formulaire</span></Link>.
+            </p>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
-}
-
-
-export async function getStaticProps() {
-  let projects = await airtable_api.getProjects();
-  return { props: { projects } }
 }

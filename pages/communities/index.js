@@ -51,9 +51,12 @@ export default function Communities({ communities }) {
             <h2>La votre ?</h2>
             <p>Vous faites partie d'une communauté qui peuvre pour des pratiques plus reponsables et solidaires dans la fabrication et la production ?</p>
 
-              <Link href="">
-            <p className='link'>Proposer une communauté</p>
-              </Link>
+            <Link
+              href={{
+                pathname: '/communities/add',
+              }}>
+              <p className='link'>Proposer une communauté</p>
+            </Link>
         </div>
 
 

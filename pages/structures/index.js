@@ -4,7 +4,7 @@ import airtable_api from '@libs/airtable_api.js'
 
 
 export default function Structures({ structures }) {
-  return <Layout title="Communauté">
+  return <Layout title="Carte">
     <ReactMap data={structures} />
   </Layout>;
 }

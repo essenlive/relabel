@@ -35,20 +35,19 @@ export default function Navigation(props) {
                <a>Productions</a>
              </div>
            </Link>
-          <div className={classNames(styles.signature, { [`${styles.open}`]: menuOpen })}>
-              Fait avec ❤️ à Paris
-            </div>
-
            {/* <Link onClick={() => { setMenuOpen(false) }} href="/practices">
             <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/practices' }, { [`${styles.open}`]: menuOpen })}>
                <a>Pratiques</a>
              </div>
            </Link> */}
-           {/* <Link onClick={() => { setMenuOpen(false) }} href="/contact">
+           <Link onClick={() => { setMenuOpen(false) }} href="/contact">
             <div className={classNames(styles.linksEmphasis, { [`${styles.linkActive}`]: router.route === '/contact' }, { [`${styles.open}`]: menuOpen })}>
                <a>Nous contacter</a>
              </div>
-           </Link> */}
+          </Link>
+          <div className={classNames(styles.signature, { [`${styles.open}`]: menuOpen })}>
+            Fait avec ❤️ à Paris
+          </div>
 
            <div className={styles.MobileToggle} onClick={() => { setMenuOpen(!menuOpen) }}>
             {menuOpen && (<span>Fermer <FiX /></span>)}

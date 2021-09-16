@@ -45,7 +45,7 @@ export default function Projects({ projects }) {
   </Link>
   )
   return (
-    <Layout title='Production' padded>
+    <Layout title='Productions' padded>
       <div id="communities-grid" className={styles.projects}>
 
         {projects.map((item, i) => {
@@ -64,7 +64,11 @@ export default function Projects({ projects }) {
         <div className={styles.add}>
           <h2>Votre projet ?</h2>
           <p>Vous voulez documenter un projet éco-conçu et en quantifier la démarche ?</p>
-          <Link href="">
+
+          <Link
+            href={{
+              pathname: '/projects/add',
+            }}>
             <p className='link'>Labeliser un projet</p>
           </Link>
         </div>

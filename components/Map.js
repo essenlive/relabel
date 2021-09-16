@@ -49,6 +49,14 @@ export default function ReactMap({ data }) {
 
     return( 
         <section className={styles.map}>
+            <div className={styles.add}>
+                <Link
+                    href={{
+                        pathname: '/structures/add',
+                    }}>
+                    <p className='link'>Réferencer votre structure</p>
+                </Link>
+            </div>
             <ReactMapGL
                 {...viewport}
                 mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOXTOKEN}

@@ -1,0 +1,12 @@
+.form {
+  min-width: 60%;
+  height: auto;
+  box-shadow: var(--boxShadow-2xl);
+  background-color: var(--white);
+}
+
+@media (--screen-md) {
+  .form {
+    min-width: 90%;
+  }
+}
