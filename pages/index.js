@@ -5,7 +5,7 @@ import styles from "@styles/pages/Home.module.css";
 export default function Manifesto() {
   return (
     <Layout
-      title='Re-Label'
+      title='Valorisateur des pratiques du réemploi'
       padded
     >
 

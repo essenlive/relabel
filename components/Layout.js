@@ -8,7 +8,7 @@ const Layout = ({title, padded, children})=>{
     <div className={styles.layout}>
       <Head>
         <title>Re-label | {title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/Favicon.png" />
       </Head>
       <div className={styles.menu}>
         <Navigation />
