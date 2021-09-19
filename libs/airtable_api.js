@@ -1,4 +1,3 @@
-// import AirtablePlus from 'airtable-plus';
 import mappings from '@libs/mappings'
 import prisma from '@libs/prisma.js'
 let {tablesMapping, columnsMapping} = mappings;
