@@ -1,13 +1,12 @@
 import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
-// import Label from '@components/Label';
+import LabelProduction from '@components/LabelProduction';
 import styles from "@styles/pages/SingleProject.module.css";
 import Carousel from "@components/Carousel";
-import { Title, Text, Image } from '@mantine/core';
 import Link from 'next/link'
 
 
-export default function Project({ name, illustrations, description, address, typology, team, duration, partners, production, gestion, materials, partnerscount, structure }) {
+export default function Project({ name, illustrations, description, data, structure }) {
     return (
         <Layout title={name}>
             <div className={styles.banner}>
@@ -32,19 +31,12 @@ export default function Project({ name, illustrations, description, address, typ
                 </div>
 
                 <div className={styles.label}>
-
-                    <img
-                        src="/assets/label-comm-placeholder.png"
-                        height={200}
-                        alt="Photo d'illustration"
+                    <LabelProduction
+                        data={data}
+                        name={name}
+                        structure={structure}
                     />
-                    <h2> {name}</h2>
-                    <div>
-                        {structure.map((el) => (
-                            <p>{el.name}</p>
-                        ))}
-                    </div>
-
+                    
                 </div>
 
             </div>
@@ -62,6 +54,14 @@ export async function getStaticProps({params}) {
         let structure = await airtable_api.getStructures({ id: el });
         return structure[0]
     }))
+    project[0].data = {
+        partners: project[0].partnerscount,
+        materials: project[0].materials,
+        gestion: project[0].gestion,
+        production: project[0].production
+    }
+    project[0].structure = project[0].structure.map((el)=>el.name)
+    
     return { props: project[0]}
 }
 export async function getStaticPaths() {
