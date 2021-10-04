@@ -16,6 +16,8 @@ model Community {
   name         String?
   status       Boolean?  @default(false)
   website      String?
+  colors      String?
+  year       Decimal?  @db.Decimal
 
   @@map("communities")
 }

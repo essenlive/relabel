@@ -1,13 +1,12 @@
 .projects {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   width: 100%;
 }
 
 .projects>div {
-  width: calc(25% - 2 * 1rem);
-  margin: 1rem;
+  aspect-ratio: 1/1;
   height: min-content;
 }
 
@@ -40,7 +39,6 @@
   object-fit: cover;
 }
 
-
 .add {
   border: var(--secondary) var(--borderWidth-lg) solid;
   background: var(--white);
@@ -60,20 +58,4 @@
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
-}
-
-@media (--screen-lg) {
-  .projects>div {
-    width: calc(50% - 2 * 1rem);
-  }
-}
-
-@media (--screen-md) {
-  .projects {
-    margin-top: 0px !important;
-    flex-direction: column;
-  }
-  .projects>div {
-    width: calc(100% - 2 * 1rem);
-  }
 }

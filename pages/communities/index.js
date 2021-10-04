@@ -1,4 +1,4 @@
-import Layout from '@components/Layout'
+import Layout from '@components/Layout';
 import Link from 'next/link'
 import styles from "@styles/pages/Communities.module.css";
 import airtable_api from '@libs/airtable_api.js'
@@ -14,6 +14,7 @@ export default function Communities({ communities }) {
           alt="Photo d'illustration"
         />
         <h2> {props.title}</h2>
+        <h4> {props.year}</h4>
       </div>
       <div className={styles.verso}>
         <h2> {props.title}</h2>
@@ -34,7 +35,7 @@ export default function Communities({ communities }) {
       title='Communautées'
       padded
     >
-      <div id="communities-grid" className={styles.communities}>
+      <div className={"grid"}>
 
         {communities.map((item, i) => {
           return (
@@ -42,6 +43,7 @@ export default function Communities({ communities }) {
               title={item.name}
               description={item.description}
               website={item.website}
+              year={item.year}
               id={item.id}
             />
           )

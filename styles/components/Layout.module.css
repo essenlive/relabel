@@ -35,20 +35,21 @@
   margin-top: 200px;
 }
 
+
 @media (--screen-md) {
   .layout {
     flex-direction: column;
   }
   .menu {
     position: static;
-    width: 100vw;
+    width: 100%;
   }
   .padded {
     margin-top: 0;
   }
   .content {
     margin-left: initial;
-    width: 100vw;
+    width: 100%;
     min-height: calc(100vh - 200px);
   }
 }

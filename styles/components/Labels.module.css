@@ -9,7 +9,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
-  grid-template-areas: "label label label label designer" "label label label label designer" "label label label label designer" "label label label label designer" "name name name name name";
+  grid-template-areas: "label label label label date" "label label label label designer" "label label label label designer" "label label label label designer" "name name name name name";
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -35,9 +35,25 @@
 
 .designer {
   border-left: var(--secondary) var(--borderWidth-lg) solid;
+  padding: 0.5rem;
   grid-area: designer;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  writing-mode: sideways-lr;
+  align-items: center;
+  font-weight: 200;
+  text-transform: uppercase;
+  overflow: hidden;
+  flex-grow: 0;
+}
+
+.date {
+  border-left: var(--secondary) var(--borderWidth-lg) solid;
+  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  grid-area: date;
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   writing-mode: sideways-lr;
   align-items: center;
@@ -55,11 +71,12 @@
   overflow: hidden;
 }
 
-.name h3 {
+.name h2 {
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
+
 
 /* .small{width: 200px;
   border-radius: var(--borderRadius-lg);

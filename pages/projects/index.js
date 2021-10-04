@@ -2,14 +2,14 @@ import Layout from '@components/Layout';
 import Link from 'next/link'
 import styles from "@styles/pages/Projects.module.css";
 import airtable_api from '@libs/airtable_api.js'
-import LabelProduction from '@components/LabelProduction';
+import {LabelProduction} from '@components/Labels';
 
 export default function Projects({ projects }) {
 
  
   return (
     <Layout title='Productions' padded>
-      <div id="communities-grid" className={styles.projects}>
+      <div className={"grid"}>
 
         {projects.map((item, id) => {
           return (
@@ -34,6 +34,7 @@ export default function Projects({ projects }) {
                 <div className={styles.verso}>
                   <LabelProduction
                     data={item.data}
+                    date={item.date}
                     name={item.name}
                     structure={item.structure}
                   />
@@ -74,7 +75,10 @@ export async function getStaticProps() {
       gestion: project.gestion,
       production: project.production
     }
-    console.log(project);
+    project.date = {
+      day: new Date(project.created_time).getDate(),
+      month: new Date(project.created_time).getMonth() + 1
+    }
     return project
   }))
 

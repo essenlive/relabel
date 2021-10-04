@@ -1,12 +1,12 @@
 import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
-import LabelProduction from '@components/LabelProduction';
+import {LabelProduction} from '@components/Labels';
 import styles from "@styles/pages/SingleProject.module.css";
 import Carousel from "@components/Carousel";
 import Link from 'next/link'
 
 
-export default function Project({ name, illustrations, description, data, structure }) {
+export default function Project({ name, illustrations, description, date, data, structure }) {
     return (
         <Layout title={name}>
             <div className={styles.banner}>
@@ -33,6 +33,7 @@ export default function Project({ name, illustrations, description, data, struct
                 <div className={styles.label}>
                     <LabelProduction
                         data={data}
+                        date={date}
                         name={name}
                         structure={structure}
                     />
@@ -50,19 +51,26 @@ export default function Project({ name, illustrations, description, data, struct
 
 export async function getStaticProps({params}) {
     let project = await airtable_api.getProjects({ id: params.id });
-    project[0].structure = await Promise.all(project[0].structure.map(async (el)=>{
+    project = project[0];
+    project.structure = await Promise.all(project.structure.map(async (el)=>{
         let structure = await airtable_api.getStructures({ id: el });
         return structure[0]
     }))
-    project[0].data = {
-        partners: project[0].partnerscount,
-        materials: project[0].materials,
-        gestion: project[0].gestion,
-        production: project[0].production
+
+    project.data = {
+        partners: project.partnerscount,
+        materials: project.materials,
+        gestion: project.gestion,
+        production: project.production
     }
-    project[0].structure = project[0].structure.map((el)=>el.name)
+    project.date = {
+        day: new Date(project.created_time).getDate(),
+        month: new Date(project.created_time).getMonth() + 1
+    }
+    project.structure = project.structure.map((el)=>el.name)
+
     
-    return { props: project[0]}
+    return { props: project}
 }
 export async function getStaticPaths() {
     let paths = await airtable_api.getProjects();

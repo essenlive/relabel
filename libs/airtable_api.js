@@ -1,7 +1,4 @@
-import mappings from '@libs/mappings'
 import prisma from '@libs/prisma.js'
-let {tablesMapping, columnsMapping} = mappings;
-
 
 const airtable_api = {
     validateData: function (data) {
