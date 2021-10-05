@@ -3,7 +3,9 @@ import styles from "@styles/components/Carousel.module.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Carousel({ images }) {
-    return(<Slider 
+    return(
+    <>
+    <Slider 
         className={styles.slider}
         autoPlay
         infiniteLoop
@@ -12,13 +14,14 @@ export default function Carousel({ images }) {
         showIndicators={false}
         >
         {images && images.map((item, i) => (
-            <div key={i} >
                 <img
-                    src={item}
+                key={i}
+                src={item}
                 />
-            </div>
-        ))}
-        {!images.length && (<div className={styles.empty}>
-        </div>)}
-    </Slider>);
+                ))}
+    </Slider>
+    {!images.length && (<div className={styles.empty}>
+    </div>)}
+    </>
+    );
 }
