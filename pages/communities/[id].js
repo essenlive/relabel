@@ -80,7 +80,10 @@ export async function getStaticProps({ params }) {
         let member = await airtable_api.getStructures({ id: el });
         return member[0]
     }))
-    return { props: community[0] }
+    return {
+        props: community[0],
+        revalidate: 1
+    }
 }
 export async function getStaticPaths() {
     let paths = await airtable_api.getCommunities();

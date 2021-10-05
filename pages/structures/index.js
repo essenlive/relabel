@@ -19,5 +19,7 @@ export async function getStaticProps() {
       }))
     return structure
   }))
-  return { props: { structures } }
+  return {
+    props: { structures },
+    revalidate: 1 }
 }

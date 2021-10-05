@@ -56,5 +56,7 @@ export async function getStaticProps() {
     return project
   }))
 
-  return { props: { projects } }
+  return {
+    props: { projects },
+        revalidate: 1 }
 }

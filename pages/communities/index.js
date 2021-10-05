@@ -48,6 +48,8 @@ export default function Communities({ communities }) {
 
 export async function getStaticProps() {
   let communities = await airtable_api.getCommunities({ status: true });
-  return { props: { communities } }
+  return {
+    props: { communities },
+    revalidate: 1 }
 
 }

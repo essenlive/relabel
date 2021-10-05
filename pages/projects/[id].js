@@ -70,7 +70,10 @@ export async function getStaticProps({params}) {
     project.structure = project.structure.map((el)=>el.name)
 
     
-    return { props: project}
+    return {
+        props: project,
+        revalidate: 1,
+    }
 }
 export async function getStaticPaths() {
     let paths = await airtable_api.getProjects();

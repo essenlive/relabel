@@ -18,5 +18,8 @@ export default function Pratiques({projects}) {
 
 export async function getStaticProps() {
   let projects = await airtable_api.getProjects();
-  return { props: { projects } }
+  return {
+    props: { projects },
+    revalidate: 1
+  }
 }

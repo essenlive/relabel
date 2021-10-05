@@ -96,7 +96,10 @@ export async function getStaticProps({ params }) {
         let project = await airtable_api.getProjects({ id: el });
         return project[0]
     }))
-    return { props: structure }
+    return {
+        props: structure,
+        revalidate: 1,
+    };
 }
 
 
