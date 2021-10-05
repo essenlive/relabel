@@ -1,8 +1,4 @@
-.labelProduction {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: auto;
+.labelP {
   z-index: 10;
   background-color: var(--white);
   display: grid;
@@ -10,12 +6,12 @@
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas: "label label label label date" "label label label label designer" "label label label label designer" "label label label label designer" "name name name name name";
-  height: 100%;
   width: 100%;
+  aspect-ratio: 1/1;
   overflow: hidden;
 }
 
-.label {
+.labelP__label {
   grid-area: label;
   width: 100%;
   padding: 7%;
@@ -27,28 +23,29 @@
   overflow: hidden;
 }
 
-.label canvas, .label div {
+.labelP__label canvas, .labelP__label div {
   width: 100% !important;
   height: 100% !important;
   aspect-ratio: 1 !important;
 }
 
-.designer {
+.labelP__designer {
   border-left: var(--secondary) var(--borderWidth-lg) solid;
-  padding: 0.5rem;
+  padding: 0.5em;
   grid-area: designer;
   display: flex;
+  font-weight: 200;
+  font-size: 1em;
   flex-direction: row;
   justify-content: space-evenly;
   writing-mode: sideways-lr;
   align-items: center;
-  font-weight: 200;
   text-transform: uppercase;
-  overflow: hidden;
-  flex-grow: 0;
+  text-align: center;
 }
 
-.date {
+.labelP__date {
+  position: relative;
   border-left: var(--secondary) var(--borderWidth-lg) solid;
   border-bottom: var(--secondary) var(--borderWidth-lg) solid;
   grid-area: date;
@@ -61,7 +58,37 @@
   overflow: hidden;
 }
 
-.name {
+.labelP__date::before {
+  content: "";
+  display: block;
+  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  height: var(--borderWidth-lg);
+  position: absolute;
+  z-index: 100;
+  width: 150%;
+  transform-origin: 0% 0%;
+  transform: rotate(45deg);
+  top: calc(-1 * var(--borderWidth-lg));
+  left: 0;
+}
+
+.labelP__date>p {
+  font-size: 1em;
+  padding: 0.4em;
+  position: absolute;
+}
+
+.labelP__date>p:first-child {
+  left: 0;
+  bottom: 0;
+}
+
+.labelP__date>p:last-child {
+  right: 0;
+  top: 0;
+}
+
+.labelP__name {
   border-top: var(--secondary) var(--borderWidth-lg) solid;
   grid-area: name;
   display: flex;
@@ -69,22 +96,14 @@
   justify-content: space-evenly;
   align-items: center;
   overflow: hidden;
+  font-size: 1.5em;
 }
 
-.name h2 {
+.labelP__name h2 {
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
 }
-
-
-/* .small{width: 200px;
-  border-radius: var(--borderRadius-lg);
-  border: var(--borderWidth-lg) var(--black) solid;}
-.medium{width: 350px;}
-.large{width: 500px;
-  border-radius: var(--borderRadius-3xl);
-  border: var(--borderWidth-2xl) var(--black) solid;} */
 
 .bordered {
   border: var(--borderWidth-lg) var(--secondary) solid;
