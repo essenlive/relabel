@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ReactMapGL, { Source, Layer, Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import styles from "@styles/components/Map.module.css";
 import Link from 'next/link'
+import { LabelStructure } from './Labels';
+import Card from './Card';
 
 
 // const geojson = {
@@ -48,7 +50,7 @@ export default function ReactMap({ data }) {
     };
 
     return( 
-        <section className={styles.map}>
+        <>
             <div className={styles.add}>
                 <Link
                     href={{
@@ -95,34 +97,22 @@ export default function ReactMap({ data }) {
                     closeOnClick={false}
                     onClose={() => close()}
                     anchor="top" >
-                        <div className={styles.card}>
-                            <div className={styles.recto}>
-                                <img
-                                    src="/assets/label-comm-placeholder.png"
-                                    height={200}
-                                    alt="Photo d'illustration"
-                                />
-                                {selection.name && (<h2 className={styles.cardTitle}>{selection.name}</h2>)}
-                                {selection.adress && (<div className={styles.cardAdress}>{selection.adress}</div>)}
-                            {selection.community && (<div className={styles.cardCommunities}>{selection.community.map((el)=>(
-                                    <h3>{el}</h3>
-                                ))}</div>)}
-                            </div>
-                            <div className={styles.verso}>
-                                <h2> {selection.name}</h2>
-                                <div>{selection.description}</div>
+                        <Card
+                            title={selection.name}
+                            description={selection.description}
+                            image={{ src: selection.illustrations[0], alt: selection.name }}
+                            link={{ path: `/structures/${selection.id}`,text:"Voir la structure"}}
+                        >
 
-                                <Link
-                                    href={{
-                                        pathname: '/structures/[id]',
-                                        query: { id: selection.id },
-                                    }}>
-                                        <p className='link'>Voir la structure</p>
-                                </Link>
-                            </div>
-                        </div>
+                            <LabelStructure
+                                name={selection.name}
+                                adress={selection.adress}
+                                communities={selection.community}
+                            />
+                        </Card>
+
                 </Popup>}
 
             </ReactMapGL>
-        </section>)
+        </>)
 }

@@ -1,13 +1,13 @@
 .mapboxgl-popup-close-button {
     z-index: 100;
     background: transparent;
-    /* margin: 0.5rem; */
     border-bottom-left-radius: 0.2rem;
     color: var(--secondary) !important;
     z-index: 10;
     width: 2.5rem;
     height: 2.5rem;
     font-size: 2rem;
+    left: 0;
 }
 
 .mapboxgl-popup-close-button:hover {
@@ -17,4 +17,11 @@
 
 .mapboxgl-popup-content {
     padding: 0 !important;
+    width: 300px !important;
+}
+
+@media (--screen-sm) {
+    .map .mapboxgl-popup {
+        width: 90%;
+    }
 }

@@ -1,12 +1,10 @@
 .banner {
-    margin-top: 100px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 320px 1fr 1fr 1fr;
     grid-template-rows: 100px 100px 400px;
     gap: 0px 0px;
     grid-template-areas: ". title title title" ". description description website" "label structures structures cities";
     width: 80%;
-    min-height: 80vh;
 }
 
 .title {
@@ -107,29 +105,12 @@
 
 .label {
     grid-area: label;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: space-between;
-    background: var(--white);
-    border-left: var(--secondary) var(--borderWidth-lg) solid;
-    border-top: var(--secondary) var(--borderWidth-lg) solid;
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
 }
 
-.label h2 {
-    padding: 0.5rem;
+.label>*:first-child {
     border: var(--secondary) var(--borderWidth-lg) solid;
-    text-transform: uppercase;
-    text-align: center;
-    color: var(--primary);
-    width: auto;
-}
-
-.label img {
-    width: auto;
-    object-fit: contain;
+    border-right: none;
+    height: 100%;
 }
 
 .cities {
@@ -158,8 +139,8 @@
     .banner {
         display: flex;
         flex-direction: column;
-        margin: 200px 1rem 1rem 1rem;
         width: 100%;
+        margin: 0;
     }
     .banner>div {
         border: var(--secondary) var(--borderWidth-lg) solid;
@@ -169,5 +150,8 @@
     }
     .label {
         height: inherit;
+    }
+    .label>*:first-child {
+        border: none;
     }
 }

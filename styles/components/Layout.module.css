@@ -19,11 +19,11 @@
 
 .content {
   width: 100%;
-  flex-grow: 1;
   min-height: calc(100vh - 200px);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 
 .content:not(.padded) {
@@ -31,10 +31,27 @@
 }
 
 .padded {
-  padding: 0 1rem 1rem;
+  padding: 0 2rem 2rem;
   margin-top: 200px;
 }
 
+.full {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  align-items: self-start;
+}
+
+.grid>* {
+  width: 100%;
+}
 
 @media (--screen-md) {
   .layout {

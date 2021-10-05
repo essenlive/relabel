@@ -1,69 +1,46 @@
 import Layout from '@components/Layout';
-import Link from 'next/link'
-import styles from "@styles/pages/Communities.module.css";
 import airtable_api from '@libs/airtable_api.js'
+import { LabelCommunity } from '@components/Labels';
+import Card from '@components/Card';
 
 
 export default function Communities({ communities }) {
-  const Card = (props) => (
-    <div className={styles.card}>
-      <div className={styles.recto}>
-        <img
-          src="/assets/label-comm-placeholder.png"
-          height={200}
-          alt="Photo d'illustration"
-        />
-        <h2> {props.title}</h2>
-        <h4> {props.year}</h4>
-      </div>
-      <div className={styles.verso}>
-        <h2> {props.title}</h2>
-        <p>{props.description}</p>
-        <Link
-          href={{
-            pathname: '/communities/[id]',
-            query: { id: props.id },
-          }}>
-          <p className='link'>Voir la communautée</p>
-          </Link>
-      </div>
-    </div>
-  )
 
   return (
     <Layout
       title='Communautées'
       padded
+      grid
     >
-      <div className={"grid"}>
 
-        {communities.map((item, i) => {
+        {communities.map((community, i) => {
           return (
-            <Card 
-              title={item.name}
-              description={item.description}
-              website={item.website}
-              year={item.year}
-              id={item.id}
-            />
+            <Card
+              key={i}
+              title={community.name}
+              description={community.description}
+              link={{ path: `/communities/${community.id}`, text: "Voir la communauté" }}
+            >
+              <LabelCommunity
+                name={community.name}
+                year={community.year}
+                data={{
+                  partners: '0',
+                  materials: '1',
+                  gestion: '0.1',
+                  production: '0.9'
+                }}
+                colors={community.colors}
+              />
+            </Card>
           )
         })}
+      <Card
+        title={"La votre ?"}
+        description={"Vous faites partie d'une communauté qui peuvre pour des pratiques plus reponsables et solidaires dans la fabrication et la production ?"}
+        link={{ path: `/communities/add`, text: "Proposer une communauté" }}
+      />
 
-        <div className={styles.add}>
-            <h2>La votre ?</h2>
-            <p>Vous faites partie d'une communauté qui peuvre pour des pratiques plus reponsables et solidaires dans la fabrication et la production ?</p>
-
-            <Link
-              href={{
-                pathname: '/communities/add',
-              }}>
-              <p className='link'>Proposer une communauté</p>
-            </Link>
-        </div>
-
-
-
-      </div>
     </Layout>
   );
 }

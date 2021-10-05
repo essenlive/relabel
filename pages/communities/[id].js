@@ -3,11 +3,12 @@ import Layout from '@components/Layout'
 import classNames from "classnames"
 import styles from "@styles/pages/SingleCommunity.module.css";
 import Link from 'next/link'
+import { LabelCommunity } from '@components/Labels';
 
 
-export default function Community({ name, members, description, website, cities }) {
+export default function Community({ name, members, description, colors, year, website, cities }) {
     return (
-        <Layout title={name}>
+        <Layout title={name} padded>
             <div className={styles.banner}>
                 <div className={styles.title}>
                     {name && (<h1> {name} </h1>)}
@@ -24,12 +25,17 @@ export default function Community({ name, members, description, website, cities 
                 </div>
 
                 <div className={styles.label}>
-                    <img
-                        src="/assets/label-comm-placeholder.png"
-                        height={200}
-                        alt="Photo d'illustration"
+                    <LabelCommunity
+                        name={name}
+                        year={year}
+                        data={{
+                            partners: '0',
+                            materials: '1',
+                            gestion: '0.1',
+                            production: '0.9'
+                        }}
+                        colors={colors}
                     />
-                    <h2> {name}</h2>
                 
                 </div>
 

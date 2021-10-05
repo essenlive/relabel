@@ -4,12 +4,13 @@ import classNames from 'classnames';
 import styles from "@styles/pages/SingleStructure.module.css";
 import Carousel from "@components/Carousel";
 import Link from 'next/link'
+import { LabelStructure } from '@components/Labels';
 
 
 export default function Structure({ name, website, illustrations, status, description, adress, activity, datas, community, projects }) {
     
     return (
-        <Layout  title={name}>
+        <Layout  title={name} padded>
             <div className={styles.banner}>
                 <div className={styles.title}>
                     {name && (<h1> {name} </h1>)}
@@ -23,19 +24,6 @@ export default function Structure({ name, website, illustrations, status, descri
                             <p> Voir le site </p>
                         </Link>
                     )}
-                </div>
-
-                <div className={styles.label}>
-                    <img
-                        src="/assets/label-comm-placeholder.png"
-                        height={200}
-                        alt="Photo d'illustration"
-                    />
-                    {name && (<h2 className={styles.cardTitle}>{name}</h2>)}
-                    {adress && (<div className={styles.cardAdress}>{adress}</div>)}
-                    {community && (<div className={styles.cardCommunities}>{community.map((el) => (
-                        <h3>{el}</h3>
-                    ))}</div>)}
                 </div>
 
                 <div className={styles.productions}>
@@ -62,6 +50,15 @@ export default function Structure({ name, website, illustrations, status, descri
                     {illustrations && (
                         <Carousel images={illustrations} />
                     )}
+                </div>
+
+                <div className={styles.label}>
+                    <LabelStructure
+                        communities={community}
+                        adress={adress}
+                        name={name}
+                        bordered
+                    />
                 </div>
 
 

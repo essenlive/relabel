@@ -4,7 +4,7 @@ const P5Wrapper = dynamic(
   () => import('react-p5-wrapper'), { ssr: false })
 
 
-export default function Sketch({ partners, production, materials, gestion, colors }) {
+export default function Sketch({ partners, production, materials, gestion, colors = '["#7bba7e","#4e675e","#2a5a7d","#afafaf"]' }) {
     function sketch(p5) {
         // Constantes graphiques
         const width = 600;

@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 export default function Project({ name, illustrations, description, date, data, structure }) {
     return (
-        <Layout title={name}>
+        <Layout title={name} padded>
             <div className={styles.banner}>
                 <div className={styles.title}>
                     {name && (<h1> {name} </h1>)}

@@ -29,10 +29,9 @@ export function LabelProduction({ data, name, date, structure, colors, bordered 
             </div>
 
 
-            <div className={styles.labelP__name}>
-                {name &&
-                    <h2>{name}</h2>}
-            </div>
+                <h2 className={styles.labelP__name}>
+                {name && name }
+                </h2>
             {date &&
                 <div className={styles.labelP__date}>
                         <p>{date.day}</p>
@@ -50,11 +49,21 @@ export function LabelProduction({ data, name, date, structure, colors, bordered 
 }
 
 
-export function LabelCommunity({ data, name, date, structure, colors, bordered }) {
+export function LabelCommunity({ data, name, year, colors, bordered }) {
+    const [width, setWidth] = useState(400)
+    const ref = useRef(null);
+
+    useEffect(() => {
+        setWidth(ref.current ? ref.current.offsetWidth : 30);
+    }, [ref.current]);
+
     return (
-        <div className={classNames(styles.labelProduction,
-            { [`${styles.bordered}`]: bordered })}>
-            <div className={styles.label}>
+        <div
+            ref={ref}
+            style={{ fontSize: `${width / 20}px` }}
+            className={classNames(styles.labelC,
+                { [`${styles.bordered}`]: bordered })}>
+            <div className={styles.labelC__label}>
                 {data &&
                     <Sketch
                         partners={data.partners}
@@ -65,25 +74,45 @@ export function LabelCommunity({ data, name, date, structure, colors, bordered }
                     />}
             </div>
 
-
-            <div className={styles.name}>
-                {name &&
-                    <h2>{name}</h2>}
-            </div>
-            {date &&
-                <div className={styles.date}>
-                    <p>{date.day}</p>
-                    <p>/</p>
-                    <p>{date.month}</p>
-                </div>
+            {name &&
+                <h2 className={styles.labelC__name}> {name}</h2>
             }
-            <div className={styles.designer}>
-                {structure && structure.map((el, i) => {
-                    return (
-                        <p key={i}>{el}</p>
-                    )
-                })}
-            </div>
+            {year &&
+                <h4 className={styles.labelC__date}> {year}</h4>
+            }
+
+        </div>
+    )
+}
+
+
+export function LabelStructure({ name, adress, communities, bordered }) {
+    const [width, setWidth] = useState(400)
+    const ref = useRef(null);
+
+    useEffect(async() => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setWidth(ref.current ? ref.current.offsetWidth : 30);
+    }, [ref.current]);
+
+    return (
+        <div
+            ref={ref}
+            style={{ fontSize: `${width / 20}px` }}
+            className={classNames(styles.labelS,
+                { [`${styles.bordered}`]: bordered })}>
+                <img
+                    className={styles.labelS__image}
+                    src="/assets/label-comm-placeholder.png"
+                    height={200}
+                    alt="Photo d'illustration"
+                />
+                {name && (<h2 className={styles.labelS__name}>{name}</h2>)}
+                {adress && (<div className={styles.labelS__adress}>{adress}</div>)}
+                {communities && (<div className={styles.labelS__communities}>{communities.map((community, i) => (
+                    <h3 key={i}>{community}</h3>
+                ))}</div>)}
+
         </div>
     )
 }

@@ -1,62 +1,36 @@
 import Layout from '@components/Layout';
-import Link from 'next/link'
-import styles from "@styles/pages/Projects.module.css";
 import airtable_api from '@libs/airtable_api.js'
 import {LabelProduction} from '@components/Labels';
+import Card from '@components/Card';
 
 export default function Projects({ projects }) {
 
  
   return (
-    <Layout title='Productions' padded>
-      <div className={"grid"}>
+    <Layout title='Productions' padded grid>
 
-        {projects.map((item, id) => {
+        {projects.map((project, i) => {
           return (
-            <Link
-              href={{
-                pathname: '/projects/[id]',
-                query: { id: item.id },
-              }}
-              key={id}
-              >
-              <div className={styles.card}>
+          <Card
+            key={i}
+            title={project.name}
+            image={{src:project.illustrations[0], alt:project.name}}
+            link={{path:`/projects/${project.id}`, text:"Voir le projet"}}
+          >
+                <LabelProduction
+                  data={project.data}
+                  date={project.date}
+                  name={project.name}
+                  structure={project.structure}
+                />
+            </Card>
+        )})}
+          <Card
+            title={"Votre projet ?"}
+            description={"Vous voulez documenter un projet éco-conçu et en quantifier la démarche ?"}
+            link={{path:`/projects/add`, text:"Labeliser un projet"}}
+          />
 
-                <div className={styles.recto}>
-                  {item.illustrations && (
-                    <img
-                      src={item.illustrations[0]}
-                      height={200}
-                      alt="Photo d'illustration"
-                    />)}
-                </div>
-
-                <div className={styles.verso}>
-                  <LabelProduction
-                    data={item.data}
-                    date={item.date}
-                    name={item.name}
-                    structure={item.structure}
-                  />
-                </div>
-
-              </div>
-            </Link>
-          )
-        })}
-
-        <div className={styles.add}>
-          <h2>Votre projet ?</h2>
-          <p>Vous voulez documenter un projet éco-conçu et en quantifier la démarche ?</p>
-
-          <Link
-            href={{
-              pathname: '/projects/add',
-            }}>
-            <p className='link'>Labeliser un projet</p>
-          </Link>
-        </div>
-      </div>
     </Layout>
   );
 }
