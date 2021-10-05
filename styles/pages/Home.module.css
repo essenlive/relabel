@@ -5,7 +5,6 @@
     background-color: var(--white);
     align-self: center;
    box-shadow: var(--boxShadow-2xl);
-    width: 80%;
 }
 .header{
   padding: 1.5rem;
@@ -58,10 +57,7 @@
 }
 
 
-@media (--screen-md) {  
-  .banner{
-    width: 90%;
-  } 
+@media (--screen-md) { 
   .items{
       flex-direction: column;
       width: 100%;

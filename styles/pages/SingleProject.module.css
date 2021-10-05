@@ -4,7 +4,6 @@
     grid-template-rows: 100px 100px 350px;
     gap: 0px 0px;
     grid-template-areas: ". title title title" ". description description certificate"  "labels carousel carousel carousel";
-    width: 80%;
 }
 
 .title {
@@ -82,8 +81,6 @@
     .banner {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        margin: 0;
     }
     .banner>div {
         border: var(--secondary) var(--borderWidth-lg) solid;

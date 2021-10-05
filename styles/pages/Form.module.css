@@ -1,6 +1,6 @@
 .form {
-  min-width: 60%;
-  height: 80%;
+  width: 100%;
+  height: 600px;
   box-shadow: var(--boxShadow-2xl);
   background-color: var(--white);
 }

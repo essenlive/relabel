@@ -4,7 +4,6 @@
   border: var(--secondary) var(--borderWidth-lg) solid;
   background-color: var(--white);
   box-shadow: var(--boxShadow-2xl);
-  width: 80%;
   height: min-content;
 }
 
@@ -44,7 +43,6 @@
 
 @media (--screen-md) {
   .banner {
-    width: 90%;
     flex-direction: column;
   }
   .header {
