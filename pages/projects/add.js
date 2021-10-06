@@ -10,7 +10,7 @@ export default function AddProjects() {
       title='Labeliser un projet'
       padded
     >
-      <iframe className={"airtable-embed", styles.form} src="https://airtable.com/embed/shrJHEslO47jW9XL1" frameborder="0" ></iframe>
+      <iframe className={"airtable-embed", styles.embedForm} src="https://airtable.com/embed/shrJHEslO47jW9XL1" frameborder="0" ></iframe>
     </Layout>
   );
 }

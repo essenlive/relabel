@@ -1,13 +1,45 @@
 .form {
+  display: grid;
+  grid-template-columns: auto 320px;
+  grid-template-rows: 400px auto auto;
+  gap: 0px 0px;
+  grid-template-areas: "values label" "values explainer""values .";
+}
+
+.embedForm {
   width: 100%;
-  height: 600px;
+  min-height: 70vh;
   box-shadow: var(--boxShadow-2xl);
+}
+
+.values {
+  grid-area: values;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  border: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+.values h2 {
+  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  padding: 1rem;
+}
+
+.values>div {
+  padding: 1rem;
+}
+
+.label {
+  grid-area: label;
+  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  border-right: var(--secondary) var(--borderWidth-lg) solid;
   background-color: var(--white);
 }
 
-@media (--screen-md) {
-  .form {
-    min-width: 90%;
-    height: 600px;
-  }
+.explainer {
+  grid-area: explainer;
+  padding: 1rem;
+  border: var(--secondary) var(--borderWidth-lg) solid;
+  border-left: none;
+  background-color: var(--white);
 }
