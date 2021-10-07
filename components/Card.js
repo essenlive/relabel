@@ -1,7 +1,6 @@
 import classNames from "classnames"
 import Link from 'next/link'
 import styles from "@styles/components/Card.module.css";
-import { Children } from "react";
 
 const Card = ({ title, description, link, image, children, className }) => {
     return (

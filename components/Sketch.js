@@ -15,6 +15,7 @@ export default function Sketch({ partners, production, materials, gestion, color
 
         let dataPartner, dataMaterio, dataGestion, dataProd, dataEmpty;
         let [c1, c2, c3, c4] = JSON.parse(colors);
+        c4 = "#e1e1e1";
 
         let noeuds = [];
         let couleursDispo = [];

@@ -3,214 +3,157 @@ import styles from "@styles/pages/Form.module.css";
 import { LabelStructure } from '@components/Labels';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import classNames from 'classnames';
+import { Inputs } from '@components/Inputs';
 
-const Schema = Yup.object().shape({
-    name: Yup.string().required('Requis'),
-    date: Yup.date().default(function () { return new Date(); }),
-    email: Yup.string().email('Email incorrect').required('Requis'),
-    status: Yup.string().required('Requis'),
-    type: Yup.string().required('Requis'),
-    partnersCount: Yup.number().required().positive().required('Requis'),
-    materials: Yup.number().min(0, 'Ca doit etre au minimum 0').max(100, 'Ca ne peut pas être plus de 1000').required('Requis'),
-    production: Yup.number().min(0, 'Ca doit etre au minimum 0').max(100, 'Ca ne peut pas être plus de 1000').required('Requis'),
-    gestion: Yup.number().min(0, 'Ca doit etre au minimum 0').max(100, 'Ca ne peut pas être plus de 1000').required('Requis'),
-});
+const StructureForm = [{
+    name: "name",
+    schema: Yup.string().required('Requis'),
+    type: "shortText",
+    initial: "",
+    placeholder: "Nom",
+    prefix: "Nom de la structure",
+    suffix: "",
+    required: true
+}, {
+    name: "adress",
+    schema: Yup.string().required('Requis'),
+    type: "shortText",
+    initial: "",
+    placeholder: "15 rue Léon Giraud, 75019 Paris",
+    prefix: "Adresse de la structure",
+    suffix: "",
+    required: true
+},
+{
+    name: "description",
+    schema: Yup.string().required('Requis'),
+    type: "text",
+    initial: "",
+    placeholder: "Nous cherchons à ...",
+    prefix: "Description",
+    suffix: "",
+    required: true
+},
+{
+    name: "status",
+    schema: Yup.string().required('Requis'),
+    type: "singleSelect",
+    initial: "",
+    placeholder: "Design, Stock",
+    prefix: "Status de la structure",
+    suffix: "",
+    required: true,
+    options: {
+        association: "Association",
+        entreprise: "Entreprise",
+        cooperative: "Coopérative",
+        institution: "Institution",
+        autre: "Autre",
+    }
+},
+{
+    name: "type",
+    schema: Yup.array().of(Yup.string().required('Requis')),
+    type: "multiSelect",
+    initial: [""],
+    placeholder: "Design, Stock",
+    prefix: "Activités de la structure",
+    suffix: "",
+    required: true,
+    options: {
+        designer: "Designer.s",
+        atelier: "Atelier",
+        resourcerie: "Resourcerie",
+        autre: "Autre",
+    }
+},
+{
+    name: "email",
+    schema: Yup.string().email('Email incorrect').required('Requis'),
+    type: "mail",
+    initial: "",
+    placeholder: "contact@mail.org",
+    prefix: "Adresse mail du référent",
+    suffix: "" ,
+    required: true
+},
+{
+    name: "website",
+    schema: Yup.string().url(),
+    type: "url",
+    initial: "",
+    placeholder: "sitedelacommunauté.org",
+    prefix: "Site internet",
+    suffix: ""
+    },
+    {
+        name: "partners",
+        schema: Yup.number().required().positive().required('Requis'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        prefix: "Nombre de partenaires",
+        suffix: "partenaires"
+    },
+    {
+        name: "materials",
+        schema: Yup.number().min(0, 'Ca doit etre au minimum 0').max(100, 'Ca ne peut pas être plus de 100').required('Requis'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        prefix: "Pourcentage de materiaux responsables",
+        suffix: "%"
+    },
+    {
+        name: "gestion",
+        schema: Yup.number().min(0, 'Ca doit etre au minimum 0').max(100, 'Ca ne peut pas être plus de 100').required('Requis'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        prefix: "Pourcentage de gestion solidaire",
+        suffix: "%"
+    },
+    {
+        name: "production",
+        schema: Yup.number().min(0, 'Ca doit etre au minimum 0').max(100, 'Ca ne peut pas être plus de 100').required('Requis'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        prefix: "Pourcentage de production responsable",
+        suffix: "%"
+    }
+]
+let Schema = {}
+StructureForm.forEach((el, i) => { Schema[el.name] = el.schema })
+let initialValues = {}
+StructureForm.forEach((el, i) => { initialValues[el.name] = el.initial })
 
-
-export default function AddProjects() {
+export default function AddStructure() {
 
 
     return (
         <Layout
-            title='Labeliser un projet'
-            padded
-        >
+            title='Labeliser une structure'
+            padded>
             <Formik
-                initialValues={{
-                    name: '',
-                    adress: '',
-                    date: '',
-                    status: 'Association',
-                    type: 'Designer.s',
-                    partnersCount: 0,
-                    materials: 0,
-                    production: 0,
-                    gestion: 0,
-                }}
-                validationSchema={Schema}
-                onSubmit={values => {
-                    // same shape as initial values
+                initialValues={initialValues}
+                validationSchema={Yup.object().shape(Schema)}
+                onSubmit={values => { console.log(values); }} >
+                {({ values, handleSubmit, }) => {
                     console.log(values);
-                }}
-            // onSubmit={(values, { setSubmitting }) => {
-            //   setTimeout(() => {
-            //     alert(JSON.stringify(value, 2));
-            //     setSubmitting(false);
-            //   }, 400);
-            // }}
-            >
 
-                {({
-                    values,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                    errors,
-                    touched
-                }) => {
                     return (
                         <div className={styles.form}>
                             <form className={styles.values} onSubmit={handleSubmit}>
                                 <h2>Présentation de la structure</h2>
                                 <div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.name && (
-                                            <div className={'field__error'}>{errors.name}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Nom :
-                                        </span>
-                                        <input
-                                            className={'field__input'}
-                                            name="name"
-                                            placeholder="Nom de la structure"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.name}
+                                    {StructureForm.map((input, i) => (
+                                        <Inputs
+                                            key={i}
+                                            input={input}
+                                            name={input.name}
                                         />
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.adress && (
-                                            <div className={'field__error'}>{errors.adress}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Addresse :
-                                        </span>
-                                        <input
-                                            className={'field__input'}
-                                            name="adress"
-                                            placeholder="Adresse de la structure"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.adress}
-                                        />
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.status && (
-                                            <div className={'field__error'}>{errors.status}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Statut :
-                                        </span>
-                                        <select
-                                            className={'field__input'}
-                                            dir="rtl"
-                                            name="status"
-                                            placeholder="Statut de la structure"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.status}
-                                        >
-                                            <option value="SARL">SARL</option>
-                                            <option value="SAS">SAS</option>
-                                            <option value="SA">SA</option>
-                                            <option value="Association">Association</option>
-                                            <option value="SCOP">SCOP</option>
-                                            <option value="SCIC">SCIC</option>
-                                        </select>
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.type && (
-                                            <div className={'field__error'}>{errors.type}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Type :
-                                        </span>
-                                        <select
-                                            className={'field__input'}
-                                            dir="rtl"
-                                            name="type"
-                                            placeholder="Type de structure"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.type}
-                                        >
-                                            <option value="Designer">Designer.s</option>
-                                            <option value="Atelier">Atelier</option>
-                                            <option value="Resourcerie">Resourcerie</option>
-                                            <option value="Autre">Autre</option>
-                                        </select>
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.partnersCount && (
-                                            <div className={'field__error'}>{errors.partnersCount}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Nombre de partenaires :
-                                        </span>
-                                        <input
-                                            className={'field__input'}
-                                            type="number"
-                                            name="partnersCount"
-                                            placeholder="Nombre de partenaires"
-                                            value={values.partnersCount}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange} />
-                                        <label className={'field__suffix'}>partenaire.s</label>
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.materials && (
-                                            <div className={'field__error'}>{errors.materials}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Pourcentage de matériaux :
-                                        </span>
-                                        <input
-                                            className={'field__input'}
-                                            type="number"
-                                            name="materials"
-                                            placeholder="Pourcentage de materiaux"
-                                            value={values.materials}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange} />
-                                        <label className={'field__suffix'}>%</label>
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.production && (
-                                            <div className={'field__error'}>{errors.production}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Pourcentage de production :
-                                        </span>
-                                        <input
-                                            className={'field__input'}
-                                            type="number"
-                                            name="production"
-                                            placeholder="Pourcentage de production"
-                                            value={values.production}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange} />
-                                        <label className={'field__suffix'}>%</label>
-                                    </div>
-                                    <div className={classNames(styles.field, 'field')}>
-                                        {errors.gestion && (
-                                            <div className={'field__error'}>{errors.gestion}</div>
-                                        )}
-                                        <span className={'field__prefix'}>
-                                            Pourcentage de gestion :
-                                        </span>
-                                        <input
-                                            className={'field__input'}
-                                            type="number"
-                                            name="gestion"
-                                            placeholder="Pourcentage de gestion"
-                                            value={values.gestion}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange} />
-                                        <label className={'field__suffix'}>%</label>
-                                    </div>
+                                    ))}
                                     <button className={"link"}>Submit</button>
                                 </div>
                             </form>

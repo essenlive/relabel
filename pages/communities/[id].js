@@ -46,6 +46,7 @@ export default function Community({ name, members, description, colors, year, we
                     <div className={styles.structuresList}>
                         {members && members.map((el, i) => (
                         <Link
+                            key = {i}
                             href={{
                             pathname: '/structures/[id]',
                             query: { id: el.id },

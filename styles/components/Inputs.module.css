@@ -1,0 +1,58 @@
+.field {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  position: relative;
+}
+
+.field__prefix, .field__suffix {
+  font-weight: 500;
+}
+
+.field__suffix {
+  margin-left: 0.5rem;
+}
+
+.field__area {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  position: relative;
+  margin: 0.5rem 0;
+}
+
+.field__input {
+  flex-grow: 1;
+  border: none;
+  color: var(--secondary);
+  font-weight: 500;
+  border-bottom: solid var(--secondary) var(--borderWidth-md);
+  text-align: left;
+}
+
+.field__input:focus-visible, .field__input:focus {
+  outline: none;
+  border-bottom: solid var(--primary) var(--borderWidth-md);
+}
+
+.field__error {
+  position: absolute;
+  width: 100%;
+  bottom: -1rem;
+  font-size: 0.8em;
+  color: var(--red-700);
+}
+
+.required {
+  color: var(--red-700);
+}
+
+.text {
+  flex-direction: column;
+}
+
+.text textarea {
+  width: 100% !important;
+  text-align: left;
+}
