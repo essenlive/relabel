@@ -13,7 +13,6 @@ export default function Communities({ communities }) {
     >
 
         {communities.map((community, i) => {
-          community.colors = JSON.parse(community.colors);
           return (
             <Card
               key={i}
@@ -48,6 +47,10 @@ export default function Communities({ communities }) {
 
 export async function getStaticProps() {
   let communities = await airtable_api.getCommunities({ status: true });
+  communities = communities.map((el,i)=>{
+    el.colors = JSON.parse(el.colors);
+    return el
+  })
   return {
     props: { communities },
     revalidate: 1 }

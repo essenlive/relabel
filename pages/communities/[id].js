@@ -7,7 +7,6 @@ import { LabelCommunity } from '@components/Labels';
 
 
 export default function Community({ name, members, description, colors, year, website, cities }) {
-    colors = JSON.parse(colors);
     return (
         <Layout title={name} padded>
             <div className={styles.banner}>
@@ -78,12 +77,14 @@ export default function Community({ name, members, description, colors, year, we
 
 export async function getStaticProps({ params }) {
     let community = await airtable_api.getCommunities({ id: params.id });
-    community[0].members = await Promise.all(community[0].members.map(async (el) => {
+    community = community[0];
+    community.colors = JSON.parse(community.colors);
+    community.members = await Promise.all(community.members.map(async (el) => {
         let member = await airtable_api.getStructures({ id: el });
         return member[0]
     }))
     return {
-        props: community[0],
+        props: community,
         revalidate: 1
     }
 }
