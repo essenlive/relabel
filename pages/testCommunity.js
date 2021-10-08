@@ -12,15 +12,33 @@ const getTriad = (seed) => {
     const scheme = new ColorScheme;
     scheme.from_hue(seed)
         .scheme('triade')
-        .variation('pastel');    return scheme.colors().filter((el, i) => (i % 4 === 0)).slice(0, 3).map((el) => `#${el}`)
+        .variation('pastel');    
+        return scheme.colors().filter((el, i) => (i % 4 === 0)).slice(0, 3).map((el) => `#${el}`)
 }
-
 const seed = () => Math.round(Math.random() * 35) * 10;
+
+
+
+// const createCommunity = async (fields) => {
+//     console.log(fields);
+//     // fields.cities = fields.Cities.split(',')
+//     const options = {
+//         method: 'POST',
+//         body: JSON.stringify(fields),
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     }
+//     let res = await fetch('/api/create', options)
+//     res = await res.json()
+//     console.log(res);
+// }
+
 
 export default function AddCommunities({StartingColors}) {
 
     const CommunityForm = [{
-        name: "name",
+        name: "Name",
         schema: Yup.string().required('Requis'),
         type: "shortText",
         initial: "Ma communauté",
@@ -30,7 +48,7 @@ export default function AddCommunities({StartingColors}) {
         required: true
     },
     {
-        name: "year",
+        name: "Year",
         schema: Yup.date().default(function () { return new Date().getFullYear(); }),
         type: "number",
         initial: new Date().getFullYear(),
@@ -40,7 +58,7 @@ export default function AddCommunities({StartingColors}) {
         required: true
     },
     {
-        name: "description",
+        name: "Description",
         schema: Yup.string().required('Requis'),
         type: "text",
         initial: "Nous cherchons à ...",
@@ -50,7 +68,7 @@ export default function AddCommunities({StartingColors}) {
         required: true
     },
     {
-        name: "cities",
+        name: "Cities",
         schema: Yup.string().required('Requis'),
         // schema: Yup.array().of(Yup.string().required('Requis')).nullable(),
         type: "shortText",
@@ -61,7 +79,7 @@ export default function AddCommunities({StartingColors}) {
         required: true
     },
     {
-        name: "contact",
+        name: "Contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
         type: "mail",
         initial: "",
@@ -71,7 +89,7 @@ export default function AddCommunities({StartingColors}) {
         required: true
     },
     {
-        name: "website",
+        name: "Website",
         schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
         type: "url",
         initial: "",
@@ -81,7 +99,7 @@ export default function AddCommunities({StartingColors}) {
         required: false
     },
     {
-        name: "colors",
+        name: "Colors",
         schema: Yup.string().required('Requis'),
         type: "button",
         initial: StartingColors,
@@ -98,7 +116,6 @@ export default function AddCommunities({StartingColors}) {
     let initialValues = {}
     CommunityForm.forEach((el, i) => { initialValues[el.name] = el.initial })
 
-
     return (
         <Layout
             title='Labeliser un projet'
@@ -109,14 +126,7 @@ export default function AddCommunities({StartingColors}) {
                 validationSchema={Yup.object().shape(Schema)}
                 onSubmit={values => { console.log(values);}}
             >
-
-                {({
-                    values,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    errors
-                }) => {
+                {({ values, handleSubmit }) => {
                     return (
                         <div className={styles.form}>
                             <form className={styles.values} onSubmit={handleSubmit}>
@@ -130,39 +140,38 @@ export default function AddCommunities({StartingColors}) {
                                         />
                                     ))}
                                 </div>
-
                                 <button type={"submit"} className={classNames(styles.submit)}>Envoyer</button>
                             </form>
 
                             <div className={styles.label}>
                                 <LabelCommunity
-                                    name={values.name}
-                                    year={values.year}
+                                    name={values.Name}
+                                    year={values.Year}
                                     data={{
                                         partners: '5',
                                         materials: '0.7',
                                         gestion: '0.3',
                                         production: '0.9'
                                     }}
-                                    colors={values.colors}
+                                    colors={values.Colors}
                                 />
                             </div>
                             <div className={styles.verso}>
-                                {values.image && values.image.src &&
+                                {values.Image && values.Image.src &&
                                     <img
-                                        className={styles.image}
-                                    src={values.image.src}
-                                    alt={values.image.alt}
+                                        className={styles.Image}
+                                    src={values.Image.src}
+                                    alt={values.Image.alt}
                                     />
                                 }
-                                {values.name &&
-                                    <h2 className={styles.name}>{values.name}</h2>
+                                {values.Name &&
+                                    <h2 className={styles.name}>{values.Name}</h2>
                                 }
-                                {values.description &&
-                                    <p className={styles.description}>{values.description}</p>
+                                {values.Description &&
+                                    <p className={styles.description}>{values.Description}</p>
                                 }
-                                {values.website &&
-                                    <Link href={{ pathname: values.website }}>
+                                {values.Website &&
+                                    <Link href={{ pathname: values.Website }}>
                                         <p className={classNames("link", styles.link)}>Voir le site</p>
                                     </Link>
                                 }
@@ -173,9 +182,9 @@ export default function AddCommunities({StartingColors}) {
                                 <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
                                 <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
                                 <ul className={styles.legends}>
-                                    <li><span className={styles.legend} style={{ backgroundColor: values.colors[0]}}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: values.colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: values.colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li>
+                                    <li><span className={styles.legend} style={{ backgroundColor: values.Colors[0]}}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
+                                    <li><span className={styles.legend} style={{ backgroundColor: values.Colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
+                                    <li><span className={styles.legend} style={{ backgroundColor: values.Colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li>
                                 </ul>
                             </div>
                         </div>

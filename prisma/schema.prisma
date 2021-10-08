@@ -14,9 +14,10 @@ model Community {
   members      String[]
   cities      String[]
   name         String?
+  contact      String?
   status       Boolean?  @default(false)
   website      String?
-  colors      String?
+  colors      String[]
   year       Decimal?  @db.Decimal
 
   @@map("communities")

@@ -5,12 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^3.0.2",
+    "@prisma/client": "^3.2.1",
+    "airtable": "^0.11.1",
     "classnames": "^2.3.1",
     "color-scheme": "^1.0.1",
     "formik": "^2.2.9",
@@ -29,8 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
-    "add": "^2.0.6",
     "babel-loader": "^8.2.2",
-    "prisma": "^3.0.2"
+    "prisma": "^3.2.1"
   }
 }
