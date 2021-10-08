@@ -1,9 +1,9 @@
 .form {
   display: grid;
-  grid-template-columns: auto 320px;
-  grid-template-rows: 400px auto auto;
+  grid-template-columns: auto 280px 280px;
+  grid-template-rows: 350px auto auto;
   gap: 0px 0px;
-  grid-template-areas: "values label" "values explainer""values .";
+  grid-template-areas: "values label verso" "values explainer explainer""values . .";
 }
 
 .embedForm {
@@ -25,6 +25,20 @@
   padding: 1rem;
 }
 
+.submit {
+  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  padding: 1rem;
+  text-transform: uppercase;
+  color: var(--white);
+  background-color: var(--secondary);
+  font-weight: 600;
+}
+
+.submit:hover {
+  background-color: var(--white);
+  color: var(--secondary);
+}
+
 .values>div {
   padding: 1rem;
 }
@@ -42,4 +56,78 @@
   border: var(--secondary) var(--borderWidth-lg) solid;
   border-left: none;
   background-color: var(--white);
+}
+
+.verso {
+  grid-area: verso;
+  border-right: var(--secondary) var(--borderWidth-lg) solid;
+  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  background-color: var(--white);
+}
+
+.legends {
+  list-style: none;
+}
+
+.explainer>* {
+  margin-bottom: 0.5rem;
+}
+
+.legend {
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.name {
+  text-transform: uppercase;
+  color: var(--primary);
+  width: auto;
+}
+
+.name, .link, .description {
+  padding: 0.5rem 1.5rem;
+}
+
+.name:first-child, .link:first-child, .description:first-child {
+  padding-top: 1.5rem;
+}
+
+.name:last-child, .link:last-child, .description:last-child {
+  padding-bottom: 1.5rem;
+}
+
+/* 
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} */
+
+.image {
+  object-fit: cover;
+  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  max-height: 50%;
+}
+
+@media (--screen-md) {
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0px 0px;
+    grid-template-areas: "values values" "label verso" "explainer explainer";
+    border: var(--secondary) var(--borderWidth-lg) solid;
+  }
+  .form>* {
+    border: none;
+  }
+  .label {
+    border-right: var(--secondary) var(--borderWidth-lg) solid;
+  }
+  .form>*:not(:last-child) {
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  }
 }

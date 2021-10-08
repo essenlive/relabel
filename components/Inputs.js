@@ -3,7 +3,7 @@ import { useField } from "formik";
 import classNames from "classnames";
 
 export const Inputs = ({ input, ...props}) => {
-    const { name, type, placeholder, prefix, suffix, options, required} = input;
+    const { name, type, placeholder, prefix, suffix, options, required, handler} = input;
     const [field, meta, helpers] = useField(props);
     switch (type) {
         case "text":
@@ -86,6 +86,18 @@ export const Inputs = ({ input, ...props}) => {
                     {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
                 </div>
             </div>)
+        case "button": 
+            const { setValue } = helpers;
+            return (<div className={classNames(styles.field, styles[type])}>
+                <button
+                    type="button"
+                    className={classNames(styles.field__prefix, "link")}
+                    onClick={() => { setValue(handler[0](handler[1]()))}}
+                    >
+                    {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                    </button>
+                    </div>
+            )
         case "singleSelect":
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
