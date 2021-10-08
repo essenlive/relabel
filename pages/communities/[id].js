@@ -7,6 +7,7 @@ import { LabelCommunity } from '@components/Labels';
 
 
 export default function Community({ name, members, description, colors, year, website, cities }) {
+    colors = JSON.parse(colors);
     return (
         <Layout title={name} padded>
             <div className={styles.banner}>
@@ -62,7 +63,7 @@ export default function Community({ name, members, description, colors, year, we
 
                 <div className={styles.cities}>
                     {cities && cities.map((el, i) => (
-                        <div> {el} </div>
+                        <div key={i}> {el} </div>
                     ))}
                 </div>
              

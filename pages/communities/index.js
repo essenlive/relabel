@@ -5,15 +5,15 @@ import Card from '@components/Card';
 
 
 export default function Communities({ communities }) {
-
   return (
     <Layout
-      title='Communautées'
-      padded
-      grid
+    title='Communautées'
+    padded
+    grid
     >
 
         {communities.map((community, i) => {
+          community.colors = JSON.parse(community.colors);
           return (
             <Card
               key={i}

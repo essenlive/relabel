@@ -188,12 +188,9 @@ export default function AddCommunities({StartingColors}) {
 
 
 export async function getStaticProps() {
-    console.log(seed());
     const StartingColors = getTriad(seed())
-    
     return {
         props: { StartingColors},
-        revalidate: 1
     }
 
 }
