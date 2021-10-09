@@ -29,9 +29,10 @@
   font-weight: 400;
   border-bottom: solid var(--secondary) var(--borderWidth-md);
   text-align: left;
+  padding: 0.25rem 0;
 }
 
-.field__input:focus-visible, .field__input:focus {
+.field__input:focus-visible, .field__input:focus, .field__input:focus-within, .field:hover .field__input {
   outline: none;
   border-bottom: solid var(--primary) var(--borderWidth-md);
 }

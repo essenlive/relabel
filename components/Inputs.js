@@ -1,10 +1,14 @@
 import styles from "@styles/components/Inputs.module.css";
 import { useField } from "formik";
 import classNames from "classnames";
+import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 
 export const Inputs = ({ input, ...props}) => {
     const { name, type, placeholder, prefix, suffix, options, required, handler} = input;
     const [field, meta, helpers] = useField(props);
+    const { setValue } = helpers;
+
     switch (type) {
         case "text":
             return (<div className={classNames(styles.field, styles[type])}>
@@ -87,7 +91,6 @@ export const Inputs = ({ input, ...props}) => {
                 </div>
             </div>)
         case "button": 
-            const { setValue } = helpers;
             return (<div className={classNames(styles.field, styles[type])}>
                 <button
                     type="button"
@@ -98,45 +101,59 @@ export const Inputs = ({ input, ...props}) => {
                     </button>
                     </div>
             )
-        case "singleSelect":
-            return (<div className={classNames(styles.field, styles[type])}>
+        case "select":
+            return (
+            <div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
                 <div className={styles.field__area}>
-                <select
-                    className={styles.field__input}
-                    placeholder={placeholder}
-                    {...field}
-                    {...props}
-                    dir="rtl"
-                    >
-                    {options && Object.keys(options).map((el, i) => (
-                        <option key={i} value={el}>{options[el]}</option>
-                        ))}
-                </select>
-                {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
+                        <Select 
+                            className={styles.field__input}
+                            classNamePrefix="select"
+                            value={options ? options.find(option => option.value === field.value) : ''}
+                            onChange={(option) => {setValue(option.value)}}
+                            onBlur={field.onBlur}
+                            options={options}
+                        />
+                    {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
                 </div>
             </div>)
+        case "creatableSelect":
+            return (
+                <div className={classNames(styles.field, styles[type])}>
+                    {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
+                    {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                    <div className={styles.field__area}>
+                        <CreatableSelect
+                            className={styles.field__input}
+                            classNamePrefix="select"
+                            isMulti
+                            onChange={(values) => {setValue(values.map(el => el.value))}}
+                            options={options}
+                        />
+                        {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
+                    </div>
+                </div>)
         case "multiSelect":
-            return (<div className={classNames(styles.field, styles[type])}>
-                {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
-                {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
-                <div className={styles.field__area}>
-                <select
-                    multiple
-                    className={styles.field__input}
-                    placeholder={placeholder}
-                    {...field}
-                    {...props}
-                    dir="rtl"
-                >
-                    {options && Object.keys(options).map((el, i) => (
-                        <option key={i} value={el}>{options[el]}</option>
-                    ))}
-                </select>
-                {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
-                </div>
-            </div>)
+            return (
+                <div className={classNames(styles.field, styles[type])}>
+                    {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
+                    {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                    <div className={styles.field__area}>
+                        <Select
+                            id='employee-search'
+                            className={styles.field__input}
+                            styles={{padding:"0 !important"}}
+                            classNamePrefix="select"
+                            // value={options ? options.find(option => option.value === field.value) : ''}
+                            isMulti
+                            onChange={(values) => {setValue(values.map(el => el.value))}}
+                            onBlur={field.onBlur}
+                            options={options}
+                        />
+                        {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
+                    </div>
+                </div>)
      
         default:
             console.log(`❌ Unsupported input (${type})`);

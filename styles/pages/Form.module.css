@@ -6,6 +6,27 @@
   grid-template-areas: "values label verso" "values explainer explainer""values . .";
 }
 
+/* .submitted>* {
+  display: none;
+} */
+
+.sending {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--primary);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.sending h3 {
+  color: var(--secondary);
+}
+
 .embedForm {
   width: 100%;
   min-height: 70vh;
@@ -18,6 +39,7 @@
   flex-direction: column;
   background-color: var(--white);
   border: var(--secondary) var(--borderWidth-lg) solid;
+  position: relative;
 }
 
 .values h2 {
