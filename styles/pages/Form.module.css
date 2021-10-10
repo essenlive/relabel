@@ -1,11 +1,10 @@
 .form {
   display: grid;
-  grid-template-columns: 2fr  minmax(150px, 1fr)  minmax(150px, 1fr);
+  grid-template-columns: 2fr minmax(150px, 1fr) minmax(150px, 1fr);
   grid-template-rows: auto auto auto;
   gap: 0px 0px;
   grid-template-areas: "values label verso" "values explainer explainer""values . .";
 }
-
 
 .sending {
   position: absolute;
@@ -131,7 +130,7 @@
   max-height: 50%;
 }
 
-@media (--screen-md) {
+@media (--screen-lg) {
   .form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -145,6 +144,23 @@
   }
   .label {
     border-right: var(--secondary) var(--borderWidth-lg) solid;
+  }
+  .form>*:not(:last-child) {
+    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  }
+}
+
+@media (--screen-sm) {
+  .form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 0px 0px;
+    grid-template-areas: "values"  "label" "verso" "explainer";
+    border: var(--secondary) var(--borderWidth-lg) solid;
+  }
+  .form>* {
+    border: none;
   }
   .form>*:not(:last-child) {
     border-bottom: var(--secondary) var(--borderWidth-lg) solid;
