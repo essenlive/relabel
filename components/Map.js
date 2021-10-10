@@ -6,27 +6,9 @@ import { LabelStructure } from './Labels';
 import Card from './Card';
 
 
-// const geojson = {
-//     type: 'FeatureCollection',
-//     features: [
-//         { type: 'Feature', geometry: { type: 'Point', coordinates: [-122.4, 37.8] } },
-//         { type: 'Feature', geometry: { type: 'Point', coordinates: [-122.4, 40.8] } },
-//         { type: 'Feature', geometry: { type: 'Point', coordinates: [-122.4, 41] } },
-//         { type: 'Feature', geometry: { type: 'Point', coordinates: [-122.4, 41] } }
-//     ]
-// };
-
-// const layerStyle = {
-//     id: 'point',
-//     type: 'circle',
-//     paint: {
-//         'circle-radius': 10,
-//         'circle-color': '#007cbf'
-//     }
-// };
 export default function ReactMap({ data }) {
     let colors = ["primary", "secondary", "tertiary", "quaternary", "pink-500", "cyan-500" ];
-    let activities = Array.from(new Set(data.map((el) => (el.activity)).flat()))
+    let types = Array.from(new Set(data.map((el) => (el.types)).flat()))
 
     const [viewport, setViewport] = useState({
         latitude: 48.85658,
@@ -67,9 +49,7 @@ export default function ReactMap({ data }) {
                 mapStyle="mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k"
                 onViewportChange={(viewport) => setViewport(viewport)}
             >
-                {/* <Source id="my-data" type="geojson" data={geojson}>
-                    <Layer {...layerStyle} />
-                </Source> */}
+
                 {data.map((item,i)=>{
                     return(
                         <Marker
@@ -83,8 +63,7 @@ export default function ReactMap({ data }) {
                                 markerClick(item)
                             }}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill={`var(--${ colors[activities.indexOf(item.activity[0])]})`} viewBox="0 0 12 12" stroke="none">
-                                
+                            <svg xmlns="http://www.w3.org/2000/svg" fill={`var(--${ colors[types.indexOf(item.types[0])]})`} viewBox="0 0 12 12" stroke="none">
                                 <circle cx="6" cy="6" r="6"/>
                             </svg>
                         </Marker>

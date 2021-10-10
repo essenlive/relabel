@@ -21,6 +21,7 @@ export default async function handler (req, res) {
                     res.end()
                     return
                 } catch (error) {
+                    console.log(error);
                     res.status(500).json(error);
                     res.end()
                     return
@@ -33,11 +34,11 @@ export default async function handler (req, res) {
                 let fields = req.body
                 try {
                     let response = await baseCreate(fields, { typecast: true })
-                    console.log("response", response);
                     res.status(200).json(response);
                     res.end()
                     return
                 } catch (error) {
+                    console.log(error);
                     res.status(500).json(error);
                     res.end()
                     return

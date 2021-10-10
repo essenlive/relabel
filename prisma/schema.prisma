@@ -75,7 +75,7 @@ model Project {
 model Structure {
   id               String    @id
   created_time     DateTime? @db.Timestamptz(6)
-  activity         String[]
+  types             String[]
   adress           String?
   community        String[]
   datas            String[]
@@ -90,6 +90,7 @@ model Structure {
   projectspartners String[]
   status           String?
   website          String?
+  contact          String?
 
   @@map("structures")
 }

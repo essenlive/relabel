@@ -28,18 +28,34 @@ export const Inputs = ({ input, ...props}) => {
 
         case "shortText":
             return (<div className={classNames(styles.field, styles[type])}>
-                    {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
+                {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
                 <div className={styles.field__area}>
                     <input
                         className={styles.field__input}
                         placeholder={placeholder}
-                        {...field} 
+                        {...field}
                         {...props}
-                        />
+                    />
                     {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
-                        </div>
                 </div>
+            </div>
+            );
+        case "adress":
+            return (<div className={classNames(styles.field, styles[type])}>
+                {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
+                {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                <div className={styles.field__area}>
+                    <input
+                        className={styles.field__input}
+                        placeholder={placeholder}
+                        autoComplete="street-address"
+                        {...field}
+                        {...props}
+                    />
+                    {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
+                </div>
+            </div>
             );
         case "url":
             return (<div className={classNames(styles.field, styles[type])}>

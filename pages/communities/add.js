@@ -99,7 +99,7 @@ export default function AddCommunities({ StartingColors }) {
         let res = await fetch('/api/create/community', options)
         res = await res.json()
         setTimeout(()=>{
-            formik.setSubmitting(0)
+            formik.setSubmitting(false)
             router.push('/')
         },1000)
     }

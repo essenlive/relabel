@@ -56,3 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 .select__value-container {
   padding: 0 !important;
 }
+
+.select__control *{
+  color: var(--secondary) !important;
+}

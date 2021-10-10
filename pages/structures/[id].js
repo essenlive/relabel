@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { LabelStructure } from '@components/Labels';
 
 
-export default function Structure({ name, website, illustrations, status, description, adress, activity, datas, community, projects }) {
+export default function Structure({ name, website, illustrations, status, description, adress, types, datas, community, projects }) {
     
     return (
         <Layout  title={name} padded>
