@@ -1,6 +1,6 @@
 .form {
   display: grid;
-  grid-template-columns: 3fr 2fr 2fr;
+  grid-template-columns: 2fr  minmax(150px, 1fr)  minmax(150px, 1fr);
   grid-template-rows: auto auto auto;
   gap: 0px 0px;
   grid-template-areas: "values label verso" "values explainer explainer""values . .";
@@ -106,7 +106,7 @@
   width: auto;
 }
 
-.name, .link, .description {
+.name, .link, .description, .tags {
   padding: 0.5rem 1.5rem;
 }
 

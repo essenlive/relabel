@@ -8,6 +8,7 @@ import Link from 'next/link'
 import classNames from 'classnames';
 import { useRouter } from 'next/router'
 import airtable_api from '@libs/airtable_api.js'
+import Tags from '@components/Tags';
 
 
 export default function AddProject({ suppliersOptions, designersOptions, workshopsOptions }) {
@@ -36,7 +37,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         name: "typology",
         schema: Yup.string().required('Requis'),
         type: "select",
-        initial: [],
+        initial: "",
         placeholder: "",
         prefix: "Typologies de projet",
         suffix: "",
@@ -196,7 +197,6 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                 validationSchema={Yup.object().shape(Schema)}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
-                    console.log(props.values);
                     return (
                         <div className={styles.form}>
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
@@ -240,6 +240,9 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                             <div className={styles.verso}>
                                 {props.values.name &&
                                     <h2 className={styles.name}>{props.values.name}</h2>
+                                }
+                                {props.values.typology &&
+                                    <Tags className={styles.tags} tags={[props.values.typology]} />
                                 }
                                 {props.values.description &&
                                     <p className={styles.description}>{props.values.description}</p>

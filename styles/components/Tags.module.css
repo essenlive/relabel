@@ -1,0 +1,15 @@
+.tags {
+  display: block;
+}
+
+.tags>*:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
+.tag {
+  padding: 0.25rem 0.5rem;
+  background-color: var(--gray-100);
+  display: inline-block;
+  font-size: var(--fontSize-sm);
+  margin-bottom: 0.25rem;
+}

@@ -8,7 +8,7 @@ import Link from 'next/link'
 import classNames from 'classnames';
 import { useRouter } from 'next/router'
 import airtable_api from '@libs/airtable_api.js'
-
+import Tags from '@components/Tags';
 
 export default function AddStructure({ communities }) {
     const router = useRouter()
@@ -79,7 +79,7 @@ export default function AddStructure({ communities }) {
         name: "typologies",
         schema: Yup.array().of(Yup.string().required('Requis')),
         type: "multiSelect",
-        initial: [""],
+        initial: [],
         placeholder: "",
         prefix: "Activités de la structure",
         suffix: "",
@@ -167,6 +167,9 @@ export default function AddStructure({ communities }) {
                             <div className={styles.verso}>
                                 {props.values.name &&
                                     <h2 className={styles.name}>{props.values.name}</h2>
+                                }
+                                {props.values.typologies &&
+                                    <Tags className={styles.tags} tags={props.values.typologies} />
                                 }
                                 {props.values.description &&
                                     <p className={styles.description}>{props.values.description}</p>

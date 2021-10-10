@@ -17,6 +17,7 @@ export default function Communities({ communities }) {
             <Card
               key={i}
               title={community.name}
+              tags={community.cities}
               description={community.description}
               link={{ path: `/communities/${community.id}`, text: "Voir la communauté" }}
             >

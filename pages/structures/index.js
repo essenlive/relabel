@@ -75,6 +75,7 @@ export default function Structures({ structures }) {
         <Card
           title={selection.name}
           description={selection.description}
+          tags={selection.typologies}
           image={{ src: selection.illustrations[0], alt: selection.name }}
           link={{ path: `/structures/${selection.id}`, text: "Voir la structure" }}
         >

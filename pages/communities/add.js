@@ -8,6 +8,7 @@ import Link from 'next/link'
 import classNames from 'classnames';
 import {getTriad, seed} from '@libs/getTriad';
 import { useRouter } from 'next/router'
+import Tags from '@components/Tags';
 
 export default function AddCommunities({ StartingColors }) {
     const router = useRouter()
@@ -143,6 +144,9 @@ export default function AddCommunities({ StartingColors }) {
                             <div className={styles.verso}>
                                 {props.values.name &&
                                     <h2 className={styles.name}>{props.values.name}</h2>
+                                }
+                                {props.values.cities &&
+                                    <Tags className={styles.tags} tags={props.values.cities} />
                                 }
                                 {props.values.description &&
                                     <p className={styles.description}>{props.values.description}</p>

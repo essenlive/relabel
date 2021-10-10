@@ -13,7 +13,8 @@ export default function Projects({ projects }) {
           return (
           <Card
             key={i}
-            title={project.name}
+              title={project.name}
+              tags={project.team}
             image={{src:project.illustrations[0], alt:project.name}}
             link={{path:`/projects/${project.id}`, text:"Voir le projet"}}
           >

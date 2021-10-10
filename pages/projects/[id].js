@@ -31,7 +31,6 @@ export default function Project({ id, name, typology, description, illustrations
                 </div>
 
                 <div className={styles.label}>
-                    {console.log(date)}
                     <LabelProduction
                         data={data}
                         date={{
