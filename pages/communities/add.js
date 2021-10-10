@@ -94,11 +94,9 @@ export default function AddCommunities({ StartingColors }) {
         const options = {
             method: 'POST',
             body: JSON.stringify(fields),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         }
-        let res = await fetch('/api/create', options)
+        let res = await fetch('/api/create/community', options)
         res = await res.json()
         setTimeout(()=>{
             formik.setSubmitting(0)
@@ -118,8 +116,7 @@ export default function AddCommunities({ StartingColors }) {
                     return (
                         <div className={styles.form}>
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
-                                {props.isSubmitting  && <div className={styles.sending}><h3>C'est envoyé</h3>
-                                </div>}
+                                {props.isSubmitting  && <div className={styles.sending}><h3>C'est envoyé</h3></div>}
                                 <h2>Présentation de la communauté</h2>
                                 <div>
                                     {CommunityForm.map((input, i) => (
