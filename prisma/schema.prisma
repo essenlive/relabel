@@ -10,50 +10,35 @@ datasource db {
 model Community {
   id           String    @id
   created_time DateTime? @db.Timestamptz(6)
-  description  String?
-  members      String[]
-  cities      String[]
   name         String?
-  contact      String?
-  status       Boolean?  @default(false)
-  website      String?
-  colors      String[]
   year       Decimal?  @db.Decimal
+  description  String?
+  cities      String[]
+  website      String?
+  members      String[]
+  status       Boolean?  @default(false)
+  colors      String[]
+  contact      String?
 
   @@map("communities")
 }
 
-model Data {
-  id            String    @id
-  created_time  DateTime? @db.Timestamptz(6)
-  dataid        String?
-  gestion       Decimal?  @db.Decimal
-  materials     Decimal?  @db.Decimal
-  partners      String[]
-  partnerscount Decimal?  @db.Decimal
-  production    Decimal?  @db.Decimal
-  structure     String[]
-  year          DateTime? @db.Date
-
-  @@map("datas")
-}
 
 model Project {
   id            String    @id
   created_time  DateTime? @db.Timestamptz(6)
-  address       String?
-  description   String?
-  duration      Decimal?  @db.Decimal
-  gestion       Decimal?  @db.Decimal
-  illustrations String[]
-  materials     Decimal?  @db.Decimal
   name          String?
-  partners      String[]
-  partnerscount Decimal?  @db.Decimal
-  production    Decimal?  @db.Decimal
-  structure     String[]
-  team          String[]
   typology      String?
+  description   String?
+  illustrations String[]
+  team          String[]
+  designers     String[]
+  workshops      String[]
+  suppliers      String[]
+  duration      Decimal?  @db.Decimal
+  production    Decimal?  @db.Decimal
+  gestion       Decimal?  @db.Decimal
+  materials     Decimal?  @db.Decimal
 
   @@map("projects")
 }
@@ -61,37 +46,24 @@ model Project {
 model Structure {
   id               String    @id
   created_time     DateTime? @db.Timestamptz(6)
-  types             String[]
-  adress           String?
-  communities        String[]
-  datas            String[]
-  dataspartners    String[]
-  description      String?
-  ess              String[]
-  illustrations    String[]
-  latitude         Decimal?  @db.Decimal
-  longitude        Decimal?  @db.Decimal
   name             String?
-  projects         String[]
-  projectspartners String[]
+  description      String?
+  illustrations    String[]
   status           String?
+  typologies        String[]
+  adress           String?
+  longitude        Decimal?  @db.Decimal
+  latitude         Decimal?  @db.Decimal
   website          String?
+  partners        String[]
+  communities     String[]
   contact          String?
+  production    Decimal?  @db.Decimal
+  gestion       Decimal?  @db.Decimal
+  materials     Decimal?  @db.Decimal
+  projects_designer  String[]
+  projects_workshop  String[]
+  projects_supplier  String[]
 
   @@map("structures")
-}
-
-
-model GoodPractices {
-  id           String    @id
-  created_time DateTime? @db.Timestamptz(6)
-  attachments  String[]
-  name         String?
-  notes        String?
-  status       String?
-  type         String[]
-  valid        Boolean?  @default(false)
-  place        String?
-
-  @@map("good_practices")
 }

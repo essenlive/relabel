@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { LabelCommunity } from '@components/Labels';
 
 
-export default function Community({ name, members, description, colors, year, website, cities }) {
+export default function Community({ id, name, year, description, cities, website, members, status, colors, contact }) {
     return (
         <Layout title={name} padded>
             <div className={styles.banner}>
@@ -29,7 +29,7 @@ export default function Community({ name, members, description, colors, year, we
                         name={name}
                         year={year}
                         data={{
-                            partners: '0',
+                            partners: members.length,
                             materials: '1',
                             gestion: '0.1',
                             production: '0.9'
@@ -53,7 +53,7 @@ export default function Community({ name, members, description, colors, year, we
                             }}>
                             <div>
                                 <div className={classNames(styles.structure, 'link')}> {el.name} </div>
-                                <div className={styles.structuresListProject}> {el.projects.length} </div>
+                                <div className={styles.structuresListProject}> {el.projects_designer.length} </div>
                             </div>
                             </Link>
                         ))}

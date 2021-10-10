@@ -3,18 +3,17 @@ import {LabelProduction} from '@components/Labels';
 import Link from 'next/link'
 
 
-export default function Project({ name, id, date, data, structure }) {
+export default function Project({ id, name, typology, description, illustrations, team, designers, workshops, suppliers, duration, production, gestion, materials, date, data }) {
     return (
 
-        <Link href={`/projects/${id}`}>
-                <LabelProduction
-                    data={data}
-                    date={date}
-                    name={name}
-                    structure={structure}
-                    bordered
-                />
-                </Link>
+        <a href={`https://re-label.eu/projects/${id}`}>
+            <LabelProduction
+                data={data}
+                date={date}
+                name={name}
+                structure={designers}
+            />
+        </a>
     );
 }
 
@@ -22,16 +21,15 @@ export default function Project({ name, id, date, data, structure }) {
 
 
 
-export async function getStaticProps({params}) {
+export async function getStaticProps({ params }) {
     let project = await airtable_api.getProjects({ id: params.id });
     project = project[0];
-    project.structure = await Promise.all(project.structure.map(async (el)=>{
-        let structure = await airtable_api.getStructures({ id: el });
-        return structure[0]
+    project.designers = await Promise.all(project.designers.map(async (structure) => {
+        let structureName = await airtable_api.getStructures({ id: structure });
+        return structureName[0].name
     }))
-
     project.data = {
-        partners: project.partnerscount,
+        partners: project.designers.length + project.workshops.length + project.suppliers.length,
         materials: project.materials,
         gestion: project.gestion,
         production: project.production
@@ -40,7 +38,6 @@ export async function getStaticProps({params}) {
         day: new Date(project.created_time).getDate(),
         month: new Date(project.created_time).getMonth() + 1
     }
-    project.structure = project.structure.map((el)=>el.name)
 
     
     return {

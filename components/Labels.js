@@ -3,7 +3,7 @@ import classNames from "classnames"
 import styles from "@styles/components/Labels.module.css";
 import { useEffect, useState, useRef } from "react";
 
-export function LabelProduction({ data, name, date, structure, colors, bordered }) {
+export function LabelProduction({ data, name, date, structure, bordered }) {
     const [width, setWidth] = useState(400)
     const ref = useRef(null);
 
@@ -24,7 +24,6 @@ export function LabelProduction({ data, name, date, structure, colors, bordered 
                     materials={data.materials}
                     gestion={data.gestion}
                     production={data.production}
-                    colors={colors}
                     />}
             </div>
 
@@ -47,8 +46,6 @@ export function LabelProduction({ data, name, date, structure, colors, bordered 
         </div>
     )
 }
-
-
 export function LabelCommunity({ data, name, year, colors, bordered }) {
     const [width, setWidth] = useState(400)
     const ref = useRef(null);
@@ -84,9 +81,7 @@ export function LabelCommunity({ data, name, year, colors, bordered }) {
         </div>
     )
 }
-
-
-export function LabelStructure({ name, adress, communities, bordered }) {
+export function LabelStructure({ data, name, adress, communities, bordered }) {
     const [width, setWidth] = useState(400)
     const ref = useRef(null);
 

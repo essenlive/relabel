@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 export default function AddCommunities({ StartingColors }) {
     const router = useRouter()
     const CommunityForm = [{
-        name: "Name",
+        name: "name",
         schema: Yup.string().required('Requis'),
         type: "shortText",
         initial: "",
@@ -22,7 +22,7 @@ export default function AddCommunities({ StartingColors }) {
         required: true
     },
     {
-        name: "Year",
+        name: "year",
         schema: Yup.date().default(function () { return new Date().getFullYear(); }),
         type: "number",
         initial: new Date().getFullYear(),
@@ -32,7 +32,7 @@ export default function AddCommunities({ StartingColors }) {
         required: true
     },
     {
-        name: "Description",
+        name: "description",
         schema: Yup.string().required('Requis'),
         type: "text",
         initial: "",
@@ -42,7 +42,7 @@ export default function AddCommunities({ StartingColors }) {
         required: true
     },
     {
-        name: "Cities",
+        name: "cities",
         schema: Yup.array().of(Yup.string().required('Requis')).nullable(),
         type: "creatableSelect",
         initial: [],
@@ -53,7 +53,7 @@ export default function AddCommunities({ StartingColors }) {
         options: []
     },
     {
-        name: "Contact",
+        name: "contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
         type: "mail",
         initial: "",
@@ -63,7 +63,7 @@ export default function AddCommunities({ StartingColors }) {
         required: true
     },
     {
-        name: "Website",
+        name: "website",
         schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
         type: "url",
         initial: "",
@@ -73,14 +73,14 @@ export default function AddCommunities({ StartingColors }) {
         required: false
     },
     {
-        name: "Colors",
+        name: "colors",
         schema: Yup.array().of(Yup.string()),
         type: "button",
         initial: StartingColors,
         placeholder: "",
         prefix: "Changer les couleurs",
         suffix: "",
-        // required: true,
+        required: true,
         handler: [getTriad, seed]
     },
     ]
@@ -136,26 +136,26 @@ export default function AddCommunities({ StartingColors }) {
 
                             <div className={styles.label}>
                                 <LabelCommunity
-                                    name={props.values.Name}
-                                    year={props.values.Year}
+                                    name={props.values.name}
+                                    year={props.values.year}
                                     data={{
                                         partners: '5',
                                         materials: '0.7',
                                         gestion: '0.3',
                                         production: '0.9'
                                     }}
-                                    colors={props.values.Colors}
+                                    colors={props.values.colors}
                                 />
                             </div>
                             <div className={styles.verso}>
-                                {props.values.Name &&
-                                    <h2 className={styles.name}>{props.values.Name}</h2>
+                                {props.values.name &&
+                                    <h2 className={styles.name}>{props.values.name}</h2>
                                 }
-                                {props.values.Description &&
-                                    <p className={styles.description}>{props.values.Description}</p>
+                                {props.values.description &&
+                                    <p className={styles.description}>{props.values.description}</p>
                                 }
-                                {props.values.Website &&
-                                    <Link href={{ pathname: props.values.Website }}>
+                                {props.values.website &&
+                                    <Link href={{ pathname: props.values.website }}>
                                         <p className={classNames("link", styles.link)}>Voir le site</p>
                                     </Link>
                                 }
@@ -166,9 +166,9 @@ export default function AddCommunities({ StartingColors }) {
                                 <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
                                 <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
                                 <ul className={styles.legends}>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li>
+                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
+                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
+                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li>
                                 </ul>
                             </div>
                         </div>

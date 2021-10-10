@@ -13,7 +13,7 @@ import airtable_api from '@libs/airtable_api.js'
 export default function AddCommunities({ communities }) {
     const router = useRouter()
     const StructureForm = [{
-        name: "Name",
+        name: "name",
         schema: Yup.string().required('Requis'),
         type: "shortText",
         initial: "",
@@ -21,8 +21,20 @@ export default function AddCommunities({ communities }) {
         prefix: "Nom de la structure",
         suffix: "",
         required: true
-    }, {
-        name: "Adress",
+    },
+        {
+            name: "communities",
+            schema: Yup.array().of(Yup.string().required('Requis')),
+            type: "multiSelect",
+            initial: [""],
+            placeholder: "",
+            prefix: "Communautée.s de la structure",
+            suffix: "",
+            required: true,
+            options: communities
+        },
+         {
+        name: "adress",
         schema: Yup.string().required('Requis'),
         type: "adress",
         initial: "",
@@ -32,7 +44,7 @@ export default function AddCommunities({ communities }) {
         required: true
     },
     {
-        name: "Description",
+        name: "description",
         schema: Yup.string().required('Requis'),
         type: "text",
         initial: "",
@@ -42,7 +54,7 @@ export default function AddCommunities({ communities }) {
         required: true
     },
     {
-        name: "Status",
+        name: "status",
         schema: Yup.string().required('Requis'),
         type: "select",
         initial: "",
@@ -64,7 +76,7 @@ export default function AddCommunities({ communities }) {
         ]
     },
     {
-        name: "Types",
+        name: "typologies",
         schema: Yup.array().of(Yup.string().required('Requis')),
         type: "multiSelect",
         initial: [""],
@@ -74,7 +86,7 @@ export default function AddCommunities({ communities }) {
         required: true,
         options: [
             {value: "designer",
-            label: "Designer.s"},
+            label: "Designer"},
             {value: "atelier",
             label: "Atelier"},
             {value: "stockage",
@@ -82,7 +94,7 @@ export default function AddCommunities({ communities }) {
         ]
     },
     {
-        name: "Contact",
+        name: "contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
         type: "mail",
         initial: "",
@@ -92,24 +104,13 @@ export default function AddCommunities({ communities }) {
         required: true
     },
     {
-        name: "Website",
+        name: "website",
         schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
         type: "url",
         initial: "",
         placeholder: "sitedelacommunauté.org",
         prefix: "Site internet",
         suffix: ""
-    },
-    {
-        name: "Communities",
-        schema: Yup.array().of(Yup.string().required('Requis')),
-        type: "multiSelect",
-        initial: [""],
-        placeholder: "",
-        prefix: "Communautée.s de la structure",
-        suffix: "",
-        required: true,
-        options: communities
     },
     ]
     let Schema = {}
@@ -165,20 +166,20 @@ export default function AddCommunities({ communities }) {
 
                             <div className={styles.label}>
                                 <LabelStructure
-                                    name={props.values.Name}
-                                    adress={props.values.Adress}
-                                    communities={props.values.Communities}
+                                    name={props.values.name}
+                                    adress={props.values.adress}
+                                    communities={props.values.communities}
                                 />
                             </div>
                             <div className={styles.verso}>
-                                {props.values.Name &&
-                                    <h2 className={styles.name}>{props.values.Name}</h2>
+                                {props.values.name &&
+                                    <h2 className={styles.name}>{props.values.name}</h2>
                                 }
-                                {props.values.Description &&
-                                    <p className={styles.description}>{props.values.Description}</p>
+                                {props.values.description &&
+                                    <p className={styles.description}>{props.values.description}</p>
                                 }
-                                {props.values.Website &&
-                                    <Link href={{ pathname: props.values.Website }}>
+                                {props.values.website &&
+                                    <Link href={{ pathname: props.values.website }}>
                                         <p className={classNames("link", styles.link)}>Voir le site</p>
                                     </Link>
                                 }
@@ -209,5 +210,4 @@ export async function getStaticProps() {
     return {
         props: { communities },
     }
-
 }

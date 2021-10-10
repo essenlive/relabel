@@ -1,25 +1,17 @@
 import airtable_api from '@libs/airtable_api';
-import Layout from '@components/Layout'
-import classNames from 'classnames';
-import styles from "@styles/pages/SingleStructure.module.css";
-import Carousel from "@components/Carousel";
-import Link from 'next/link'
 import { LabelStructure } from '@components/Labels';
 
 
-export default function Structure({ name, adress, communities, id }) {
-    
+export default function Structure({ id, name, description, illustrations, status, typologies, adress, website, partners, communities, contact, production, gestion, materials, projects_designer, projects_workshop, projects_supplier }) {
     return (
-
-        <Link href={`/structures/${id}`}>
-                  
-                    <LabelStructure
-                        communities={communities}
-                        adress={adress}
-                        name={name}
-                        bordered
-                    />
-                    </Link>
+        <a href={`https://re-label.eu/structures/${id}`}>
+            <LabelStructure
+                communities={communities}
+                adress={adress}
+                name={name}
+                bordered
+            />
+        </a>
     );
 }
 
@@ -29,29 +21,18 @@ export default function Structure({ name, adress, communities, id }) {
 export async function getStaticProps({ params }) {
     let structure = await airtable_api.getStructures({ id: params.id });
     structure = structure[0];
-    if (structure.datas != false) {
-        structure.datas = await airtable_api.getDatas({ id: structure.datas[0] })
-        structure.datas = structure.datas[0];
-    }
-    else{
-        structure.datas = {
-            year : 'NC-01-01',
-            partners: [],
-            production: 0,
-            gestion: 0,
-            materials: 0,
-            partnerscount : 0
-        }
-    }
 
+    structure.data = {
+        partners: structure.partners.length,
+        materials: structure.materials,
+        gestion: structure.gestion,
+        production: structure.production
+    }
     structure.communities = await Promise.all(structure.communities.map(async (community) => {
         let communityName = await airtable_api.getCommunities({ id: community });
         return communityName[0].name
     }))
-    structure.projects = await Promise.all(structure.projects.map(async (el) => {
-        let project = await airtable_api.getProjects({ id: el });
-        return project[0]
-    }))
+
     return {
         props: structure,
         revalidate: 1,

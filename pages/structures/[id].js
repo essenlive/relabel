@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { LabelStructure } from '@components/Labels';
 
 
-export default function Structure({ name, website, illustrations, status, description, adress, types, datas, communities, projects }) {
+export default function Structure({ id, name, description, illustrations, status, typologies, adress, website, partners, communities, contact, production, gestion, materials, projects_designer, projects_workshop, projects_supplier }) {
     
     return (
         <Layout  title={name} padded>
@@ -28,10 +28,10 @@ export default function Structure({ name, website, illustrations, status, descri
 
                 <div className={styles.productions}>
                     <div className={styles.productionsTitle}>
-                        <span>{projects.length}</span> production.s
+                        <span>{projects_designer.length}</span> production.s
                     </div>
                     <div className={styles.productionsList}>
-                        {projects && projects.map((el) => (
+                        {projects_designer && projects_designer.map((el) => (
                         <Link
                             href={{
                             pathname: '/projects/[id]',
@@ -73,29 +73,22 @@ export default function Structure({ name, website, illustrations, status, descri
 export async function getStaticProps({ params }) {
     let structure = await airtable_api.getStructures({ id: params.id });
     structure = structure[0];
-    if (structure.datas != false) {
-        structure.datas = await airtable_api.getDatas({ id: structure.datas[0] })
-        structure.datas = structure.datas[0];
+    
+    structure.data = {
+        partners: structure.partners.length,
+        materials: structure.materials,
+        gestion: structure.gestion,
+        production: structure.production
     }
-    else{
-        structure.datas = {
-            year : 'NC-01-01',
-            partners: [],
-            production: 0,
-            gestion: 0,
-            materials: 0,
-            partnerscount : 0
-        }
-    }
-
     structure.communities = await Promise.all(structure.communities.map(async (community) => {
         let communityName = await airtable_api.getCommunities({ id: community });
         return communityName[0].name
     }))
-    structure.projects = await Promise.all(structure.projects.map(async (el) => {
+    structure.projects_designer = await Promise.all(structure.projects_designer.map(async (el) => {
         let project = await airtable_api.getProjects({ id: el });
         return project[0]
     }))
+    
     return {
         props: structure,
         revalidate: 1,

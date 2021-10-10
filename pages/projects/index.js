@@ -21,7 +21,7 @@ export default function Projects({ projects }) {
                   data={project.data}
                   date={project.date}
                   name={project.name}
-                  structure={project.structure}
+                  structure={project.designers}
                 />
             </Card>
         )})}
@@ -39,12 +39,12 @@ export default function Projects({ projects }) {
 export async function getStaticProps() {
   let projects = await airtable_api.getProjects({ illustrations: true });
   projects = await Promise.all(projects.map(async (project) => {
-    project.structure = await Promise.all(project.structure.map(async (structure) => {
+    project.designers = await Promise.all(project.designers.map(async (structure) => {
       let structureName = await airtable_api.getStructures({ id: structure });
       return structureName[0].name
     }))
     project.data = {
-      partners: project.partnerscount,
+      partners: project.designers.length + project.workshops.length + project.suppliers.length,
       materials: project.materials,
       gestion: project.gestion,
       production: project.production

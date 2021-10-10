@@ -2,6 +2,7 @@
   border: var(--borderWidth-lg) var(--secondary) solid;
 }
 
+
 .labelP {
   z-index: 10;
   background-color: var(--white);
