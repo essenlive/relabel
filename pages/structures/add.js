@@ -125,11 +125,9 @@ export default function AddCommunities({ communities }) {
             headers: { 'Content-Type': 'application/json' }
         }
         let res = await fetch('/api/create/structure', options)
-        console.log(res);
-        // res = await res.json()
         setTimeout(() => {
             formik.setSubmitting(false)
-            // router.push('/')
+            router.push('/')
         }, 1000)
     }
     return (

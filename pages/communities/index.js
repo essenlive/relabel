@@ -13,7 +13,6 @@ export default function Communities({ communities }) {
     >
 
         {communities.map((community, i) => {
-          console.log(community);
           return (
             <Card
               key={i}
@@ -48,7 +47,6 @@ export default function Communities({ communities }) {
 
 export async function getStaticProps() {
   let communities = await airtable_api.getCommunities({ status: true });
-  console.log(communities);
   return {
     props: { communities },
     revalidate: 1 }
