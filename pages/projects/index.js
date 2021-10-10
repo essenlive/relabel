@@ -21,7 +21,8 @@ export default function Projects({ projects }) {
                   data={project.data}
                   date={{
                     day: project.date ? new Date(project.date).getDate() : new Date().getDate(),
-                    month: project.date ? new Date(project.date).getMonth() + 1 : new Date().getMonth() + 1
+                    month: project.date ? new Date(project.date).getMonth() + 1 : new Date().getMonth() + 1,
+                    year: project.date ? new Date(project.date).getYear() + 1900 : new Date().getYear() + 1900
                   }}
                   name={project.name}
                   structure={project.designers}

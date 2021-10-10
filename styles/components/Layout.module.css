@@ -49,7 +49,9 @@
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  align-items: self-start;
+  grid-template-rows: repeat(auto-fill, auto);
+  align-items: stretch;
+
 }
 
 .grid>* {

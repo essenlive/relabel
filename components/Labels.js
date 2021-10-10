@@ -33,8 +33,8 @@ export function LabelProduction({ data, name, date, structure, bordered }) {
                 </h2>
             {date &&
                 <div className={styles.labelP__date}>
-                        <p>{date.day}</p>
                         <p>{date.month}</p>
+                        <p>{date.year - 2000}</p>
                 </div>
             }
             <div className={styles.labelP__designer}>

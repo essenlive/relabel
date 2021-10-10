@@ -230,7 +230,9 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                     }}
                                     date={{
                                         day: props.values.date ? new Date(props.values.date).getDate() : new Date().getDate(),
-                                        month: props.values.date ? new Date(props.values.date).getMonth() + 1 : new Date().getMonth() + 1
+                                        month: props.values.date ? new Date(props.values.date).getMonth() + 1 : new Date().getMonth() + 1,
+                                        year: props.values.date ? new Date(props.values.date).getYear() + 1900 : new Date().getYear() + 1900
+
                                     }}
                                     structure={props.values.team}
                                 />

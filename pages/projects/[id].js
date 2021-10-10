@@ -36,7 +36,8 @@ export default function Project({ id, name, typology, description, illustrations
                         data={data}
                         date={{
                             day: date ? new Date(date).getDate() : new Date().getDate(),
-                            month: date ? new Date(date).getMonth() + 1 : new Date().getMonth() + 1
+                            month: date ? new Date(date).getMonth() + 1 : new Date().getMonth() + 1,
+                            year: date ? new Date(date).getYear() + 1900 : new Date().getYear() + 1900
                         }}
                         name={name}
                         structure={designers}
