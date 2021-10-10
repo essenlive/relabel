@@ -8,6 +8,7 @@
     height: 2.5rem;
     font-size: 2rem;
     left: 0;
+    text-align: center;
 }
 
 .mapboxgl-popup-close-button:hover {

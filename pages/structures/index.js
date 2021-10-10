@@ -13,7 +13,7 @@ export async function getStaticProps() {
   let structures = await airtable_api.getStructures({adress : true});
 
   structures = await Promise.all(structures.map(async (structure) => {
-    structure.community = await Promise.all(structure.community.map(async (community) => {
+    structure.communities = await Promise.all(structure.communities.map(async (community) => {
       let communityName = await airtable_api.getCommunities({ id: community });
       return communityName[0].name
       }))

@@ -38,20 +38,6 @@ model Data {
   @@map("datas")
 }
 
-model GoodPractices {
-  id           String    @id
-  created_time DateTime? @db.Timestamptz(6)
-  attachments  String[]
-  name         String?
-  notes        String?
-  status       String?
-  type         String[]
-  valid        Boolean?  @default(false)
-  place        String?
-
-  @@map("good_practices")
-}
-
 model Project {
   id            String    @id
   created_time  DateTime? @db.Timestamptz(6)
@@ -77,7 +63,7 @@ model Structure {
   created_time     DateTime? @db.Timestamptz(6)
   types             String[]
   adress           String?
-  community        String[]
+  communities        String[]
   datas            String[]
   dataspartners    String[]
   description      String?
@@ -93,4 +79,19 @@ model Structure {
   contact          String?
 
   @@map("structures")
+}
+
+
+model GoodPractices {
+  id           String    @id
+  created_time DateTime? @db.Timestamptz(6)
+  attachments  String[]
+  name         String?
+  notes        String?
+  status       String?
+  type         String[]
+  valid        Boolean?  @default(false)
+  place        String?
+
+  @@map("good_practices")
 }

@@ -86,7 +86,7 @@ export default function ReactMap({ data }) {
                             <LabelStructure
                                 name={selection.name}
                                 adress={selection.adress}
-                                communities={selection.community}
+                                communities={selection.communities}
                             />
                         </Card>
 

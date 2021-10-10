@@ -19,25 +19,25 @@ const airtable_api = {
         return data
     },
     getProjects : async function(filter){
-        console.log('getProjects');
+        // console.log('getProjects');
         let data = await prisma.project.findMany();
         data = airtable_api.filterData(data, filter);
         return airtable_api.validateData(data)
     },
     getStructures: async function (filter) {
-        console.log('getStructures');
+        // console.log('getStructures');
         let data = await prisma.structure.findMany();
         data = airtable_api.filterData(data, filter);
         return airtable_api.validateData(data)
     },
     getDatas: async function (filter) {
-        console.log('getDatas');
+        // console.log('getDatas');
         let data = await prisma.data.findMany();
         data = airtable_api.filterData(data, filter);
         return airtable_api.validateData(data)
     },
     getCommunities: async function (filter) {
-        console.log('getCommunities');
+        // console.log('getCommunities');
         let data = await prisma.community.findMany();
         data = airtable_api.filterData(data, filter);
         return airtable_api.validateData(data)

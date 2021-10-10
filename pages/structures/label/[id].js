@@ -7,14 +7,14 @@ import Link from 'next/link'
 import { LabelStructure } from '@components/Labels';
 
 
-export default function Structure({ name, adress, community, id }) {
+export default function Structure({ name, adress, communities, id }) {
     
     return (
 
         <Link href={`/structures/${id}`}>
                   
                     <LabelStructure
-                        communities={community}
+                        communities={communities}
                         adress={adress}
                         name={name}
                         bordered
@@ -44,7 +44,7 @@ export async function getStaticProps({ params }) {
         }
     }
 
-    structure.community = await Promise.all(structure.community.map(async (community) => {
+    structure.communities = await Promise.all(structure.communities.map(async (community) => {
         let communityName = await airtable_api.getCommunities({ id: community });
         return communityName[0].name
     }))

@@ -4,6 +4,7 @@ import classNames from "classnames"
 import styles from "@styles/components/Layout.module.css";
 
 const Layout = ({title, full, padded, children, grid})=>{
+  console.log(`Rendering page : ${title}`);
   return (
     <div className={styles.layout}>
       <Head>
