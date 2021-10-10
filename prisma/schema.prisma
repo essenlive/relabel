@@ -35,6 +35,9 @@ model Project {
   designers     String[]
   workshops      String[]
   suppliers      String[]
+  website          String?
+  contact          String?
+  date            DateTime? @db.Timestamptz(6)
   duration      Decimal?  @db.Decimal
   production    Decimal?  @db.Decimal
   gestion       Decimal?  @db.Decimal

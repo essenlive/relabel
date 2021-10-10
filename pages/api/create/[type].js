@@ -9,45 +9,30 @@ const base = new Airtable({
 
 
 export default async function handler (req, res) {
-    const { type } = req.query
-    switch (type) {
-        case "community": {
-            const baseCreate = util.promisify(base('Communities').create)
-            if (req.method === 'POST') {
-                let fields = req.body
-                try {
-                    let response = await baseCreate(fields, { typecast: true })
-                    res.status(200).json(response);
-                    res.end()
-                    return
-                } catch (error) {
-                    console.log(error);
-                    res.status(500).json(error);
-                    res.end()
-                    return
-                }
-            }
+    if (req.method === 'POST') {
+        const { type } = req.query;
+        const fields = req.body;
+        let create;
+        switch (type) {
+            case "community": {create = util.promisify(base('Communities').create); break}
+            case "structure": { create = util.promisify(base('Structures').create); break }
+            case "project": {create = util.promisify(base('Projects').create); break}
+            default : 
+                res.status(500)
+                res.end()
+                return
         }
-        case "structure": {
-            const baseCreate = util.promisify(base('Structures').create)
-            if (req.method === 'POST') {
-                let fields = req.body
-                try {
-                    let response = await baseCreate(fields, { typecast: true })
-                    res.status(200).json(response);
-                    res.end()
-                    return
-                } catch (error) {
-                    console.log(error);
-                    res.status(500).json(error);
-                    res.end()
-                    return
-                }
-            }
+        try {
+            let response = await create(fields, { typecast: true })
+            res.status(200).json(response);
+            res.end()
+            return
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+            res.end()
+            return
         }
-        default :
-        res.status(500)
-        res.end()
     }
 
 }

@@ -9,7 +9,10 @@ export default function Project({ id, name, typology, description, illustrations
         <a href={`https://re-label.eu/projects/${id}`}>
             <LabelProduction
                 data={data}
-                date={date}
+                date={{
+                    day: date ? new Date(date).getDate() : new Date().getDate(),
+                    month: date ? new Date(date).getMonth() + 1 : new Date().getMonth() + 1
+                }}
                 name={name}
                 structure={designers}
             />
@@ -34,11 +37,6 @@ export async function getStaticProps({ params }) {
         gestion: project.gestion,
         production: project.production
     }
-    project.date = {
-        day: new Date(project.created_time).getDate(),
-        month: new Date(project.created_time).getMonth() + 1
-    }
-
     
     return {
         props: project,

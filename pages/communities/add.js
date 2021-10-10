@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 export default function AddCommunities({ StartingColors }) {
     const router = useRouter()
-    const CommunityForm = [{
+    const Form = [{
         name: "name",
         schema: Yup.string().required('Requis'),
         type: "shortText",
@@ -84,20 +84,13 @@ export default function AddCommunities({ StartingColors }) {
         handler: [getTriad, seed]
     },
     ]
-
     let Schema = {}
-    CommunityForm.forEach((el, i) => { Schema[el.name] = el.schema })
+    Form.forEach((el, i) => { Schema[el.name] = el.schema })
     let initialValues = {}
-    CommunityForm.forEach((el, i) => { initialValues[el.name] = el.initial })
+    Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
-    const createCommunity = async (fields, formik) => {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(fields),
-            headers: { 'Content-Type': 'application/json' }
-        }
-        let res = await fetch('/api/create/community', options)
-        res = await res.json()
+    const submit = async (fields, formik) => {
+        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(fields), headers: { 'Content-Type': 'application/json' } })
         setTimeout(()=>{
             formik.setSubmitting(false)
             router.push('/')
@@ -111,7 +104,7 @@ export default function AddCommunities({ StartingColors }) {
             <Formik
                 initialValues={initialValues}
                 validationSchema={Yup.object().shape(Schema)}
-                onSubmit={(values, formik) => { createCommunity(values, formik) }}>
+                onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
                         <div className={styles.form}>
@@ -119,7 +112,7 @@ export default function AddCommunities({ StartingColors }) {
                                 {props.isSubmitting  && <div className={styles.sending}><h3>C'est envoyé</h3></div>}
                                 <h2>Présentation de la communauté</h2>
                                 <div>
-                                    {CommunityForm.map((input, i) => (
+                                    {Form.map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}

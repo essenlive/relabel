@@ -19,7 +19,10 @@ export default function Projects({ projects }) {
           >
                 <LabelProduction
                   data={project.data}
-                  date={project.date}
+                  date={{
+                    day: project.date ? new Date(project.date).getDate() : new Date().getDate(),
+                    month: project.date ? new Date(project.date).getMonth() + 1 : new Date().getMonth() + 1
+                  }}
                   name={project.name}
                   structure={project.designers}
                 />
@@ -48,10 +51,6 @@ export async function getStaticProps() {
       materials: project.materials,
       gestion: project.gestion,
       production: project.production
-    }
-    project.date = {
-      day: new Date(project.created_time).getDate(),
-      month: new Date(project.created_time).getMonth() + 1
     }
     return project
   }))

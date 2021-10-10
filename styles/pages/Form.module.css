@@ -1,14 +1,11 @@
 .form {
   display: grid;
-  grid-template-columns: auto 280px 280px;
-  grid-template-rows: 350px auto auto;
+  grid-template-columns: 3fr 2fr 2fr;
+  grid-template-rows: auto auto auto;
   gap: 0px 0px;
   grid-template-areas: "values label verso" "values explainer explainer""values . .";
 }
 
-/* .submitted>* {
-  display: none;
-} */
 
 .sending {
   position: absolute;

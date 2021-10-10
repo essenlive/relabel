@@ -90,7 +90,7 @@ export const Inputs = ({ input, ...props}) => {
                 </div>
                 </div>
             );
-        case "number" : 
+        case "number":
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
@@ -102,7 +102,22 @@ export const Inputs = ({ input, ...props}) => {
                         placeholder={placeholder}
                         {...field}
                         {...props}
-                        />
+                    />
+                    {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
+                </div>
+            </div>)        
+            case "date":
+            return (<div className={classNames(styles.field, styles[type])}>
+                {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
+                {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                <div className={styles.field__area}>
+                    <input
+                        type="date"
+                        className={styles.field__input}
+                        placeholder={placeholder}
+                        {...field}
+                        {...props}
+                    />
                     {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}
                 </div>
             </div>)

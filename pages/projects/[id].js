@@ -31,9 +31,13 @@ export default function Project({ id, name, typology, description, illustrations
                 </div>
 
                 <div className={styles.label}>
+                    {console.log(date)}
                     <LabelProduction
                         data={data}
-                        date={date}
+                        date={{
+                            day: date ? new Date(date).getDate() : new Date().getDate(),
+                            month: date ? new Date(date).getMonth() + 1 : new Date().getMonth() + 1
+                        }}
                         name={name}
                         structure={designers}
                     />
@@ -61,10 +65,6 @@ export async function getStaticProps({params}) {
         materials: project.materials,
         gestion: project.gestion,
         production: project.production
-    }
-    project.date = {
-        day: new Date(project.created_time).getDate(),
-        month: new Date(project.created_time).getMonth() + 1
     }
     
     return {

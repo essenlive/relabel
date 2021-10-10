@@ -10,9 +10,9 @@ import { useRouter } from 'next/router'
 import airtable_api from '@libs/airtable_api.js'
 
 
-export default function AddCommunities({ communities }) {
+export default function AddStructure({ communities }) {
     const router = useRouter()
-    const StructureForm = [{
+    const Form = [{
         name: "name",
         schema: Yup.string().required('Requis'),
         type: "shortText",
@@ -114,17 +114,12 @@ export default function AddCommunities({ communities }) {
     },
     ]
     let Schema = {}
-    StructureForm.forEach((el, i) => { Schema[el.name] = el.schema })
+    Form.forEach((el, i) => { Schema[el.name] = el.schema })
     let initialValues = {}
-    StructureForm.forEach((el, i) => { initialValues[el.name] = el.initial })
+    Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
-    const createStructure = async (fields, formik) => {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(fields),
-            headers: { 'Content-Type': 'application/json' }
-        }
-        let res = await fetch('/api/create/structure', options)
+    const submit = async (fields, formik) => {
+        await fetch('/api/create/structure', { method: 'POST', body: JSON.stringify(fields), headers: { 'Content-Type': 'application/json' } })
         setTimeout(() => {
             formik.setSubmitting(false)
             router.push('/')
@@ -138,7 +133,7 @@ export default function AddCommunities({ communities }) {
             <Formik
                 initialValues={initialValues}
                 validationSchema={Yup.object().shape(Schema)}
-                onSubmit={(values, formik) => { createStructure(values, formik) }}>
+                onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
                         <div className={styles.form}>
@@ -147,7 +142,7 @@ export default function AddCommunities({ communities }) {
                                 </div>}
                                 <h2>Présentation de la structure</h2>
                                 <div>
-                                    {StructureForm.map((input, i) => (
+                                    {Form.map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}
