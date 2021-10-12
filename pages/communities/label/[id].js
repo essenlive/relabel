@@ -1,12 +1,10 @@
 import airtable_api from '@libs/airtable_api.js'
-import Link from 'next/link'
 import { LabelCommunity } from '@components/Labels';
 
 
 export default function label({ id, name, year, description, cities, website, members, status, colors, contact }) {
     return (
 
-        <a href={`https://re-label.eu/communities/${id}`}>
             <LabelCommunity
                 name={name}
                 year={year}
@@ -18,9 +16,7 @@ export default function label({ id, name, year, description, cities, website, me
                 }}
                 colors={colors}
                 bordered
-            />
-        </a>
-                
+            />                
     );
 }
 

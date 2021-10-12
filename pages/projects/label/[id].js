@@ -1,12 +1,9 @@
 import airtable_api from '@libs/airtable_api.js'
 import {LabelProduction} from '@components/Labels';
-import Link from 'next/link'
 
 
 export default function Project({ id, name, typology, description, illustrations, team, designers, workshops, suppliers, duration, production, gestion, materials, date, data }) {
     return (
-
-        <a href={`https://re-label.eu/projects/${id}`}>
             <LabelProduction
                 data={data}
                 date={{
@@ -17,7 +14,7 @@ export default function Project({ id, name, typology, description, illustrations
                 name={name}
                 structure={designers}
             />
-        </a>
+
     );
 }
 

@@ -4,14 +4,12 @@ import { LabelStructure } from '@components/Labels';
 
 export default function Structure({ id, name, description, illustrations, status, typologies, adress, website, partners, communities, contact, production, gestion, materials, projects_designer, projects_workshop, projects_supplier }) {
     return (
-        <a href={`https://re-label.eu/structures/${id}`}>
             <LabelStructure
                 communities={communities}
                 adress={adress}
                 name={name}
                 bordered
             />
-        </a>
     );
 }
 
