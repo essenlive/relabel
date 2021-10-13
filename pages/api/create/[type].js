@@ -1,5 +1,6 @@
 import Airtable from 'airtable'
 import util from 'util'
+import fetch from 'node-fetch'
 
 const base = new Airtable({
     apiKey: process.env.AIRTABLE_APIKEY,
@@ -15,7 +16,15 @@ export default async function handler (req, res) {
         let create;
         switch (type) {
             case "community": {create = util.promisify(base('Communities').create); break}
-            case "structure": { create = util.promisify(base('Structures').create); break }
+            case "structure": { 
+                create = util.promisify(base('Structures').create);
+                let adress = fields.adress.replace(/ /g, "+")
+                const response = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${adress}`);
+                const data = await response.json();
+                fields.longitude = data.features[0].geometry.coordinates[0]
+                fields.latitude = data.features[0].geometry.coordinates[1]
+                break 
+            }
             case "project": {create = util.promisify(base('Projects').create); break}
             default : 
                 res.status(500)
