@@ -18,7 +18,8 @@ export default function AddStructure({ communities }) {
         type: "shortText",
         initial: "",
         placeholder: "Nom",
-        prefix: "Nom de la structure",
+        prefix: "Nom",
+        description: "Le nom de votre structure.",
         suffix: "",
         required: true
     },
@@ -26,9 +27,10 @@ export default function AddStructure({ communities }) {
             name: "communities",
             schema: Yup.array().of(Yup.string().required('Requis')),
             type: "multiSelect",
-            initial: [""],
+            initial: [],
             placeholder: "",
-            prefix: "Communautée.s de la structure",
+            prefix: "Communautée.s",
+            description: "Les communautées dont votre structure fait partie.",
             suffix: "",
             required: true,
             options: communities
@@ -38,8 +40,9 @@ export default function AddStructure({ communities }) {
         schema: Yup.string().required('Requis'),
         type: "adress",
         initial: "",
-        placeholder: "15 rue Léon Giraud, 75019 Paris",
-        prefix: "Adresse de la structure",
+        placeholder: "15 rue ...",
+        prefix: "Adresse",
+        description: "L'adresse de votre structure.",
         suffix: "",
         required: true
     },
@@ -48,8 +51,9 @@ export default function AddStructure({ communities }) {
         schema: Yup.string().required('Requis'),
         type: "text",
         initial: "",
-        placeholder: "Nous cherchons à ...",
+        placeholder: "Notre structure propose ...",
         prefix: "Description",
+        description: "Qui êtes vous et quelles sont vos valeurs ?",
         suffix: "",
         required: true
     },
@@ -59,8 +63,9 @@ export default function AddStructure({ communities }) {
         type: "select",
         initial: "",
         placeholder: "",
-        prefix: "Status de la structure",
-        suffix: "",
+        prefix: "Statut",
+        suffix: "", 
+        description: "Le statut juridique de votre structure.",
         required: true,
         options: [
             {value: "association",
@@ -81,7 +86,8 @@ export default function AddStructure({ communities }) {
         type: "multiSelect",
         initial: [],
         placeholder: "",
-        prefix: "Activités de la structure",
+        prefix: "Activités",
+        description: "La ou les activités de votre structure.",
         suffix: "",
         required: true,
         options: [
@@ -99,7 +105,8 @@ export default function AddStructure({ communities }) {
         type: "mail",
         initial: "",
         placeholder: "contact@mail.org",
-        prefix: "Adresse mail du référent",
+        description: "L'adresse mail d'un référent pour avoir plus d'informations.",
+        prefix: "Contact",
         suffix: "",
         required: true
     },
@@ -110,6 +117,7 @@ export default function AddStructure({ communities }) {
         initial: "",
         placeholder: "sitedelacommunauté.org",
         prefix: "Site internet",
+        description: "L'url de votre site internet si vous en avez un.",
         suffix: ""
     },
     ]
@@ -135,6 +143,8 @@ export default function AddStructure({ communities }) {
                 validationSchema={Yup.object().shape(Schema)}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
+                    let communitiesNames = communities.filter((community) => props.values.communities.indexOf(community.value) >= 0);
+                    communitiesNames = communitiesNames.map((community) => community.label);
                     return (
                         <div className={styles.form}>
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
@@ -161,7 +171,7 @@ export default function AddStructure({ communities }) {
                                 <LabelStructure
                                     name={props.values.name}
                                     adress={props.values.adress}
-                                    communities={props.values.communities}
+                                    communities={communitiesNames}
                                 />
                             </div>
                             <div className={styles.verso}>

@@ -7,7 +7,12 @@
 }
 
 .field__prefix, .field__suffix {
-  font-weight: 500;
+  font-weight: 700;
+}
+
+.field__description {
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 .field__suffix {

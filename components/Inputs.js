@@ -5,15 +5,15 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 export const Inputs = ({ input, ...props}) => {
-    const { name, type, placeholder, prefix, suffix, options, required, handler} = input;
+    const { name, type, placeholder, prefix, suffix, options, required, handler, description} = input;
     const [field, meta, helpers] = useField(props);
     const { setValue } = helpers;
-
     switch (type) {
         case "text":
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
                 <textarea 
                 className={styles.field__input}
@@ -30,6 +30,7 @@ export const Inputs = ({ input, ...props}) => {
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
                     <input
                         className={styles.field__input}
@@ -45,6 +46,7 @@ export const Inputs = ({ input, ...props}) => {
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
                     <input
                         className={styles.field__input}
@@ -61,6 +63,7 @@ export const Inputs = ({ input, ...props}) => {
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
                 <input
                     type="url"
@@ -77,6 +80,7 @@ export const Inputs = ({ input, ...props}) => {
             return (<div className={classNames(styles.field, styles[type])}>
                     {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
                     
                     <input
@@ -94,6 +98,7 @@ export const Inputs = ({ input, ...props}) => {
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
 
                     <input
@@ -110,6 +115,7 @@ export const Inputs = ({ input, ...props}) => {
             return (<div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                {description && (<span className={styles.field__description}>{description} </span>)}
                 <div className={styles.field__area}>
                     <input
                         type="date"
@@ -122,7 +128,8 @@ export const Inputs = ({ input, ...props}) => {
                 </div>
             </div>)
         case "button": 
-            return (<div className={classNames(styles.field, styles[type])}>
+            return (
+            <div className={classNames(styles.field, styles[type])}>
                 <button
                     type="button"
                     className={classNames(styles.field__prefix, "link")}
@@ -137,7 +144,8 @@ export const Inputs = ({ input, ...props}) => {
             <div className={classNames(styles.field, styles[type])}>
                 {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                 {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
-                <div className={styles.field__area}>
+                    {description && (<span className={styles.field__description}>{description} </span>)}
+                    <div className={styles.field__area}>
                         <Select 
                             className={styles.field__input}
                             classNamePrefix="select"
@@ -154,6 +162,7 @@ export const Inputs = ({ input, ...props}) => {
                 <div className={classNames(styles.field, styles[type])}>
                     {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                     {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                    {description && (<span className={styles.field__description}>{description} </span>)}
                     <div className={styles.field__area}>
                         <CreatableSelect
                             className={styles.field__input}
@@ -170,9 +179,9 @@ export const Inputs = ({ input, ...props}) => {
                 <div className={classNames(styles.field, styles[type])}>
                     {meta.touched && meta.error ? (<div className={styles.field__error}>{meta.error}</div>) : null}
                     {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
+                    {description && (<span className={styles.field__description}>{description} </span>)}
                     <div className={styles.field__area}>
                         <Select
-                            id='employee-search'
                             className={styles.field__input}
                             styles={{padding:"0 !important"}}
                             classNamePrefix="select"

@@ -19,7 +19,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         type: "shortText",
         initial: "",
         placeholder: "Nom",
-        prefix: "Nom du projet",
+        prefix: "Nom",
+        description: "Le nom de votre projet, objet, chantier...",
         suffix: "",
         required: true
     }, 
@@ -29,7 +30,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             type: "date",
             initial: "",
             placeholder: "",
-        prefix: "Date de livraison",
+        prefix: "Date",
+        description: "Date de fabrication ou livraison.",
             suffix: "",
             required: true
         },
@@ -39,7 +41,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         type: "select",
         initial: "",
         placeholder: "",
-        prefix: "Typologies de projet",
+        prefix: "Typologie",
+        description: "La typologie de votre projet.",
         suffix: "",
         required: true,
         options: [
@@ -64,6 +67,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         initial: "",
         placeholder: "Ce projet ...",
         prefix: "Description",
+        description: "En une ou deux phrases, une présentation de votre projet.",
         suffix: "",
         required: true
     },
@@ -73,7 +77,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         type: "creatableSelect",
         initial: [],
         placeholder: "Nicolas Tesla, Victor Hugo",
-        prefix: "Membres de l'équipe",
+        description: "Les noms des membres de l'équipe.",
+        prefix: "Équipe",
         suffix: "",
         required: true,
         options: []
@@ -84,7 +89,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             type: "multiSelect",
             initial: [],
             placeholder: "",
-            prefix: "Structure.s designeuse.s/fabricante.s",
+            prefix: "Designer.s",
+            description: "Les structures qui ont porté la conception.",
             suffix: "",
             required: false,
             options: designersOptions
@@ -96,6 +102,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             initial: [],
             placeholder: "",
             prefix: "Ateliers/lieux de fabrication",
+            description: "Les structures qui ont porté la fabrication.",
             suffix: "",
             required: false,
             options: workshopsOptions
@@ -107,6 +114,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             initial: [],
             placeholder: "",
             prefix: "Ressourceries/fournisseurs",
+            description: "Les structures qui ont fourni les matières premières.",
             suffix: "",
             required: false,
             options: suppliersOptions
@@ -118,6 +126,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             initial: 0,
             placeholder: "",
             prefix: "Durée du projet",
+            description: "La durée, en jours, du projet.",
             suffix: "jours",
             required: true
         },
@@ -127,7 +136,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             type: "number",
             initial: 0,
             placeholder: "",
-            prefix: "Pourcentage de temps de gestion solidaire",
+            description: "Le temps passé à la gestion du projet.",
+            prefix: "Gestion de projet",
             suffix: "%",
             required: true
         },
@@ -137,7 +147,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             type: "number",
             initial: 0,
             placeholder: "",
-            prefix: "Pourcentage de fabrication responsable",
+            description: "Le temps passé à la fabrication du projet.",
+            prefix: "Fabrication",
             suffix: "%",
             required: true
         },
@@ -147,7 +158,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             type: "number",
             initial: 0,
             placeholder: "",
-            prefix: "Pourcentage de matériaux sourcés",
+            description: "Le pourcentage de matériaux sourcés.",
+            prefix: "Matériaux",
             suffix: "%",
             required: true
         },
@@ -157,7 +169,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         type: "mail",
         initial: "",
         placeholder: "contact@mail.org",
-        prefix: "Adresse mail du référent",
+        prefix: "Contact",
+        description: "L'adresse mail d'un référent pour avoir plus d'informations.",
         suffix: "",
         required: true
     },
@@ -167,7 +180,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         type: "url",
         initial: "",
         placeholder: "siteduprojet.org",
-        prefix: "Site internet ou documentation",
+        prefix: "Documentation",
+        description: "L'url de votre site internet ou de la documentation si elle existe.",
         suffix: ""
     },
     ]

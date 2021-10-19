@@ -14,11 +14,12 @@ export default function AddCommunities({ StartingColors }) {
     const router = useRouter()
     const Form = [{
         name: "name",
+        description : "Le nom de votre communauté.",
         schema: Yup.string().required('Requis'),
         type: "shortText",
         initial: "",
         placeholder: "Ma communauté",
-        prefix: "Nom de la communauté",
+        prefix: "Nom",
         suffix: "",
         required: true
     },
@@ -29,6 +30,7 @@ export default function AddCommunities({ StartingColors }) {
         initial: new Date().getFullYear(),
         placeholder: new Date().getFullYear(),
         prefix: "Année de création",
+        description: "L'année durant laquelle vous avez monté votre communauté.",
         suffix: "",
         required: true
     },
@@ -38,7 +40,8 @@ export default function AddCommunities({ StartingColors }) {
         type: "text",
         initial: "",
         placeholder: "Nous cherchons à ...",
-        prefix: "Description",
+        prefix: "Courte description",
+        description: "En une ou deux phrases, ce qui rassemble votre communauté.",
         suffix: "",
         required: true
     },
@@ -49,6 +52,7 @@ export default function AddCommunities({ StartingColors }) {
         initial: [],
         placeholder: "Paris, Lyon",
         prefix: "Villes dans la communauté",
+        description: "La liste des villes qui composent votre communauté.",
         suffix: "",
         required: true,
         options: []
@@ -60,6 +64,7 @@ export default function AddCommunities({ StartingColors }) {
         initial: "",
         placeholder: "contact@mail.org",
         prefix: "Contact du référent",
+        description: "Le contact d'un référent pour avoir plus d'informations.",
         suffix: "",
         required: true
     },
@@ -69,6 +74,7 @@ export default function AddCommunities({ StartingColors }) {
         type: "url",
         initial: "",
         placeholder: "https://sitedelacommunauté.org",
+        description: "L'url de votre site internet si vous en avez un.",
         prefix: "Site internet",
         suffix: "",
         required: false
@@ -127,7 +133,7 @@ export default function AddCommunities({ StartingColors }) {
                                     onSubmit={props.handleSubmit}
                                 >{props.isValidating ? "Vérification du formulaire" : "Envoyer"}</button>
                             </form>
-
+                                
                             <div className={styles.label}>
                                 <LabelCommunity
                                     name={props.values.name}
