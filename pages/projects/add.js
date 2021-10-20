@@ -194,8 +194,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         fields.gestion = fields.gestion / 100;
         fields.production = fields.production /100;
         fields.materials = fields.materials / 100;
-        console.log(fields);
-        await fetch('/api/create/project', { method: 'POST', body: JSON.stringify(fields), headers: { 'Content-Type': 'application/json' } })
+        let body = [fields];
+        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
         setTimeout(() => {
             formik.setSubmitting(false)
             router.push('/')

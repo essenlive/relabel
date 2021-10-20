@@ -9,8 +9,9 @@ import classNames from 'classnames';
 import {getTriad, seed} from '@libs/getTriad';
 import { useRouter } from 'next/router'
 import Tags from '@components/Tags';
+import airtable_api from '@libs/airtable_api';
 
-export default function AddCommunities({ StartingColors }) {
+export default function AddCommunities({ StartingColors, cities }) {
     const router = useRouter()
     const Form = [{
         name: "name",
@@ -55,7 +56,7 @@ export default function AddCommunities({ StartingColors }) {
         description: "La liste des villes qui composent votre communauté.",
         suffix: "",
         required: true,
-        options: []
+        options: cities
     },
     {
         name: "contact",
@@ -97,7 +98,8 @@ export default function AddCommunities({ StartingColors }) {
     Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(fields), headers: { 'Content-Type': 'application/json' } })
+        let body = [fields];
+        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
         setTimeout(()=>{
             formik.setSubmitting(false)
             router.push('/')
@@ -188,8 +190,12 @@ export default function AddCommunities({ StartingColors }) {
 
 export async function getStaticProps() {
     const StartingColors = getTriad(seed())
+    let cities = await airtable_api.getCommunities();
+    cities = Array.from(new Set(cities.map((el, i) => (el.cities)).flat()))
+    cities = cities.map((el) => ({ value: el, label: el }))
+
     return {
-        props: { StartingColors },
+        props: { StartingColors, cities },
     }
 
 }

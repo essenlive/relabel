@@ -12,7 +12,7 @@ const base = new Airtable({
 export default async function handler (req, res) {
     if (req.method === 'POST') {
         const { type } = req.query;
-        const fields = req.body;
+        let fields = req.body.map((el)=>({fields : el}));
         let create;
         switch (type) {
             case "community": {create = util.promisify(base('Communities').create); break}

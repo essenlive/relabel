@@ -127,7 +127,8 @@ export default function AddStructure({ communities }) {
     Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        await fetch('/api/create/structure', { method: 'POST', body: JSON.stringify(fields), headers: { 'Content-Type': 'application/json' } })
+        let body = [fields];
+        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
         setTimeout(() => {
             formik.setSubmitting(false)
             router.push('/')
