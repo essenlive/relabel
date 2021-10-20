@@ -1,9 +1,9 @@
 .banner {
     display: grid;
     grid-template-columns: 320px 1fr 1fr 1fr;
-    grid-template-rows: auto auto 400px;
+    grid-template-rows: auto auto auto 400px;
     gap: 0px 0px;
-    grid-template-areas: ". title title title" ". description description website" "label structures structures cities";
+    grid-template-areas: ". title title title" ". description description website" ". structures structures cities" "label structures structures cities";
 }
 
 .title {

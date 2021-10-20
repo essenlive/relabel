@@ -2,7 +2,6 @@
   border: var(--borderWidth-lg) var(--secondary) solid;
 }
 
-
 .labelP {
   z-index: 10;
   background-color: var(--white);
@@ -44,7 +43,7 @@
   font-size: 1em;
   flex-direction: row;
   justify-content: space-evenly;
-  writing-mode: sideways-lr;
+  writing-mode: vertical-lr;
   align-items: center;
   text-transform: uppercase;
   text-align: center;
@@ -58,7 +57,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  writing-mode: sideways-lr;
   align-items: center;
   font-weight: 700;
   overflow: hidden;
@@ -72,25 +70,25 @@
   position: absolute;
   width: 150%;
   transform-origin: 0% 0%;
-  transform: rotate(45deg);
-  top: calc(-1 * var(--borderWidth-lg));
+  transform: rotate( -45deg);
+  bottom: calc(-1 * var(--borderWidth-lg));
   left: 0;
 }
 
 .labelP__date>p {
-  font-size: 1em;
+  font-size: 0.9em;
   padding: 0.4em;
   position: absolute;
 }
 
 .labelP__date>p:first-child {
   left: 0;
-  bottom: 0;
+  top: 0;
 }
 
 .labelP__date>p:last-child {
   right: 0;
-  top: 0;
+  bottom: 0;
 }
 
 .labelP__name {
@@ -211,4 +209,10 @@
   object-fit: cover !important;
   height: 80%;
   border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+}
+
+@media print{
+  .labelP, .labelS, .labelC{
+    font-size: 8px !important;
+  }
 }

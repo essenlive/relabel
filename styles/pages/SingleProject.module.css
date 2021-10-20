@@ -1,9 +1,9 @@
 .banner {
     display: grid;
     grid-template-columns: 350px 1fr 1fr 1fr;
-    grid-template-rows: 100px 100px 350px;
+    grid-template-rows: auto auto auto 350px;
     gap: 0px 0px;
-    grid-template-areas: ". title title title" ". description description certificate"  "labels carousel carousel carousel";
+    grid-template-areas: ". title title title" ". description description certificate" ". carousel carousel carousel" "labels carousel carousel carousel";
 }
 
 .title {
@@ -90,5 +90,38 @@
     }
     .label>*:first-child {
         border: none;
+    }
+}
+
+@media print {
+    .banner {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 0px 0px;
+        border: var(--secondary) var(--borderWidth-lg) solid;
+        grid-template-areas: "title labels" "description  labels" "carousel carousel";
+    }
+    .carousel {
+        grid-area: carousel;
+        border: none !important;
+        border-top: var(--secondary) var(--borderWidth-lg) solid !important;
+    }
+    .title {
+        grid-area: title;
+        border: none !important;
+        border-bottom: var(--secondary) var(--borderWidth-lg) solid !important;
+    }
+    .description {
+        grid-area: description;
+        border: none !important;
+    }
+    .label {
+        grid-area: labels;
+        border: none !important;
+        border-left: var(--secondary) var(--borderWidth-lg) solid !important;
+    }
+    .certificate {
+        display: none;
     }
 }

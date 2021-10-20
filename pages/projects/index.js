@@ -42,7 +42,7 @@ export default function Projects({ projects }) {
 
 
 export async function getStaticProps() {
-  let projects = await airtable_api.getProjects({ illustrations: true });
+  let projects = await airtable_api.getProjects();
   projects = await Promise.all(projects.map(async (project) => {
     project.designers = await Promise.all(project.designers.map(async (structure) => {
       let structureName = await airtable_api.getStructures({ id: structure });

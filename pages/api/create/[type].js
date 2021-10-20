@@ -34,12 +34,10 @@ export default async function handler (req, res) {
         
         try {
             let response = await createApi(type, fields)
-            console.log(response);
             res.status(200).json(response);
             res.end()
             return
         } catch (error) {
-            console.log(error);
             res.status(500).json(error);
             res.end()
             return

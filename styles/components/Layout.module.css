@@ -74,11 +74,18 @@
   }
 }
 
-/* @media print {
+@media print {
   .layout {
     flex-direction: column;
+    background-image: none;
   }
-  .menu{
+  .menu {
     display: none;
   }
-} */
+  .content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
