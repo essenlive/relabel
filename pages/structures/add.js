@@ -23,19 +23,19 @@ export default function AddStructure({ communities }) {
         suffix: "",
         required: true
     },
-        {
-            name: "communities",
-            schema: Yup.array().of(Yup.string().required('Requis')),
-            type: "multiSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Communautée.s",
-            description: "Les communautées dont votre structure fait partie.",
-            suffix: "",
-            required: true,
-            options: communities
-        },
-         {
+    {
+        name: "communities",
+        schema: Yup.array().of(Yup.object().nullable()).required('Requis'),
+        type: "multiSelect",
+        initial: [],
+        placeholder: "",
+        prefix: "Communautée.s",
+        description: "Les communautées dont votre structure fait partie.",
+        suffix: "",
+        required: true,
+        options: communities
+    },
+    {
         name: "adress",
         schema: Yup.string().required('Requis'),
         type: "adress",
@@ -64,20 +64,30 @@ export default function AddStructure({ communities }) {
         initial: "",
         placeholder: "",
         prefix: "Statut",
-        suffix: "", 
+        suffix: "",
         description: "Le statut juridique de votre structure.",
         required: true,
         options: [
-            {value: "association",
-            label : "Association"},
-            {value: "entreprise",
-            label : "Entreprise"},
-            {value: "cooperative",
-            label : "Coopérative"},
-            {value: "institution",
-            label : "Institution"},
-            {value: "indépendant",
-                label: "Indépendant"}
+            {
+                value: "association",
+                label: "Association"
+            },
+            {
+                value: "entreprise",
+                label: "Entreprise"
+            },
+            {
+                value: "cooperative",
+                label: "Coopérative"
+            },
+            {
+                value: "institution",
+                label: "Institution"
+            },
+            {
+                value: "indépendant",
+                label: "Indépendant"
+            }
         ]
     },
     {
@@ -91,12 +101,18 @@ export default function AddStructure({ communities }) {
         suffix: "",
         required: true,
         options: [
-            {value: "designer",
-            label: "Designer"},
-            {value: "atelier",
-            label: "Atelier"},
-            {value: "stockage",
-            label: "Stockage"}
+            {
+                value: "designer",
+                label: "Designer"
+            },
+            {
+                value: "atelier",
+                label: "Atelier"
+            },
+            {
+                value: "stockage",
+                label: "Stockage"
+            }
         ]
     },
     {
@@ -127,12 +143,9 @@ export default function AddStructure({ communities }) {
     Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        let body = [fields];
-        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
-        setTimeout(() => {
-            formik.setSubmitting(false)
-            router.push('/')
-        }, 1000)
+        await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([fields]), headers: { 'Content-Type': 'application/json' } })
+        formik.setSubmitting(false);
+        router.push('/');
     }
     return (
         <Layout
@@ -169,39 +182,39 @@ export default function AddStructure({ communities }) {
                             </form>
                             <div className={styles.visualisation}>
 
-                            <div className={styles.label}>
-                                <LabelStructure
-                                    name={props.values.name}
-                                    adress={props.values.adress}
-                                    communities={communitiesNames}
-                                />
-                            </div>
-                            <div className={styles.verso}>
-                                {props.values.name &&
-                                    <h2 className={styles.name}>{props.values.name}</h2>
-                                }
-                                {props.values.typologies &&
-                                    <Tags className={styles.tags} tags={props.values.typologies} />
-                                }
-                                {props.values.description &&
-                                    <p className={styles.description}>{props.values.description}</p>
-                                }
-                                {props.values.website &&
-                                    <Link href={{ pathname: props.values.website }}>
-                                        <p className={classNames("link", styles.link)}>Voir le site</p>
-                                    </Link>
-                                }
-                            </div>
-                            <div className={styles.explainer}>
-                                <h3>Comprendre ce label</h3>
-                                <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
-                                <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
-                                <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
-                                <ul className={styles.legends}>
-                                    {/* <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
+                                <div className={styles.label}>
+                                    <LabelStructure
+                                        name={props.values.name}
+                                        adress={props.values.adress}
+                                        communities={communitiesNames}
+                                    />
+                                </div>
+                                <div className={styles.verso}>
+                                    {props.values.name &&
+                                        <h2 className={styles.name}>{props.values.name}</h2>
+                                    }
+                                    {props.values.typologies &&
+                                        <Tags className={styles.tags} tags={props.values.typologies} />
+                                    }
+                                    {props.values.description &&
+                                        <p className={styles.description}>{props.values.description}</p>
+                                    }
+                                    {props.values.website &&
+                                        <Link href={{ pathname: props.values.website }}>
+                                            <p className={classNames("link", styles.link)}>Voir le site</p>
+                                        </Link>
+                                    }
+                                </div>
+                                <div className={styles.explainer}>
+                                    <h3>Comprendre ce label</h3>
+                                    <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
+                                    <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
+                                    <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
+                                    <ul className={styles.legends}>
+                                        {/* <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
                                     <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
                                     <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li> */}
-                                </ul>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +228,7 @@ export default function AddStructure({ communities }) {
 
 export async function getStaticProps() {
     let communities = await airtable_api.getCommunities({ status: true });
-    communities = communities.map((el, i) => ({value : el.id, label : el.name }))
+    communities = communities.map((el, i) => ({ value: el.id, label: el.name }))
     return {
         props: { communities },
     }

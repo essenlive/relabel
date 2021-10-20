@@ -23,18 +23,18 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         description: "Le nom de votre projet, objet, chantier...",
         suffix: "",
         required: true
-    }, 
+    },
     {
-            name: "date",
-            schema: Yup.string().required('Requis'),
-            type: "date",
-            initial: "",
-            placeholder: "",
+        name: "date",
+        schema: Yup.string().required('Requis'),
+        type: "date",
+        initial: "",
+        placeholder: "",
         prefix: "Date",
         description: "Date de fabrication ou livraison.",
-            suffix: "",
-            required: true
-        },
+        suffix: "",
+        required: true
+    },
     {
         name: "typology",
         schema: Yup.string().required('Requis'),
@@ -73,96 +73,96 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
     },
     {
         name: "team",
-        schema: Yup.array().of(Yup.string().required('Requis')).nullable(),
+        schema: Yup.array().of(Yup.object().required('Requis')).required('Requis').nullable(),
         type: "creatableSelect",
         initial: [],
-        placeholder: "Nicolas Tesla, Victor Hugo",
+        placeholder: "",
         description: "Les noms des membres de l'équipe.",
         prefix: "Équipe",
         suffix: "",
         required: true,
         options: []
-        },
-        {
-            name: "designers",
-            schema: Yup.array().of(Yup.string()),
-            type: "multiSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Designer.s",
-            description: "Les structures qui ont porté la conception.",
-            suffix: "",
-            required: false,
-            options: designersOptions
-        },
-        {
-            name: "workshops",
-            schema: Yup.array().of(Yup.string()),
-            type: "multiSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Ateliers/lieux de fabrication",
-            description: "Les structures qui ont porté la fabrication.",
-            suffix: "",
-            required: false,
-            options: workshopsOptions
-        },
-        {
-            name: "suppliers",
-            schema: Yup.array().of(Yup.string()),
-            type: "multiSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Ressourceries/fournisseurs",
-            description: "Les structures qui ont fourni les matières premières.",
-            suffix: "",
-            required: false,
-            options: suppliersOptions
-        },
-        {
-            name: "duration",
-            schema: Yup.number().min(0, 'Ca doit etre au moins 0 jours').required('Required'),
-            type: "number",
-            initial: 0,
-            placeholder: "",
-            prefix: "Durée du projet",
-            description: "La durée, en jours, du projet.",
-            suffix: "jours",
-            required: true
-        },
-        {
-            name: "gestion",
-            schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-            type: "number",
-            initial: 0,
-            placeholder: "",
-            description: "Le temps passé à la gestion du projet.",
-            prefix: "Gestion de projet",
-            suffix: "%",
-            required: true
-        },
-        {
-            name: "production",
-            schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-            type: "number",
-            initial: 0,
-            placeholder: "",
-            description: "Le temps passé à la fabrication du projet.",
-            prefix: "Fabrication",
-            suffix: "%",
-            required: true
-        },
-        {
-            name: "materials",
-            schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-            type: "number",
-            initial: 0,
-            placeholder: "",
-            description: "Le pourcentage de matériaux sourcés.",
-            prefix: "Matériaux",
-            suffix: "%",
-            required: true
-        },
+    },
+    {
+        name: "designers",
+        schema: Yup.array().of(Yup.object()),
+        type: "creatableSelect",
+        initial: [],
+        placeholder: "",
+        prefix: "Designer.s",
+        description: "Les structures qui ont porté la conception.",
+        suffix: "",
+        required: false,
+        options: designersOptions
+    },
+    {
+        name: "workshops",
+        schema: Yup.array().of(Yup.object()),
+        type: "creatableSelect",
+        initial: [],
+        placeholder: "",
+        prefix: "Ateliers/lieux de fabrication",
+        description: "Les structures qui ont porté la fabrication.",
+        suffix: "",
+        required: false,
+        options: workshopsOptions
+    },
+    {
+        name: "suppliers",
+        schema: Yup.array().of(Yup.object()),
+        type: "creatableSelect",
+        initial: [],
+        placeholder: "",
+        prefix: "Ressourceries/fournisseurs",
+        description: "Les structures qui ont fourni les matières premières.",
+        suffix: "",
+        required: false,
+        options: suppliersOptions
+    },
+    {
+        name: "duration",
+        schema: Yup.number().min(0, 'Ca doit etre au moins 0 jours').required('Required'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        prefix: "Durée du projet",
+        description: "La durée, en jours, du projet.",
+        suffix: "jours",
+        required: true
+    },
+    {
+        name: "gestion",
+        schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        description: "Le temps passé à la gestion du projet.",
+        prefix: "Gestion de projet",
+        suffix: "%",
+        required: true
+    },
+    {
+        name: "production",
+        schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        description: "Le temps passé à la fabrication du projet.",
+        prefix: "Fabrication",
+        suffix: "%",
+        required: true
+    },
+    {
+        name: "materials",
+        schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
+        type: "number",
+        initial: 0,
+        placeholder: "",
+        description: "Le pourcentage de matériaux sourcés.",
+        prefix: "Matériaux",
+        suffix: "%",
+        required: true
+    },
     {
         name: "contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
@@ -191,15 +191,38 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
     Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        fields.gestion = fields.gestion / 100;
-        fields.production = fields.production /100;
-        fields.materials = fields.materials / 100;
-        let body = [fields];
-        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
-        setTimeout(() => {
-            formik.setSubmitting(false)
-            router.push('/')
-        }, 1000)
+        let data = fields;
+        data.gestion = fields.gestion / 100;
+        data.production = fields.production / 100;
+        data.materials = fields.materials / 100;
+        data.team = fields.team.map((el) => el.value)
+        let newStructures = Array.from(new Set([
+            ...fields.designers.filter((el) => el.__isNew__).map((el) => (el.label)),
+            ...fields.workshops.filter((el) => el.__isNew__).map((el) => (el.label)),
+            ...fields.suppliers.filter((el) => el.__isNew__).map((el) => (el.label))
+        ])).map((el) => ({ name: el }))
+
+        let newStructuresId = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify(newStructures), headers: { 'Content-Type': 'application/json' } })
+        newStructuresId = await newStructuresId.json()
+        data.designers = data.designers.map((designers) => {
+            if (!designers.__isNew__) return designers.value
+            let structure = newStructuresId.filter((structure) => structure.fields.name === designers.label)
+            return structure[0].id
+        });
+        data.workshops = data.workshops.map((workshops) => {
+            if (!workshops.__isNew__) return workshops.value
+            let structure = newStructuresId.filter((structure) => structure.fields.name === workshops.label)
+            return structure[0].id
+        });
+        data.suppliers = data.suppliers.map((suppliers) => {
+            if (!suppliers.__isNew__) return suppliers.value
+            let structure = newStructuresId.filter((structure) => structure.fields.name === suppliers.label)
+            return structure[0].id
+        });
+        let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        await record.json()
+        formik.setSubmitting(false)
+        router.push('/')
     }
     return (
         <Layout
@@ -234,50 +257,50 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                             </form>
                             <div className={styles.visualisation}>
 
-                            <div className={styles.label}>
-                                <LabelProduction 
-                                    name={props.values.name}
-                                    data={{
-                                        partners: props.values.designers.length + props.values.workshops.length + props.values.suppliers.length,
-                                        gestion: props.values.gestion / 100,
-                                        production: props.values.production / 100,
-                                        materials: props.values.materials / 100,
-                                    }}
-                                    date={{
-                                        day: props.values.date ? new Date(props.values.date).getDate() : new Date().getDate(),
-                                        month: props.values.date ? new Date(props.values.date).getMonth() + 1 : new Date().getMonth() + 1,
-                                        year: props.values.date ? new Date(props.values.date).getYear() + 1900 : new Date().getYear() + 1900
+                                <div className={styles.label}>
+                                    <LabelProduction
+                                        name={props.values.name}
+                                        data={{
+                                            partners: props.values.designers.length + props.values.workshops.length + props.values.suppliers.length,
+                                            gestion: props.values.gestion / 100,
+                                            production: props.values.production / 100,
+                                            materials: props.values.materials / 100,
+                                        }}
+                                        date={{
+                                            day: props.values.date ? new Date(props.values.date).getDate() : new Date().getDate(),
+                                            month: props.values.date ? new Date(props.values.date).getMonth() + 1 : new Date().getMonth() + 1,
+                                            year: props.values.date ? new Date(props.values.date).getYear() + 1900 : new Date().getYear() + 1900
 
-                                    }}
-                                    structure={props.values.team}
-                                />
-                            </div>
-                            <div className={styles.verso}>
-                                {props.values.name &&
-                                    <h2 className={styles.name}>{props.values.name}</h2>
-                                }
-                                {props.values.typology &&
-                                    <Tags className={styles.tags} tags={[props.values.typology]} />
-                                }
-                                {props.values.description &&
-                                    <p className={styles.description}>{props.values.description}</p>
-                                }
-                                {props.values.website &&
-                                    <Link href={{ pathname: props.values.website }}>
-                                        <p className={classNames("link", styles.link)}>Voir le site</p>
-                                    </Link>
-                                }
-                            </div>
-                            <div className={styles.explainer}>
-                                <h3>Comprendre ce label</h3>
-                                <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
-                                <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
-                                <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
-                                <ul className={styles.legends}>
-                                    {/* <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
+                                        }}
+                                        structure={props.values.team.map((el) => el.value)}
+                                    />
+                                </div>
+                                <div className={styles.verso}>
+                                    {props.values.name &&
+                                        <h2 className={styles.name}>{props.values.name}</h2>
+                                    }
+                                    {props.values.typology &&
+                                        <Tags className={styles.tags} tags={[props.values.typology]} />
+                                    }
+                                    {props.values.description &&
+                                        <p className={styles.description}>{props.values.description}</p>
+                                    }
+                                    {props.values.website &&
+                                        <Link href={{ pathname: props.values.website }}>
+                                            <p className={classNames("link", styles.link)}>Voir le site</p>
+                                        </Link>
+                                    }
+                                </div>
+                                <div className={styles.explainer}>
+                                    <h3>Comprendre ce label</h3>
+                                    <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
+                                    <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
+                                    <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
+                                    <ul className={styles.legends}>
+                                        {/* <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
                                     <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
                                     <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li> */}
-                                </ul>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -292,13 +315,13 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
 export async function getStaticProps() {
     let structures = await airtable_api.getStructures();
     let suppliersOptions = structures.filter((el) => el.typologies.indexOf("stockage") >= 0)
-    suppliersOptions = suppliersOptions.map((el)=>({ value: el.id, label: el.name }))
-    let designersOptions = structures.filter((el)=>el.typologies.indexOf("designer")>=0)
+    suppliersOptions = suppliersOptions.map((el) => ({ value: el.id, label: el.name }))
+    let designersOptions = structures.filter((el) => el.typologies.indexOf("designer") >= 0)
     designersOptions = designersOptions.map((el) => ({ value: el.id, label: el.name }))
     let workshopsOptions = structures.filter((el) => el.typologies.indexOf("atelier") >= 0)
     workshopsOptions = workshopsOptions.map((el) => ({ value: el.id, label: el.name }))
 
     return {
-        props: { suppliersOptions, designersOptions, workshopsOptions  },
+        props: { suppliersOptions, designersOptions, workshopsOptions },
     }
 }

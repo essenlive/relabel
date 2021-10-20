@@ -168,7 +168,7 @@ export const Inputs = ({ input, ...props}) => {
                             className={styles.field__input}
                             classNamePrefix="select"
                             isMulti
-                            onChange={(values) => {setValue(values.map(el => el.value))}}
+                            onChange={(values) => { setValue(values)}}
                             options={options}
                         />
                         {suffix && (<label className={styles.field__suffix}>{suffix}</label>)}

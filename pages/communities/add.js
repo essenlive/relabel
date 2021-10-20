@@ -48,7 +48,7 @@ export default function AddCommunities({ StartingColors, cities }) {
     },
     {
         name: "cities",
-        schema: Yup.array().of(Yup.string().required('Requis')).nullable(),
+        schema: Yup.array().of(Yup.object().required('Requis')).nullable(),
         type: "creatableSelect",
         initial: [],
         placeholder: "Paris, Lyon",
@@ -98,12 +98,10 @@ export default function AddCommunities({ StartingColors, cities }) {
     Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        let body = [fields];
-        await fetch('/api/create/community', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
-        setTimeout(()=>{
-            formik.setSubmitting(false)
-            router.push('/')
-        },1000)
+        fields.cities = fields.cities.map((el) => el.value)
+        await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify([fields]), headers: { 'Content-Type': 'application/json' } })
+        formik.setSubmitting(false)
+        router.push('/')
     }
     return (
         <Layout
@@ -155,7 +153,7 @@ export default function AddCommunities({ StartingColors, cities }) {
                                         <h2 className={styles.name}>{props.values.name}</h2>
                                     }
                                     {props.values.cities &&
-                                        <Tags className={styles.tags} tags={props.values.cities} />
+                                        <Tags className={styles.tags} tags={props.values.cities.map((el) => el.value)} />
                                     }
                                     {props.values.description &&
                                         <p className={styles.description}>{props.values.description}</p>
