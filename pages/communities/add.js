@@ -133,48 +133,51 @@ export default function AddCommunities({ StartingColors }) {
                                     onSubmit={props.handleSubmit}
                                 >{props.isValidating ? "Vérification du formulaire" : "Envoyer"}</button>
                             </form>
-                                
-                            <div className={styles.label}>
-                                <LabelCommunity
-                                    name={props.values.name}
-                                    year={props.values.year}
-                                    data={{
-                                        partners: '5',
-                                        materials: '0.7',
-                                        gestion: '0.3',
-                                        production: '0.9'
-                                    }}
-                                    colors={props.values.colors}
-                                />
-                            </div>
-                            <div className={styles.verso}>
-                                {props.values.name &&
-                                    <h2 className={styles.name}>{props.values.name}</h2>
-                                }
-                                {props.values.cities &&
-                                    <Tags className={styles.tags} tags={props.values.cities} />
-                                }
-                                {props.values.description &&
-                                    <p className={styles.description}>{props.values.description}</p>
-                                }
-                                {props.values.website &&
-                                    <Link href={{ pathname: props.values.website }}>
-                                        <p className={classNames("link", styles.link)}>Voir le site</p>
-                                    </Link>
-                                }
-                            </div>
-                            <div className={styles.explainer}>
-                                <h3>Comprendre ce label</h3>
-                                <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
-                                <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
-                                <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
-                                <ul className={styles.legends}>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li>
-                                </ul>
+
+                            <div className={styles.visualisation}>
+                                <div className={styles.label}>
+                                    <LabelCommunity
+                                        name={props.values.name}
+                                        year={props.values.year}
+                                        data={{
+                                            partners: '5',
+                                            materials: '0.7',
+                                            gestion: '0.3',
+                                            production: '0.9'
+                                        }}
+                                        colors={props.values.colors}
+                                    />
+                                </div>
+                                <div className={styles.verso}>
+                                    {props.values.name &&
+                                        <h2 className={styles.name}>{props.values.name}</h2>
+                                    }
+                                    {props.values.cities &&
+                                        <Tags className={styles.tags} tags={props.values.cities} />
+                                    }
+                                    {props.values.description &&
+                                        <p className={styles.description}>{props.values.description}</p>
+                                    }
+                                    {props.values.website &&
+                                        <Link href={{ pathname: props.values.website }}>
+                                            <p className={classNames("link", styles.link)}>Voir le site</p>
+                                        </Link>
+                                    }
+                                </div>
+                                <div className={styles.explainer}>
+                                    <h3>Comprendre ce label</h3>
+                                    <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
+                                    <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
+                                    <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
+                                    <ul className={styles.legends}>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+
                     )
                 }}
             </Formik>

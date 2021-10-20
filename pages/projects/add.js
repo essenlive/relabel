@@ -232,6 +232,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                     onSubmit={props.handleSubmit}
                                 >{props.isValidating ? "Vérification du formulaire" : "Envoyer"}</button>
                             </form>
+                            <div className={styles.visualisation}>
 
                             <div className={styles.label}>
                                 <LabelProduction 
@@ -277,6 +278,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                     <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
                                     <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li> */}
                                 </ul>
+                                </div>
                             </div>
                         </div>
                     )

@@ -1,9 +1,24 @@
 .form {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.form>* {
+  width: 50%;
+}
+
+.visualisation {
   display: grid;
-  grid-template-columns: 2fr minmax(150px, 1fr) minmax(150px, 1fr);
-  grid-template-rows: auto auto auto;
+  grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
+  grid-template-rows: auto auto;
   gap: 0px 0px;
-  grid-template-areas: "values label verso" "values explainer explainer""values . .";
+  grid-template-areas: "label verso" "explainer explainer";
+  position: sticky;
+  top: 170px;
+  align-self: flex-start;
+  border: var(--secondary) var(--borderWidth-lg) solid;
+  border-left: none;
 }
 
 .sending {
@@ -63,7 +78,6 @@
 
 .label {
   grid-area: label;
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
   border-right: var(--secondary) var(--borderWidth-lg) solid;
   background-color: var(--white);
 }
@@ -71,15 +85,12 @@
 .explainer {
   grid-area: explainer;
   padding: 1rem;
-  border: var(--secondary) var(--borderWidth-lg) solid;
-  border-left: none;
+  border-top: var(--secondary) var(--borderWidth-lg) solid;
   background-color: var(--white);
 }
 
 .verso {
   grid-area: verso;
-  border-right: var(--secondary) var(--borderWidth-lg) solid;
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
   background-color: var(--white);
 }
 
@@ -132,31 +143,19 @@
 
 @media (--screen-lg) {
   .form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 0px 0px;
-    grid-template-areas: "values values" "label verso" "explainer explainer";
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    flex-direction: column;
   }
   .form>* {
-    border: none;
+    width: 100%;
   }
-  .label {
-    border-right: var(--secondary) var(--borderWidth-lg) solid;
-  }
-  .form>*:not(:last-child) {
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  .visualisation {
+    border: var(--secondary) var(--borderWidth-lg) solid;
+    border-top: none;
   }
 }
 
 @media (--screen-sm) {
   .form {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-    gap: 0px 0px;
-    grid-template-areas: "values"  "label" "verso" "explainer";
     border: var(--secondary) var(--borderWidth-lg) solid;
   }
   .form>* {
@@ -164,5 +163,21 @@
   }
   .form>*:not(:last-child) {
     border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  }
+  .visualisation {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    gap: 0px 0px;
+    grid-template-areas: "label" "verso" "explainer";
+    position: inherit;
+  }
+  .visualisation>*:not(:last-child) {
+    border: none;
+    border-top: var(--secondary) var(--borderWidth-lg) solid;
+    min-height: 10rem;
+  }
+  .visualisation>*:first-child{
+    border-top: none;
   }
 }
