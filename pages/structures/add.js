@@ -26,7 +26,7 @@ export default function AddStructure({ communities }) {
     {
         name: "communities",
         schema: Yup.array().of(Yup.object().nullable()).required('Requis'),
-        type: "multiSelect",
+        type: "creatableSelect",
         initial: [],
         placeholder: "",
         prefix: "Communautée.s",
@@ -143,7 +143,19 @@ export default function AddStructure({ communities }) {
     Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([fields]), headers: { 'Content-Type': 'application/json' } })
+        let data = fields;
+        let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
+
+        let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })
+        newCommunitiesId = await newCommunitiesId.json()
+        data.communities = data.communities.map((communities) => {
+            if (!communities.__isNew__) return communities.value
+            let community = newCommunitiesId.filter((community) => community.fields.name === communities.label)
+            return community[0].id
+        });
+        
+        let record = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        await record.json()
         formik.setSubmitting(false);
         router.push('/');
     }
@@ -157,8 +169,6 @@ export default function AddStructure({ communities }) {
                 validationSchema={Yup.object().shape(Schema)}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
-                    let communitiesNames = communities.filter((community) => props.values.communities.indexOf(community.value) >= 0);
-                    communitiesNames = communitiesNames.map((community) => community.label);
                     return (
                         <div className={styles.form}>
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
@@ -186,7 +196,7 @@ export default function AddStructure({ communities }) {
                                     <LabelStructure
                                         name={props.values.name}
                                         adress={props.values.adress}
-                                        communities={communitiesNames}
+                                        communities={props.values.communities.map((el) => el.label)}
                                     />
                                 </div>
                                 <div className={styles.verso}>
