@@ -69,17 +69,51 @@ h1, h2, h3, h4, h5, h6 {
 @media print {
   html, body {
     font-size: var(--fontSize-sm);
-    font-family: var(--font-body);
-    box-sizing: border-box;
-    font-weight: 400;
-    color: var(--secondary);
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-header);
-    font-weight: 700;
-    color: var(--primary);
-    text-transform: uppercase;
     margin: 0;
     padding: 0;
+  }
+}
+
+path {
+  transform-origin: 50% 0%;
+}
+
+.background--custom {
+  display: none;
+  background-color: #FFFFFF;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+@keyframes path0 {
+  0% {
+    transform: rotate(-60deg);
+  }
+  100% {
+    transform: rotate(60deg);
+  }
+}
+
+@keyframes path1 {
+  0% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes path2 {
+  0% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(-30deg);
   }
 }

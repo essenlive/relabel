@@ -4,8 +4,7 @@ import {LabelProduction} from '@components/Labels';
 import Card from '@components/Card';
 
 export default function Projects({ projects }) {
-
- 
+  
   return (
     <Layout title='Productions' padded grid>
 

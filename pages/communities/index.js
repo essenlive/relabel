@@ -25,7 +25,7 @@ export default function Communities({ communities }) {
                 name={community.name}
                 year={community.year}
                 data={{
-                  partners: '0',
+                  partners: community.members.length,
                   materials: '1',
                   gestion: '0.1',
                   production: '0.9'
