@@ -99,5 +99,5 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
     let paths = await airtable_api.getStructures();
     paths = paths.map((el) => ({ params: { id: el.id } }))
-    return { paths: paths, fallback: false };
+    return { paths: paths, fallback: "blocking" };
 }
