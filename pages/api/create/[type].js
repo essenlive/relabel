@@ -19,19 +19,21 @@ const createApi = (type, fields) => {
 
 export default async function handler (req, res) {
     if (req.method === 'POST') {
-        console.log(req.query);
         const { type } = req.query;
         let fields = req.body.map((el)=>({fields : el}));
-
-        if (type === "structures" ) {
-            if (fields.adress){
-                const response = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${fields.adress.replace(/ /g, "+")}`);
-                const data = await response.json();
-                fields.longitude = data.features[0].geometry.coordinates[0]
-                fields.latitude = data.features[0].geometry.coordinates[1]
-            }
-        }
         
+        if (type === "structures" ) {
+            fields = await Promise.all(fields.map(async structure => {
+                if (structure.fields.adress){
+                    const response = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${structure.fields.adress.replace(/ /g, "+")}`);
+                    const data = await response.json();
+                    structure.fields.longitude = data.features[0].geometry.coordinates[0]
+                    structure.fields.latitude = data.features[0].geometry.coordinates[1]
+                }
+                return structure
+            }));
+        }
+
         try {
             let response = await createApi(type, fields)
             res.status(200).json(response);

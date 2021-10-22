@@ -6,6 +6,11 @@
   position: relative;
 }
 
+.field button {
+  background-color: var(--secondary);
+  border-radius: 0;
+}
+
 .field__prefix, .field__suffix {
   font-weight: 700;
 }
@@ -35,6 +40,7 @@
   border-bottom: solid var(--secondary) var(--borderWidth-md);
   text-align: left;
   padding: 0.25rem 0;
+  width: 100%;
 }
 
 .field__input:focus-visible, .field__input:focus, .field__input:focus-within, .field:hover .field__input {

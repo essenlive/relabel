@@ -125,17 +125,27 @@ export default function AddStructure({ communities }) {
         prefix: "Contact",
         suffix: "",
         required: true
-    },
-    {
-        name: "website",
-        schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
-        type: "url",
-        initial: "",
-        placeholder: "sitedelacommunauté.org",
-        prefix: "Site internet",
-        description: "L'url de votre site internet si vous en avez un.",
-        suffix: ""
-    },
+        },
+        {
+            name: "website",
+            schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
+            type: "url",
+            initial: "",
+            placeholder: "sitedelacommunauté.org",
+            prefix: "Site internet",
+            description: "L'url de votre site internet si vous en avez un.",
+            suffix: ""
+        },
+        {
+            name: "illustrations",
+            schema: Yup.array().of(Yup.string().url()).nullable(),
+            type: "images",
+            initial: [],
+            placeholder: "",
+            prefix: "Illustrations",
+            description: "Une ou plusieurs images pour illustrer votre structure.",
+            suffix: ""
+        },
     ]
     let Schema = {}
     Form.forEach((el, i) => { Schema[el.name] = el.schema })
@@ -144,20 +154,24 @@ export default function AddStructure({ communities }) {
 
     const submit = async (fields, formik) => {
         let data = fields;
-        let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
-
-        let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })
-        newCommunitiesId = await newCommunitiesId.json()
-        data.communities = data.communities.map((communities) => {
-            if (!communities.__isNew__) return communities.value
-            let community = newCommunitiesId.filter((community) => community.fields.name === communities.label)
-            return community[0].id
-        });
         
+        let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
+        if (newCommunities.length !== 0) {  
+            let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })
+            newCommunitiesId = await newCommunitiesId.json()
+            data.communities = data.communities.map((communities) => {
+                if (!communities.__isNew__) return communities.value
+                let community = newCommunitiesId.filter((community) => community.fields.name === communities.label)
+                return community[0].id
+            });
+        }
+        data.communities = fields.communities.map((el) => el.value)
+        data.illustrations = data.illustrations.map(el => ({ "url": el }))
+
         let record = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
-        await record.json()
+        record = await record.json()
         formik.setSubmitting(false);
-        router.push('/');
+        router.push(`/structures/${record[0].id}`);
     }
     return (
         <Layout

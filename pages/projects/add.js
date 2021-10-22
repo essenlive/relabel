@@ -183,7 +183,17 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Documentation",
         description: "L'url de votre site internet ou de la documentation si elle existe.",
         suffix: ""
-    },
+        },
+        {
+            name: "illustrations",
+            schema: Yup.array().of(Yup.string().url()).nullable(),
+            type: "images",
+            initial: [],
+            placeholder: "",
+            prefix: "Illustrations",
+            description: "Une ou plusieurs images pour illustrer votre structure.",
+            suffix: ""
+        },
     ]
     let Schema = {}
     Form.forEach((el, i) => { Schema[el.name] = el.schema })
@@ -196,6 +206,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         data.production = fields.production / 100;
         data.materials = fields.materials / 100;
         data.team = fields.team.map((el) => el.value)
+        data.illustrations = data.illustrations.map(el => ({ "url": el }))
         let newStructures = Array.from(new Set([
             ...fields.designers.filter((el) => el.__isNew__).map((el) => (el.label)),
             ...fields.workshops.filter((el) => el.__isNew__).map((el) => (el.label)),
