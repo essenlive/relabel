@@ -231,9 +231,10 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             return structure[0].id
         });
         let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
-        await record.json()
-        formik.setSubmitting(false)
-        router.push('/')
+        record = await record.json()
+        formik.setSubmitting(false);
+        router.push(`/projects/${record[0].id}`);
+
     }
     return (
         <Layout
