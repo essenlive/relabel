@@ -1,5 +1,5 @@
 .bordered {
-  border: var(--borderWidth-lg) var(--secondary) solid;
+  border: var(--borderWidth-lg) var(--primary) solid;
 }
 
 .labelP {
@@ -35,7 +35,7 @@
 }
 
 .labelP__designer {
-  border-left: var(--secondary) var(--borderWidth-lg) solid;
+  border-left: var(--primary) var(--borderWidth-lg) solid;
   padding: 0.5em;
   grid-area: designer;
   display: flex;
@@ -51,8 +51,8 @@
 
 .labelP__date {
   position: relative;
-  border-left: var(--secondary) var(--borderWidth-lg) solid;
-  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  border-left: var(--primary) var(--borderWidth-lg) solid;
+  border-bottom: var(--primary) var(--borderWidth-lg) solid;
   grid-area: date;
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@
 .labelP__date::before {
   content: "";
   display: block;
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  border-top: var(--primary) var(--borderWidth-lg) solid;
   height: var(--borderWidth-lg);
   position: absolute;
   width: 150%;
@@ -92,7 +92,7 @@
 }
 
 .labelP__name {
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  border-top: var(--primary) var(--borderWidth-lg) solid;
   grid-area: name;
   display: flex;
   flex-direction: row;
@@ -133,7 +133,7 @@
 .labelC__name {
   margin-top: 0.5em;
   padding: 0.5em;
-  border: var(--secondary) var(--borderWidth-lg) solid;
+  border: var(--primary) var(--borderWidth-lg) solid;
   text-transform: uppercase;
   text-align: center;
   color: var(--primary);
@@ -178,21 +178,21 @@
 .labelS__name {
   text-transform: uppercase;
   color: var(--white);
-  background-color: var(--secondary);
+  background-color: var(--primary);
   top: 1em;
   right: 1em;
 }
 
 .labelS__adress {
   text-transform: lowercase;
-  border: var(--secondary) var(--borderWidth-lg) solid;
+  border: var(--primary) var(--borderWidth-lg) solid;
   background-color: var(--white);
   position: absolute;
   top: calc(4em - var(--borderWidth-lg));
   left: 1em;
   font-weight: 500;
   line-height: 2.4em;
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 .labelS__communities {
@@ -208,7 +208,7 @@
 .labelS__image {
   object-fit: cover !important;
   height: 80%;
-  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  border-bottom: var(--primary) var(--borderWidth-lg) solid;
 }
 
 @media print{

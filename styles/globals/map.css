@@ -2,7 +2,7 @@
     z-index: 100;
     background: transparent;
     border-bottom-left-radius: 0.2rem;
-    color: var(--secondary) !important;
+    color: var(--primary) !important;
     z-index: 10;
     width: 2.5rem;
     height: 2.5rem;

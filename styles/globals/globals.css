@@ -5,7 +5,7 @@ html, body {
   font-family: var(--font-body);
   box-sizing: border-box;
   font-weight: 400;
-  color: var(--secondary);
+  color: var(--primary);
   font-size: var(--fontSize-base);
   forced-color-adjust: exact !important;
 }
@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .select__control * {
-  color: var(--secondary) !important;
+  color: var(--primary) !important;
 }
 
 @page {

@@ -1,7 +1,7 @@
 .banner {
   display: flex;
   flex-direction: row;
-  border: var(--secondary) var(--borderWidth-lg) solid;
+  border: var(--primary) var(--borderWidth-lg) solid;
   background-color: var(--white);
   box-shadow: var(--boxShadow-2xl);
   height: min-content;
@@ -10,7 +10,7 @@
 .header {
   padding: 1.5rem;
   width: 50%;
-  border-right: var(--secondary) var(--borderWidth-lg) solid;
+  border-right: var(--primary) var(--borderWidth-lg) solid;
 }
 
 .header h1 {
@@ -46,7 +46,7 @@
     flex-direction: column;
   }
   .header {
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+    border-bottom: var(--primary) var(--borderWidth-lg) solid;
     border-right: transparent var(--borderWidth-lg) solid;
     width: 100%;
   }

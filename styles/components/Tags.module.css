@@ -10,6 +10,6 @@
   padding: 0.25rem 0.5rem;
   background-color: var(--gray-100);
   display: inline-block;
-  font-size: var(--fontSize-sm);
+  font-size: var(--fontSize-xs);
   margin-bottom: 0.25rem;
 }

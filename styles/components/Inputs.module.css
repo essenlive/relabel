@@ -7,7 +7,7 @@
 }
 
 .field button {
-  background-color: var(--secondary);
+  background-color: var(--primary);
   border-radius: 0;
 }
 
@@ -35,9 +35,9 @@
 .field__input {
   flex-grow: 1;
   border: none;
-  color: var(--secondary);
+  color: var(--primary);
   font-weight: 400;
-  border-bottom: solid var(--secondary) var(--borderWidth-md);
+  border-bottom: solid var(--primary) var(--borderWidth-md);
   text-align: left;
   padding: 0.25rem 0;
   width: 100%;

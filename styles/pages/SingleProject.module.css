@@ -8,7 +8,7 @@
 
 .title {
     grid-area: title;
-    background: var(--secondary);
+    background: var(--primary);
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -26,8 +26,8 @@
     flex-direction: column;
     align-items: left;
     padding: 1rem;
-    border-left: var(--secondary) var(--borderWidth-lg) solid;
-    border-right: var(--secondary) var(--borderWidth-lg) solid;
+    border-left: var(--primary) var(--borderWidth-lg) solid;
+    border-right: var(--primary) var(--borderWidth-lg) solid;
 }
 
 .certificate {
@@ -39,7 +39,7 @@
     align-items: center;
     justify-content: space-around;
     text-align: center;
-    border-right: var(--secondary) var(--borderWidth-lg) solid;
+    border-right: var(--primary) var(--borderWidth-lg) solid;
 }
 
 .certificate:hover {
@@ -61,7 +61,7 @@
 .carousel {
     grid-area: carousel;
     background: var(--white);
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    border: var(--primary) var(--borderWidth-lg) solid;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -72,7 +72,7 @@
 }
 
 .label>*:first-child {
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    border: var(--primary) var(--borderWidth-lg) solid;
     border-right: none;
     height: 100%;
 }
@@ -83,7 +83,7 @@
         flex-direction: column;
     }
     .banner>div {
-        border: var(--secondary) var(--borderWidth-lg) solid;
+        border: var(--primary) var(--borderWidth-lg) solid;
     }
     .banner>div:not(:last-child) {
         border-bottom: transparent;
@@ -99,18 +99,18 @@
         grid-template-columns: 2fr 1fr;
         grid-template-rows: auto auto auto;
         gap: 0px 0px;
-        border: var(--secondary) var(--borderWidth-lg) solid;
+        border: var(--primary) var(--borderWidth-lg) solid;
         grid-template-areas: "title labels" "description  labels" "carousel carousel";
     }
     .carousel {
         grid-area: carousel;
         border: none !important;
-        border-top: var(--secondary) var(--borderWidth-lg) solid !important;
+        border-top: var(--primary) var(--borderWidth-lg) solid !important;
     }
     .title {
         grid-area: title;
         border: none !important;
-        border-bottom: var(--secondary) var(--borderWidth-lg) solid !important;
+        border-bottom: var(--primary) var(--borderWidth-lg) solid !important;
     }
     .description {
         grid-area: description;
@@ -119,7 +119,7 @@
     .label {
         grid-area: labels;
         border: none !important;
-        border-left: var(--secondary) var(--borderWidth-lg) solid !important;
+        border-left: var(--primary) var(--borderWidth-lg) solid !important;
     }
     .certificate {
         display: none;

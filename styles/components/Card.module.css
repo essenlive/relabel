@@ -1,5 +1,5 @@
 .card {
-  border: var(--secondary) var(--borderWidth-lg) solid;
+  border: var(--primary) var(--borderWidth-lg) solid;
   background: var(--white);
   position: relative;
   box-shadow: var(--boxShadow-2xl);
@@ -57,6 +57,6 @@
 
 .image {
   object-fit: cover;
-  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  border-bottom: var(--primary) var(--borderWidth-lg) solid;
   max-height: 50%;
 }

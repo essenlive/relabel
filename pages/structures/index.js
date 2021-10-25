@@ -2,13 +2,12 @@ import Layout from '@components/Layout'
 import airtable_api from '@libs/airtable_api.js'
 import React, { useState, useRef } from 'react';
 import ReactMapGL, { Marker, Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
-import styles from "@styles/components/Map.module.css";
+import styles from "@styles/pages/Structures.module.css";
 import Link from 'next/link'
 import { LabelStructure } from '@components/Labels';
 import Card from '@components/Card';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
-import dynamic from 'next/dynamic'
-
+import Tags from '@components/Tags';
 
 
 export default function Structures({ structures }) {
@@ -21,21 +20,20 @@ export default function Structures({ structures }) {
     zoom: 10
   });
   const [selection, setSelection] = useState(undefined);
-  const close = () => { if (selection) setSelection(undefined); };
+  const [picker, setPicker] = useState(undefined);
+  const close = () => { if (selection) setSelection(undefined); if (picker) setPicker(undefined); };
   const mapRef = useRef(null);
 
 
 
-  const onClick = event => {
+  const onMapClick = event => {
     if (event.features.length === 0) return
     const feature = event.features[0];
-    if (feature.properties.cluster_id){
+    if (feature.properties.cluster) {
       const clusterId = feature.properties.cluster_id;
-      const mapboxSource = mapRef.current.getMap().getSource('structures');  
+      const mapboxSource = mapRef.current.getMap().getSource('structures');
       mapboxSource.getClusterExpansionZoom(clusterId, (err, zoom) => {
-        if (err) {
-          return;
-        }
+        if (err) return;
         setViewport({
           ...viewport,
           zoom,
@@ -47,17 +45,46 @@ export default function Structures({ structures }) {
       });
 
     }
-    else{
+    else if (JSON.parse(feature.properties.structures).length === 1) {
+
+      let data = JSON.parse(feature.properties.structures)[0]
+      data.longitude = Number(data.longitude);
+      data.latitude = Number(data.latitude);
+      setViewport({
+        ...viewport,
+        longitude: data.longitude,
+        latitude: data.latitude,
+        transitionDuration: 500,
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+      setSelection(data)
+      setPicker(null)
+    }
+    else {
+      let data = JSON.parse(feature.properties.structures)
       setViewport({
         ...viewport,
         longitude: feature.geometry.coordinates[0],
         latitude: feature.geometry.coordinates[1],
         transitionDuration: 500,
         transitionInterpolator: new FlyToInterpolator(),
-       });
-      setSelection(feature.properties)
-
+      });
+      setSelection(null)
+      setPicker(data)
     }
+  };
+  const onPickerClick = (el) => {
+      el.longitude = Number(el.longitude);
+      el.latitude = Number(el.latitude);
+      setViewport({
+        ...viewport,
+        longitude: el.longitude,
+        latitude: el.latitude,
+        transitionDuration: 500,
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+      setSelection(el)
+      setPicker(null)
   };
 
 
@@ -76,7 +103,7 @@ export default function Structures({ structures }) {
       mapStyle="mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k"
       onViewportChange={(viewport) => setViewport(viewport)}
       interactiveLayerIds={[clusterLayer.id, unclusteredPointLayer.id]}
-      onClick={onClick}
+      onClick={onMapClick}
       ref={mapRef}
       clickRadius={5}
     >
@@ -102,8 +129,8 @@ export default function Structures({ structures }) {
 
 
       {selection && <Popup
-        latitude={Number(selection.latitude)}
-        longitude={Number(selection.longitude)}
+        latitude={selection.latitude}
+        longitude={selection.longitude}
         closeButton={true}
         closeOnClick={false}
         onClose={() => close()}
@@ -111,18 +138,39 @@ export default function Structures({ structures }) {
         <Card
           title={selection.name}
           // description={selection.description}
-          tags={JSON.parse(selection.typologies)}
-          image={selection.illustrations ? { src: JSON.parse(selection.illustrations)[0], alt: selection.name } : null}
+          tags={selection.typologies}
+          image={selection.illustrations ? { src: selection.illustrations[0], alt: selection.name } : null}
           link={{ path: `/structures/${selection.id}`, text: "Voir la structure" }}
         >
 
           <LabelStructure
             name={selection.name}
             adress={selection.adress}
-            communities={JSON.parse(selection.communities)}
+            communities={selection.communities}
           />
         </Card>
 
+      </Popup>}
+
+      {picker && <Popup
+        latitude={Number(picker[0].latitude)}
+        longitude={Number(picker[0].longitude)}
+        closeButton={true}
+        closeOnClick={false}
+        onClose={() => close()}
+        anchor="top" >
+        <div className={styles.picker}>
+          <h3 className={styles.picker__title}>Structures</h3>
+        {picker.map((el,i)=>{
+          return(
+            <div className={styles.picker__choices} key={el.id} onClick={()=>{onPickerClick(el)}}>
+              <span>{el.name}</span>
+              <Tags tags={el.typologies}/>
+            </div>
+          )
+        })}
+        </div>
+ 
       </Popup>}
     </ReactMapGL>
   </Layout>;
@@ -130,6 +178,7 @@ export default function Structures({ structures }) {
 
 export async function getStaticProps() {
   let structures = await airtable_api.getStructures({adress : true});
+  let data = {}
 
   structures = await Promise.all(structures.map(async (structure) => {
     structure.communities = await Promise.all(structure.communities.map(async (community) => {
@@ -139,21 +188,39 @@ export async function getStaticProps() {
     return structure
   }))
 
-  structures = {
-    type : "FeatureCollection",
-    features: structures.map((el) => {
-      return ({
+
+
+  structures.forEach((el, i) => {
+    let hash = `lo-${el.longitude}la-${el.latitude}`
+    if (!data[hash]) {
+      data[hash] = {
         type: "Feature",
-        properties: el,
+        properties: {
+          typologies: el.typologies,
+          structures: [el]
+        },
+        id: hash,
         geometry: {
           type: "Point",
           coordinates: [el.longitude, el.latitude, 0]
         }
-      })
-    })
-  }
+      }
+    }
+    else {
+      data[hash].properties.typologies = Array.from(new Set([...data[hash].properties.typologies, ...el.typologies]))
+      data[hash].properties.structures.push(el)
+    }
+  })
+
+
+
 
   return {
-    props: { structures },
+    props: {
+      structures : {
+        type: "FeatureCollection",
+        features: Object.values(data)
+      }
+    },
     revalidate: 1 }
 }

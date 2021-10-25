@@ -1,14 +1,14 @@
 .banner{
     display: flex;
     flex-direction: column;
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    border: var(--primary) var(--borderWidth-lg) solid;
     background-color: var(--white);
     align-self: center;
    box-shadow: var(--boxShadow-2xl);
 }
 .header{
   padding: 1.5rem;
-  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  border-bottom: var(--primary) var(--borderWidth-lg) solid;
 }
 .header h1{
   color: var(--primary);
@@ -36,7 +36,7 @@
     flex-direction: column;
 }
 .items > div:not(:first-child){
-    border-left: var(--secondary) var(--borderWidth-lg) solid;
+    border-left: var(--primary) var(--borderWidth-lg) solid;
 }
 .icon{
   height: 100px;
@@ -54,6 +54,7 @@
 .icon svg{
   height: 2rem;
   width: 2rem;
+  color: var(--white);
 }
 
 
@@ -67,7 +68,7 @@
     width: 100%;
   }
   .items > div:not(:first-child){
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  border-top: var(--primary) var(--borderWidth-lg) solid;
   border-left: transparent 0 solid;
   }
 }

@@ -17,7 +17,7 @@
   position: sticky;
   top: 170px;
   align-self: flex-start;
-  border: var(--secondary) var(--borderWidth-lg) solid;
+  border: var(--primary) var(--borderWidth-lg) solid;
   border-left: none;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .sending h3 {
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 .embedForm {
@@ -49,27 +49,27 @@
   display: flex;
   flex-direction: column;
   background-color: var(--white);
-  border: var(--secondary) var(--borderWidth-lg) solid;
+  border: var(--primary) var(--borderWidth-lg) solid;
   position: relative;
 }
 
 .values h2 {
-  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  border-bottom: var(--primary) var(--borderWidth-lg) solid;
   padding: 1rem;
 }
 
 .submit {
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  border-top: var(--primary) var(--borderWidth-lg) solid;
   padding: 1rem;
   text-transform: uppercase;
   color: var(--white);
-  background-color: var(--secondary);
+  background-color: var(--primary);
   font-weight: 600;
 }
 
 .submit:hover {
   background-color: var(--white);
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 .values>div {
@@ -78,14 +78,14 @@
 
 .label {
   grid-area: label;
-  border-right: var(--secondary) var(--borderWidth-lg) solid;
+  border-right: var(--primary) var(--borderWidth-lg) solid;
   background-color: var(--white);
 }
 
 .explainer {
   grid-area: explainer;
   padding: 1rem;
-  border-top: var(--secondary) var(--borderWidth-lg) solid;
+  border-top: var(--primary) var(--borderWidth-lg) solid;
   background-color: var(--white);
 }
 
@@ -137,7 +137,7 @@
 
 .image {
   object-fit: cover;
-  border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+  border-bottom: var(--primary) var(--borderWidth-lg) solid;
   max-height: 50%;
 }
 
@@ -149,20 +149,20 @@
     width: 100%;
   }
   .visualisation {
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    border: var(--primary) var(--borderWidth-lg) solid;
     border-top: none;
   }
 }
 
 @media (--screen-sm) {
   .form {
-    border: var(--secondary) var(--borderWidth-lg) solid;
+    border: var(--primary) var(--borderWidth-lg) solid;
   }
   .form>* {
     border: none;
   }
   .form>*:not(:last-child) {
-    border-bottom: var(--secondary) var(--borderWidth-lg) solid;
+    border-bottom: var(--primary) var(--borderWidth-lg) solid;
   }
   .visualisation {
     display: grid;
@@ -174,7 +174,7 @@
   }
   .visualisation>*:not(:last-child) {
     border: none;
-    border-top: var(--secondary) var(--borderWidth-lg) solid;
+    border-top: var(--primary) var(--borderWidth-lg) solid;
     min-height: 10rem;
   }
   .visualisation>*:first-child{

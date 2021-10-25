@@ -37,7 +37,7 @@
   text-transform: uppercase;
   font-size:var(--fontSize-xl);
   z-index: 1;
-  color:var(--secondary)
+  color:var(--primary)
 }
 .linkActive, .linksEmphasis {  color:var(--primary)}
 .links a, .linkActive a{
@@ -96,7 +96,7 @@
     flex-direction: row;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--secondary);
+    color: var(--primary);
   }
   .MobileToggle svg{
     margin-left: 1rem;
