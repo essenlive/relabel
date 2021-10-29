@@ -39,8 +39,6 @@ export const othersLayer = {
     paint: {
         'circle-color': '#d946ef',
         'circle-radius': 4,
-        // 'circle-stroke-width': 1,
-        // 'circle-stroke-color': '#fff',
         'circle-translate': [-5, -5]
 
     }
@@ -53,8 +51,6 @@ export const designersLayer = {
     paint: {
         'circle-color': '#0ea5e9',
         'circle-radius': 4,
-        // 'circle-stroke-width': 1,
-        // 'circle-stroke-color': '#fff',
         'circle-translate': [5, -5]
 
     }
@@ -67,8 +63,6 @@ export const suppliersLayer = {
     paint: {
         'circle-color': '#4ade80',
         'circle-radius': 4,
-        // 'circle-stroke-width': 1,
-        // 'circle-stroke-color': '#fff',
         'circle-translate': [5, 5]
 
     }
@@ -81,8 +75,6 @@ export const workshopsLayer = {
     paint: {
         'circle-color': '#fb7185',
         'circle-radius': 4,
-        // 'circle-stroke-width': 1,
-        // 'circle-stroke-color': '#fff',
         'circle-translate': [-5, 5]
 
     }

@@ -15,7 +15,7 @@ model Community {
   description  String?
   cities      String[]
   website      String?
-  members      String[]
+  structures      String[]
   status       Boolean?  @default(false)
   colors      String[]
   contact      String?
@@ -61,12 +61,10 @@ model Structure {
   partners        String[]
   communities     String[]
   contact          String?
-  production    Decimal?  @db.Decimal
-  gestion       Decimal?  @db.Decimal
-  materials     Decimal?  @db.Decimal
   projects_designer  String[]
   projects_workshop  String[]
   projects_supplier  String[]
+  projects_other  String[]
 
   @@map("structures")
 }

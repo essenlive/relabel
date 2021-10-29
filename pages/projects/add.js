@@ -1,6 +1,6 @@
 import Layout from '@components/Layout'
 import styles from "@styles/pages/Form.module.css";
-import { LabelProduction } from '@components/Labels';
+import LabelProject from '@components/LabelProject';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Inputs } from '@components/Inputs';
@@ -270,37 +270,28 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                             <div className={styles.visualisation}>
 
                                 <div className={styles.label}>
-                                    <LabelProduction
-                                        name={props.values.name}
-                                        data={{
-                                            partners: props.values.designers.length + props.values.workshops.length + props.values.suppliers.length,
+                                    <LabelProject
+                                        project={{
+                                            name: props.values.name,
+                                            date: props.values.date,
+                                            team: props.values.team.map((el)=>el.value),
+                                            workshops: props.values.workshops.map((el) => el.value),
+                                            designers: props.values.designers.map((el) => el.value),
+                                            suppliers: props.values.suppliers.map((el) => el.value),
+                                            // others: props.values.others,
                                             gestion: props.values.gestion / 100,
                                             production: props.values.production / 100,
                                             materials: props.values.materials / 100,
                                         }}
-                                        date={{
-                                            day: props.values.date ? new Date(props.values.date).getDate() : new Date().getDate(),
-                                            month: props.values.date ? new Date(props.values.date).getMonth() + 1 : new Date().getMonth() + 1,
-                                            year: props.values.date ? new Date(props.values.date).getYear() + 1900 : new Date().getYear() + 1900
-
-                                        }}
-                                        structure={props.values.team.map((el) => el.value)}
                                     />
                                 </div>
                                 <div className={styles.verso}>
-                                    {props.values.name &&
-                                        <h2 className={styles.name}>{props.values.name}</h2>
-                                    }
-                                    {props.values.typology &&
-                                        <Tags className={styles.tags} tags={[props.values.typology]} />
-                                    }
-                                    {props.values.description &&
-                                        <p className={styles.description}>{props.values.description}</p>
-                                    }
+                                    {props.values.illustrations.length > 0 && <img className={styles.illustration} src={props.values.illustrations[0]}/>}
+                                    {props.values.name && <h2 className={styles.name}>{props.values.name}</h2> }
+                                    {props.values.typology &&  <Tags className={styles.tags} tags={[props.values.typology]} />}
+                                    {props.values.description && <p className={styles.description}>{props.values.description}</p>}
                                     {props.values.website &&
-                                        <Link href={{ pathname: props.values.website }}>
-                                            <p className={classNames("link", styles.link)}>Voir le site</p>
-                                        </Link>
+                                        <Link href={{ pathname: props.values.website }}> <p className={classNames("link", styles.link)}>Voir le site</p></Link>
                                     }
                                 </div>
                                 <div className={styles.explainer}>

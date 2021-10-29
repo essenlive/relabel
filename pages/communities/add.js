@@ -1,6 +1,6 @@
 import Layout from '@components/Layout'
 import styles from "@styles/pages/Form.module.css";
-import { LabelCommunity } from '@components/Labels';
+import LabelCommunity from '@components/LabelCommunity';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Inputs } from '@components/Inputs';
@@ -138,27 +138,18 @@ export default function AddCommunities({ StartingColors, cities }) {
                             <div className={styles.visualisation}>
                                 <div className={styles.label}>
                                     <LabelCommunity
-                                        name={props.values.name}
-                                        year={props.values.year}
-                                        data={{
-                                            partners: '5',
-                                            materials: '0.7',
-                                            gestion: '0.3',
-                                            production: '0.9'
+                                        community={{
+                                            name: props.values.name,
+                                            year: props.values.year,
                                         }}
-                                        colors={props.values.colors}
                                     />
                                 </div>
                                 <div className={styles.verso}>
-                                    {props.values.name &&
-                                        <h2 className={styles.name}>{props.values.name}</h2>
-                                    }
+                                    <h2 className={styles.name}>{props.values.name && props.values.name}</h2>
                                     {props.values.cities &&
                                         <Tags className={styles.tags} tags={props.values.cities.map((el) => el.value)} />
                                     }
-                                    {props.values.description &&
-                                        <p className={styles.description}>{props.values.description}</p>
-                                    }
+                                    <p className={styles.description}>{props.values.description && props.values.description}</p>
                                     {props.values.website &&
                                         <Link href={{ pathname: props.values.website }}>
                                             <p className={classNames("link", styles.link)}>Voir le site</p>

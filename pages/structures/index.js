@@ -4,20 +4,18 @@ import React, { useState, useRef } from 'react';
 import ReactMapGL, { Marker, Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
 import styles from "@styles/pages/Structures.module.css";
 import Link from 'next/link'
-import { LabelStructure } from '@components/Labels';
+import LabelStructure from '@components/LabelStructure';
 import Card from '@components/Card';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
 import Tags from '@components/Tags';
 
 
 export default function Structures({ structures }) {
-  // let colors = ["primary", "secondary", "tertiary", "quaternary", "pink-500", "cyan-500"];
-  // let typologies = Array.from(new Set(structures.map((el) => (el.typologies)).flat()))
 
   const [viewport, setViewport] = useState({
     latitude: 48.85658,
     longitude: 2.3518,
-    zoom: 10
+    zoom: 5
   });
   const [selection, setSelection] = useState(undefined);
   const [picker, setPicker] = useState(undefined);
@@ -143,11 +141,7 @@ export default function Structures({ structures }) {
           link={{ path: `/structures/${selection.id}`, text: "Voir la structure" }}
         >
 
-          <LabelStructure
-            name={selection.name}
-            adress={selection.adress}
-            communities={selection.communities}
-          />
+          <LabelStructure structure={selection}/>
         </Card>
 
       </Popup>}
@@ -182,9 +176,11 @@ export async function getStaticProps() {
 
   structures = await Promise.all(structures.map(async (structure) => {
     structure.communities = await Promise.all(structure.communities.map(async (community) => {
-      let communityName = await airtable_api.getCommunities({ id: community });
-      return communityName[0].name
+      let communityEntity = await airtable_api.getCommunities({ id: community });
+      return communityEntity[0]
       }))
+      structure.data = [structure.projects_designer.length, structure.projects_other.length, structure.projects_supplier.length, structure.projects_workshop.length]
+
     return structure
   }))
 

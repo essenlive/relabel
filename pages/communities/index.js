@@ -1,6 +1,6 @@
 import Layout from '@components/Layout';
 import airtable_api from '@libs/airtable_api.js'
-import { LabelCommunity } from '@components/Labels';
+import LabelCommunity from '@components/LabelCommunity';
 import Card from '@components/Card';
 
 
@@ -22,15 +22,7 @@ export default function Communities({ communities }) {
               link={{ path: `/communities/${community.id}`, text: "Voir la communauté" }}
             >
               <LabelCommunity
-                name={community.name}
-                year={community.year}
-                data={{
-                  partners: community.members.length,
-                  materials: '1',
-                  gestion: '0.1',
-                  production: '0.9'
-                }}
-                colors={community.colors}
+                community={community}
               />
             </Card>
           )
@@ -48,6 +40,15 @@ export default function Communities({ communities }) {
 
 export async function getStaticProps() {
   let communities = await airtable_api.getCommunities({ status: true });
+  
+  communities = await Promise.all(communities.map(async (community) => {
+    community.structures = await Promise.all(community.structures.map(async (structure) => {
+      let structureEntity = await airtable_api.getStructures({ id: structure });
+      return structureEntity[0]
+    }))
+    return community
+  }))
+
   return {
     props: { communities },
     revalidate: 1 }

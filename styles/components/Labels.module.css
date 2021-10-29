@@ -2,6 +2,20 @@
   border: var(--borderWidth-lg) var(--primary) solid;
 }
 
+.label {
+  z-index: 10;
+  background-color: var(--white);
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  padding: 1em;
+  background-color: var(--white);
+  aspect-ratio: 4/5;
+}
+
 .labelP {
   z-index: 10;
   background-color: var(--white);
@@ -10,9 +24,6 @@
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas: "label label label label date" "label label label label designer" "label label label label designer" "label label label label designer" "name name name name name";
-  width: 100%;
-  background-color: var(--white);
-  aspect-ratio: 1/1;
   overflow: hidden;
 }
 
@@ -35,7 +46,7 @@
 }
 
 .labelP__designer {
-  border-left: var(--primary) var(--borderWidth-lg) solid;
+  border-right: var(--primary) var(--borderWidth-lg) solid;
   padding: 0.5em;
   grid-area: designer;
   display: flex;
@@ -47,6 +58,11 @@
   align-items: center;
   text-transform: uppercase;
   text-align: center;
+  transform: rotate(180deg)
+}
+
+.labelP__designer {
+  padding: 0.2em;
 }
 
 .labelP__date {
@@ -106,10 +122,6 @@
 }
 
 .labelC {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: space-between;
   padding: 1em;
   width: 100%;
   z-index: 10;
@@ -203,16 +215,24 @@
   align-items: center;
   font-size: 1.2em;
   height: 20%;
+  border-top: var(--primary) var(--borderWidth-lg) solid;
 }
 
-.labelS__image {
-  object-fit: cover !important;
-  height: 80%;
-  border-bottom: var(--primary) var(--borderWidth-lg) solid;
+.labelS__label {
+  object-fit: contain !important;
+  width: 100%;
+  height: 70%;
+  margin-top: 10%;
+  padding: 7%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-@media print{
-  .labelP, .labelS, .labelC{
+@media print {
+  .labelP, .labelS, .labelC {
     font-size: 8px !important;
   }
 }

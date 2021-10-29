@@ -1,9 +1,7 @@
 import styles from "@styles/components/Inputs.module.css";
 import { useField } from "formik";
-import classNames from "classnames";
-// import Select from 'react-select';
-// import CreatableSelect from 'react-select/creatable';
 import { Widget } from "@uploadcare/react-widget";
+import classNames from "classnames";
 import dynamic from 'next/dynamic'
 
 const Select = dynamic(() => import('react-select'), { ssr: false })
@@ -102,13 +100,13 @@ export const Inputs = ({ input, ...props}) => {
         case "button": 
             return (
                 <div className={classNames(styles.field, styles[type])}>
-                    <button
+                    <div
                         type="button"
                         className={classNames(styles.field__prefix, "link")}
                         onClick={() => { setValue(handler[0](handler[1]())) }}
                     >
                         {prefix && (<span className={styles.field__prefix}>{prefix} {required && (<strong className={styles.required}>*</strong>)}</span>)}
-                    </button>
+                    </div>
                 </div>
             )
             break;

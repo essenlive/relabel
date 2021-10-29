@@ -4,23 +4,23 @@ import classNames from 'classnames';
 import styles from "@styles/pages/SingleStructure.module.css";
 import Carousel from "@components/Carousel";
 import Link from 'next/link'
-import { LabelStructure } from '@components/Labels';
+import LabelStructure from '@components/LabelStructure';
 
 
-export default function Structure({ id, name, description, illustrations, status, typologies, adress, website, partners, communities, contact, production, gestion, materials, projects_designer, projects_workshop, projects_supplier }) {
+export default function Structure({structure}) {
     
     return (
-        <Layout  title={name} padded>
+        <Layout  title={structure.name} padded>
             <div className={styles.banner}>
                 <div className={styles.title}>
-                    {name && (<h1> {name} </h1>)}
+                    {structure.name && (<h1> {structure.name} </h1>)}
                 </div>
                 <div className={styles.description}>
-                    {description && (<p> {description} </p>)}
+                    {structure.description && (<p> {structure.description} </p>)}
                 </div>
                 <div className={styles.website}>
-                    {website && (
-                        <Link href={website}>
+                    {structure.website && (
+                        <Link href={structure.website}>
                             <p> Voir le site </p>
                         </Link>
                     )}
@@ -28,10 +28,10 @@ export default function Structure({ id, name, description, illustrations, status
 
                 <div className={styles.productions}>
                     <div className={styles.productionsTitle}>
-                        <span>{projects_designer.length}</span> production.s
+                        <span>{structure.projects_designer.length}</span> production.s
                     </div>
                     <div className={styles.productionsList}>
-                        {projects_designer && projects_designer.map((el) => (
+                        {structure.projects_designer && structure.projects_designer.map((el) => (
                         <Link
                             href={{
                             pathname: '/projects/[id]',
@@ -47,16 +47,14 @@ export default function Structure({ id, name, description, illustrations, status
                 </div>
 
                 <div className={styles.carousel}>
-                    {illustrations && (
-                        <Carousel images={illustrations} />
+                    {structure.illustrations && (
+                        <Carousel images={structure.illustrations} />
                     )}
                 </div>
 
                 <div className={styles.label}>
                     <LabelStructure
-                        communities={communities}
-                        adress={adress}
-                        name={name}
+                        structure={structure}
                         bordered
                     />
                 </div>
@@ -74,15 +72,9 @@ export async function getStaticProps({ params }) {
     let structure = await airtable_api.getStructures({ id: params.id });
     structure = structure[0];
     
-    structure.data = {
-        partners: structure.partners.length,
-        materials: structure.materials,
-        gestion: structure.gestion,
-        production: structure.production
-    }
     structure.communities = await Promise.all(structure.communities.map(async (community) => {
-        let communityName = await airtable_api.getCommunities({ id: community });
-        return communityName[0].name
+        let communityEntity = await airtable_api.getCommunities({ id: community });
+        return communityEntity[0]
     }))
     structure.projects_designer = await Promise.all(structure.projects_designer.map(async (el) => {
         let project = await airtable_api.getProjects({ id: el });
@@ -90,7 +82,7 @@ export async function getStaticProps({ params }) {
     }))
     
     return {
-        props: structure,
+        props: {structure},
         revalidate: 1,
     };
 }

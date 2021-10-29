@@ -1,6 +1,6 @@
 import Layout from '@components/Layout'
 import styles from "@styles/pages/Form.module.css";
-import { LabelStructure } from '@components/Labels';
+import LabelStructure from '@components/LabelStructure';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Inputs } from '@components/Inputs';
@@ -208,26 +208,23 @@ export default function AddStructure({ communities }) {
 
                                 <div className={styles.label}>
                                     <LabelStructure
-                                        name={props.values.name}
-                                        adress={props.values.adress}
-                                        communities={props.values.communities.map((el) => el.label)}
+                                        structure={{
+                                            name : props.values.name,
+                                            adress : props.values.adress,
+                                            communities : props.values.communities.map((el) => el.label),
+                                            projects_designer: [],
+                                            projects_supplier: [],
+                                            projects_workshop: [],
+                                            projects_other: []
+                                        }}
                                     />
                                 </div>
                                 <div className={styles.verso}>
-                                    {props.values.name &&
-                                        <h2 className={styles.name}>{props.values.name}</h2>
-                                    }
-                                    {props.values.typologies &&
-                                        <Tags className={styles.tags} tags={props.values.typologies} />
-                                    }
-                                    {props.values.description &&
-                                        <p className={styles.description}>{props.values.description}</p>
-                                    }
-                                    {props.values.website &&
-                                        <Link href={{ pathname: props.values.website }}>
-                                            <p className={classNames("link", styles.link)}>Voir le site</p>
-                                        </Link>
-                                    }
+                                    {props.values.illustrations.length > 0 && <img className={styles.illustration} src={props.values.illustrations[0]} />}
+                                    {props.values.name && <h2 className={styles.name}>{props.values.name}</h2>}
+                                    {props.values.typologies && <Tags className={styles.tags} tags={props.values.typologies} /> }
+                                    {props.values.description && <p className={styles.description}>{props.values.description}</p> }
+                                    {props.values.website && <Link href={{ pathname: props.values.website }}> <p className={classNames("link", styles.link)}>Voir le site</p></Link>}
                                 </div>
                                 <div className={styles.explainer}>
                                     <h3>Comprendre ce label</h3>

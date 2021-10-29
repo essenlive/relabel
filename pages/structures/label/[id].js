@@ -1,13 +1,11 @@
 import airtable_api from '@libs/airtable_api';
-import { LabelStructure } from '@components/Labels';
+import LabelStructure from '@components/LabelStructure';
 
 
-export default function Structure({ id, name, description, illustrations, status, typologies, adress, website, partners, communities, contact, production, gestion, materials, projects_designer, projects_workshop, projects_supplier }) {
+export default function Structure({ structure}) {
     return (
             <LabelStructure
-                communities={communities}
-                adress={adress}
-                name={name}
+                structure={structure}
                 bordered
             />
     );
@@ -19,20 +17,13 @@ export default function Structure({ id, name, description, illustrations, status
 export async function getStaticProps({ params }) {
     let structure = await airtable_api.getStructures({ id: params.id });
     structure = structure[0];
-
-    structure.data = {
-        partners: structure.partners.length,
-        materials: structure.materials,
-        gestion: structure.gestion,
-        production: structure.production
-    }
     structure.communities = await Promise.all(structure.communities.map(async (community) => {
         let communityName = await airtable_api.getCommunities({ id: community });
-        return communityName[0].name
+        return communityName[0]
     }))
 
     return {
-        props: structure,
+        props: {structure},
         revalidate: 1,
     };
 }

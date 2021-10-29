@@ -1,20 +1,12 @@
 import airtable_api from '@libs/airtable_api.js'
-import { LabelCommunity } from '@components/Labels';
+import LabelCommunity from '@components/LabelCommunity';
 
 
-export default function label({ id, name, year, description, cities, website, members, status, colors, contact }) {
+export default function label({ community }) {
     return (
 
             <LabelCommunity
-                name={name}
-                year={year}
-                data={{
-                    partners: members.length,
-                    materials: '1',
-                    gestion: '0.1',
-                    production: '0.9'
-                }}
-                colors={colors}
+                community={community}
                 bordered
             />                
     );
@@ -24,12 +16,12 @@ export default function label({ id, name, year, description, cities, website, me
 export async function getStaticProps({ params }) {
     let community = await airtable_api.getCommunities({ id: params.id });
     community = community[0];
-    community.members = await Promise.all(community.members.map(async (el) => {
-        let member = await airtable_api.getStructures({ id: el });
-        return member[0]
+    community.structures = await Promise.all(community.structures.map(async (el) => {
+        let structure = await airtable_api.getStructures({ id: el });
+        return structure[0]
     }))
     return {
-        props: community,
+        props: {community},
         revalidate: 1
     }
 }

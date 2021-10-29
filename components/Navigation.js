@@ -20,16 +20,16 @@ export default function Navigation(props) {
            </div>
          </Link>
         <div className={classNames(styles.menu, { [`${styles.open}`]: menuOpen })}>
-           <Link onClick={() => { setMenuOpen(false) }} href="/structures">
-            <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/structures' }, { [`${styles.open}`]: menuOpen })}>
-               <a>Carte</a>
-             </div>
-           </Link>
            <Link onClick={() => { setMenuOpen(false) }} href="/communities">
              <div className={classNames(styles.links,{ [`${styles.linkActive}`]: router.route === '/communities' }, { [`${styles.open}`]: menuOpen })}>
                <a>Communautés</a>
              </div>
-           </Link>
+          </Link>
+          <Link onClick={() => { setMenuOpen(false) }} href="/structures">
+            <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/structures' }, { [`${styles.open}`]: menuOpen })}>
+              <a>Structures</a>
+            </div>
+          </Link>
            <Link onClick={() => { setMenuOpen(false) }} href="/projects">
             <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/projects' }, { [`${styles.open}`]: menuOpen })}>
                <a>Productions</a>

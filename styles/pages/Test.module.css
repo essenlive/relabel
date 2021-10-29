@@ -1,0 +1,11 @@
+.test{
+    display: flex;
+    flex-direction: row;
+    /* height: 300px; */
+    width: 100%;
+    justify-content: space-between;
+}
+
+.test > div{
+    width: auto;
+}

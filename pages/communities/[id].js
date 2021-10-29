@@ -3,48 +3,37 @@ import Layout from '@components/Layout'
 import classNames from "classnames"
 import styles from "@styles/pages/SingleCommunity.module.css";
 import Link from 'next/link'
-import { LabelCommunity } from '@components/Labels';
+import LabelCommunity from '@components/LabelCommunity';
 
 
-export default function Community({ id, name, year, description, cities, website, members, status, colors, contact }) {
+export default function Community({community}) {
     return (
-        <Layout title={name} padded>
+        <Layout title={community.name} padded>
             <div className={styles.banner}>
                 <div className={styles.title}>
-                    {name && (<h1> {name} </h1>)}
+                    {community.name && (<h1> {community.name} </h1>)}
                 </div>
                 <div className={styles.description}>
-                    {description && (<p> {description} </p>)}
+                    {community.description && (<p> {community.description} </p>)}
                 </div>
                 <div className={styles.website}>
-                    {website && (
-                    <Link href={website}>
+                    {community.website && (
+                        <Link href={community.website}>
                             <p> Voir le site </p>
                     </Link>
                     )}
                 </div>
 
                 <div className={styles.label}>
-                    <LabelCommunity
-                        name={name}
-                        year={year}
-                        data={{
-                            partners: members.length,
-                            materials: '1',
-                            gestion: '0.1',
-                            production: '0.9'
-                        }}
-                        colors={colors}
-                    />
-                
+                    <LabelCommunity community={community} />
                 </div>
 
                 <div className={styles.structures}>
                     <div className={styles.structuresTitle}>
-                        <span>{members.length}</span> membres
+                        <span>{community.structures.length}</span> membres
                     </div>
                     <div className={styles.structuresList}>
-                        {members && members.map((el, i) => (
+                        {community.structures && community.structures.map((el, i) => (
                         <Link
                             key = {i}
                             href={{
@@ -61,7 +50,7 @@ export default function Community({ id, name, year, description, cities, website
                 </div>
 
                 <div className={styles.cities}>
-                    {cities && cities.map((el, i) => (
+                    {community.cities && community.cities.map((el, i) => (
                         <div key={i}> {el} </div>
                     ))}
                 </div>
@@ -78,12 +67,12 @@ export default function Community({ id, name, year, description, cities, website
 export async function getStaticProps({ params }) {
     let community = await airtable_api.getCommunities({ id: params.id });
     community = community[0];
-    community.members = await Promise.all(community.members.map(async (el) => {
-        let member = await airtable_api.getStructures({ id: el });
-        return member[0]
+    community.structures = await Promise.all(community.structures.map(async (el) => {
+        let structure = await airtable_api.getStructures({ id: el });
+        return structure[0]
     }))
     return {
-        props: community,
+        props: {community},
         revalidate: 1
     }
 }
