@@ -1,14 +1,15 @@
 import classNames from "classnames"
-    import styles from "@styles/components/LabelProject.module.css";
+import styles from "@styles/components/LabelProject.module.css";
 import { useEffect, useState, useRef } from "react";
 import dynamic from 'next/dynamic'
 const P5Wrapper = dynamic(() => import('react-p5-wrapper'), { ssr: false })
 
 
 export default function LabelProduction({ project, bordered }) {
+    // let partnersLength = Array.from(new Set([...project.designers, ...project.workshops, ...project.suppliers, ...project.others]))
 
     project.data = {
-        partners: project.designers.length + project.workshops.length + project.suppliers.length,
+        partners: project.designers.length + project.workshops.length + project.suppliers.length + project.others.length,
         materials: project.materials,
         gestion: project.gestion,
         production: project.production
@@ -30,7 +31,7 @@ export default function LabelProduction({ project, bordered }) {
             { [`${styles.bordered}`]: bordered })}>
 
             <div className={styles.sketch}>
-                {project.data &&  <Sketch  data = {project.data} />}
+                {project.data && <Sketch project={project} />}
             </div>
 
             <h2 className={styles.name}> {project.name && project.name } </h2>
@@ -50,20 +51,20 @@ export default function LabelProduction({ project, bordered }) {
 }
 
 
-const Sketch = ({data}) => {
-    let { partners, production, materials, gestion } = data;
+const Sketch = ({project}) => {
+    let { partners, production, materials, gestion } = project.data;
     function sketch(p5) {
         // Constantes graphiques
-        const width = 500;
+        const width = 600;
         const height = width;
         const dim = 100;
         const nbCases = width / dim;
         const ep = 20;
 
         let dataPartner, dataMaterio, dataGestion, dataProd, dataEmpty;
-        let [c1, c2, c3] = ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]
-        let c4 = "#e1e1e1";
 
+        let [c1, c2, c3, c4] = project.colors ? project.colors : ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]
+        let cempty = "#e1e1e1";
         let noeuds = [];
         let couleursDispo = [];
 
@@ -72,10 +73,10 @@ const Sketch = ({data}) => {
             p5.createCanvas(width, height);
             p5.strokeCap(p5.ROUND);
             c1 = p5.color(c1),
-                c2 = p5.color(c2),
-                c3 = p5.color(c3),
-                c4 = p5.color(c4);
-
+            c2 = p5.color(c2),
+            c3 = p5.color(c3),
+            c4 = p5.color(c4);
+            cempty = p5.color(cempty)
 
             calculateDatas()
             initAvailableColors()
@@ -94,7 +95,8 @@ const Sketch = ({data}) => {
             materials = materials >= 1 ? 1 : materials
             let total = materials * 100 + gestion * 100 + production * 100;
             total = total <= 0 ? 1 : total;
-            let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4 - p5.floor(p5.random(0, (nbCases - 3) * 4));
+            // let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4 - p5.floor(p5.random(0, (nbCases - 3) * 4));
+            let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4;
             dataPartner = partners < (nbCases - 2) * (nbCases - 2) ? partners : (nbCases - 2) * (nbCases - 2);
             dataMaterio = p5.ceil(ratio / 3 * materials);
             dataGestion = p5.ceil(ratio / 3 * gestion);
@@ -107,7 +109,7 @@ const Sketch = ({data}) => {
             const materiaux = Array(dataMaterio).fill(c1)
             const gestion = Array(dataGestion).fill(c2)
             const production = Array(dataProd).fill(c3)
-            const empty = Array(dataEmpty).fill(c4)
+            const empty = Array(dataEmpty).fill(cempty)
             couleursDispo = [...materiaux, ...gestion, ...production, ...empty];
         }
         // Initialize false node grid
@@ -160,11 +162,9 @@ const Sketch = ({data}) => {
                             case 1:
                                 picto2(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
                                 break;
-
                             case 2:
                                 picto4(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
                                 break;
-
                             default:
                         }
                     }

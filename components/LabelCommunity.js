@@ -5,20 +5,30 @@ import dynamic from 'next/dynamic'
 const P5Wrapper = dynamic(() => import('react-p5-wrapper'), { ssr: false })
 
 
-export default function LabelCommunity({ community, bordered }) {
-
+export default function LabelCommunity({ community,  bordered }) {
     community.data = {designers: 0,suppliers: 0,workshops: 0,others: 0}
     if (!community.structures) {
-        community.data = { designers: 4, suppliers: 6, workshops: 2, others: 4 }
-    }else{
-        community.structures.forEach(structure => {
-            if (structure.typologies.indexOf('autre') >= 0) community.data.others++
-            if (structure.typologies.indexOf('designer') >= 0) community.data.designers++
-            if (structure.typologies.indexOf('atelier') >= 0) community.data.workshops++
-            if (structure.typologies.indexOf('stockage') >= 0) community.data.suppliers++
-        });
+        community.structures = [
+            {"typologies": ["stockage"]},
+            {"typologies": ["stockage"]},
+            { "typologies": ["designer"], },
+            { "typologies": ["designer"], },
+            { "typologies": ["designer"], },
+            { "typologies": ["atelier"], },
+            { "typologies": ["atelier"], },
+            { "typologies": ["atelier"], },
+            { "typologies": ["atelier"], },
+            { "typologies": ["autres"], },
+            { "typologies": ["autres"],},
+        ];
     }
-    
+    community.structures.forEach(structure => {
+        if (structure.typologies.indexOf('autre') >= 0) community.data.others++
+        if (structure.typologies.indexOf('designer') >= 0) community.data.designers++
+        if (structure.typologies.indexOf('atelier') >= 0) community.data.workshops++
+        if (structure.typologies.indexOf('stockage') >= 0) community.data.suppliers++
+    });
+
     const [width, setWidth] = useState(400)
     const ref = useRef(null);
     useEffect(() => { setWidth(ref.current ? ref.current.offsetWidth : 30); }, [ref.current]);
@@ -31,7 +41,7 @@ export default function LabelCommunity({ community, bordered }) {
                 { [`${styles.bordered}`]: bordered })}>
 
             <div className={styles.sketch}>
-                <Sketch data={community.data} />
+                <Sketch community={community} />
             </div>
             <h2 className={styles.name}> {community.name && community.name}</h2>
             <h4 className={styles.date}> {community.year && community.year}</h4>
@@ -41,24 +51,25 @@ export default function LabelCommunity({ community, bordered }) {
 }
 
 
-const Sketch = ({ data }) => {
+const Sketch = ({ community }) => {
 
     function sketch(p5) {
 
         // Constantes graphiques
-        const width = 700;
+        const width =700;
         const height = width;
         const dim = 100;
         const nbCases = width / dim;
         const ep = 20;
+        
+        // let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4;
+        // To have exactly the right number of colors in the stack
+        // let dataEmpty = ratio - dataPartners < 0 ? 0 : ratio - dataPartners;
 
-        let dataDesigners, dataWorkshops, dataSuppliers, dataOthers, dataEmpty, dataPartners;
-
-        let [c1, c2, c3, c4] = ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]
+        let [c1, c2, c3, c4 ] = community.colors ? community.colors : ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]
         let empty = "#e1e1e1";
-
         let noeuds = [];
-        let couleursDispo = [];
+        let colorStack = [];
 
 
         p5.setup = function () {
@@ -71,35 +82,18 @@ const Sketch = ({ data }) => {
             empty = p5.color(empty);
 
 
-            calculateDatas()
             initAvailableColors()
             initNodes(nbCases)
-            initPartnerNodes(dataPartners);
+            initPartnerNodes(community.structures.length);
         }
 
-        // Setup and calculate datas
-        function calculateDatas() {
-            // partners = partners <= 0 ? 1 : partners
-            // let dataDesigners = structures.designers.length;
-            // let dataWorkshops = structures.workshops.length;
-            // let dataSuppliers = structures.suppliers.length;
-            // let dataOthers = structures.others.length;
-            let dataDesigners = data.designers;
-            let dataWorkshops = data.workshops;
-            let dataSuppliers = data.suppliers;
-            let dataOthers = data.others;
-
-            dataPartners = dataDesigners + dataWorkshops + dataSuppliers;
-            let ratio = (nbCases - 2) * (nbCases - 2) + (nbCases - 3) * 4;
-            // To have exactly the right number of colors in the stack
-            dataEmpty = ratio - dataPartners < 0 ? 0 : ratio - dataPartners;
-        }
-        // Fill couleursDispo colorstack 
+        // Fill colorStack colorstack 
         function initAvailableColors() {
-            const designers = Array(dataDesigners).fill(c1)
-            const workshops = Array(dataWorkshops).fill(c2)
-            const suppliers = Array(dataSuppliers).fill(c3)
-            couleursDispo = [...designers, ...workshops, ...suppliers];
+            const designers = Array(community.data.designers).fill(c1)
+            const workshops = Array(community.data.workshops).fill(c2)
+            const suppliers = Array(community.data.suppliers).fill(c3)
+            const others = Array(community.data.others).fill(c4)
+            colorStack = [...designers, ...workshops, ...suppliers, ...others];
         }
         // Initialize false node grid
         function initNodes(nbCases) {
@@ -121,10 +115,10 @@ const Sketch = ({ data }) => {
 
         // Pick a color from the color stack
         function pickColorFromStack() {
-            let toggleColor = p5.floor(p5.random(couleursDispo.length));
-            let maCouleur = couleursDispo[toggleColor];
-            couleursDispo.splice(toggleColor, 1);
-            return maCouleur;
+            let toggleColor = p5.floor(p5.random(colorStack.length));
+            let color = colorStack[toggleColor];
+            colorStack.splice(toggleColor, 1);
+            return color;
         }
 
         p5.draw = function () {
@@ -132,29 +126,25 @@ const Sketch = ({ data }) => {
             p5.translate(width / 2, height / 2);
             p5.rotate(p5.PI / 4);
 
-            let maCouleur;
             // Draw center grid
             for (let i = 1; i < nbCases - 1; i++) {
                 for (let j = 1; j < nbCases - 1; j++) {
 
-                    // Pick a random color from couleursDispo
+                    // Pick a random color from colorStack
                     // If it is a partner use a circle else use a random pattern
                     if (noeuds[i][j] == true) {
-                        maCouleur = pickColorFromStack();
-                        picto5(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
-                    } else {
-                        maCouleur = c4;
+                        picto5(dim * i - width / 2, dim * j - height / 2, dim, pickColorFromStack(), ep);
+                    } else if (p5.random(5) > 1) {
                         var toggle = p5.floor(p5.random(3));
                         switch (toggle) {
                             case 0:
-                                picto1(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                                picto1(dim * i - width / 2, dim * j - height / 2, dim, empty, ep);
                                 break;
                             case 1:
-                                picto2(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                                picto2(dim * i - width / 2, dim * j - height / 2, dim, empty, ep);
                                 break;
-
                             case 2:
-                                picto4(dim * i - width / 2, dim * j - height / 2, dim, maCouleur, ep);
+                                picto4(dim * i - width / 2, dim * j - height / 2, dim, empty, ep);
                                 break;
 
                             default:
@@ -164,17 +154,12 @@ const Sketch = ({ data }) => {
             }
             // Draw grid edges
             for (var k = 1; k < nbCases - 2; k++) {
-                maCouleur = c4;
-                if (typeof (maCouleur) !== "undefined") picto6((nbCases - 1) * dim - width / 2, dim * (k + 0.5) - height / 2, dim, maCouleur, ep);
-                maCouleur = c4;
-                if (typeof (maCouleur) !== "undefined") picto7(-width / 2, dim * (k + 0.5) - height / 2, dim, maCouleur, ep);
+                if(p5.random(3)>1) picto6((nbCases - 1) * dim - width / 2, dim * (k + 0.5) - height / 2, dim, empty, ep);
+                if (p5.random(3)>1)picto7(-width / 2, dim * (k + 0.5) - height / 2, dim, empty, ep);
             }
-
             for (var l = 1; l < nbCases - 2; l++) {
-                maCouleur = c4;
-                if (typeof (maCouleur) !== "undefined") picto8(dim * l - width / 2, -height / 2, dim, maCouleur, ep);
-                maCouleur = c4;
-                if (typeof (maCouleur) !== "undefined") picto9(dim * l - width / 2, (nbCases - 1) * dim - height / 2, dim, maCouleur, ep);
+                if (p5.random(3)>1)picto8(dim * l - width / 2, -height / 2, dim, empty, ep);
+                if (p5.random(3)>1)picto9(dim * l - width / 2, (nbCases - 1) * dim - height / 2, dim, empty, ep);
             }
             p5.pop();
             p5.noLoop();

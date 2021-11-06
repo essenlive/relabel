@@ -4,8 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import dynamic from 'next/dynamic'
 const P5Wrapper = dynamic(() => import('react-p5-wrapper'), { ssr: false })
 
-export default function LabelStructure({ structure , bordered }) {
-
+export default function LabelStructure({ structure, bordered }) {
     structure.data = { 
         projects : [structure.projects_designer.length, structure.projects_other.length, structure.projects_supplier.length, structure.projects_workshop.length],
         memberships: structure.communities.length
@@ -28,7 +27,7 @@ export default function LabelStructure({ structure , bordered }) {
                 <h2 className={styles.name}>{structure.name && structure.name}</h2>
                 <div className={styles.adress}>{structure.adress && structure.adress}</div>
                 <div className={styles.sketch}>
-                    {structure.data && ( <Sketch data={structure.data}/> )}
+                    {structure.data && ( <Sketch structure={structure}/> )}
                 </div>
             <div className={styles.communities}>
                 { structure.communities && (structure.communities.map((community, i) => ( <h3 key={i}>{community.name}</h3>)))}
@@ -41,7 +40,7 @@ export default function LabelStructure({ structure , bordered }) {
 
 
 
-const Sketch = ({ data }) => {
+const Sketch = ({ structure }) => {
     function sketch(p5) {
 
 
@@ -52,13 +51,14 @@ const Sketch = ({ data }) => {
         const y = x;
         const ep = width/8;
 
-        let [others, suppliers, designers, workshops] = data.projects;
+        let [others, suppliers, designers, workshops] = structure.data.projects;
         let total = others + suppliers + designers + workshops;
         total = 15;
 
-        let comMemberships = data.memberships;
+        let comMemberships = structure.data.memberships;
 
-        let [c1, c2, c3, c4] = ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]
+
+        let [c1, c2, c3, c4] = structure.colors ? structure.colors : ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]
         let empty = "#e1e1e1";
 
 

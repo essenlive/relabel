@@ -9,9 +9,10 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router'
 import airtable_api from '@libs/airtable_api.js'
 import Tags from '@components/Tags';
+import { getColors, seed } from '@libs/getColors';
 
 
-export default function AddProject({ suppliersOptions, designersOptions, workshopsOptions }) {
+export default function AddProject({ suppliersOptions, designersOptions, workshopsOptions, othersOptions, StartingColors }) {
     const router = useRouter()
     const Form = [{
         name: "name",
@@ -106,19 +107,31 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         suffix: "",
         required: false,
         options: workshopsOptions
-    },
-    {
-        name: "suppliers",
-        schema: Yup.array().of(Yup.object()),
-        type: "creatableSelect",
-        initial: [],
-        placeholder: "",
-        prefix: "Ressourceries/fournisseurs",
-        description: "Les structures qui ont fourni les matières premières.",
-        suffix: "",
-        required: false,
-        options: suppliersOptions
-    },
+        },
+        {
+            name: "suppliers",
+            schema: Yup.array().of(Yup.object()),
+            type: "creatableSelect",
+            initial: [],
+            placeholder: "",
+            prefix: "Ressourceries/fournisseurs",
+            description: "Les structures qui ont fourni les matières premières.",
+            suffix: "",
+            required: false,
+            options: suppliersOptions
+        },
+        {
+            name: "others",
+            schema: Yup.array().of(Yup.object()),
+            type: "creatableSelect",
+            initial: [],
+            placeholder: "",
+            prefix: "Partenaires",
+            description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
+            suffix: "",
+            required: false,
+            options: othersOptions
+        },
     {
         name: "duration",
         schema: Yup.number().min(0, 'Ca doit etre au moins 0 jours').required('Required'),
@@ -134,7 +147,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         name: "gestion",
         schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
         type: "number",
-        initial: 0,
+        initial: Math.round(Math.random()*100),
         placeholder: "",
         description: "Le temps passé à la gestion du projet.",
         prefix: "Gestion de projet",
@@ -145,7 +158,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         name: "production",
         schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
         type: "number",
-        initial: 0,
+        initial: Math.round(Math.random() * 100),
         placeholder: "",
         description: "Le temps passé à la fabrication du projet.",
         prefix: "Fabrication",
@@ -156,7 +169,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         name: "materials",
         schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
         type: "number",
-        initial: 0,
+        initial: Math.round(Math.random() * 100),
         placeholder: "",
         description: "Le pourcentage de matériaux sourcés.",
         prefix: "Matériaux",
@@ -183,17 +196,28 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Documentation",
         description: "L'url de votre site internet ou de la documentation si elle existe.",
         suffix: ""
-        },
-        {
-            name: "illustrations",
-            schema: Yup.array().of(Yup.string().url()).nullable(),
-            type: "images",
-            initial: [],
-            placeholder: "",
-            prefix: "Illustrations",
-            description: "Une ou plusieurs images pour illustrer votre structure.",
-            suffix: ""
-        },
+    },
+    {
+        name: "illustrations",
+        schema: Yup.array().of(Yup.string().url()).nullable(),
+        type: "images",
+        initial: [],
+        placeholder: "",
+        prefix: "Illustrations",
+        description: "Une ou plusieurs images pour illustrer votre structure.",
+        suffix: ""
+    },
+    {
+        name: "colors",
+        schema: Yup.array().of(Yup.string()),
+        type: "button",
+        initial: StartingColors,
+        placeholder: "",
+        prefix: "Changer les couleurs",
+        suffix: "",
+        required: true,
+        handler: [getColors, seed]
+    },
     ]
     let Schema = {}
     Form.forEach((el, i) => { Schema[el.name] = el.schema })
@@ -278,10 +302,11 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                             workshops: props.values.workshops.map((el) => el.value),
                                             designers: props.values.designers.map((el) => el.value),
                                             suppliers: props.values.suppliers.map((el) => el.value),
-                                            // others: props.values.others,
+                                            others: props.values.others.map((el) => el.value),
                                             gestion: props.values.gestion / 100,
                                             production: props.values.production / 100,
                                             materials: props.values.materials / 100,
+                                            colors: props.values.colors
                                         }}
                                     />
                                 </div>
@@ -290,19 +315,19 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                     {props.values.name && <h2 className={styles.name}>{props.values.name}</h2> }
                                     {props.values.typology &&  <Tags className={styles.tags} tags={[props.values.typology]} />}
                                     {props.values.description && <p className={styles.description}>{props.values.description}</p>}
-                                    {props.values.website &&
-                                        <Link href={{ pathname: props.values.website }}> <p className={classNames("link", styles.link)}>Voir le site</p></Link>
-                                    }
+                                    {props.values.website &&<p className={classNames("link", styles.link)}>
+                                        <Link href={{ pathname: props.values.website }}> Voir le site</Link>
+                                    </p>}
                                 </div>
                                 <div className={styles.explainer}>
                                     <h3>Comprendre ce label</h3>
-                                    <p>Ce label représente les membres de votre communauté, il est dynamique et évoluera à mesure que votre communauté grandira.</p>
-                                    <p>Les noeuds représentent chacun des membres de votre communautés, et leur formes reflètes le types de membres.</p>
-                                    <p>Les proportions des différentes couleurs représentent, les engagements des membres de votre communautés.</p>
+                                    <p>Ce label illustre les initiatives eco-responsables du projet. En complément du certificat il permet de notifier votre démache et en donner un aperçu.</p>
+                                    <p>Chacun des noeuds représente un partenaire du projet que vous avez réussi à impliquer.</p>
+                                    <p>Les proportions des différentes couleurs représentent chacun de vos engagements :</p>
                                     <ul className={styles.legends}>
-                                        {/* <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[0] }}></span>Représente la proportion de gestion solidaire manifestée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[1] }}></span>Représente la proportion de matériaux sourcés gérée et utilisée par vos membres.</li>
-                                    <li><span className={styles.legend} style={{ backgroundColor: props.values.Colors[2] }}></span>Représente la proportion de productions responsables générée par vos membres.</li> */}
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[0] }}></span>Représente votre engagement en terme de conception ouvertes et perenne.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[1] }}></span>Représente votre engagement d'un point de vue fabrication localisée, et circuits courts.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[2] }}></span>Représente votre engament en terme de matériaux responsables.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -316,6 +341,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
 
 
 export async function getStaticProps() {
+    const StartingColors = getColors(seed())
     let structures = await airtable_api.getStructures();
     let suppliersOptions = structures.filter((el) => el.typologies.indexOf("stockage") >= 0)
     suppliersOptions = suppliersOptions.map((el) => ({ value: el.id, label: el.name }))
@@ -323,8 +349,10 @@ export async function getStaticProps() {
     designersOptions = designersOptions.map((el) => ({ value: el.id, label: el.name }))
     let workshopsOptions = structures.filter((el) => el.typologies.indexOf("atelier") >= 0)
     workshopsOptions = workshopsOptions.map((el) => ({ value: el.id, label: el.name }))
+    let othersOptions = structures.filter((el) => el.typologies.indexOf("autre") >= 0)
+    othersOptions = othersOptions.map((el) => ({ value: el.id, label: el.name }))
 
     return {
-        props: { suppliersOptions, designersOptions, workshopsOptions },
+        props: { suppliersOptions, designersOptions, workshopsOptions, othersOptions, StartingColors },
     }
 }

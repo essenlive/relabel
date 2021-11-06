@@ -1,6 +1,6 @@
 import Layout from '@components/Layout'
 import airtable_api from '@libs/airtable_api.js'
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import LabelStructure from '@components/LabelStructure';
 import LabelCommunity from '@components/LabelCommunity';
 import LabelProject from '@components/LabelProject';
@@ -11,7 +11,7 @@ export default function test({ communities, structures, projects }) {
     return <Layout title="Test" padded>
         <div className={styles.test}>
             <LabelCommunity
-                community={communities[0]}
+                community={communities[1]}
                 bordered
             />
             <LabelStructure
@@ -34,14 +34,14 @@ export async function getStaticProps() {
     structures = await Promise.all(structures.map(async (structure) => {
         structure.communities = await Promise.all(structure.communities.map(async (community) => {
             let communityName = await airtable_api.getCommunities({ id: community });
-            return communityName[0].name
+            return communityName[0]
         }))
         return structure
     }))
 
     let communities = await airtable_api.getCommunities({ status: true });
     communities = await Promise.all(communities.map(async (community) => {
-        community.structures = await Promise.all(community.members.map(async (structure) => {
+        community.structures = await Promise.all(community.structures.map(async (structure) => {
             let structureEntity = await airtable_api.getStructures({ id: structure });
             return structureEntity[0]
         }))
@@ -51,8 +51,20 @@ export async function getStaticProps() {
     let projects = await airtable_api.getProjects();
     projects = await Promise.all(projects.map(async (project) => {
         project.designers = await Promise.all(project.designers.map(async (structure) => {
-            let structureName = await airtable_api.getStructures({ id: structure });
-            return structureName[0].name
+            let structureEntity = await airtable_api.getStructures({ id: structure });
+            return structureEntity[0]
+        }))
+        project.suppliers = await Promise.all(project.suppliers.map(async (structure) => {
+            let structureEntity = await airtable_api.getStructures({ id: structure });
+            return structureEntity[0]
+        }))
+        project.workshops = await Promise.all(project.workshops.map(async (structure) => {
+            let structureEntity = await airtable_api.getStructures({ id: structure });
+            return structureEntity[0]
+        }))
+        project.others = await Promise.all(project.others.map(async (structure) => {
+            let structureEntity = await airtable_api.getStructures({ id: structure });
+            return structureEntity[0]
         }))
         return project
     }))

@@ -1,4 +1,4 @@
-.test{
+.test {
     display: flex;
     flex-direction: row;
     /* height: 300px; */
@@ -6,6 +6,7 @@
     justify-content: space-between;
 }
 
-.test > div{
+.test>div {
     width: auto;
+    margin: 1rem;
 }
