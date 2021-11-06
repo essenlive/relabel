@@ -3,7 +3,7 @@
     grid-template-columns: 350px 1fr 1fr 1fr;
     grid-template-rows: auto auto auto 350px;
     gap: 0px 0px;
-    grid-template-areas: ". title title title" ". description description certificate" ". carousel carousel carousel" "labels carousel carousel carousel";
+    grid-template-areas: ". title title title" ". description description description" "labels carousel carousel carousel" ". carousel carousel carousel";
 }
 
 .title {
@@ -30,33 +30,10 @@
     border-right: var(--primary) var(--borderWidth-lg) solid;
 }
 
-.certificate {
-    grid-area: certificate;
-    padding: 1rem;
-    background: var(--primary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    text-align: center;
-    border-right: var(--primary) var(--borderWidth-lg) solid;
+.description>p:not(:last-child) {
+    margin-bottom: 1rem;
 }
 
-.certificate:hover {
-    background-color: var(--white);
-}
-
-.certificate:hover p {
-    color: var(--primary);
-}
-
-.certificate p {
-    cursor: pointer;
-    color: var(--white);
-    font-size: 2rem;
-    text-transform: uppercase;
-    font-weight: 700;
-}
 
 .carousel {
     grid-area: carousel;

@@ -42,8 +42,7 @@ export default function LabelProduction({ project, bordered }) {
 
             <div className={styles.designer}>
                 {project.team && project.team.map((el, i) => {
-                    return(
-                    <p key={i}>{el}</p>
+                    return (i > 1 ? null : (<p key={i}>{el}</p>)
                 )})}
             </div>
         </div>

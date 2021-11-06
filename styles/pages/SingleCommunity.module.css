@@ -3,7 +3,7 @@
     grid-template-columns: 320px 1fr 1fr 1fr;
     grid-template-rows: auto auto auto auto auto;
     gap: 0px 0px;
-    grid-template-areas: ". title title title" "label description description website" "label structures structures cities" ". structures structures cities" ". structures structures .";
+    grid-template-areas: ". title title title" "label description description description" "label structures structures structures" ". structures structures structures" ". structures structures structures";
 }
 
 .title {
@@ -29,32 +29,8 @@
     border-right: var(--primary) var(--borderWidth-lg) solid;
 }
 
-.website {
-    grid-area: website;
-    padding: 1rem;
-    background: var(--primary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-    border-right: var(--primary) var(--borderWidth-lg) solid;
-}
-
-.website:hover {
-    background-color: var(--white);
-}
-
-.website:hover p {
-    color: var(--primary);
-}
-
-.website p {
-    cursor: pointer;
-    color: var(--white);
-    font-size: 2rem;
-    text-transform: uppercase;
-    font-weight: 700;
+.description>p:not(:last-child) {
+    margin-bottom: 1rem;
 }
 
 .structures {
@@ -113,12 +89,13 @@
 }
 
 .cities {
+    display: none;
     grid-area: cities;
     padding: 1rem;
     background-image: url("/assets/background-bw.png");
     background-color: white;
     background-size: cover;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: space-evenly;
     border-right: var(--primary) var(--borderWidth-lg) solid;

@@ -18,6 +18,10 @@ html, body {
   cursor: pointer;
 }
 
+.link a, .link a:visited {
+  color: inherit;
+}
+
 .link:hover {
   opacity: 0.8;
 }
@@ -47,6 +51,7 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   margin: 0;
   padding: 0;
+  line-height: 1;
 }
 
 .select__control {

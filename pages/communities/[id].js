@@ -4,6 +4,7 @@ import classNames from "classnames"
 import styles from "@styles/pages/SingleCommunity.module.css";
 import Link from 'next/link'
 import LabelCommunity from '@components/LabelCommunity';
+import Tags from '@components/Tags';
 
 
 export default function Community({community}) {
@@ -15,12 +16,10 @@ export default function Community({community}) {
                 </div>
                 <div className={styles.description}>
                     {community.description && (<p> {community.description} </p>)}
-                </div>
-                <div className={styles.website}>
                     {community.website && (
-                        <Link href={community.website}>
-                            <p> Voir le site </p>
-                    </Link>
+                        <p className={"link"}> 
+                        <Link href={community.website}> Voir le site</Link>
+                        </p>
                     )}
                 </div>
 
@@ -42,7 +41,7 @@ export default function Community({community}) {
                             }}>
                             <div>
                                 <div className={classNames(styles.structure, 'link')}> {el.name} </div>
-                                <div className={styles.structuresListProject}> {el.projects_designer.length} </div>
+                                    <div className={styles.structuresListProject}> <Tags tags={el.typologies}/></div>
                             </div>
                             </Link>
                         ))}

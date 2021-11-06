@@ -11,15 +11,15 @@ export default function Project({project}) {
         <Layout title={project.name} padded>
             <div className={styles.banner}>
                 <div className={styles.title}> {project.name && (<h1> {project.name} </h1>)} </div>
-                <div className={styles.description}> {project.description && (<p> {project.description} </p>)}</div>
+                <div className={styles.description}> 
+                    {project.description && (<p> {project.description} </p>)}
+                    {project.website && (<p className={"link"}> <Link href={project.website}> Voir le site</Link></p>)}
+
+                </div>
                 <div className={styles.carousel}>
                     {project.illustrations && (
                         <Carousel images={project.illustrations} />
                     )}
-                </div>
-
-                <div className={styles.certificate}>
-                    {/* <Link href={""}> <p> Voir le certificat </p></Link> */}
                 </div>
 
                 <div className={styles.label}> <LabelProject project={project}/></div>
