@@ -23,7 +23,6 @@ export default function Structures({ structures }) {
   const mapRef = useRef(null);
 
 
-
   const onMapClick = event => {
     if (event.features.length === 0) return
     const feature = event.features[0];
@@ -137,6 +136,7 @@ export default function Structures({ structures }) {
           title={selection.name}
           // description={selection.description}
           tags={selection.typologies}
+          colorMap={selection.colors}
           image={selection.illustrations ? { src: selection.illustrations[0], alt: selection.name } : null}
           link={{ path: `/structures/${selection.id}`, text: "Voir la structure" }}
         >

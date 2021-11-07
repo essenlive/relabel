@@ -19,6 +19,7 @@ export default function Communities({ communities }) {
               title={community.name}
               tags={community.cities}
               description={community.description}
+              colorMap={community.colors }
               link={{ path: `/communities/${community.id}`, text: "Voir la communauté" }}
             >
               <LabelCommunity

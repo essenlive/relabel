@@ -3,7 +3,7 @@ import Tags from '@components/Tags'
 import Link from 'next/link'
 import styles from "@styles/components/Card.module.css";
 
-const Card = ({ title, description, tags, link, image, children, className }) => {
+const Card = ({ title, description, tags, colorMap, link, image, children, className }) => {
     return (
         <div className={classNames(className, styles.card)}>
             {children && children}
@@ -19,7 +19,7 @@ const Card = ({ title, description, tags, link, image, children, className }) =>
                     <h2 className={styles.title}>{title}</h2>
                 }
                 {tags &&
-                    <Tags tags={tags} className={styles.tags}/>
+                    <Tags tags={tags} colorMap={colorMap} className={styles.tags}/>
                 }
                 {description &&
                     <p className={styles.description}>{description}</p>

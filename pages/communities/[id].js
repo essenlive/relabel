@@ -8,6 +8,13 @@ import Tags from '@components/Tags';
 
 
 export default function Community({community}) {
+
+    let colorMap = new Map(); 
+    colorMap.set("atelier", community.colors[0])
+    colorMap.set("designer", community.colors[1])
+    colorMap.set("stockage", community.colors[2])
+    colorMap.set("autre", community.colors[3])
+
     return (
         <Layout title={community.name} padded>
             <div className={styles.banner}>
@@ -41,7 +48,7 @@ export default function Community({community}) {
                             }}>
                             <div>
                                 <div className={classNames(styles.structure, 'link')}> {el.name} </div>
-                                    <div className={styles.structuresListProject}> <Tags tags={el.typologies}/></div>
+                                    <div className={styles.structuresListProject}> <Tags tags={el.typologies} colorMap={colorMap} /></div>
                             </div>
                             </Link>
                         ))}

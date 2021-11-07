@@ -16,6 +16,7 @@ export default function Projects({ projects }) {
               tags={[project.typology]}
               image={{src:project.illustrations[0], alt:project.name}}
               link={{path:`/projects/${project.id}`, text:"Voir le projet"}}
+              colorMap={project.colors}
             >
                 <LabelProject
                   project={project}

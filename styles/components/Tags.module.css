@@ -8,6 +8,8 @@
 
 .tag {
   padding: 0.25rem 0.5rem;
+  color: var(--black);
+  font-weight: 400;
   background-color: var(--gray-100);
   display: inline-block;
   font-size: var(--fontSize-xs);
