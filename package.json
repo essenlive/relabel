@@ -31,6 +31,6 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "babel-loader": "^8.2.2",
-    "prisma": "^3.3.0"
+    "prisma": "^3.6.0"
   }
 }

@@ -217,7 +217,339 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         suffix: "",
         required: true,
         handler: [getColors, seed]
-    },
+        },
+        {
+            name: "material_source",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Source des materiaux",
+            description: "La source de votre principal materiau.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "fournisseur traditionnel",
+                    label: "Fournisseur Traditionnel"
+                },
+                {
+                    value: "fournisseur responsable",
+                    label: "Fournisseur Responsable"
+                },
+                {
+                    value: "ressourcerie",
+                    label: "Ressourcerie"
+                },
+                {
+                    value: "gisement local",
+                    label: "Gisement Local"
+                }
+            ]
+        },
+        {
+            name: "material_quality",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Qualité des materiaux",
+            description: "La qualité de votre principal materiau.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "n/a",
+                    label: "n/a"
+                },
+                {
+                    value: "certifie",
+                    label: "Certifié"
+                },
+                {
+                    value: "naturel",
+                    label: "Naturel"
+                },
+                {
+                    value: "traitement responsable",
+                    label: "Traitement Responsable"
+                }
+            ]
+        },
+        {
+            name: "material_leftovers",
+            schema: Yup.array().of(Yup.string().required('Requis')),
+            type: "multiSelect",
+            initial: [],
+            placeholder: "",
+            prefix: "Gestion des chutes",
+            description: "La manière dont les chutes du projet sont traitées.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "don",
+                    label: "Don"
+                },
+                {
+                    value: "recyclage",
+                    label: "Recyclage"
+                },
+                {
+                    value: "chutes minimales",
+                    label: "Chutes minimales"
+                },
+                {
+                    value: "referencement",
+                    label: "Référencement"
+                },
+                {
+                    value: "aucune",
+                    label: "Aucune gestion"
+                }
+            ]
+        },
+        {
+            name: "material_origin",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Origine des materiaux",
+            description: "L'origine géographique de votre principal materiau.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "sur place",
+                    label: "Sur place"
+                },
+                {
+                    value: "commune",
+                    label: "Commune"
+                },
+                {
+                    value: "pays",
+                    label: "Pays"
+                },
+                {
+                    value: "monde",
+                    label: "Monde"
+                }
+            ]
+        },
+        {
+            name: "design_replicability",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Réplicabilité de la conception",
+            description: "La capacité à réutiliser le design de votre production.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "piece unique",
+                    label: "Pièce Unique"
+                },
+                {
+                    value: "produit replicable",
+                    label: "Produit replicable"
+                },
+                {
+                    value: "modele parametrique",
+                    label: "Modèle paramètrique"
+                }
+            ]
+        },
+        {
+            name: "design_sharable",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Conception contributive",
+            description: "La capacité de votre design à être contributif.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "proprietaire",
+                    label: "Design propriétaire"
+                },
+                {
+                    value: "partage",
+                    label: "Design partagé"
+                },
+                {
+                    value: "modifable",
+                    label: "Design contributif"
+                }
+            ]
+        },
+        {
+            name: "design_reparable",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Design réparable",
+            description: "La capacité de votre produit à être réparé.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "personnel",
+                    label: "Réparable par chacun"
+                },
+                {
+                    value: "expert",
+                    label: "Réparable par un expert"
+                },
+                {
+                    value: "createur",
+                    label: "Réparable par le créateur"
+                }
+            ]
+        },
+        {
+            name: "design_durability",
+            schema: Yup.array().of(Yup.string().required('Requis')),
+            type: "multiSelect",
+            initial: [],
+            placeholder: "",
+            prefix: "Durabilité du design",
+            description: "La capacité du design a être durable.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "demontable",
+                    label: "Démontable"
+                },
+                {
+                    value: "stockable",
+                    label: "Stockable"
+                },
+                {
+                    value: "reutilisable",
+                    label: "Réutilisable"
+                },
+                {
+                    value: "referencement",
+                    label: "Référencement"
+                },
+                {
+                    value: "aucune",
+                    label: "Aucune gestion"
+                }
+            ]
+        },
+        {
+            name: "fab_expertise",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Savoir-faire",
+            description: "Les savoir-faire que le projet mets en valeur.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "plusieurs",
+                    label: "Plusieurs savoir-faire"
+                },
+                {
+                    value: "peu",
+                    label: "peu de savoir-faire"
+                },
+                {
+                    value: "aucun",
+                    label: "Aucun savoir-faire"
+                }
+            ]
+        },
+        {
+            name: "fab_local",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Proximité de la production",
+            description: "La localisation de la production par rapport à l'utilisation.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "sur place",
+                    label: "Sur place"
+                },
+                {
+                    value: "commune",
+                    label: "Commune"
+                },
+                {
+                    value: "pays",
+                    label: "Pays"
+                },
+                {
+                    value: "monde",
+                    label: "Monde"
+                }
+            ]
+        },
+        {
+            name: "fab_tools",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Spécificité des outils",
+            description: "La complexité des outils nécéssaire à la production.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "outils standards",
+                    label: "Outils standards"
+                },
+                {
+                    value: "machines cnc",
+                    label: "Machines à commandes numériques"
+                },
+                {
+                    value: "outillage specifique",
+                    label: "Outillage spécifiques"
+                }
+            ]
+        },
+        {
+            name: "fab_social",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Impact de la fabrication",
+            description: "Impact social de la production.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "reinsertion",
+                    label: "Réinsertion social"
+                },
+                {
+                    value: "artisanat",
+                    label: "Soutien à l'artisanat"
+                },
+                {
+                    value: "aucun",
+                    label: "Aucun"
+                }
+            ]
+        },
     ]
     let Schema = {}
     Form.forEach((el, i) => { Schema[el.name] = el.schema })
@@ -306,7 +638,20 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                             gestion: props.values.gestion / 100,
                                             production: props.values.production / 100,
                                             materials: props.values.materials / 100,
-                                            colors: props.values.colors
+                                            colors: props.values.colors,
+                                            fab_expertise : props.values.fab_expertise,
+                                            fab_local : props.values.fab_local,
+                                            fab_social : props.values.fab_social,
+                                            fab_tools : props.values.fab_tools,
+                                            material_origin : props.values.material_origin,
+                                            material_leftovers : props.values.material_leftovers,
+                                            material_source : props.values.material_source,
+                                            material_quality : props.values.material_quality,
+                                            design_durability : props.values.design_durability,
+                                            design_reparable : props.values.design_reparable,
+                                            design_replicability : props.values.design_replicability,
+                                            design_sharable : props.values.design_sharable 
+
                                         }}
                                     />
                                 </div>

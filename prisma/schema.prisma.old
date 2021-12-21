@@ -48,9 +48,9 @@ model Project {
   fab_local            String?
   fab_social           String?
   fab_tools            String?
-  material_origin    String?
+  material_delivery    String?
   material_leftovers   String[]
-  material_source      String?
+  material_origin      String?
   material_quality     String?
   design_durability    String[]
   design_reparable     String?
