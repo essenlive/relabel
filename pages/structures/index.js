@@ -1,7 +1,7 @@
 import Layout from '@components/Layout'
 import airtable_api from '@libs/airtable_api.js'
 import React, { useState, useRef } from 'react';
-import ReactMapGL, { Marker, Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
+import ReactMapGL, { Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
 import styles from "@styles/pages/Structures.module.css";
 import Link from 'next/link'
 import LabelStructure from '@components/LabelStructure';

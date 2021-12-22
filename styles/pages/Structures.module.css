@@ -39,5 +39,6 @@
 @media (--screen-sm) {
     .add {
         left: 2rem;
+        bottom: 4rem;
     }
 }
