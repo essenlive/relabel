@@ -1,14 +1,18 @@
-import Layout from '@components/Layout'
-import styles from "@styles/pages/Form.module.css";
-import LabelCommunity from '@components/LabelCommunity';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Inputs } from '@components/Inputs';
 import Link from 'next/link'
+import Confetti from 'react-confetti'
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 import classNames from 'classnames';
-import {getColors, seed} from '@libs/getColors';
 import { useRouter } from 'next/router'
+
+import styles from "@styles/pages/Form.module.css";
+
+import Layout from '@components/Layout'
+import LabelCommunity from '@components/LabelCommunity';
+import { Inputs } from '@components/Inputs';
 import Tags from '@components/Tags';
+
+import {getColors, seed} from '@libs/getColors';
 import airtable_api from '@libs/airtable_api';
 
 export default function AddCommunities({ formOverrides }) {
@@ -108,9 +112,8 @@ export default function AddCommunities({ formOverrides }) {
         data.cities = fields.cities.map((el) => el.value)
         let record = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
-        formik.setSubmitting(false);
-        router.push(`/communities`);
-        // router.push(`/communities/${record[0].id}`);
+        // setTimeout(() => { formik.setSubmitting(false); console.log("timeout"); }, 1000)
+        router.push(`/communities/${record[0].id}`);
     }
 
     return (
@@ -125,6 +128,25 @@ export default function AddCommunities({ formOverrides }) {
                 {(props) => {
                     return (
                         <div className={styles.form}>
+
+                            <Confetti
+                                style={{
+                                    pointerEvents: 'none',
+                                    zIndex: 20,
+                                    position: "fixed",
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    pointerEvents: "none",
+                                    inset: 0,
+                                    width: "100%",
+                                    height: "100%"
+                                }}
+                                colors={props.values.colors}
+                                // numberOfPieces={500}
+                                numberOfPieces={props.isSubmitting ? 500 : 0}
+                            />
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
                                 {props.isSubmitting  && <div className={styles.sending}><h3>C'est envoyé</h3></div>}
                                 <h2>Présentation de la communauté</h2>

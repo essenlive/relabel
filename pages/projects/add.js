@@ -1,19 +1,24 @@
-import Layout from '@components/Layout'
-import styles from "@styles/pages/Form.module.css";
-import LabelProject from '@components/LabelProject';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Inputs } from '@components/Inputs';
 import Link from 'next/link'
-import classNames from 'classnames';
 import { useRouter } from 'next/router'
-import airtable_api from '@libs/airtable_api.js'
+import Confetti from 'react-confetti'
+import classNames from 'classnames';
+
+import styles from "@styles/pages/Form.module.css";
+
+import LabelProject from '@components/LabelProject';
+import { Inputs } from '@components/Inputs';
+import Layout from '@components/Layout'
 import Tags from '@components/Tags';
+
+import airtable_api from '@libs/airtable_api.js'
 import { getColors, seed } from '@libs/getColors';
 
-
 export default function AddProject({ formOverrides }) {
+
     const router = useRouter()
+
     const Form = [
         {
         name: "name",
@@ -557,8 +562,7 @@ export default function AddProject({ formOverrides }) {
         });
         let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
-        formik.setSubmitting(false);
-        console.log(record);
+        // setTimeout(()=>{formik.setSubmitting(false); console.log("timeout");}, 1000)
         router.push(`/projects/${record[0].id}`);
 
     }
@@ -573,7 +577,28 @@ export default function AddProject({ formOverrides }) {
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
+
+                        
+                        
                         <div className={styles.form}>
+
+                            <Confetti
+                                style={{ 
+                                    pointerEvents: 'none', 
+                                    zIndex: 20,
+                                    position: "fixed",
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    pointerEvents: "none",
+                                    inset: 0,
+                                    width: "100%",
+                                    height: "100%" }}
+                                    colors={props.values.colors}
+                                    numberOfPieces={props.isSubmitting ? 500 : 0}
+                            />
+
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
                                 {props.isSubmitting && <div className={styles.sending}><h3>C'est envoyé</h3>
                                 </div>}

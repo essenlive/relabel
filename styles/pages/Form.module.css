@@ -8,7 +8,7 @@
   width: 50%;
 }
 
-.form h3 {
+.values h3 {
   color: var(--primary);
   border-top: var(--primary) var(--borderWidth-lg) solid;
   padding: 1rem;
@@ -34,7 +34,7 @@
   left: 0;
   right: 0;
   background: var(--primary);
-  z-index: 100;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

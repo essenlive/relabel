@@ -3,6 +3,7 @@ import Link from 'next/link'
 import classNames from 'classnames';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router'
+import Confetti from 'react-confetti'
 
 import { getColors, seed } from '@libs/getColors';
 import airtable_api from '@libs/airtable_api.js'
@@ -203,7 +204,7 @@ export default function AddStructure({ formOverrides }) {
         // Send to airtable and redirect to newly created page
         let record = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
-        formik.setSubmitting(false);
+        // setTimeout(() => { formik.setSubmitting(false); console.log("timeout"); }, 1000)
         router.push(`/structures/${record[0].id}`);
     }
     return (
@@ -215,6 +216,24 @@ export default function AddStructure({ formOverrides }) {
                 {(props) => {
                     return (
                         <div className={styles.form}>
+
+                            <Confetti
+                                style={{
+                                    pointerEvents: 'none',
+                                    zIndex: 20,
+                                    position: "fixed",
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    pointerEvents: "none",
+                                    inset: 0,
+                                    width: "100%",
+                                    height: "100%"
+                                }}
+                                colors={props.values.colors}
+                                numberOfPieces={props.isSubmitting ? 500 : 0}
+                            />
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
                                 {props.isSubmitting && <div className={styles.sending}><h3>C'est envoyé</h3>
                                 </div>}
