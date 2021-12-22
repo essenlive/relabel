@@ -1,131 +1,144 @@
-import Layout from '@components/Layout'
-import styles from "@styles/pages/Form.module.css";
-import LabelStructure from '@components/LabelStructure';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Inputs } from '@components/Inputs';
 import Link from 'next/link'
 import classNames from 'classnames';
+import * as Yup from 'yup';
 import { useRouter } from 'next/router'
+
 import { getColors, seed } from '@libs/getColors';
 import airtable_api from '@libs/airtable_api.js'
+
+import Layout from '@components/Layout'
+import LabelStructure from '@components/LabelStructure';
+import { Inputs } from '@components/Inputs';
 import Tags from '@components/Tags';
 
-export default function AddStructure({ communities, StartingColors }) {
+import styles from "@styles/pages/Form.module.css";
+
+export default function AddStructure({ formOverrides }) {
     const router = useRouter()
-    const Form = [{
-        name: "name",
-        schema: Yup.string().required('Requis'),
-        type: "shortText",
-        initial: "",
-        placeholder: "Nom",
-        prefix: "Nom",
-        description: "Le nom de votre structure.",
-        suffix: "",
-        required: true
-    },
-    {
-        name: "communities",
-        schema: Yup.array().of(Yup.object().nullable()).required('Requis'),
-        type: "creatableSelect",
-        initial: [],
-        placeholder: "",
-        prefix: "Communautée.s",
-        description: "Les communautées dont votre structure fait partie.",
-        suffix: "",
-        required: true,
-        options: communities
-    },
-    {
-        name: "adress",
-        schema: Yup.string().required('Requis'),
-        type: "adress",
-        initial: "",
-        placeholder: "15 rue ...",
-        prefix: "Adresse",
-        description: "L'adresse de votre structure.",
-        suffix: "",
-        required: true
-    },
-    {
-        name: "description",
-        schema: Yup.string().required('Requis'),
-        type: "text",
-        initial: "",
-        placeholder: "Notre structure propose ...",
-        prefix: "Description",
-        description: "Qui êtes vous et quelles sont vos valeurs ?",
-        suffix: "",
-        required: true
-    },
-    {
-        name: "status",
-        schema: Yup.string().required('Requis'),
-        type: "select",
-        initial: "",
-        placeholder: "",
-        prefix: "Statut",
-        suffix: "",
-        description: "Le statut juridique de votre structure.",
-        required: true,
-        options: [
-            {
-                value: "association",
-                label: "Association"
-            },
-            {
-                value: "entreprise",
-                label: "Entreprise"
-            },
-            {
-                value: "cooperative",
-                label: "Coopérative"
-            },
-            {
-                value: "institution",
-                label: "Institution"
-            },
-            {
-                value: "indépendant",
-                label: "Indépendant"
-            }
-        ]
-    },
-    {
-        name: "typologies",
-        schema: Yup.array().of(Yup.string().required('Requis')),
-        type: "multiSelect",
-        initial: [],
-        placeholder: "",
-        prefix: "Activités",
-        description: "La ou les activités de votre structure.",
-        suffix: "",
-        required: true,
-        options: [
-            {
-                value: "designer",
-                label: "Designer"
-            },
-            {
-                value: "atelier",
-                label: "Atelier"
-            },
-            {
-                value: "stockage",
-                label: "Stockage"
-            }
-        ]
-    },
-    {
-        name: "contact",
-        schema: Yup.string().email('Email incorrect').required('Requis'),
-        type: "mail",
-        initial: "",
-        placeholder: "contact@mail.org",
-        description: "L'adresse mail d'un référent pour avoir plus d'informations.",
-        prefix: "Contact",
-        suffix: "",
-        required: true
+
+    // Form datas
+    let form = [
+        {
+            name: "name",
+            schema: Yup.string().required('Requis'),
+            type: "shortText",
+            initial: "",
+            placeholder: "Nom",
+            prefix: "Nom",
+            description: "Le nom de votre structure.",
+            suffix: "",
+            required: true,
+            group: "meta"
+        },
+        {
+            name: "communities",
+            schema: Yup.array().of(Yup.object().nullable()).required('Requis'),
+            type: "creatableSelect",
+            initial: [],
+            placeholder: "",
+            prefix: "Communautée.s",
+            description: "Les communautées dont votre structure fait partie.",
+            suffix: "",
+            required: true,
+            options: formOverrides.communities.options,
+            group: "meta"
+        },
+        {
+            name: "adress",
+            schema: Yup.string().required('Requis'),
+            type: "adress",
+            initial: "",
+            placeholder: "15 rue ...",
+            prefix: "Adresse",
+            description: "L'adresse de votre structure.",
+            suffix: "",
+            required: true,
+            group: "meta"
+        },
+        {
+            name: "description",
+            schema: Yup.string().required('Requis'),
+            type: "text",
+            initial: "",
+            placeholder: "Notre structure propose ...",
+            prefix: "Description",
+            description: "Qui êtes vous et quelles sont vos valeurs ?",
+            suffix: "",
+            required: true,
+            group: "meta"
+        },
+        {
+            name: "status",
+            schema: Yup.string().required('Requis'),
+            type: "select",
+            initial: "",
+            placeholder: "",
+            prefix: "Statut",
+            suffix: "",
+            description: "Le statut juridique de votre structure.",
+            required: true,
+            options: [
+                {
+                    value: "association",
+                    label: "Association"
+                },
+                {
+                    value: "entreprise",
+                    label: "Entreprise"
+                },
+                {
+                    value: "cooperative",
+                    label: "Coopérative"
+                },
+                {
+                    value: "institution",
+                    label: "Institution"
+                },
+                {
+                    value: "indépendant",
+                    label: "Indépendant"
+                }
+            ],
+            group: "data"
+        },
+        {
+            name: "typologies",
+            schema: Yup.array().of(Yup.string().required('Requis')),
+            type: "multiSelect",
+            initial: [],
+            placeholder: "",
+            prefix: "Activités",
+            description: "La ou les activités de votre structure.",
+            suffix: "",
+            required: true,
+            options: [
+                {
+                    value: "designer",
+                    label: "Designer"
+                },
+                {
+                    value: "atelier",
+                    label: "Atelier"
+                },
+                {
+                    value: "stockage",
+                    label: "Stockage"
+                }
+            ],
+            group: "data"
+        },
+        {
+            name: "contact",
+            schema: Yup.string().email('Email incorrect').required('Requis'),
+            type: "mail",
+            initial: "",
+            placeholder: "contact@mail.org",
+            description: "L'adresse mail d'un référent pour avoir plus d'informations.",
+            prefix: "Contact",
+            suffix: "",
+            required: true,
+            group: "meta"
         },
         {
             name: "website",
@@ -135,7 +148,8 @@ export default function AddStructure({ communities, StartingColors }) {
             placeholder: "sitedelacommunauté.org",
             prefix: "Site internet",
             description: "L'url de votre site internet si vous en avez un.",
-            suffix: ""
+            suffix: "",
+            group: "meta"
         },
         {
             name: "illustrations",
@@ -145,27 +159,32 @@ export default function AddStructure({ communities, StartingColors }) {
             placeholder: "",
             prefix: "Illustrations",
             description: "Une ou plusieurs images pour illustrer votre structure.",
-            suffix: ""
+            suffix: "",
+            group: "meta"
         },
-    {
+        {
             name: "colors",
             schema: Yup.array().of(Yup.string()),
             type: "button",
-            initial: StartingColors,
+            initial: formOverrides.colors.initial,
             placeholder: "",
             prefix: "Changer les couleurs",
             suffix: "",
             required: true,
-            handler: [getColors, seed]
+            handler: [getColors, seed],
+            group: "meta"
         },
     ]
-    let Schema = {}; Form.forEach((el, i) => { Schema[el.name] = el.schema })
-    let initialValues = {}; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    let schema = {}; form.forEach((el, i) => { schema[el.name] = el.schema })
+    let initialValues = {}; form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
+    // Submit form handler
     const submit = async (fields, formik) => {
+        // Deep copy field object to keep it clean when submitting
         let data = new Object;
         Object.assign(data, fields)
 
+        // Filter new communities to create them in airtable beforehand, and get their airtable ids
         let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
         if (newCommunities.length !== 0) {  
             let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })
@@ -177,21 +196,21 @@ export default function AddStructure({ communities, StartingColors }) {
             });
         }
         data.communities = fields.communities.map((el) => el.value)
+
+        // Prepare illustrations Urls
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
 
+        // Send to airtable and redirect to newly created page
         let record = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         formik.setSubmitting(false);
         router.push(`/structures/${record[0].id}`);
     }
     return (
-        <Layout
-            title='Référencer une structure'
-            padded
-        >
+        <Layout title='Référencer une structure' padded >
             <Formik
                 initialValues={initialValues}
-                validationSchema={Yup.object().shape(Schema)}
+                validationSchema={schema}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
@@ -199,9 +218,9 @@ export default function AddStructure({ communities, StartingColors }) {
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
                                 {props.isSubmitting && <div className={styles.sending}><h3>C'est envoyé</h3>
                                 </div>}
-                                <h2>Présentation de la structure</h2>
+                                <h2>Référencer une structure</h2>
                                 <div>
-                                    {Form.map((input, i) => (
+                                    {form.map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}
@@ -262,10 +281,12 @@ export default function AddStructure({ communities, StartingColors }) {
 
 
 export async function getStaticProps() {
-    const StartingColors = getColors(seed())
+    //Prepare form options ovverides
     let communities = await airtable_api.getCommunities({ status: true });
     communities = communities.map((el, i) => ({ value: el.id, label: el.name }))
-    return {
-        props: { communities, StartingColors },
+    const formOverrides = {
+        "communities" : { "options" : communities},
+        "colors" : {"initial": getColors(seed()),}
     }
+    return { props: { formOverrides } }
 }

@@ -12,7 +12,7 @@ import Tags from '@components/Tags';
 import { getColors, seed } from '@libs/getColors';
 
 
-export default function AddProject({ suppliersOptions, designersOptions, workshopsOptions, othersOptions, StartingColors }) {
+export default function AddProject({ formOverrides }) {
     const router = useRouter()
     const Form = [
         {
@@ -24,7 +24,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Nom",
         description: "Le nom de votre projet, objet, chantier...",
         suffix: "",
-        required: true
+            required: true,
+            group: "meta"
     },
     {
         name: "date",
@@ -35,7 +36,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Date",
         description: "Date de fabrication ou livraison.",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "typology",
@@ -60,7 +62,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                 value: "mobilier",
                 label: "Mobilier"
             }
-        ]
+        ],
+        group: "meta"
     },
     {
         name: "description",
@@ -71,7 +74,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Description",
         description: "En une ou deux phrases, une présentation de votre projet.",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "team",
@@ -83,7 +87,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Équipe",
         suffix: "",
         required: true,
-        options: []
+        options: [],
+        group: "meta"
     },
     {
         name: "designers",
@@ -95,7 +100,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         description: "Les structures qui ont porté la conception.",
         suffix: "",
         required: false,
-        options: designersOptions
+        options: formOverrides.designers.options,
+        group: "meta"
     },
     {
         name: "workshops",
@@ -107,7 +113,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         description: "Les structures qui ont porté la fabrication.",
         suffix: "",
         required: false,
-        options: workshopsOptions
+        options: formOverrides.workshops.options,
+        group: "meta"
     },
     {
         name: "suppliers",
@@ -119,7 +126,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         description: "Les structures qui ont fourni les matières premières.",
         suffix: "",
         required: false,
-        options: suppliersOptions
+        options: formOverrides.suppliers.options,
+        group: "meta"
     },
     {
         name: "others",
@@ -131,7 +139,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
         suffix: "",
         required: false,
-        options: othersOptions
+        options: formOverrides.others.options,
+        group: "meta"
     },
     {
         name: "contact",
@@ -142,7 +151,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         prefix: "Contact",
         description: "L'adresse mail d'un référent pour avoir plus d'informations.",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "website",
@@ -162,18 +172,20 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         placeholder: "",
         prefix: "Illustrations",
         description: "Une ou plusieurs images pour illustrer votre structure.",
-        suffix: ""
+        suffix: "",
+        group: "meta"
     },
     {
         name: "colors",
         schema: Yup.array().of(Yup.string()),
         type: "button",
-        initial: StartingColors,
+        initial: formOverrides.colors.initial,
         placeholder: "",
         prefix: "Changer les couleurs",
         suffix: "",
         required: true,
-        handler: [getColors, seed]
+        handler: [getColors, seed],
+        group: "customize"
         },
         {
             name: "material_source",
@@ -202,7 +214,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "gisement local",
                     label: "Gisement Local"
                 }
-            ]
+            ],
+            group: "material"
         },
         {
             name: "material_quality",
@@ -231,13 +244,14 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "traitement responsable",
                     label: "Traitement Responsable"
                 }
-            ]
+            ],
+            group: "material"
         },
         {
             name: "material_leftovers",
             schema: Yup.string().required('Requis'),
             type: "select",
-            initial: [],
+            initial: "",
             placeholder: "",
             prefix: "Gestion des chutes",
             description: "La manière dont les chutes du projet sont traitées.",
@@ -264,7 +278,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "aucune",
                     label: "Aucune gestion"
                 }
-            ]
+            ],
+            group: "material"
         },
         {
             name: "material_origin",
@@ -293,7 +308,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "monde",
                     label: "Monde"
                 }
-            ]
+            ],
+            group: "material"
         },
         {
             name: "design_replicability",
@@ -318,7 +334,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "modele parametrique",
                     label: "Modèle paramètrique"
                 }
-            ]
+            ],
+            group: "design"
         },
         {
             name: "design_sharable",
@@ -343,7 +360,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "modifiable",
                     label: "Design contributif"
                 }
-            ]
+            ],
+            group: "design"
         },
         {
             name: "design_reparable",
@@ -368,7 +386,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "createur",
                     label: "Réparable par le créateur"
                 }
-            ]
+            ],
+            group: "design"
         },
         {
             name: "design_durability",
@@ -393,7 +412,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "reutilisable",
                     label: "Réutilisable"
                 }
-            ]
+            ],
+            group: "design"
         },
         {
             name: "fab_expertise",
@@ -418,7 +438,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "aucun",
                     label: "Aucun savoir-faire"
                 }
-            ]
+            ],
+            group: "fab"
         },
         {
             name: "fab_local",
@@ -447,7 +468,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "monde",
                     label: "Monde"
                 }
-            ]
+            ],
+            group: "fab"
         },
         {
             name: "fab_tools",
@@ -472,7 +494,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "outillage specifique",
                     label: "Outillage spécifiques"
                 }
-            ]
+            ],
+            group: "fab"
         },
         {
             name: "fab_social",
@@ -497,7 +520,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     value: "aucun",
                     label: "Aucun"
                 }
-            ]
+            ],
+            group: "fab"
         },
     ]
     let Schema = {} ; Form.forEach((el) => { Schema[el.name] = el.schema })
@@ -534,6 +558,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         formik.setSubmitting(false);
+        console.log(record);
         router.push(`/projects/${record[0].id}`);
 
     }
@@ -554,7 +579,46 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                 </div>}
                                 <h2>Présentation du projet</h2>
                                 <div>
-                                    {Form.map((input, i) => (
+                                    {Form.filter(el => el.group === "meta").map((input, i) => (
+                                        <Inputs
+                                            key={i}
+                                            input={input}
+                                            name={input.name}
+                                        />
+                                    ))}
+                                </div>
+                                <h3>Les matériaux</h3>
+                                <div>
+                                    {Form.filter(el => el.group === "material").map((input, i) => (
+                                        <Inputs
+                                            key={i}
+                                            input={input}
+                                            name={input.name}
+                                        />
+                                    ))}
+                                </div>
+                                <h3>La conception</h3>
+                                <div>
+                                    {Form.filter(el => el.group === "design").map((input, i) => (
+                                        <Inputs
+                                            key={i}
+                                            input={input}
+                                            name={input.name}
+                                        />
+                                    ))}
+                                </div>
+                                <h3>La fabrication</h3>
+                                <div>
+                                    {Form.filter(el => el.group === "fab").map((input, i) => (
+                                        <Inputs
+                                            key={i}
+                                            input={input}
+                                            name={input.name}
+                                        />
+                                    ))}
+                                </div>
+                                <div>
+                                    {Form.filter(el => el.group === "customize").map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}
@@ -628,18 +692,22 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
 
 
 export async function getStaticProps() {
-    const StartingColors = getColors(seed())
     let structures = await airtable_api.getStructures();
-    let suppliersOptions = structures.filter((el) => el.typologies.indexOf("stockage") >= 0)
-    suppliersOptions = suppliersOptions.map((el) => ({ value: el.id, label: el.name }))
-    let designersOptions = structures.filter((el) => el.typologies.indexOf("designer") >= 0)
-    designersOptions = designersOptions.map((el) => ({ value: el.id, label: el.name }))
-    let workshopsOptions = structures.filter((el) => el.typologies.indexOf("atelier") >= 0)
-    workshopsOptions = workshopsOptions.map((el) => ({ value: el.id, label: el.name }))
-    let othersOptions = structures.filter((el) => el.typologies.indexOf("autre") >= 0)
-    othersOptions = othersOptions.map((el) => ({ value: el.id, label: el.name }))
+    let suppliersOptions = structures.filter((el) => el.typologies.indexOf("stockage") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    let designersOptions = structures.filter((el) => el.typologies.indexOf("designer") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    let workshopsOptions = structures.filter((el) => el.typologies.indexOf("atelier") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    let othersOptions = structures.filter((el) => el.typologies.indexOf("autre") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    
+
+    const formOverrides = {
+        "suppliers": { "options": suppliersOptions },
+        "designers": { "options": designersOptions },
+        "workshops": { "options": workshopsOptions },
+        "others": { "options": othersOptions },
+        "colors": { "initial": getColors(seed()), }
+    }
 
     return {
-        props: { suppliersOptions, designersOptions, workshopsOptions, othersOptions, StartingColors },
+        props: { formOverrides },
     }
 }

@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Tags from '@components/Tags';
 import airtable_api from '@libs/airtable_api';
 
-export default function AddCommunities({ StartingColors, cities }) {
+export default function AddCommunities({ formOverrides }) {
     const router = useRouter()
     const Form = [{
         name: "name",
@@ -22,7 +22,8 @@ export default function AddCommunities({ StartingColors, cities }) {
         placeholder: "Ma communauté",
         prefix: "Nom",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "year",
@@ -33,7 +34,8 @@ export default function AddCommunities({ StartingColors, cities }) {
         prefix: "Année de création",
         description: "L'année durant laquelle vous avez monté votre communauté.",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "description",
@@ -44,7 +46,8 @@ export default function AddCommunities({ StartingColors, cities }) {
         prefix: "Courte description",
         description: "En une ou deux phrases, ce qui rassemble votre communauté.",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "cities",
@@ -56,7 +59,8 @@ export default function AddCommunities({ StartingColors, cities }) {
         description: "La liste des villes qui composent votre communauté.",
         suffix: "",
         required: true,
-        options: cities
+        options: formOverrides.cities.options,
+        group: "meta"
     },
     {
         name: "contact",
@@ -67,7 +71,8 @@ export default function AddCommunities({ StartingColors, cities }) {
         prefix: "Contact du référent",
         description: "Le contact d'un référent pour avoir plus d'informations.",
         suffix: "",
-        required: true
+        required: true,
+        group: "meta"
     },
     {
         name: "website",
@@ -78,21 +83,23 @@ export default function AddCommunities({ StartingColors, cities }) {
         description: "L'url de votre site internet si vous en avez un.",
         prefix: "Site internet",
         suffix: "",
-        required: false
+        required: false,
+        group: "meta"
     },
     {
         name: "colors",
         schema: Yup.array().of(Yup.string()),
         type: "button",
-        initial: StartingColors,
+        initial: formOverrides.colors.initial,
         placeholder: "",
         prefix: "Changer les couleurs",
         suffix: "",
         required: true,
-        handler: [getColors, seed]
+        handler: [getColors, seed],
+        group: "meta"
     },
     ]
-    let Schema = {}; Form.forEach((el, i) => { Schema[el.name] = el.schema })
+    let schema = {}; Form.forEach((el, i) => { schema[el.name] = el.schema })
     let initialValues = {} ; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
@@ -102,7 +109,8 @@ export default function AddCommunities({ StartingColors, cities }) {
         let record = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         formik.setSubmitting(false);
-        router.push(`/communities/${record[0].id}`);
+        router.push(`/communities`);
+        // router.push(`/communities/${record[0].id}`);
     }
 
     return (
@@ -112,7 +120,7 @@ export default function AddCommunities({ StartingColors, cities }) {
         >
             <Formik
                 initialValues={initialValues}
-                validationSchema={Yup.object().shape(Schema)}
+                validationSchema={Yup.object().shape(schema)}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
@@ -183,13 +191,16 @@ export default function AddCommunities({ StartingColors, cities }) {
 
 
 export async function getStaticProps() {
-    const StartingColors = getColors(seed())
     let cities = await airtable_api.getCommunities();
     cities = Array.from(new Set(cities.map((el, i) => (el.cities)).flat()))
     cities = cities.map((el) => ({ value: el, label: el }))
+    const formOverrides = {
+        "cities": { "options": cities },
+        "colors": { "initial": getColors(seed()), }
+    }
 
     return {
-        props: { StartingColors, cities },
+        props: { formOverrides },
     }
 
 }

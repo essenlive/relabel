@@ -43,8 +43,5 @@ export async function getStaticProps() {
     }))
     return project
   }))
-
-  return {
-    props: { projects },
-        revalidate: 1 }
+  return { props: { projects }, revalidate: 1 }
 }
