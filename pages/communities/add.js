@@ -144,7 +144,6 @@ export default function AddCommunities({ formOverrides }) {
                                     height: "100%"
                                 }}
                                 colors={props.values.colors}
-                                // numberOfPieces={500}
                                 numberOfPieces={props.isSubmitting ? 500 : 0}
                             />
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
