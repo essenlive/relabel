@@ -14,7 +14,8 @@ import { getColors, seed } from '@libs/getColors';
 
 export default function AddProject({ suppliersOptions, designersOptions, workshopsOptions, othersOptions, StartingColors }) {
     const router = useRouter()
-    const Form = [{
+    const Form = [
+        {
         name: "name",
         schema: Yup.string().required('Requis'),
         type: "shortText",
@@ -132,50 +133,50 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             required: false,
             options: othersOptions
         },
-    {
-        name: "duration",
-        schema: Yup.number().min(0, 'Ca doit etre au moins 0 jours').required('Required'),
-        type: "number",
-        initial: 0,
-        placeholder: "",
-        prefix: "Durée du projet",
-        description: "La durée, en jours, du projet.",
-        suffix: "jours",
-        required: true
-    },
-    {
-        name: "gestion",
-        schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-        type: "number",
-        initial: Math.round(Math.random()*100),
-        placeholder: "",
-        description: "Le temps passé à la gestion du projet.",
-        prefix: "Gestion de projet",
-        suffix: "%",
-        required: true
-    },
-    {
-        name: "production",
-        schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-        type: "number",
-        initial: Math.round(Math.random() * 100),
-        placeholder: "",
-        description: "Le temps passé à la fabrication du projet.",
-        prefix: "Fabrication",
-        suffix: "%",
-        required: true
-    },
-    {
-        name: "materials",
-        schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-        type: "number",
-        initial: Math.round(Math.random() * 100),
-        placeholder: "",
-        description: "Le pourcentage de matériaux sourcés.",
-        prefix: "Matériaux",
-        suffix: "%",
-        required: true
-    },
+    // {
+    //     name: "duration",
+    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0 jours').required('Required'),
+    //     type: "number",
+    //     initial: 0,
+    //     placeholder: "",
+    //     prefix: "Durée du projet",
+    //     description: "La durée, en jours, du projet.",
+    //     suffix: "jours",
+    //     required: true
+    // },
+    // {
+    //     name: "gestion",
+    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
+    //     type: "number",
+    //     initial: Math.round(Math.random()*100),
+    //     placeholder: "",
+    //     description: "Le temps passé à la gestion du projet.",
+    //     prefix: "Gestion de projet",
+    //     suffix: "%",
+    //     required: true
+    // },
+    // {
+    //     name: "production",
+    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
+    //     type: "number",
+    //     initial: Math.round(Math.random() * 100),
+    //     placeholder: "",
+    //     description: "Le temps passé à la fabrication du projet.",
+    //     prefix: "Fabrication",
+    //     suffix: "%",
+    //     required: true
+    // },
+    // {
+    //     name: "materials",
+    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
+    //     type: "number",
+    //     initial: Math.round(Math.random() * 100),
+    //     placeholder: "",
+    //     description: "Le pourcentage de matériaux sourcés.",
+    //     prefix: "Matériaux",
+    //     suffix: "%",
+    //     required: true
+    // },
     {
         name: "contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
@@ -278,8 +279,8 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         },
         {
             name: "material_leftovers",
-            schema: Yup.array().of(Yup.string().required('Requis')),
-            type: "multiSelect",
+            schema: Yup.string().required('Requis'),
+            type: "select",
             initial: [],
             placeholder: "",
             prefix: "Gestion des chutes",
@@ -297,7 +298,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                 },
                 {
                     value: "chutes minimales",
-                    label: "Chutes minimales"
+                    label: "Chutes minimes"
                 },
                 {
                     value: "referencement",
@@ -383,7 +384,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                     label: "Design partagé"
                 },
                 {
-                    value: "modifable",
+                    value: "modifiable",
                     label: "Design contributif"
                 }
             ]
@@ -435,14 +436,6 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                 {
                     value: "reutilisable",
                     label: "Réutilisable"
-                },
-                {
-                    value: "referencement",
-                    label: "Référencement"
-                },
-                {
-                    value: "aucune",
-                    label: "Aucune gestion"
                 }
             ]
         },
@@ -463,7 +456,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                 },
                 {
                     value: "peu",
-                    label: "peu de savoir-faire"
+                    label: "Peu de savoir-faire"
                 },
                 {
                     value: "aucun",
@@ -538,7 +531,7 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             options: [
                 {
                     value: "reinsertion",
-                    label: "Réinsertion social"
+                    label: "Réinsertion sociale"
                 },
                 {
                     value: "artisanat",
@@ -670,9 +663,9 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                     <p>Chacun des noeuds représente un partenaire du projet que vous avez réussi à impliquer.</p>
                                     <p>Les proportions des différentes couleurs représentent chacun de vos engagements :</p>
                                     <ul className={styles.legends}>
-                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[0] }}></span>Représente votre engagement en terme de conception ouvertes et perenne.</li>
-                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[1] }}></span>Représente votre engagement d'un point de vue fabrication localisée, et circuits courts.</li>
-                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[2] }}></span>Représente votre engament en terme de matériaux responsables.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[1] }}></span>Représente votre engagement en terme de conception ouverte et perenne.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[2] }}></span>Représente votre engagement d'un point de vue fabrication localisée, et circuits courts.</li>
+                                        <li><span className={styles.legend} style={{ backgroundColor: props.values.colors[0] }}></span>Représente votre engament en terme de matériaux responsables.</li>
                                     </ul>
                                 </div>
                             </div>

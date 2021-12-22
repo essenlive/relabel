@@ -2,17 +2,19 @@ import classNames from "classnames"
 import styles from "@styles/components/LabelProject.module.css";
 import { useEffect, useState, useRef } from "react";
 import dynamic from 'next/dynamic'
+import scoring from '@libs/scoring.js'
 const P5Wrapper = dynamic(() => import('react-p5-wrapper'), { ssr: false })
 
 
 export default function LabelProduction({ project, bordered }) {
     // let partnersLength = Array.from(new Set([...project.designers, ...project.workshops, ...project.suppliers, ...project.others]))
-    console.log(project);
+
+    let score = scoring(project);
     project.data = {
         partners: project.designers.length + project.workshops.length + project.suppliers.length + project.others.length,
-        materials: project.materials,
-        gestion: project.gestion,
-        production: project.production
+        materials: score.material,
+        gestion: score.design,
+        production: score.fab
     }
 
     

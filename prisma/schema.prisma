@@ -40,16 +40,13 @@ model Project {
   contact          String?
   date            DateTime? @db.Timestamptz(6)
   duration      Decimal?  @db.Decimal
-  production    Decimal?  @db.Decimal
-  gestion       Decimal?  @db.Decimal
-  materials     Decimal?  @db.Decimal
   colors      String[]
   fab_expertise        String?
   fab_local            String?
   fab_social           String?
   fab_tools            String?
   material_origin    String?
-  material_leftovers   String[]
+  material_leftovers   String?
   material_source      String?
   material_quality     String?
   design_durability    String[]
