@@ -159,14 +159,13 @@ export default function AddStructure({ communities, StartingColors }) {
             handler: [getColors, seed]
         },
     ]
-    let Schema = {}
-    Form.forEach((el, i) => { Schema[el.name] = el.schema })
-    let initialValues = {}
-    Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    let Schema = {}; Form.forEach((el, i) => { Schema[el.name] = el.schema })
+    let initialValues = {}; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        let data = fields;
-        
+        let data = new Object;
+        Object.assign(data, fields)
+
         let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
         if (newCommunities.length !== 0) {  
             let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })

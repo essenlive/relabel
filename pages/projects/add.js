@@ -108,75 +108,31 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
         suffix: "",
         required: false,
         options: workshopsOptions
-        },
-        {
-            name: "suppliers",
-            schema: Yup.array().of(Yup.object()),
-            type: "creatableSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Ressourceries/fournisseurs",
-            description: "Les structures qui ont fourni les matières premières.",
-            suffix: "",
-            required: false,
-            options: suppliersOptions
-        },
-        {
-            name: "others",
-            schema: Yup.array().of(Yup.object()),
-            type: "creatableSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Partenaires",
-            description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
-            suffix: "",
-            required: false,
-            options: othersOptions
-        },
-    // {
-    //     name: "duration",
-    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0 jours').required('Required'),
-    //     type: "number",
-    //     initial: 0,
-    //     placeholder: "",
-    //     prefix: "Durée du projet",
-    //     description: "La durée, en jours, du projet.",
-    //     suffix: "jours",
-    //     required: true
-    // },
-    // {
-    //     name: "gestion",
-    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-    //     type: "number",
-    //     initial: Math.round(Math.random()*100),
-    //     placeholder: "",
-    //     description: "Le temps passé à la gestion du projet.",
-    //     prefix: "Gestion de projet",
-    //     suffix: "%",
-    //     required: true
-    // },
-    // {
-    //     name: "production",
-    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-    //     type: "number",
-    //     initial: Math.round(Math.random() * 100),
-    //     placeholder: "",
-    //     description: "Le temps passé à la fabrication du projet.",
-    //     prefix: "Fabrication",
-    //     suffix: "%",
-    //     required: true
-    // },
-    // {
-    //     name: "materials",
-    //     schema: Yup.number().min(0, 'Ca doit etre au moins 0%').max(100, 'Ca ne peut pas ëtre plus de 100%').required('Required'),
-    //     type: "number",
-    //     initial: Math.round(Math.random() * 100),
-    //     placeholder: "",
-    //     description: "Le pourcentage de matériaux sourcés.",
-    //     prefix: "Matériaux",
-    //     suffix: "%",
-    //     required: true
-    // },
+    },
+    {
+        name: "suppliers",
+        schema: Yup.array().of(Yup.object()),
+        type: "creatableSelect",
+        initial: [],
+        placeholder: "",
+        prefix: "Ressourceries/fournisseurs",
+        description: "Les structures qui ont fourni les matières premières.",
+        suffix: "",
+        required: false,
+        options: suppliersOptions
+    },
+    {
+        name: "others",
+        schema: Yup.array().of(Yup.object()),
+        type: "creatableSelect",
+        initial: [],
+        placeholder: "",
+        prefix: "Partenaires",
+        description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
+        suffix: "",
+        required: false,
+        options: othersOptions
+    },
     {
         name: "contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
@@ -544,16 +500,12 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
             ]
         },
     ]
-    let Schema = {}
-    Form.forEach((el, i) => { Schema[el.name] = el.schema })
-    let initialValues = {}
-    Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    let Schema = {} ; Form.forEach((el) => { Schema[el.name] = el.schema })
+    let initialValues = {};  Form.forEach((el) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        let data = fields;
-        data.gestion = fields.gestion / 100;
-        data.production = fields.production / 100;
-        data.materials = fields.materials / 100;
+        let data = new Object;
+        Object.assign(data, fields)
         data.team = fields.team.map((el) => el.value)
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
         let newStructures = Array.from(new Set([
@@ -628,9 +580,6 @@ export default function AddProject({ suppliersOptions, designersOptions, worksho
                                             designers: props.values.designers.map((el) => el.value),
                                             suppliers: props.values.suppliers.map((el) => el.value),
                                             others: props.values.others.map((el) => el.value),
-                                            gestion: props.values.gestion / 100,
-                                            production: props.values.production / 100,
-                                            materials: props.values.materials / 100,
                                             colors: props.values.colors,
                                             fab_expertise : props.values.fab_expertise,
                                             fab_local : props.values.fab_local,

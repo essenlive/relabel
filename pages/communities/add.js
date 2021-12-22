@@ -92,14 +92,14 @@ export default function AddCommunities({ StartingColors, cities }) {
         handler: [getColors, seed]
     },
     ]
-    let Schema = {}
-    Form.forEach((el, i) => { Schema[el.name] = el.schema })
-    let initialValues = {}
-    Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    let Schema = {}; Form.forEach((el, i) => { Schema[el.name] = el.schema })
+    let initialValues = {} ; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        fields.cities = fields.cities.map((el) => el.value)
-        let record = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify([fields]), headers: { 'Content-Type': 'application/json' } })
+        let data = new Object;
+        Object.assign(data, fields)
+        data.cities = fields.cities.map((el) => el.value)
+        let record = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         formik.setSubmitting(false);
         router.push(`/communities/${record[0].id}`);
