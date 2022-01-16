@@ -69,17 +69,28 @@
 }
 
 @media (--screen-md) {
-  .banner {
-    flex-direction: column;
+  .footer {
+    flex-direction: column-reverse;
   }
 
   .header {
     border-bottom: var(--primary) var(--borderWidth-lg) solid;
-    border-right: transparent var(--borderWidth-lg) solid;
+    border-left: none;
     width: 100%;
   }
 
   .items {
+    flex-direction: row;
     width: 100%;
+    padding: 0;
+  }
+
+  .items>div{
+    padding: 1rem;
+  } 
+  .items>div:not(:first-child) {
+    margin-top: 0rem;
+    border-left: var(--primary) var(--borderWidth-lg) solid;
+
   }
 }

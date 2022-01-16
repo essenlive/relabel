@@ -18,11 +18,8 @@ export default function Manifesto() {
           </p> */}
 
         </div>
-        <div className={styles.items}>
-          <div>
-            Des <strong className={"link"}><Link href="/projects">productions responsables</Link></strong> </div>
-          <div> réalisées par des <strong className={"link"}><Link href="/structures">acteurs engagés</Link></strong> </div>
-          <div>issues de <strong className={"link"}><Link href="/communities">communautées locales</Link></strong>.</div>
+        <div className={styles.image}>
+          <img src="/assets/hero-blank.png" alt="logo relabel" />
         </div>
         <div className={styles.guides}>
           <div>
@@ -34,9 +31,22 @@ export default function Manifesto() {
           <div>
           </div>
         </div>
-        <div className={styles.image}>
-
-          <img src="/assets/hero-blank.png" alt="logo relabel" />
+        <div className={styles.items}>
+          <div> 
+            <h2>Des productions responsables</h2>
+            <p>Re-Label met en avant des productions responsables et vertueuses qui contribuent au developpement d'une nouvelle manière de procuire et consommer.</p>
+            <p className={"link"}><Link href="/projects">Voir les productions</Link></p> 
+          </div>
+          <div>
+            <h2>Des structures engagées</h2>
+            <p>Re-Label cartographie les structures qui contribuent et porte ces projets pour valoriser leur démarche collaborative.</p>
+            <p className={"link"}><Link href="/structures">Voir la carte des structures</Link></p>
+          </div>
+          <div>
+            <h2>Des communautées locales</h2>
+            <p>Re-Label documente le developpement de réseaux de collaborations localisés. Re-Label permet de visualiser l'état des écosystemes sur les différents territoires.</p>
+              <p className={"link"}><Link href="/communities">Voir les communautées</Link></p>
+              </div>
         </div>
       </div>
 

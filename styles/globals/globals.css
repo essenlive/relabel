@@ -25,14 +25,20 @@ html, body {
   cursor: pointer;
 }
 
+
+
 .link-simple a, .link-simple a:visited,
 .link a, .link a:visited {
   color: inherit;
 }
 
+.link-simple:hover,
 .link:hover {
   opacity: 0.8;
+  text-decoration: underline;
 }
+
+
 
 button {
   background: none;

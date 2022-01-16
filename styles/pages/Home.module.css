@@ -61,19 +61,19 @@
 
 .items>div {
   padding: 1rem;
-  margin: 1rem 1rem 0 1rem;
-  border: var(--primary) var(--borderWidth-lg) solid;
-  transition: all 0.2s ease-in-out;
+  width: calc(100% / 3);
+  border-top: var(--primary) var(--borderWidth-lg) solid;
   background-color: white;
   z-index: 10;
-
 }
 
-.items>div:hover{
-  transform: translateY(0.5rem);
+.items>div:not(:last-child) {
+  border-right: var(--primary) var(--borderWidth-lg) solid;
 }
 
-
+.items>div>* {
+  margin-bottom: 1rem;
+}
 
 .guides>div {
   width: calc(100% / 4);
@@ -84,6 +84,7 @@
 
 .guides {
   height: 0;
+  top: -3rem;
   position: relative;
 }
 
@@ -106,12 +107,12 @@
   .items {
     flex-direction: column;
     width: 100%;
-    padding: 1rem;
   }
 
   .items>div {
     padding: 0;
     width: 100%;
-    border: transparent 0 solid;
+    padding: 1rem;
+    border-right: transparent 0 solid !important;
   }
 }

@@ -10,6 +10,7 @@
   max-width: 1080px;
   height: 100%;
 }
+
 .logo {
   width: auto;
   height: 150px;
@@ -18,87 +19,102 @@
   place-self: start;
   cursor: pointer;
 }
-.logo img{
+
+.logo img {
   height: 100%;
 }
-.menu{
+
+.menu {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-end;
 }
+
 .links, .linkActive, .linksEmphasis {
-  margin : 0.5rem;
-  padding: 0.25rem ;
+  margin: 0.5rem;
+  padding: 0.25rem;
   cursor: pointer;
   width: max-content;
   position: relative;
   font-weight: 800;
   text-transform: uppercase;
-  font-size:var(--fontSize-xl);
+  font-size: var(--fontSize-xl);
   z-index: 1;
-  color:var(--primary)
+  color: var(--primary)
 }
-.linkActive, .linksEmphasis {  color:var(--primary)}
-.links a, .linkActive a{
+
+.linkActive, .linksEmphasis {
+  color: var(--primary)
+}
+
+.links a, .linkActive a {
   position: relative;
   z-index: 1;
 }
+
 .links::after, .linkActive::after, .linksEmphasis::after {
-  content : "";
-  display: block ;
+  content: "";
+  display: block;
   height: 3px;
   width: 0%;
   margin: 0 10px;
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color:var(--primary);
+  background-color: var(--primary);
   transition: all 0.25s ease-in-out;
 }
 
 .links:hover::after, .linkActive::after, .linksEmphasis:hover::after {
   width: calc(100% - 20px);
 }
-.MobileToggle{
+
+.MobileToggle {
   display: none;
   padding: 1rem;
 }
-.signature{display: none;}
 
-@media (--screen-md) {  
-  .signature{
+.signature {
+  display: none;
+}
+
+@media (--screen-md) {
+  .signature {
     position: absolute;
     bottom: 0;
     left: 0;
     padding: 1rem;
     font-size: var(--fontSize-sm);
-    margin : 1.5rem;
+    margin: 1.5rem;
     font-weight: 500;
   }
 
-  .nav{
+  .nav {
     width: 100vw;
     position: relative;
-    
+
   }
-  .MobileToggle{
+
+  .MobileToggle {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
     display: block;
     cursor: pointer;
     background-color: var(--white);
-    border-radius: 0.5rem;
+    border: var(--primary) var(--borderWidth-lg) solid;
   }
-  .MobileToggle > span{
+
+  .MobileToggle>span {
     display: flex;
     flex-direction: row;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--primary);
   }
-  .MobileToggle svg{
+
+  .MobileToggle svg {
     margin-left: 1rem;
     height: 1.5rem;
     width: 1.5rem;
@@ -110,20 +126,23 @@
     width: 100%;
     height: 100%;
   }
+
   .links, .linkActive, .linksEmphasis {
     display: none;
   }
-  .open{
+
+  .open {
     display: block;
   }
-  .navOpen{
+
+  .navOpen {
     position: fixed;
     display: flex !important;
     justify-content: flex-start;
-    top : 0;
-    left : 0;
-    right : 0;
-    bottom : 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
     background-color: var(--white);
   }
