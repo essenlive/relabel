@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
+  /* height: 100vh; */
+  /* overflow-y: auto;
   overflow-x: hidden;
+  position: fixed; */
   background-image: url("/assets/bg-bw.png");
   background-size: cover;
   background-attachment: fixed;
-  position: fixed;
 }
 
 .menu {
@@ -19,29 +19,31 @@
 }
 
 .content {
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   right: 0;
   top: 0;
   margin: auto;
   width: 100%;
   max-width: 1080px;
-  min-height: calc(100vh - 170px);
+  /* min-height: calc(100vh - 170px); */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .padded {
-  margin: 170px auto 2rem;
+  margin: 5rem auto 2rem;
   padding: 0 2rem 4rem;
 }
 
 .full {
-  height: 100vh;
+  margin-top: -100px;
+  height: 90vh;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .grid {
