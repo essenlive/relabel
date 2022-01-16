@@ -6,6 +6,8 @@ export default function Footer() {
   
   return (
     <footer className={styles.footer}>
+    <div className={styles.container}>
+
       <div className={styles.items}>
         <div>
           <h3>Structures </h3>
@@ -34,6 +36,7 @@ export default function Footer() {
             <img src='/assets/LOGO AL couleurs.png' />
           </div>
         </div>
-      </footer>
+      </div>
+    </footer>
   );
 }

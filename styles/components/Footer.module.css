@@ -1,11 +1,15 @@
 .footer {
-  display: flex;
-  flex-direction: row;
   border-top: var(--primary) var(--borderWidth-lg) solid;
   background-color: var(--white);
-  box-shadow: var(--boxShadow-2xl);
-  height: min-content;
   top: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
 }
 
 .header {
