@@ -80,17 +80,7 @@
   }
 
   .items {
-    flex-direction: row;
+    /* flex-direction: row; */
     width: 100%;
-    padding: 0;
-  }
-
-  .items>div{
-    padding: 1rem;
-  } 
-  .items>div:not(:first-child) {
-    margin-top: 0rem;
-    border-left: var(--primary) var(--borderWidth-lg) solid;
-
   }
 }
