@@ -22,23 +22,26 @@
   display: inline-block;
 }
 
-.header > * {
+.header>* {
   width: 100%;
   padding: 1rem;
 }
-.header .logos{
+
+.header .logos {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.logos img{
+
+.logos img {
   width: 100%;
   object-fit: contain;
   height: 100px;
   width: 25%;
 }
-.logos img:first-child{
+
+.logos img:first-child {
   width: 50%;
   min-width: 250px;
 }
@@ -49,6 +52,10 @@
   align-items: stretch;
   padding: 1rem;
   width: 35%;
+}
+
+.items h3 {
+  margin-bottom: 0.2rem;
 }
 
 .items>div {
@@ -65,11 +72,13 @@
   .banner {
     flex-direction: column;
   }
+
   .header {
     border-bottom: var(--primary) var(--borderWidth-lg) solid;
     border-right: transparent var(--borderWidth-lg) solid;
     width: 100%;
   }
+
   .items {
     width: 100%;
   }
