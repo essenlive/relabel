@@ -7,19 +7,8 @@ import Link from 'next/link'
 import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
 import { mean } from 'mathjs';
+import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, EmailIcon, FacebookIcon, LinkedinIcon, TwitterIcon } from "react-share";
 
-import {
-    EmailShareButton,
-    FacebookShareButton,
-    LinkedinShareButton,
-    PinterestShareButton,
-    TwitterShareButton,
-    EmailIcon,
-    FacebookIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    TwitterIcon
-} from "react-share";
 
 export default function Project({project}) {
     console.log(project);
@@ -113,6 +102,13 @@ export default function Project({project}) {
                         >
                             <LinkedinIcon size={32} round={true} />
                         </LinkedinShareButton>
+                        <TwitterShareButton
+                            url={`https://re-label.eu/projects/${project.id}`}
+                            title={'Mon Re-Label'}
+                            hashtag={'relabel'}
+                        >
+                            <TwitterIcon size={32} round={true} />
+                        </TwitterShareButton>
                         
                     </div>
 

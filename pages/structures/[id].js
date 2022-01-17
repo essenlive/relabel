@@ -6,19 +6,7 @@ import Carousel from "@components/Carousel";
 import Link from 'next/link'
 import LabelStructure from '@components/LabelStructure';
 import { BiCopy } from "react-icons/bi";
-
-import {
-    EmailShareButton,
-    FacebookShareButton,
-    LinkedinShareButton,
-    PinterestShareButton,
-    TwitterShareButton,
-    EmailIcon,
-    FacebookIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    TwitterIcon
-} from "react-share";
+import {EmailShareButton,FacebookShareButton,LinkedinShareButton,TwitterShareButton,EmailIcon,FacebookIcon,LinkedinIcon,TwitterIcon} from "react-share";
 
 
 export default function Structure({structure}) {
@@ -106,6 +94,13 @@ export default function Structure({structure}) {
                         >
                             <LinkedinIcon size={32} round={true} />
                         </LinkedinShareButton>
+                        <TwitterShareButton
+                            url={`https://re-label.eu/structures/${structure.id}`}
+                            title={'Mon Re-Label'}
+                            hashtag={'relabel'}
+                        >
+                            <TwitterIcon size={32} round={true} />
+                        </TwitterShareButton>
                     </div>
 
                     <div className={styles.embed}>

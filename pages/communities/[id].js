@@ -9,19 +9,8 @@ import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
 import {mean} from 'mathjs';
 import { createMap } from '@libs/getColors';
+import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, EmailIcon, FacebookIcon, LinkedinIcon, TwitterIcon } from "react-share";
 
-import {
-    EmailShareButton,
-    FacebookShareButton,
-    LinkedinShareButton,
-    PinterestShareButton,
-    TwitterShareButton,
-    EmailIcon,
-    FacebookIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    TwitterIcon
-} from "react-share";
 
 export default function Community({community}) {
 
@@ -113,6 +102,13 @@ export default function Community({community}) {
                         >
                             <LinkedinIcon size={32} round={true} />
                         </LinkedinShareButton>
+                        <TwitterShareButton
+                            url={`https://re-label.eu/communities/${community.id}`}
+                            title={'Mon Re-Label'}
+                            hashtag={'relabel'}
+                        >
+                            <TwitterIcon size={32} round={true} />
+                        </TwitterShareButton>
                     </div>
 
                     <div className={styles.embed}>
