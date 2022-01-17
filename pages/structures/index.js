@@ -1,17 +1,8 @@
 import Layout from '@components/Layout'
 import airtable_api from '@libs/airtable_api.js'
-import React, { useState, useRef } from 'react';
-import ReactMapGL, { Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
 import styles from "@styles/pages/Structures.module.css";
 import Link from 'next/link'
-import LabelStructure from '@components/LabelStructure';
-import Card from '@components/Card';
 import ReactMap, { prepareData } from '@components/ReactMap'
-
-import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
-import Tags from '@components/Tags';
-
-
 export default function Structures({ structures }) {
 
   return <Layout title="Carte" full>
@@ -22,12 +13,14 @@ export default function Structures({ structures }) {
       </Link>
     </div>
 
-    <ReactMap structures={structures}
+    <ReactMap 
+      structures={structures}
       initialViewport={{
         latitude: 48.85658,
         longitude: 2.3518,
         zoom: 5
-      }} />  
+      }}
+       />  
     </Layout>;
 }
 

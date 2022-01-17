@@ -4,7 +4,6 @@ import LabelProject from '@components/LabelProject';
 import styles from "@styles/pages/SinglePage.module.css";
 import Carousel from "@components/Carousel";
 import Link from 'next/link'
-import Tags from '@components/Tags';
 import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
 import { mean } from 'mathjs';
@@ -23,6 +22,7 @@ import {
 } from "react-share";
 
 export default function Project({project}) {
+    console.log(project);
     return (
         <Layout title={project.name} padded>
             <div className={styles.projectBanner}>
@@ -71,7 +71,9 @@ export default function Project({project}) {
                     </div>
                 </div>
                 <div className={styles.map}>
-                    <ReactMap structures={project.mapData}
+                    <ReactMap 
+                        structures={project.mapData}
+                        colorMap={project.colors}
                         initialViewport={{
                             latitude: mean(project.structures.map(el => el.latitude)),
                             longitude: mean(project.structures.map(el => el.longitude)),
@@ -139,6 +141,10 @@ export async function getStaticProps({params}) {
     project.structures = await Promise.all(project.structures.map(async (structure) => {
         let structureEntity = await airtable_api.getStructures({ id: structure });
         structureEntity = structureEntity[0]
+        structureEntity.communities = await Promise.all(structureEntity.communities.map(async (community) => {
+            let communityEntity = await airtable_api.getCommunities({ id: community });
+            return communityEntity[0]
+        }))
         structureEntity.typologies = []
         if (project.designers.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "designer"]
         if (project.suppliers.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "stockage"]
@@ -146,6 +152,8 @@ export async function getStaticProps({params}) {
         if (project.workshops.indexOf(structure) >= 0)  structureEntity.typologies = [...structureEntity.typologies, "atelier"]
         return structureEntity
     }))
+
+
 
     project.mapData = prepareData(project.structures)
 

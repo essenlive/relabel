@@ -8,6 +8,7 @@ import Tags from '@components/Tags';
 import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
 import {mean} from 'mathjs';
+import { createMap } from '@libs/getColors';
 
 import {
     EmailShareButton,
@@ -23,11 +24,8 @@ import {
 } from "react-share";
 
 export default function Community({community}) {
-    let colorMap = new Map(); 
-    colorMap.set("designer", community.colors[0])
-    colorMap.set("atelier", community.colors[1])
-    colorMap.set("stockage", community.colors[2])
-    colorMap.set("autre", community.colors[3])
+
+    const colorMap = createMap(community.colors)
 
     return (
         <Layout title={community.name} padded>
@@ -69,12 +67,14 @@ export default function Community({community}) {
 
                 <div className={styles.map}>
                     <ReactMap 
-                    structures={community.mapData} 
+                        structures={community.mapData} 
                         initialViewport={{
                             latitude: mean(community.structures.map(el=>el.latitude)),
                             longitude: mean(community.structures.map(el => el.longitude)),
                             zoom: 10
-                        }}/>
+                        }}
+                        colorMap={community.colors}
+                        />
                 </div>
 
                 <div className={styles.label}>
@@ -133,8 +133,10 @@ export default function Community({community}) {
 export async function getStaticProps({ params }) {
     let community = await airtable_api.getCommunities({ id: params.id });
     community = community[0];
+    console.log(community);
     community.structures = await Promise.all(community.structures.map(async (el) => {
         let structure = await airtable_api.getStructures({ id: el });
+        structure[0].communities = [{name : community.name}];
         return structure[0]
     }))
 

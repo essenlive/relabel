@@ -5,6 +5,7 @@ import LabelStructure from '@components/LabelStructure';
 import Card from '@components/Card';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
 import Tags from '@components/Tags';
+import {createMap} from '@libs/getColors'
 
 export function prepareData(structureList){
   let data = {}
@@ -35,7 +36,7 @@ export function prepareData(structureList){
   }
 }
 
-export default function ReactMap({structures, initialViewport}) {
+export default function ReactMap({ structures, initialViewport, colorMap = ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]}) {
   if (!initialViewport) {
     initialViewport = {
       latitude: 48.85658,
@@ -43,12 +44,18 @@ export default function ReactMap({structures, initialViewport}) {
       zoom: 10
     }
   }
+  colorMap = createMap(colorMap)
+
   const [viewport, setViewport] = useState(initialViewport);
   const [selection, setSelection] = useState(undefined);
   const [picker, setPicker] = useState(undefined);
   const close = () => { if (selection) setSelection(undefined); if (picker) setPicker(undefined); };
   const mapRef = useRef(null);
 
+  workshopsLayer.paint["circle-color"] = colorMap.get("atelier");
+  designersLayer.paint["circle-color"] = colorMap.get("designer");
+  suppliersLayer.paint["circle-color"] = colorMap.get("stockage");
+  othersLayer.paint["circle-color"] = colorMap.get("autre");
 
   const onMapClick = event => {
     if (event.features.length === 0) return
@@ -154,9 +161,8 @@ export default function ReactMap({structures, initialViewport}) {
         anchor="top" >
         <Card
           title={selection.name}
-          // description={selection.description}
           tags={selection.typologies}
-          colorMap={selection.colors}
+          colorMap={colorMap}
           image={selection.illustrations ? { src: selection.illustrations[0], alt: selection.name } : null}
           link={{ path: `/structures/${selection.id}`, text: "Voir la structure" }}
         >
@@ -179,7 +185,7 @@ export default function ReactMap({structures, initialViewport}) {
           return(
             <div className={styles.picker__choices} key={el.id} onClick={()=>{onPickerClick(el)}}>
               <span>{el.name}</span>
-              <Tags tags={el.typologies}/>
+              <Tags tags={el.typologies} colorMap={colorMap}/>
             </div>
           )
         })}
