@@ -73,7 +73,7 @@
 }
 
 @media (--screen-md) {
-  .footer {
+  .container {
     flex-direction: column-reverse;
   }
 

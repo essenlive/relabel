@@ -1,25 +1,40 @@
 import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
 import classNames from "classnames"
-import styles from "@styles/pages/SingleCommunity.module.css";
+import styles from "@styles/pages/SinglePage.module.css";
 import Link from 'next/link'
 import LabelCommunity from '@components/LabelCommunity';
 import Tags from '@components/Tags';
+import ReactMap from '@components/ReactMap'
+import { BiCopy } from "react-icons/bi";
 
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    LinkedinShareButton,
+    PinterestShareButton,
+    TwitterShareButton,
+    EmailIcon,
+    FacebookIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    TwitterIcon
+} from "react-share";
 
 export default function Community({community}) {
-
+    console.log(community.data);
     let colorMap = new Map(); 
-    colorMap.set("atelier", community.colors[0])
-    colorMap.set("designer", community.colors[1])
+    colorMap.set("designer", community.colors[0])
+    colorMap.set("atelier", community.colors[1])
     colorMap.set("stockage", community.colors[2])
     colorMap.set("autre", community.colors[3])
 
     return (
         <Layout title={community.name} padded>
-            <div className={styles.banner}>
+            <div className={styles.communityBanner}>
                 <div className={styles.title}>
                     {community.name && (<h1> {community.name} </h1>)}
+                    {community.cities && (<h2>{community.cities.map((el,i) => (<span key={i}>{el}  </span>))}</h2>)}
                 </div>
                 <div className={styles.description}>
                     {community.description && (<p> {community.description} </p>)}
@@ -30,9 +45,6 @@ export default function Community({community}) {
                     )}
                 </div>
 
-                <div className={styles.label}>
-                    <LabelCommunity community={community} />
-                </div>
 
                 <div className={styles.structures}>
                     <div className={styles.structuresTitle}>
@@ -55,11 +67,53 @@ export default function Community({community}) {
                     </div>
                 </div>
 
-                <div className={styles.cities}>
-                    {community.cities && community.cities.map((el, i) => (
-                        <div key={i}> {el} </div>
-                    ))}
+                <div className={styles.map}>
+                    <ReactMap structures={community.mapData}/>
                 </div>
+
+                <div className={styles.label}>
+                    <LabelCommunity community={community} />
+                </div>
+                <div className={styles.explainer}>
+                    <p><span className={styles.node}></span>Les noeuds représentent les membres de la communauté.</p>
+                    <p><span className={styles.legend} style={{ backgroundColor: community.colors[0] }}></span>Designers, architectes, artisans, créateurs...</p>
+                    <p><span className={styles.legend} style={{ backgroundColor: community.colors[1] }}></span>Ateliers de fabrication, menuiserie, céramique, métal...</p>
+                    <p><span className={styles.legend} style={{ backgroundColor: community.colors[2] }}></span>Fournisseurs, ressourcerie ou espace de stockage...</p>
+                    <p><span className={styles.legend} style={{ backgroundColor: community.colors[3] }}></span>Structures partenaires, institutions, incubateurs...</p>
+                </div>
+
+                <div className={styles.share}>
+                    <h2>Share</h2>
+                    <div className={styles.sharing}>
+                        <EmailShareButton
+                            url={`https://re-label.eu/community/${community.id}`}
+                            subject={'Mon Re-Label'}
+                            body={'Je viens de faire mon Re-label sur : '}
+                        >
+                            <EmailIcon size={32} round={true} />
+                        </EmailShareButton>
+                        <FacebookShareButton
+                            url={`https://re-label.eu/community/${community.id}`}
+                            hashtag={'relabel'}
+                            quote={'Je viens de faire mon Re-label sur re-label.eu '}
+                        >
+                            <FacebookIcon size={32} round={true} />
+                        </FacebookShareButton>
+                        <LinkedinShareButton
+                            url={`https://re-label.eu/community/${community.id}`}
+                            title={'Mon Re-Label'}
+                            summary={'Je viens de faire mon Re-label sur re-label.eu'}
+                            source={'https://re-label.eu'}
+                        >
+                            <LinkedinIcon size={32} round={true} />
+                        </LinkedinShareButton>
+                        <span className="toCopy">
+                            <BiCopy />
+                            <input type text value={`<a target="_blank" href="https://re-label.eu/communities/${community.id}"><iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                        </span>
+                    </div>
+                </div>
+
              
 
             </div>
@@ -77,6 +131,36 @@ export async function getStaticProps({ params }) {
         let structure = await airtable_api.getStructures({ id: el });
         return structure[0]
     }))
+
+    let data = {}
+    community.structures.forEach((el, i) => {
+        let hash = `lo-${el.longitude}la-${el.latitude}`
+        if (!data[hash]) {
+            data[hash] = {
+                type: "Feature",
+                properties: {
+                    typologies: el.typologies,
+                    structures: [el]
+                },
+                id: hash,
+                geometry: {
+                    type: "Point",
+                    coordinates: [el.longitude, el.latitude, 0]
+                }
+            }
+        }
+        else {
+            data[hash].properties.typologies = Array.from(new Set([...data[hash].properties.typologies, ...el.typologies]))
+            data[hash].properties.structures.push(el)
+        }
+    })
+    community.mapData = {
+        type: "FeatureCollection",
+        features: Object.values(data)
+    }
+
+
+    
     return {
         props: {community},
         revalidate: 1

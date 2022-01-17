@@ -36,8 +36,35 @@ html, body {
 .link:hover {
   opacity: 0.8;
   text-decoration: underline;
+  text-decoration-thickness: 3px;
+
 }
 
+.toCopy {
+  background: antiquewhite;
+  border-radius: 5rem;
+  font-size: small;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  width: 100%;;
+}
+.toCopy svg{
+  margin-left: 0.5rem;
+  color: var(--black);
+  height: 20px;
+  width: 20px;
+  position: absolute;
+}
+
+.toCopy input {
+  border: none;
+  background: none;
+  height: 100%;
+  padding: 0.25rem 0.5rem 0.25rem 2rem;
+  border-radius: 5rem;
+  font-size: small;
+}
 
 
 button {

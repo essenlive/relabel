@@ -3,6 +3,8 @@ import Navigation from "@components/Navigation";
 import classNames from "classnames"
 import styles from "@styles/components/Layout.module.css";
 import Footer from "@components/Footer";
+
+
 const Layout = ({title, full, padded, children, grid})=>{
   console.log(`Rendering page : ${title}`);
   return (

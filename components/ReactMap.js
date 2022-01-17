@@ -1,21 +1,17 @@
-import Layout from '@components/Layout'
-import airtable_api from '@libs/airtable_api.js'
 import React, { useState, useRef } from 'react';
 import ReactMapGL, { Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
 import styles from "@styles/pages/Structures.module.css";
-import Link from 'next/link'
 import LabelStructure from '@components/LabelStructure';
 import Card from '@components/Card';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
 import Tags from '@components/Tags';
 
 
-export default function Structures({ structures }) {
-
+export default function ReactMap({structures}) {
   const [viewport, setViewport] = useState({
     latitude: 48.85658,
     longitude: 2.3518,
-    zoom: 5
+    zoom: 10
   });
   const [selection, setSelection] = useState(undefined);
   const [picker, setPicker] = useState(undefined);
@@ -85,14 +81,7 @@ export default function Structures({ structures }) {
   };
 
 
-  return <Layout title="Carte" full>
-    <div className={styles.add}>
-      <Link
-        href={{ pathname: '/structures/add' }}>
-        <p className='link-simple'>Réferencer votre structure</p>
-      </Link>
-    </div>
-    <ReactMapGL
+  return  (<ReactMapGL
       {...viewport}
       mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOXTOKEN}
       width="100%"
@@ -166,57 +155,6 @@ export default function Structures({ structures }) {
         </div>
  
       </Popup>}
-    </ReactMapGL>
-  </Layout>;
-}
 
-export async function getStaticProps() {
-  let structures = await airtable_api.getStructures({adress : true});
-  let data = {}
-
-  structures = await Promise.all(structures.map(async (structure) => {
-    structure.communities = await Promise.all(structure.communities.map(async (community) => {
-      let communityEntity = await airtable_api.getCommunities({ id: community });
-      return communityEntity[0]
-      }))
-      structure.data = [structure.projects_designer.length, structure.projects_other.length, structure.projects_supplier.length, structure.projects_workshop.length]
-
-    return structure
-  }))
-
-
-
-  structures.forEach((el, i) => {
-    let hash = `lo-${el.longitude}la-${el.latitude}`
-    if (!data[hash]) {
-      data[hash] = {
-        type: "Feature",
-        properties: {
-          typologies: el.typologies,
-          structures: [el]
-        },
-        id: hash,
-        geometry: {
-          type: "Point",
-          coordinates: [el.longitude, el.latitude, 0]
-        }
-      }
-    }
-    else {
-      data[hash].properties.typologies = Array.from(new Set([...data[hash].properties.typologies, ...el.typologies]))
-      data[hash].properties.structures.push(el)
-    }
-  })
-
-
-
-
-  return {
-    props: {
-      structures : {
-        type: "FeatureCollection",
-        features: Object.values(data)
-      }
-    },
-    revalidate: 1 }
-}
+  </ReactMapGL>
+)}
