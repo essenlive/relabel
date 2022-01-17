@@ -6,8 +6,10 @@
   overflow-y: auto;
   overflow-x: hidden;
   /* position: fixed; */
-  background-image: url("/assets/bg-bw.png");
-  background-size: cover;
+  /* background-image: url("/assets/bg-bw.png"); */
+  /* background-size: cover; */
+  background-image: url("/assets/memphis-mini.png");
+  background-repeat: repeat;
   background-attachment: fixed;
 }
 

@@ -1,0 +1,13 @@
+.practices {
+    display: flex;
+    height: calc(100vh - 550px);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.practices h1 {
+    padding: 2rem;
+    background: var(--white);
+    border: var(--primary) var(--borderWidth-lg) solid;
+}

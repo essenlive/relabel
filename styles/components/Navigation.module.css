@@ -39,7 +39,7 @@
   position: relative;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: var(--fontSize-xl);
+  font-size: var(--fontSize-l);
   z-index: 1;
   color: var(--primary)
 }

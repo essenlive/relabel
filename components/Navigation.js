@@ -8,7 +8,6 @@ import styles from "@styles/components/Navigation.module.css";
 export default function Navigation(props) {
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false);
-
     return (
         
         <nav className={classNames(styles.nav, { [`${styles.navOpen}`]: menuOpen})}>
@@ -35,11 +34,11 @@ export default function Navigation(props) {
                <a>Productions</a>
              </div>
            </Link>
-           {/* <Link onClick={() => { setMenuOpen(false) }} href="/practices">
+           <Link onClick={() => { setMenuOpen(false) }} href="/practices">
             <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/practices' }, { [`${styles.open}`]: menuOpen })}>
-               <a>Pratiques</a>
+               <a>Bonnes Pratiques</a>
              </div>
-           </Link> */}
+           </Link>
            <Link onClick={() => { setMenuOpen(false) }} href="/contact">
             <div className={classNames(styles.linksEmphasis, { [`${styles.linkActive}`]: router.route === '/contact' }, { [`${styles.open}`]: menuOpen })}>
                <a>Nous contacter</a>
