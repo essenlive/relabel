@@ -4,7 +4,7 @@
   align-items: flex-start;
   justify-content: space-between;
   flex-grow: 0;
-  padding: 1rem;
+  padding: 1rem 0;
   margin: auto;
   width: 100%;
   max-width: 1080px;

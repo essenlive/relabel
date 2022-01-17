@@ -51,6 +51,7 @@ export default function Structure({structure}) {
                     <div className={styles.productionsList}>
                         {structure.projects && structure.projects.map((el) => (
                         <Link
+                            key={el.id}
                             href={{
                             pathname: '/projects/[id]',
                             query: { id: el.id },
@@ -105,10 +106,13 @@ export default function Structure({structure}) {
                         >
                             <LinkedinIcon size={32} round={true} />
                         </LinkedinShareButton>
-                        <span className="toCopy">
-                            <BiCopy />
-                            <input readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/structures/${structure.id}"><iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                    </div>
+
+                    <div className={styles.embed}>
+                        <span>
+                            <BiCopy /> Integrer à votre site
                         </span>
+                        <textarea readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/structures/${structure.id}"><iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
                     </div>
                 </div>
 

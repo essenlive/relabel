@@ -111,7 +111,7 @@
 .productionsList {
     padding: 1rem;
     overflow-y: auto;
-    max-height: 450px;
+    max-height: 500px;
 }
 
 .structuresList>div,
@@ -176,6 +176,7 @@
 .detail>div>* {
     padding-bottom: 0.25rem;
 }
+
 .detail a {
     margin-left: 0.25rem;
 }
@@ -248,6 +249,41 @@
 
 .sharing>*:not(:first-child) {
     margin-left: 0.5rem;
+}
+
+.embed {
+    margin-top: 1rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+}
+
+.embed span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5rem;
+    color: var(--black);
+}
+
+.embed svg {
+    margin-right: 0.5rem;
+    height: 20px;
+    width: 20px;
+}
+
+.embed textarea {
+    font-family: var(--font-mono);
+    resize: none;
+    border: none;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: var(--fontSize-xs);
+    height: 10rem;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 @media (--screen-md) {

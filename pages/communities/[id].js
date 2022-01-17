@@ -26,9 +26,9 @@ import {
 export default function Community({community}) {
 
     const colorMap = createMap(community.colors)
-
     return (
-        <Layout title={community.name} padded>
+        <Layout title={community.name} padded>      
+
             <div className={styles.communityBanner}>
                 <div className={styles.title}>
                     {community.name && (<h1> {community.name} </h1>)}
@@ -113,10 +113,13 @@ export default function Community({community}) {
                         >
                             <LinkedinIcon size={32} round={true} />
                         </LinkedinShareButton>
-                        <span className="toCopy">
-                            <BiCopy />
-                            <input readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/communities/${community.id}"><iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                    </div>
+
+                    <div className={styles.embed}>
+                        <span>
+                            <BiCopy /> Integrer à votre site
                         </span>
+                        <textarea readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/communities/${community.id}"><iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
                     </div>
                 </div>
 
@@ -133,7 +136,6 @@ export default function Community({community}) {
 export async function getStaticProps({ params }) {
     let community = await airtable_api.getCommunities({ id: params.id });
     community = community[0];
-    console.log(community);
     community.structures = await Promise.all(community.structures.map(async (el) => {
         let structure = await airtable_api.getStructures({ id: el });
         structure[0].communities = [{name : community.name}];
