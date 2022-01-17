@@ -5,8 +5,10 @@ import styles from "@styles/pages/SinglePage.module.css";
 import Carousel from "@components/Carousel";
 import Link from 'next/link'
 import Tags from '@components/Tags';
-import ReactMap from '@components/ReactMap'
+import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
+import { mean } from 'mathjs';
+
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -40,7 +42,7 @@ export default function Project({project}) {
                 <div className={styles.detail}>
                     <div className={styles.materials}>
                         <h3>Materiaux</h3>
-                        <p><b>Fournisseurs</b> : {project.suppliers.map(el => (<span className='link' key={el.id}><Link href={`/structure/${el.id}`}>{el.name}</Link></span>))}</p>
+                        <p><b>Fournisseurs</b> : {project.structures.filter(el=>el.typologies.indexOf("stockage")>=0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
                         <p><b>Source</b> : {project.material_source}</p>
                         <p><b>Qualité</b> : {project.material_quality}</p>
                         <p><b>Origine</b> : {project.material_origin}</p>
@@ -48,7 +50,7 @@ export default function Project({project}) {
                     </div>
                     <div className={styles.design}>
                         <h3>Conception</h3>
-                        <p><b>Designers</b> : {project.designers.map(el => (<span className='link' key={el.id}><Link href={`/structure/${el.id}`}>{el.name}</Link></span>))}</p>
+                        <p><b>Designers</b> : {project.structures.filter(el => el.typologies.indexOf("designer") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
                         <p><b>Réplicabilité</b> : {project.design_replicability}</p>
                         <p><b>Collaboratif</b> : {project.design_sharable}</p>
                         <p><b>Réparable</b> : {project.design_reparable}</p>
@@ -56,7 +58,7 @@ export default function Project({project}) {
                     </div>
                     <div className={styles.fab}>
                         <h3>Fabrication</h3>
-                        <p><b>Ateliers</b> : {project.workshops.map(el => (<span className='link' key={el.id}><Link href={`/structure/${el.id}`}>{el.name}</Link></span>))}</p>
+                        <p><b>Ateliers</b> : {project.structures.filter(el => el.typologies.indexOf("atelier") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
                         <p><b>Expertises</b> : {project.fab_expertise}</p>
                         <p><b>Fabrication locale</b> : {project.fab_local}</p>
                         <p><b>Outils</b> : {project.fab_tools}</p>
@@ -64,12 +66,17 @@ export default function Project({project}) {
                     </div>
                     <div className={styles.partners}>
                         <h3>Partenaires</h3>
-                        <p><b>Partenaires</b> : {project.others.map(el => (<span className='link' key={el.id}><Link href={`/structure/${el.id}`}>{el.name}</Link></span>))}</p>
+                        <p><b>Partenaires</b> : { project.structures.filter(el => el.typologies.indexOf("autre") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
 
                     </div>
                 </div>
                 <div className={styles.map}>
-                    <ReactMap structures={project.mapData} />
+                    <ReactMap structures={project.mapData}
+                        initialViewport={{
+                            latitude: mean(project.structures.map(el => el.latitude)),
+                            longitude: mean(project.structures.map(el => el.longitude)),
+                            zoom: 12
+                        }} />
                 </div>
                 <div className={styles.label}> <LabelProject project={project}/></div>
                 <div className={styles.explainer}>
@@ -106,7 +113,7 @@ export default function Project({project}) {
                         </LinkedinShareButton>
                         <span className="toCopy">
                             <BiCopy/>
-                            <input type text value={`<a target="_blank" href="https://re-label.eu/projects/${project.id}"><iframe src="https://re-label.eu/projects/label/${project.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                            <input readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/projects/${project.id}"><iframe src="https://re-label.eu/projects/label/${project.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
                         </span>
                         
                     </div>
@@ -124,52 +131,24 @@ export default function Project({project}) {
 export async function getStaticProps({params}) {
     let project = await airtable_api.getProjects({ id: params.id });
     project = project[0];
-    project.designers = await Promise.all(project.designers.map(async (structure) => {
-        let structureEntity = await airtable_api.getStructures({ id: structure });
-        return structureEntity[0]
-    }))
-    project.suppliers = await Promise.all(project.suppliers.map(async (structure) => {
-        let structureEntity = await airtable_api.getStructures({ id: structure });
-        return structureEntity[0]
-    }))
-    project.workshops = await Promise.all(project.workshops.map(async (structure) => {
-        let structureEntity = await airtable_api.getStructures({ id: structure });
-        return structureEntity[0]
-    }))
-    project.others = await Promise.all(project.others.map(async (structure) => {
-        let structureEntity = await airtable_api.getStructures({ id: structure });
-        return structureEntity[0]
-    }))
+
     project.structures = [...project.designers, ...project.suppliers, ...project.workshops, ...project.others]
-    let data = {}
+    project.structures = [...new Set(project.structures)]
 
-    // TODO : Check for duplicates when having multiple roles
-    project.structures.forEach((el, i) => {
 
-        let hash = `lo-${el.longitude}la-${el.latitude}`
-        if (!data[hash]) {
-            data[hash] = {
-                type: "Feature",
-                properties: {
-                    typologies: el.typologies,
-                    structures: [el]
-                },
-                id: hash,
-                geometry: {
-                    type: "Point",
-                    coordinates: [el.longitude, el.latitude, 0]
-                }
-            }
-        }
-        else {
-            data[hash].properties.typologies = Array.from(new Set([...data[hash].properties.typologies, ...el.typologies]))
-            data[hash].properties.structures.push(el)
-        }
-    })
-    project.mapData = {
-        type: "FeatureCollection",
-        features: Object.values(data)
-    }
+    project.structures = await Promise.all(project.structures.map(async (structure) => {
+        let structureEntity = await airtable_api.getStructures({ id: structure });
+        structureEntity = structureEntity[0]
+        structureEntity.typologies = []
+        if (project.designers.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "designer"]
+        if (project.suppliers.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "stockage"]
+        if (project.others.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "autre"]
+        if (project.workshops.indexOf(structure) >= 0)  structureEntity.typologies = [...structureEntity.typologies, "atelier"]
+        return structureEntity
+    }))
+
+    project.mapData = prepareData(project.structures)
+
     return {
         props: {project},
         revalidate: 1,

@@ -176,7 +176,9 @@
 .detail>div>* {
     padding-bottom: 0.25rem;
 }
-
+.detail a {
+    margin-left: 0.25rem;
+}
 
 
 

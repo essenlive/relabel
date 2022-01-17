@@ -5,8 +5,9 @@ import styles from "@styles/pages/SinglePage.module.css";
 import Link from 'next/link'
 import LabelCommunity from '@components/LabelCommunity';
 import Tags from '@components/Tags';
-import ReactMap from '@components/ReactMap'
+import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
+import {mean} from 'mathjs';
 
 import {
     EmailShareButton,
@@ -22,7 +23,6 @@ import {
 } from "react-share";
 
 export default function Community({community}) {
-    console.log(community.data);
     let colorMap = new Map(); 
     colorMap.set("designer", community.colors[0])
     colorMap.set("atelier", community.colors[1])
@@ -68,7 +68,13 @@ export default function Community({community}) {
                 </div>
 
                 <div className={styles.map}>
-                    <ReactMap structures={community.mapData}/>
+                    <ReactMap 
+                    structures={community.mapData} 
+                        initialViewport={{
+                            latitude: mean(community.structures.map(el=>el.latitude)),
+                            longitude: mean(community.structures.map(el => el.longitude)),
+                            zoom: 10
+                        }}/>
                 </div>
 
                 <div className={styles.label}>
@@ -109,7 +115,7 @@ export default function Community({community}) {
                         </LinkedinShareButton>
                         <span className="toCopy">
                             <BiCopy />
-                            <input type text value={`<a target="_blank" href="https://re-label.eu/communities/${community.id}"><iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                            <input readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/communities/${community.id}"><iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
                         </span>
                     </div>
                 </div>
@@ -132,32 +138,7 @@ export async function getStaticProps({ params }) {
         return structure[0]
     }))
 
-    let data = {}
-    community.structures.forEach((el, i) => {
-        let hash = `lo-${el.longitude}la-${el.latitude}`
-        if (!data[hash]) {
-            data[hash] = {
-                type: "Feature",
-                properties: {
-                    typologies: el.typologies,
-                    structures: [el]
-                },
-                id: hash,
-                geometry: {
-                    type: "Point",
-                    coordinates: [el.longitude, el.latitude, 0]
-                }
-            }
-        }
-        else {
-            data[hash].properties.typologies = Array.from(new Set([...data[hash].properties.typologies, ...el.typologies]))
-            data[hash].properties.structures.push(el)
-        }
-    })
-    community.mapData = {
-        type: "FeatureCollection",
-        features: Object.values(data)
-    }
+    community.mapData = prepareData(community.structures)
 
 
     

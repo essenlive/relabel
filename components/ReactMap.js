@@ -6,13 +6,44 @@ import Card from '@components/Card';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
 import Tags from '@components/Tags';
 
+export function prepareData(structureList){
+  let data = {}
+  structureList.forEach((el, i) => {
+    let hash = `lo-${el.longitude}la-${el.latitude}`
+    if (!data[hash]) {
+      data[hash] = {
+        type: "Feature",
+        properties: {
+          typologies: el.typologies,
+          structures: [el]
+        },
+        id: hash,
+        geometry: {
+          type: "Point",
+          coordinates: [el.longitude, el.latitude, 0]
+        }
+      }
+    }
+    else {
+      data[hash].properties.typologies = Array.from(new Set([...data[hash].properties.typologies, ...el.typologies]))
+      data[hash].properties.structures.push(el)
+    }
+  })
+  return{
+    type: "FeatureCollection",
+    features: Object.values(data)
+  }
+}
 
-export default function ReactMap({structures}) {
-  const [viewport, setViewport] = useState({
-    latitude: 48.85658,
-    longitude: 2.3518,
-    zoom: 10
-  });
+export default function ReactMap({structures, initialViewport}) {
+  if (!initialViewport) {
+    initialViewport = {
+      latitude: 48.85658,
+      longitude: 2.3518,
+      zoom: 10
+    }
+  }
+  const [viewport, setViewport] = useState(initialViewport);
   const [selection, setSelection] = useState(undefined);
   const [picker, setPicker] = useState(undefined);
   const close = () => { if (selection) setSelection(undefined); if (picker) setPicker(undefined); };

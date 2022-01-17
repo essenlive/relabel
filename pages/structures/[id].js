@@ -22,7 +22,6 @@ import {
 
 
 export default function Structure({structure}) {
-    
     return (
         <Layout  title={structure.name} padded>
 
@@ -47,10 +46,10 @@ export default function Structure({structure}) {
 
                 <div className={styles.productions}>
                     <div className={styles.productionsTitle}>
-                        <span>{structure.projects_designer.length}</span> production.s
+                        <span>{structure.projects.length}</span> production.s
                     </div>
                     <div className={styles.productionsList}>
-                        {structure.projects_designer && structure.projects_designer.map((el) => (
+                        {structure.projects && structure.projects.map((el) => (
                         <Link
                             href={{
                             pathname: '/projects/[id]',
@@ -108,7 +107,7 @@ export default function Structure({structure}) {
                         </LinkedinShareButton>
                         <span className="toCopy">
                             <BiCopy />
-                            <input type text value={`<a target="_blank" href="https://re-label.eu/structures/${structure.id}"><iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                            <input readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/structures/${structure.id}"><iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
                         </span>
                     </div>
                 </div>
@@ -129,7 +128,10 @@ export async function getStaticProps({ params }) {
         let communityEntity = await airtable_api.getCommunities({ id: community });
         return communityEntity[0]
     }))
-    structure.projects_designer = await Promise.all(structure.projects_designer.map(async (el) => {
+    structure.projects = [...structure.projects_designer, ...structure.projects_supplier, ...structure.projects_workshop, ...structure.projects_other]
+    structure.projects = [...new Set(structure.projects)]
+    
+    structure.projects = await Promise.all(structure.projects.map(async (el) => {
         let project = await airtable_api.getProjects({ id: el });
         return project[0]
     }))
