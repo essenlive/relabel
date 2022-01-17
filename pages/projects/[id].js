@@ -92,21 +92,21 @@ export default function Project({project}) {
                     <div className={styles.sharing}>
 
                         <EmailShareButton
-                            url={`https://re-label.eu/project/${project.id}`}
+                            url={`https://re-label.eu/projects/${project.id}`}
                             subject={'Re-Label'}
                             body={'Je viens de faire le Re-label de mon projet : '}
                         >
                             <EmailIcon size={32} round={true} />
                         </EmailShareButton>
                         <FacebookShareButton
-                            url={`https://re-label.eu/project/${project.id}`}
+                            url={`https://re-label.eu/projects/${project.id}`}
                             hashtag={'relabel'}
                             quote={`Je viens de faire Re-labeliser mon projet ${project.name}`}
                         >
                             <FacebookIcon size={32} round={true} />
                         </FacebookShareButton>
                         <LinkedinShareButton
-                            url={`https://re-label.eu/project/${project.id}`}
+                            url={`https://re-label.eu/projects/${project.id}`}
                             title={'Re-Label'}
                             summary={`Je viens de faire Re-labeliser mon projet ${project.name}`}
                             source={'https://re-label.eu'}

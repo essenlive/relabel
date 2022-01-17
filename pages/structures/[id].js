@@ -84,21 +84,21 @@ export default function Structure({structure}) {
                     <div className={styles.sharing}>
 
                         <EmailShareButton
-                            url={`https://re-label.eu/structure/${structure.id}`}
+                            url={`https://re-label.eu/structures/${structure.id}`}
                             subject={'Mon Re-Label'}
                             body={'Je viens de faire mon Re-label sur : '}
                         >
                             <EmailIcon size={32} round={true} />
                         </EmailShareButton>
                         <FacebookShareButton
-                            url={`https://re-label.eu/structure/${structure.id}`}
+                            url={`https://re-label.eu/structures/${structure.id}`}
                             hashtag={'relabel'}
                             quote={'Je viens de faire mon Re-label sur re-label.eu '}
                         >
                             <FacebookIcon size={32} round={true} />
                         </FacebookShareButton>
                         <LinkedinShareButton
-                            url={`https://re-label.eu/structure/${structure.id}`}
+                            url={`https://re-label.eu/structures/${structure.id}`}
                             title={'Mon Re-Label'}
                             summary={'Je viens de faire mon Re-label sur re-label.eu'}
                             source={'https://re-label.eu'}

@@ -92,21 +92,21 @@ export default function Community({community}) {
                     <h2>Share</h2>
                     <div className={styles.sharing}>
                         <EmailShareButton
-                            url={`https://re-label.eu/community/${community.id}`}
+                            url={`https://re-label.eu/communities/${community.id}`}
                             subject={'Mon Re-Label'}
                             body={'Je viens de faire mon Re-label sur : '}
                         >
                             <EmailIcon size={32} round={true} />
                         </EmailShareButton>
                         <FacebookShareButton
-                            url={`https://re-label.eu/community/${community.id}`}
+                            url={`https://re-label.eu/communities/${community.id}`}
                             hashtag={'relabel'}
                             quote={'Je viens de faire mon Re-label sur re-label.eu '}
                         >
                             <FacebookIcon size={32} round={true} />
                         </FacebookShareButton>
                         <LinkedinShareButton
-                            url={`https://re-label.eu/community/${community.id}`}
+                            url={`https://re-label.eu/communities/${community.id}`}
                             title={'Mon Re-Label'}
                             summary={'Je viens de faire mon Re-label sur re-label.eu'}
                             source={'https://re-label.eu'}
