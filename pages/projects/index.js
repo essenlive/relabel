@@ -6,7 +6,15 @@ import Card from '@components/Card';
 export default function Projects({ projects }) {
   
   return (
-    <Layout title='Productions' padded grid>
+    <Layout
+      meta={{
+          title: "Productions",
+        description: "Le Re-Label vise a mettre en avant les projets labelisés et issus d'une démarche responsable.",
+        image: "/assets/logo.png"
+          }} 
+      padded 
+      grid
+      >
 
         {projects.map((project, i) => {
           return (

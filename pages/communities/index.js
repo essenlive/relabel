@@ -7,7 +7,11 @@ import Card from '@components/Card';
 export default function Communities({ communities }) {
   return (
     <Layout
-    title='Communautées'
+      meta={{
+        title: "Communautés",
+        description: "Le Re-Label vise animer des communautés de bonnes pratiques localisées sur le territoire.",
+        image: "/assets/logo.png"
+      }} 
     padded
     grid
     >

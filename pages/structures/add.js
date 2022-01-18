@@ -224,7 +224,14 @@ export default function AddStructure({ formOverrides }) {
         router.push(`/structures/${record[0].id}`);
     }
     return (
-        <Layout title='Référencer une structure' padded >
+        <Layout
+            meta={{
+                title: "Référencer une structure",
+                description: "Remplissez le formulaire afin de référencer votre structure au sein de l'écosystème Re-Label.",
+                image: "/assets/logo.png"
+            }}
+            padded
+        >
             <Formik
                 initialValues={initialValues}
                 validationSchema={schema}

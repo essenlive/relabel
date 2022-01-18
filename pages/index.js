@@ -5,7 +5,11 @@ import styles from "@styles/pages/Home.module.css";
 export default function Manifesto() {
   return (
     <Layout
-      title='Valorisateur des pratiques du réemploi'
+      meta={{
+        title: 'Valorisateur des pratiques du réemploi',
+        description: 'Un outils collaboratif qui recense et partage',
+        image: "/assets/logo.png"
+      }}
       padded
     >
 
@@ -13,10 +17,6 @@ export default function Manifesto() {
         <div className={styles.header}>
           <h1>Re-Label</h1>
           <h2>Un outils collaboratif qui recense et partage</h2>
-          {/* <p>
-            <strong>RE-label</strong> est un agrégateur et valorisateur de pratiques collaboratives sur le réemploi à l'échelle d'un territoire restreint. Il offre aussi une lecture à plus grande échelle de toutes les initiatives RE-label.
-          </p> */}
-
         </div>
         <div className={styles.image}>
           <img src="/assets/hero-blank.png" alt="logo relabel" />

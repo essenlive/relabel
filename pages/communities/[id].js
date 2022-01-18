@@ -24,7 +24,13 @@ export default function Community({community}) {
     }
     const colorMap = createMap(community.colors)
     return (
-        <Layout title={community.name} padded>      
+        <Layout
+            meta={{
+                title: community.name,
+                description: community.description ? community.description : null,
+                image: community.illustrations ? community.illustrations[0] : null
+            }}
+             padded>      
 
             <div className={styles.communityBanner}>
                 <div className={styles.title}>

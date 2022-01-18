@@ -5,7 +5,13 @@ import Link from 'next/link'
 import ReactMap, { prepareData } from '@components/ReactMap'
 export default function Structures({ structures }) {
 
-  return <Layout title="Carte" full>
+  return <Layout
+      meta={{
+        title: "Carte",
+        description: "Le Re-Label vise a mettre en valeur les structures du territoire qui portent une démarche responsable et écologique.",
+        image: "/assets/logo.png"
+      }}
+     full>
     <div className={styles.add}>
       <Link
         href={{ pathname: '/structures/add' }}>

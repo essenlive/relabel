@@ -134,7 +134,11 @@ export default function AddCommunities({ formOverrides }) {
 
     return (
         <Layout
-            title='Proposer une communauté'
+            meta={{
+                title: 'Proposer une communauté',
+                description: "Remplissez le formulaire afin de proposer une nouvelle communauté.",
+                image: "/assets/logo.png"
+            }}
             padded
         >
             <Formik

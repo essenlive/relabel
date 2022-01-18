@@ -21,7 +21,13 @@ export default function Project({ project }) {
     }
 
     return (
-        <Layout title={project.name} padded>
+        <Layout
+            meta={{
+                title: project.name,
+                description: project.description ? project.description : null,
+                image: project.illustrations ? project.illustrations[0] : null
+            }}
+            padded>
             <div className={styles.projectBanner}>
                 <div className={styles.carousel}>
                     {project.illustrations && (

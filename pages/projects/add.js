@@ -585,9 +585,12 @@ export default function AddProject({ formOverrides }) {
     }
     return (
         <Layout
-            title='Labeliser un projet'
+            meta={{
+                title: 'Labeliser un projet',
+                description: "Remplissez le formulaire afin de labeliser votre projet.",
+                image: "/assets/logo.png"
+            }}
             padded
-            relative
         >
             <Formik
                 initialValues={initialValues}

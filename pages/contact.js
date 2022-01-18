@@ -6,15 +6,19 @@ import Link from 'next/link';
 export default function Contact() {
   
   return (
-    <Layout 
-      title='Contact'
+    <Layout
+      meta={{
+        title: "Contact",
+        description: "Le projet Re-Label est porté à Paris dans le cadre du projet ReFlow, par l'équipe de Ars Longa.",
+        image: "/assets/logo.png"
+      }}
       padded
     >
       <div className={styles.banner}>
         <div className={styles.header}>
           <h1> Nous contacter </h1>
           <p>
-            Le projet <strong>RE-label</strong> est porté à Paris dans le cadre du projet ReFlow, par l'équipe de Ars Longa. Si vous avez des questions, des suggestions ou autre, contactez nous directement à <Link href="mailto:info@arslonga.fr"><span className={'link'}>info@arslonga.fr</span></Link>
+            Le projet <strong>Re-Label</strong> est porté à Paris dans le cadre du projet ReFlow, par l'équipe de Ars Longa. Si vous avez des questions, des suggestions ou autre, contactez nous directement à <Link href="mailto:info@arslonga.fr"><span className={'link'}>info@arslonga.fr</span></Link>
           </p>
           <div className={styles.logos}>
             <img src='/assets/horizon2020_logo_black.png' />

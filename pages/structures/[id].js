@@ -18,8 +18,13 @@ export default function Structure({structure}) {
         setTimeout(()=>{setCopied(false)}, 1000)
     }
 
-    return (
-        <Layout  title={structure.name} padded>
+    return (<Layout 
+            meta = {{
+                title: structure.name,
+                description: structure.description ? structure.description : null,
+                image: structure.illustrations ? structure.illustrations[0] : null
+            }}
+        padded>
 
             <div className={classNames(styles.structureBanner)}>
 
