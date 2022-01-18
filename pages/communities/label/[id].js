@@ -1,5 +1,6 @@
 import airtable_api from '@libs/airtable_api.js'
 import LabelCommunity from '@components/LabelCommunity';
+import styles from '@styles/pages/Embeds.module.css'
 
 
 export default function label({ community }) {

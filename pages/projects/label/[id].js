@@ -1,5 +1,6 @@
 import airtable_api from '@libs/airtable_api.js'
 import LabelProject from '@components/LabelProject';
+import styles from '@styles/pages/Embeds.module.css'
 
 
 export default function Project({project}) {
