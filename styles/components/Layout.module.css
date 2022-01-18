@@ -1,13 +1,8 @@
 .layout {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  /* height: 100vh; */
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  /* position: fixed; */
-  /* background-image: url("/assets/bg-bw.png"); */
-  /* background-size: cover; */
   background-image: url("/assets/memphis-mini.png");
   background-repeat: repeat;
   background-attachment: fixed;
@@ -34,11 +29,6 @@
   padding: 0 2rem 4rem;
 }
 
-.relative {
-  margin-top: -100px;
-  padding-top: calc(100px + 5rem);
-  overflow-y: hidden;
-}
 
 .full {
   margin-top: -100px;

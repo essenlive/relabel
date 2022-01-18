@@ -10,4 +10,5 @@
     padding: 2rem;
     background: var(--white);
     border: var(--primary) var(--borderWidth-lg) solid;
+    text-align: center;
 }
