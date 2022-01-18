@@ -20,7 +20,7 @@ export default function Carousel({ images }) {
                 />
                 ))}
     </Slider>
-    {!images.length && (<div className={styles.empty}>
+    {!images.length && (<div className={styles.empty}>Pas d'illustration
     </div>)}
     </>
     );

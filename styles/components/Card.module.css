@@ -58,5 +58,5 @@
 .image {
   object-fit: cover;
   border-bottom: var(--primary) var(--borderWidth-lg) solid;
-  max-height: 40%;
+  max-height: 50%;
 }
