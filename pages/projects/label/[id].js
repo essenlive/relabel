@@ -4,11 +4,13 @@ import LabelProject from '@components/LabelProject';
 
 export default function Project({project}) {
     return (
+        <div className={styles.embed}>
+            <a href={`https://re-label.eu/projects/${project.id}`} target={"_parent"}></a>
             <LabelProject
                 project={project}
                 bordered
             />
-
+        </div>
     );
 }
 

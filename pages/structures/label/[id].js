@@ -1,13 +1,16 @@
 import airtable_api from '@libs/airtable_api';
 import LabelStructure from '@components/LabelStructure';
-
+import styles from '@styles/pages/Embeds.module.css'
 
 export default function Structure({ structure}) {
     return (
+        <div className={styles.embed}>
+            <a  href={`https://re-label.eu/structures/${structure.id}`} target={"_parent"}></a>
             <LabelStructure
                 structure={structure}
                 bordered
-            />
+                />
+        </div>
     );
 }
 

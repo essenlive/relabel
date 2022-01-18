@@ -34,6 +34,12 @@
   padding: 0 2rem 4rem;
 }
 
+.relative {
+  margin-top: -100px;
+  padding-top: calc(100px + 5rem);
+  overflow-y: hidden;
+}
+
 .full {
   margin-top: -100px;
   height: 90vh;

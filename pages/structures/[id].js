@@ -107,7 +107,7 @@ export default function Structure({structure}) {
                         <span>
                             <BiCopy /> Integrer à votre site
                         </span>
-                        <textarea readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/structures/${structure.id}"><iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                        <textarea readOnly type={"text"} value={`<iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`} />
                     </div>
                 </div>
 

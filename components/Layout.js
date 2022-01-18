@@ -5,7 +5,7 @@ import styles from "@styles/components/Layout.module.css";
 import Footer from "@components/Footer";
 
 
-const Layout = ({title, full, padded, children, grid})=>{
+const Layout = ({title, full, padded, children, grid, relative})=>{
   console.log(`Rendering page : ${title}`);
   return (
     <div className={styles.layout}>
@@ -17,7 +17,7 @@ const Layout = ({title, full, padded, children, grid})=>{
         <Navigation />
       </div>
 
-      <main className={classNames(styles.content, { [`${styles.padded}`]: padded }, { [`${styles.full}`]: full }, { [`${styles.grid}`]: grid })}>
+      <main className={classNames(styles.content, { [`${styles.padded}`]: padded }, { [`${styles.full}`]: full }, { [`${styles.grid}`]: grid }, { [`${styles.relative}`]: relative })}>
           {children}
       </main>
 

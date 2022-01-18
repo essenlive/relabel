@@ -115,7 +115,7 @@ export default function Community({community}) {
                         <span>
                             <BiCopy /> Integrer à votre site
                         </span>
-                        <textarea readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/communities/${community.id}"><iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                        <textarea readOnly type={"text"} value={`<iframe src="https://re-label.eu/communities/label/${community.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`} />
                     </div>
                 </div>
 

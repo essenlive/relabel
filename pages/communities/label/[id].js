@@ -4,11 +4,13 @@ import LabelCommunity from '@components/LabelCommunity';
 
 export default function label({ community }) {
     return (
-
+        <div className={styles.embed}>
+            <a href={`https://re-label.eu/communities/${community.id}`} target={"_parent"}></a>
             <LabelCommunity
                 community={community}
                 bordered
-            />                
+            />
+        </div>
     );
 }
 

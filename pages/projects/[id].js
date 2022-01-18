@@ -116,7 +116,7 @@ export default function Project({project}) {
                         <span>
                             <BiCopy /> Integrer à votre site
                         </span>
-                        <textarea readOnly type={"text"} value={`<a target="_blank" href="https://re-label.eu/projects/${project.id}"><iframe src="https://re-label.eu/projects/label/${project.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe></a>`} />
+                        <textarea readOnly type={"text"} value={`<iframe src="https://re-label.eu/projects/label/${project.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`} />
                     </div>
                 </div>
 
