@@ -7,9 +7,17 @@ import Link from 'next/link'
 import LabelStructure from '@components/LabelStructure';
 import { BiCopy } from "react-icons/bi";
 import {EmailShareButton,FacebookShareButton,LinkedinShareButton,TwitterShareButton,EmailIcon,FacebookIcon,LinkedinIcon,TwitterIcon} from "react-share";
-
+import { useState } from 'react';
 
 export default function Structure({structure}) {
+    
+    let [copied, setCopied] = useState(false)
+    function addToClipboard(text) {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(()=>{setCopied(false)}, 1000)
+    }
+
     return (
         <Layout  title={structure.name} padded>
 
@@ -104,8 +112,8 @@ export default function Structure({structure}) {
                     </div>
 
                     <div className={styles.embed}>
-                        <span>
-                            <BiCopy /> Integrer à votre site
+                        <span onClick={() => { addToClipboard(`<iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`) }}>
+                            <BiCopy/> {copied ? "Ajouté au clipboard !" : "Integrer à votre site"}
                         </span>
                         <textarea readOnly type={"text"} value={`<iframe src="https://re-label.eu/structures/label/${structure.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`} />
                     </div>
