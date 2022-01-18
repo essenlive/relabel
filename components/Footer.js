@@ -10,19 +10,24 @@ export default function Footer() {
 
       <div className={styles.items}>
         <div>
-          <h3>Structures </h3>
-          <p><Link href={{ pathname: '/structures/' }}><span className={'link-simple'}>Carte des structures</span></Link></p>
-          <p><Link href={{ pathname: '/structures/add' }}><span className={'link-simple'}>Référencer la votre</span></Link></p>
-        </div>
-        <div>
           <h3>Communautés </h3>
           <p><Link href={{ pathname: '/communities/' }}><span className={'link-simple'}>Liste des communautés</span></Link> </p>
           <p><Link href={{ pathname: '/communities/add' }}><span className={'link-simple'}>Proposer une communauté</span></Link></p>
+          </div>
+          <div>
+            <h3>Structures </h3>
+            <p><Link href={{ pathname: '/structures/' }}><span className={'link-simple'}>Carte des structures</span></Link></p>
+            <p><Link href={{ pathname: '/structures/add' }}><span className={'link-simple'}>Référencer la votre</span></Link></p>
+          </div>
+          <div>
+            <h3> Productions </h3>
+            <p><Link href={{ pathname: '/projects/' }}><span className={'link-simple'}>Portfolio</span></Link> </p>
+            <p><Link href={{ pathname: '/projects/add' }}><span className={'link-simple'}>Labeliser un projet</span></Link></p>
         </div>
         <div>
-          <h3> Productions </h3>
-          <p><Link href={{ pathname: '/projects/' }}><span className={'link-simple'}>Portfolio</span></Link> </p>
-          <p><Link href={{ pathname: '/projects/add' }}><span className={'link-simple'}>Labeliser un projet</span></Link></p>
+          <h3> Contact </h3>
+          <p><Link href={{ pathname: '/contact' }}><span className={'link-simple'}>Nous contacter</span></Link> </p>
+          <p><Link href={'https://github.com/essenlive/relabel'}><span className={'link-simple'}>Github</span></Link> </p>
         </div>
       </div>
         <div className={styles.header}>
