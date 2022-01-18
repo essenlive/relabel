@@ -2,6 +2,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react';
 import Confetti from 'react-confetti'
 import classNames from 'classnames';
 
@@ -16,7 +17,7 @@ import airtable_api from '@libs/airtable_api.js'
 import { getColors, seed } from '@libs/getColors';
 
 export default function AddProject({ formOverrides }) {
-
+    const [sending, setSending] = useState(false)
     const router = useRouter()
 
     const Form = [
@@ -154,7 +155,7 @@ export default function AddProject({ formOverrides }) {
         initial: "",
         placeholder: "contact@mail.org",
         prefix: "Contact",
-        description: "L'adresse mail d'un référent pour avoir plus d'informations.",
+        description: "L'adresse mail d'un référent pour avoir plus d'informations. (Ne sera pas visible sur le site.)",
         suffix: "",
         required: true,
         group: "meta"
@@ -528,11 +529,25 @@ export default function AddProject({ formOverrides }) {
             ],
             group: "fab"
         },
+        {
+            name: "rgpd",
+            schema: Yup.boolean().oneOf([true], 'Vous devez accepter la clause RGPD').required('Requis'),
+            type: "checkbox",
+            initial: "",
+            placeholder: "",
+            prefix: "Avertissement données personnelles.",
+            description: "Les informations demandées sont utilisées pour le fonctionnement du site et le réferencement des projets et peuvent donner lieu à exercice du droit individuel d’accès auprès des gestionnaire dans les conditions prévues par la loi. Elles ne seront ni cédées ni diffusées en dehors des données présentes sur la plateforme.",
+            suffix: "J'accepte ces conditions",
+            required: true,
+            group: "rgpd"
+        }
     ]
     let Schema = {} ; Form.forEach((el) => { Schema[el.name] = el.schema })
     let initialValues = {};  Form.forEach((el) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
+        setSending(true)
+
         let data = new Object;
         Object.assign(data, fields)
         data.team = fields.team.map((el) => el.value)
@@ -562,6 +577,8 @@ export default function AddProject({ formOverrides }) {
         });
         let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
+        console.log(formik.isValidating)
+
         // setTimeout(()=>{formik.setSubmitting(false); console.log("timeout");}, 1000)
         router.push(`/projects/${record[0].id}`);
 
@@ -570,6 +587,7 @@ export default function AddProject({ formOverrides }) {
         <Layout
             title='Labeliser un projet'
             padded
+            relative
         >
             <Formik
                 initialValues={initialValues}
@@ -582,7 +600,7 @@ export default function AddProject({ formOverrides }) {
                         
                         <div className={styles.form}>
 
-                            <Confetti
+                            <Confetti 
                                 style={{ 
                                     pointerEvents: 'none', 
                                     zIndex: 20,
@@ -595,8 +613,8 @@ export default function AddProject({ formOverrides }) {
                                     inset: 0,
                                     width: "100%",
                                     height: "100%" }}
-                                    colors={props.values.colors}
-                                    numberOfPieces={props.isSubmitting ? 500 : 0}
+                                colors={props.values.colors}
+                                numberOfPieces={sending ? 500 : 0}
                             />
 
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
@@ -644,6 +662,15 @@ export default function AddProject({ formOverrides }) {
                                 </div>
                                 <div>
                                     {Form.filter(el => el.group === "customize").map((input, i) => (
+                                        <Inputs
+                                            key={i}
+                                            input={input}
+                                            name={input.name}
+                                        />
+                                    ))}
+                                </div>
+                                <div>
+                                    {Form.filter(el => el.group === "rgpd").map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}

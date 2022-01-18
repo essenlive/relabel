@@ -68,3 +68,9 @@
   width: 100% !important;
   text-align: left;
 }
+
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  flex-grow: 0;
+}

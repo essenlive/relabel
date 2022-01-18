@@ -22,15 +22,26 @@ export const Inputs = ({ input, ...props}) => {
                 {...props}
                 />
             );
-        break;
+            break;
         case "shortText":
-            inputType = (    
-                    <input
-                        className={styles.field__input}
-                        placeholder={placeholder}
-                        {...field}
-                        {...props}
-                    />
+            inputType = (
+                <input
+                    className={styles.field__input}
+                    placeholder={placeholder}
+                    {...field}
+                    {...props}
+                />
+            );
+            break;
+        case "checkbox":
+            inputType = (
+                <input
+                    type={"checkbox"}
+                    className={styles.field__input}
+                    placeholder={placeholder}
+                    {...field}
+                    {...props}
+                />
             );
             break;
         case "adress":

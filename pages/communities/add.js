@@ -3,6 +3,7 @@ import Confetti from 'react-confetti'
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import classNames from 'classnames';
+import { useState } from 'react';
 import { useRouter } from 'next/router'
 
 import styles from "@styles/pages/Form.module.css";
@@ -17,6 +18,7 @@ import airtable_api from '@libs/airtable_api';
 
 export default function AddCommunities({ formOverrides }) {
     const router = useRouter()
+    const [sending, setSending] = useState(false)
     const Form = [{
         name: "name",
         description : "Le nom de votre communauté.",
@@ -73,7 +75,7 @@ export default function AddCommunities({ formOverrides }) {
         initial: "",
         placeholder: "contact@mail.org",
         prefix: "Contact du référent",
-        description: "Le contact d'un référent pour avoir plus d'informations.",
+        description: "L'adresse mail d'un référent pour avoir plus d'informations. (Ne sera pas visible sur le site.)",
         suffix: "",
         required: true,
         group: "meta"
@@ -101,12 +103,26 @@ export default function AddCommunities({ formOverrides }) {
         required: true,
         handler: [getColors, seed],
         group: "meta"
-    },
+        },
+        {
+            name: "rgpd",
+            schema: Yup.boolean().oneOf([true], 'Vous devez accepter la clause RGPD').required('Requis'),
+            type: "checkbox",
+            initial: "",
+            placeholder: "",
+            prefix: "Avertissement données personnelles.",
+            description: "Les informations demandées sont utilisées pour le fonctionnement du site et le réferencement des projets et peuvent donner lieu à exercice du droit individuel d’accès auprès des gestionnaire dans les conditions prévues par la loi. Elles ne seront ni cédées ni diffusées en dehors des données présentes sur la plateforme.",
+            suffix: "J'accepte ces conditions",
+            required: true,
+            group: "rgpd"
+        }
     ]
     let schema = {}; Form.forEach((el, i) => { schema[el.name] = el.schema })
     let initialValues = {} ; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
+        const [sending, setSending] = useState(false)
+
         let data = new Object;
         Object.assign(data, fields)
         data.cities = fields.cities.map((el) => el.value)
@@ -144,7 +160,7 @@ export default function AddCommunities({ formOverrides }) {
                                     height: "100%"
                                 }}
                                 colors={props.values.colors}
-                                numberOfPieces={props.isSubmitting ? 500 : 0}
+                                numberOfPieces={sending ? 500 : 0}
                             />
                             <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
                                 {props.isSubmitting  && <div className={styles.sending}><h3>C'est envoyé</h3></div>}
