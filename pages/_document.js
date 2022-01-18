@@ -17,7 +17,6 @@ export default class _Document extends Document {
             });
 
         const initialProps = await Document.getInitialProps(ctx);
-
         return {
             ...initialProps,
             styles: (
@@ -30,6 +29,7 @@ export default class _Document extends Document {
     }
 
     render() {
+        const umami = !process.env.NEXT_PUBLIC_UMAMI ? null : JSON.parse(process.env.NEXT_PUBLIC_UMAMI);
         return (
             <Html>
                 <Head>
@@ -38,6 +38,7 @@ export default class _Document extends Document {
                 <body>
                     <Main />
                     <NextScript />
+                    {umami && <script async defer data-website-id={umami.id} src={umami.url}></script>}
                 </body>
             </Html>
         );
