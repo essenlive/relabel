@@ -1,14 +1,6 @@
 .practices {
-    display: flex;
-    height: calc(100vh - 550px);
+    margin-top: 100px;
+    height: calc(100vh - 200px);
     width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.practices h1 {
-    padding: 2rem;
-    background: var(--white);
-    border: var(--primary) var(--borderWidth-lg) solid;
-    text-align: center;
+    border-top: var(--primary) var(--borderWidth-lg) solid;
 }

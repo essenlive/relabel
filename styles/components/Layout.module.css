@@ -29,6 +29,9 @@
   padding: 0 2rem 4rem;
 }
 
+.fullWidth{
+  max-width: 100%;
+}
 
 .full {
   margin-top: -100px;
@@ -62,9 +65,6 @@
     width: 100%;
   }
 
-  /* .padded {
-    margin-top: 170px;
-  } */
   .content {
     width: 100%;
     min-height: calc(100vh - 170px);

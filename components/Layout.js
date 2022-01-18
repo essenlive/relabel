@@ -5,7 +5,7 @@ import styles from "@styles/components/Layout.module.css";
 import Footer from "@components/Footer";
 import { useRouter } from "next/router";
 
-const Layout = ({meta={}, title, full, padded, children, grid, relative})=>{
+const Layout = ({meta={}, full, padded, children, grid, fullWidth})=>{
   console.log(`Rendering page : ${meta.title}`);
   const router = useRouter()
   return (
@@ -30,7 +30,7 @@ const Layout = ({meta={}, title, full, padded, children, grid, relative})=>{
         <Navigation />
       </div>
 
-      <main className={classNames(styles.content, { [`${styles.padded}`]: padded }, { [`${styles.full}`]: full }, { [`${styles.grid}`]: grid }, { [`${styles.relative}`]: relative })}>
+      <main className={classNames(styles.content, { [`${styles.padded}`]: padded }, { [`${styles.full}`]: full }, { [`${styles.grid}`]: grid }, { [`${styles.fullWidth}`]: fullWidth })}>
           {children}
       </main>
 
