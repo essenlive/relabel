@@ -32,19 +32,7 @@ export default function AddProject({ formOverrides }) {
         suffix: "",
             required: true,
             group: "meta"
-    },
-    {
-        name: "date",
-        schema: Yup.string().required('Requis'),
-        type: "date",
-        initial: "",
-        placeholder: "",
-        prefix: "Date",
-        description: "Date de fabrication ou livraison.",
-        suffix: "",
-        required: true,
-        group: "meta"
-    },
+        },
     {
         name: "typology",
         schema: Yup.string().required('Requis'),
@@ -95,7 +83,31 @@ export default function AddProject({ formOverrides }) {
         required: true,
         options: [],
         group: "meta"
-    },
+        },
+        {
+            name: "date",
+            schema: Yup.string().required('Requis'),
+            type: "date",
+            initial: "",
+            placeholder: "",
+            prefix: "Date",
+            description: "Date de fabrication ou livraison.",
+            suffix: "",
+            required: true,
+            group: "meta"
+        },
+        {
+            name: "duration",
+            schema: Yup.number().required('Requis'),
+            type: "number",
+            initial: 0,
+            placeholder: 0,
+            prefix: "Durée",
+            description: "Durée globale du projet.",
+            suffix: "jours",
+            required: true,
+            group: "meta"
+        },
     {
         name: "designers",
         schema: Yup.array().of(Yup.object()),
@@ -558,27 +570,30 @@ export default function AddProject({ formOverrides }) {
             ...fields.suppliers.filter((el) => el.__isNew__).map((el) => (el.label))
         ])).map((el) => ({ name: el }))
 
-        let newStructuresId = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify(newStructures), headers: { 'Content-Type': 'application/json' } })
-        newStructuresId = await newStructuresId.json()
-        data.designers = data.designers.map((designers) => {
-            if (!designers.__isNew__) return designers.value
-            let structure = newStructuresId.filter((structure) => structure.fields.name === designers.label)
-            return structure[0].id
-        });
-        data.workshops = data.workshops.map((workshops) => {
-            if (!workshops.__isNew__) return workshops.value
-            let structure = newStructuresId.filter((structure) => structure.fields.name === workshops.label)
-            return structure[0].id
-        });
-        data.suppliers = data.suppliers.map((suppliers) => {
-            if (!suppliers.__isNew__) return suppliers.value
-            let structure = newStructuresId.filter((structure) => structure.fields.name === suppliers.label)
-            return structure[0].id
-        });
+        if (newStructures.length > 0) {
+
+            let newStructuresId = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify(newStructures), headers: { 'Content-Type': 'application/json' } })
+            newStructuresId = await newStructuresId.json()
+            data.designers = data.designers.map((designers) => {
+                if (!designers.__isNew__) return designers.value
+                let structure = newStructuresId.filter((structure) => structure.fields.name === designers.label)
+                return structure[0].id
+            });
+            data.workshops = data.workshops.map((workshops) => {
+                if (!workshops.__isNew__) return workshops.value
+                let structure = newStructuresId.filter((structure) => structure.fields.name === workshops.label)
+                return structure[0].id
+            });
+            data.suppliers = data.suppliers.map((suppliers) => {
+                if (!suppliers.__isNew__) return suppliers.value
+                let structure = newStructuresId.filter((structure) => structure.fields.name === suppliers.label)
+                return structure[0].id
+            });
+
+        }
         let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
-        console.log(formik.isValidating)
-
+        console.log(record);
         // setTimeout(()=>{formik.setSubmitting(false); console.log("timeout");}, 1000)
         router.push(`/projects/${record[0].id}`);
 
@@ -620,8 +635,8 @@ export default function AddProject({ formOverrides }) {
                                 numberOfPieces={sending ? 500 : 0}
                             />
 
-                            <form className={classNames(styles.values, { [`${styles.submitted}`]: props.isSubmitting })} onSubmit={props.handleSubmit}>
-                                {props.isSubmitting && <div className={styles.sending}><h3>C'est envoyé</h3>
+                            <form className={classNames(styles.values, { [`${styles.submitted}`]: sending })} onSubmit={props.handleSubmit}>
+                                {sending && <div className={styles.sending}><h3>C'est envoyé</h3>
                                 </div>}
                                 <h2>Présentation du projet</h2>
                                 <div>

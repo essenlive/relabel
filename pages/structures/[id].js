@@ -94,7 +94,7 @@ export default function Structure({structure}) {
                         </EmailShareButton>
                         <FacebookShareButton
                             url={`https://re-label.eu/structures/${structure.id}`}
-                            hashtag={'relabel'}
+                            hashtag={'#relabel'}
                             quote={'Je viens de faire mon Re-label sur re-label.eu '}
                         >
                             <FacebookIcon size={32} round={true} />
