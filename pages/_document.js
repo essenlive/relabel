@@ -31,9 +31,10 @@ export default class _Document extends Document {
     render() {
         const umami = !process.env.NEXT_PUBLIC_UMAMI ? null : JSON.parse(process.env.NEXT_PUBLIC_UMAMI);
         return (
-            <Html>
+            <Html lang="fr">
                 <Head>
                     <link rel="icon" href="/Favicon.png" />
+                    
                 </Head>
                 <body>
                     <Main />
