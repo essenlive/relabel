@@ -69,7 +69,9 @@ export default function Community({community}) {
                 </div>
 
                 <div className={styles.map}>
-                    <ReactMap 
+                    {community.structures.length > 0 && (
+
+                        <ReactMap 
                         structures={community.mapData} 
                         initialViewport={{
                             latitude: mean(community.structures.map(el=>el.latitude)),
@@ -78,6 +80,7 @@ export default function Community({community}) {
                         }}
                         colorMap={community.colors}
                         />
+                    )}
                 </div>
 
                 <div className={styles.label}>

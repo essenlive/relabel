@@ -20,12 +20,10 @@ const createApi = (type, fields) => {
 export default async function handler (req, res) {
     if (req.method === 'POST') {
         const { type } = req.query;
-        let fields = req.body.map((el) => ({ fields: el }));
-        // REMOVE RGPD FROM FIELDS
-        // let fields = req.body.map((el) => {
-        //     delete el.rgpd
-        //     return ({ fields: el })
-        // });
+        let fields = req.body.map((el) => {
+            delete el.rgpd
+            return ({ fields: el })
+        });
         if (type === "structures" ) {
             fields = await Promise.all(fields.map(async structure => {
                 if (structure.fields.adress){

@@ -121,7 +121,7 @@ export default function AddCommunities({ formOverrides }) {
     let initialValues = {} ; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
 
     const submit = async (fields, formik) => {
-        const [sending, setSending] = useState(false)
+        setSending(true)
 
         let data = new Object;
         Object.assign(data, fields)

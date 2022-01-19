@@ -74,6 +74,8 @@ export default function Project({ project }) {
                     </div>
                 </div>
                 <div className={styles.map}>
+
+                    {project.structures.length > 0 && (
                     <ReactMap 
                         structures={project.mapData}
                         colorMap={project.colors}
@@ -82,6 +84,7 @@ export default function Project({ project }) {
                             longitude: mean(project.structures.map(el => el.longitude)),
                             zoom: 12
                         }} />
+                    )}
                 </div>
                 <div className={styles.label}> <LabelProject project={project}/></div>
                 <div className={styles.explainer}>

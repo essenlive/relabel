@@ -195,7 +195,7 @@ export default function AddStructure({ formOverrides }) {
 
     // Submit form handler
     const submit = async (fields, formik) => {
-        const [sending, setSending] = useState(false)
+        setSending(true)
 
         // Deep copy field object to keep it clean when submitting
         let data = new Object;
@@ -203,7 +203,7 @@ export default function AddStructure({ formOverrides }) {
 
         // Filter new communities to create them in airtable beforehand, and get their airtable ids
         let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
-        if (newCommunities.length !== 0) {  
+        if (newCommunities.length > 0) {  
             let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })
             newCommunitiesId = await newCommunitiesId.json()
             data.communities = data.communities.map((communities) => {
@@ -234,7 +234,7 @@ export default function AddStructure({ formOverrides }) {
         >
             <Formik
                 initialValues={initialValues}
-                validationSchema={schema}
+                validationSchema={Yup.object().shape(schema)}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
