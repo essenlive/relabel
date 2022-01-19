@@ -60,7 +60,6 @@
   width: calc(100% / 3);
   border-top: var(--primary) var(--borderWidth-lg) solid;
   background-color: white;
-  z-index: 10;
 }
 
 .items>div:hover {
