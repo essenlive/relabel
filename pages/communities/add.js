@@ -240,8 +240,6 @@ export async function getStaticProps() {
         "colors": { "initial": getColors(seed()), }
     }
 
-    return {
-        props: { formOverrides },
-    }
+    return {props: { formOverrides }, revalidate: 1}
 
 }
