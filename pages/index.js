@@ -19,7 +19,7 @@ export default function Manifesto() {
           <h2>Un outils collaboratif qui recense et partage</h2>
         </div>
         <div className={styles.image}>
-          <img src="/assets/hero-blank.png" alt="logo relabel" />
+          <img src="/assets/hero-blank.png" alt="process illustration" />
         </div>
         <div className={styles.guides}>
           <div>

@@ -13,9 +13,9 @@ export default function Footer() {
             Le projet <strong>RE-label</strong> est porté à Paris dans le cadre du projet ReFlow, par l'équipe de Ars Longa. Si vous avez des questions, des suggestions ou autre, contactez nous directement à <Link href="mailto:info@arslonga.fr"><span className={'link'}>info@arslonga.fr</span></Link>
           </p>
           <div className={styles.logos}>
-            <img src='/assets/horizon2020_logo_black.png' />
-            <img src='/assets/reflow.png' />
-            <img src='/assets/LOGO AL couleurs.png' />
+            <img src='/assets/horizon2020_logo_black.png' alt='logo h2020' />
+            <img src='/assets/reflow.png' alt='logo reflow' />
+            <img src='/assets/LOGO AL couleurs.png' alt='logo ars longa' />
           </div>
         </div>
 

@@ -21,9 +21,9 @@ export default function Contact() {
             Le projet <strong>Re-Label</strong> est porté à Paris dans le cadre du projet ReFlow, par l'équipe de Ars Longa. Si vous avez des questions, des suggestions ou autre, contactez nous directement à <Link href="mailto:info@arslonga.fr"><span className={'link'}>info@arslonga.fr</span></Link>
           </p>
           <div className={styles.logos}>
-            <img src='/assets/horizon2020_logo_black.png' />
-            <img src='/assets/reflow.png'/>
-            <img src='/assets/LOGO AL couleurs.png' />
+            <img src='/assets/horizon2020_logo_black.png' alt='logo h2020' />
+            <img src='/assets/reflow.png' alt='logo reflow' />
+            <img src='/assets/LOGO AL couleurs.png' alt='logo ars longa' />
           </div>
         </div>
         <div className={styles.items}>
@@ -45,12 +45,6 @@ export default function Contact() {
               Utilisez le <Link href={{pathname: '/projects/add'}}><span className={'link'}>générateur de label</span></Link> et votre projet sera référencé dans la foulée.
             </p>
           </div>
-          {/* <div>
-            <h3> Partager une bonne pratique </h3>
-            <p>
-              Partagez une de vos bonnes pratiques en remplissant ce <Link href=""><span className={'link'}>formulaire</span></Link>.
-            </p>
-          </div> */}
         </div>
       </div>
     </Layout>

@@ -17,6 +17,7 @@ export default function Carousel({ images }) {
                 <img
                 key={i}
                 src={item}
+                alt={`illustration ${i}`}
                 />
                 ))}
     </Slider>

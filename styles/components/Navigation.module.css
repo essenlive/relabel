@@ -50,7 +50,7 @@
   color: var(--primary)
 }
 
-.links a, .linkActive a {
+.links span, .linkActive span {
   position: relative;
   z-index: 1;
 }

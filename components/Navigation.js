@@ -13,35 +13,35 @@ export default function Navigation(props) {
         <nav className={classNames(styles.nav, { [`${styles.navOpen}`]: menuOpen})}>
          <Link onClick={() => { setMenuOpen(false) }} href="/">
            <div className={styles.logo}>
-             <a>
+             <span>
                <img src="/assets/logo.png" alt="logo relabel" />
-             </a>
+             </span>
            </div>
          </Link>
         <div className={classNames(styles.menu, { [`${styles.open}`]: menuOpen })}>
            <Link onClick={() => { setMenuOpen(false) }} href="/communities">
              <div className={classNames(styles.links,{ [`${styles.linkActive}`]: router.route === '/communities' }, { [`${styles.open}`]: menuOpen })}>
-               <a>Communautés</a>
+               <span>Communautés</span>
              </div>
           </Link>
           <Link onClick={() => { setMenuOpen(false) }} href="/structures">
             <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/structures' }, { [`${styles.open}`]: menuOpen })}>
-              <a>Structures</a>
+              <span>Structures</span>
             </div>
           </Link>
            <Link onClick={() => { setMenuOpen(false) }} href="/projects">
             <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/projects' }, { [`${styles.open}`]: menuOpen })}>
-               <a>Productions</a>
+               <span>Productions</span>
              </div>
            </Link>
            <Link onClick={() => { setMenuOpen(false) }} href="/practices">
             <div className={classNames(styles.links, { [`${styles.linkActive}`]: router.route === '/practices' }, { [`${styles.open}`]: menuOpen })}>
-               <a>Bonnes Pratiques</a>
+               <span>Bonnes Pratiques</span>
              </div>
            </Link>
            <Link onClick={() => { setMenuOpen(false) }} href="/contact">
             <div className={classNames(styles.linksEmphasis, { [`${styles.linkActive}`]: router.route === '/contact' }, { [`${styles.open}`]: menuOpen })}>
-               <a>Nous contacter</a>
+               <span>Nous contacter</span>
              </div>
           </Link>
           <div className={classNames(styles.signature, { [`${styles.open}`]: menuOpen })}>

@@ -12,7 +12,7 @@ const Card = ({ title, description, tags, colorMap, link, image, children, class
                     <img
                         className={styles.image}
                         src={image.src}
-                        alt={image.alt}
+                        alt={title}
                     />
                 }
                 {title && 

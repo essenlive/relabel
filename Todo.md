@@ -17,6 +17,7 @@
 - [ ] Image optimizer @buildtime
 - [ ] Display time spent
 - [ ] Display data as tags
+- [ ] Cleanup prisma schema
 
 
 ### Short Term
