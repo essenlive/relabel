@@ -6,17 +6,19 @@
 - [x] Add links in iframe
 - [x] Umami
 - [x] Open Graph data and SEO
-
+- [x] Generateur de cartels
 
 ### Next
 
-- [ ] Generateur de cartels
-- [ ] Add tests
 - [ ] Ajouter des filtres sur les index
+- [ ] Display data as tags
+- [ ] Display time spent
+
+### Cleanup
+
+- [ ] Add tests
 - [ ] Bloquer l'update labels carte
 - [ ] Image optimizer @buildtime
-- [ ] Display time spent
-- [ ] Display data as tags
 - [ ] Cleanup prisma schema
 
 
