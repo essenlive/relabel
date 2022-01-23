@@ -267,7 +267,7 @@ export default function Test() {
 
     const reactToPrintContent = useCallback(() => { return componentRef.current; }, [componentRef.current]);
     const reactToPrintTrigger = useCallback(() => {
-        return (<button className="button"> Print </button> ); // eslint-disable-line max-len
+        return (<button className="button" style={{ "position": "fixed", "margin": "1rem" }}> Print </button> ); // eslint-disable-line max-len
     }, []);
 
     return (
@@ -282,7 +282,9 @@ export default function Test() {
                 trigger={reactToPrintTrigger}
             />
             {loading && <p className="indicator">onBeforeGetContent: Loading...</p>}
-            <Certificate ref={componentRef} project={project} />
+            <Certificate
+             ref={componentRef} 
+             project={project} />
         </div>
     );
 };

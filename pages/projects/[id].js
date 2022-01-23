@@ -10,6 +10,7 @@ import { mean } from 'mathjs';
 import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, EmailIcon, FacebookIcon, LinkedinIcon, TwitterIcon } from "react-share";
 import { useRef, useState, useEffect, useCallback } from "react";
 import ReactToPrint from "react-to-print";
+import classNames from 'classnames';
 
 import Certificate from "@components/Certificate";
 
@@ -24,20 +25,19 @@ export default function Project({ project }) {
     }
     const componentRef = useRef(null);
     const onBeforeGetContentResolve = useRef(null);
-    const [loading, setLoading] = useState(false);
-    const handleAfterPrint = useCallback(() => { console.log("`onAfterPrint` called"); }, []);
-    const handleBeforePrint = useCallback(() => { console.log("`onBeforePrint` called"); }, []);
+    const [visible, setVisible] = useState(false);
+    const handleAfterPrint = useCallback(() => {  setVisible(false);}, []);
+    const handleBeforePrint = useCallback(() => { setVisible(true);}, []);
     const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
-        setLoading(true);
+        setVisible(true);
         return new Promise((resolve) => {
             onBeforeGetContentResolve.current = resolve;
             setTimeout(() => {
-                setLoading(false);
+                setVisible(false);
                 resolve();
             }, 500);
         });
-    }, [setLoading]);
+    }, [setVisible]);
 
     useEffect(() => {
         if (typeof onBeforeGetContentResolve.current === "function") { onBeforeGetContentResolve.current(); }
@@ -66,7 +66,7 @@ export default function Project({ project }) {
                     )}
                 </div>
                 <div className={styles.title}> 
-                    {project.name && (<h1> {project.name} </h1>)} 
+                    {project.name && (<h1> {project.name}</h1>)} 
                     {project.typology && (<h2>{project.typology}</h2>)}
                 </div>
                 <div className={styles.description}> 
@@ -181,7 +181,9 @@ export default function Project({ project }) {
 
             </div>
 
-                <Certificate ref={componentRef} project={project} className={styles.certificate}/>
+            <div className={classNames({ [`${styles.visible}`]: visible }, styles.certif)}>
+                <Certificate ref={componentRef} project={project}/>
+            </div>
         </Layout>
     );
 }

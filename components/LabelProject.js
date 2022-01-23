@@ -27,7 +27,7 @@ export default function LabelProduction({ project, bordered }) {
     return (
         <div
         ref={ref}
-        style={{ fontSize: `${width / 20}px` }}
+            style={{ fontSize: `${(width / 20) < 20 ? 20 : width / 20}px` }}
         className={classNames(styles.label,
             { [`${styles.bordered}`]: bordered })}>
 

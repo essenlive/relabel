@@ -108,6 +108,12 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
   }
 
+  .link {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
   @page {
     margin: 2cm;
     size: A4 landscape;
