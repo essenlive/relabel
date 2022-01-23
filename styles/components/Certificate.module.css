@@ -1,0 +1,74 @@
+.certificate {
+  background: var(--white);
+  width: 100%;
+  height: 200%;
+  overflow: hidden;
+  font-size: var(--fontSize-xs);
+}
+
+.certificate>div {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.certificate>div>div {
+  background: var(--white);
+  aspect-ratio: 1/1;
+  height: 400px;
+  width: 400px;
+  border: var(--primary) solid var(--borderWidth-lg);
+}
+
+
+.legend {
+  height: 2rem;
+  width: 2rem;
+  margin: 1rem;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.signature {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.signArea {
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/memphis-mini.png");
+  background-repeat: repeat;
+}
+
+.signArea:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+
+.illustration {
+  width: 100%;
+  aspect-ratio: 4/2;
+  object-fit: cover;
+  border-bottom: var(--primary) solid var(--borderWidth-lg);
+}
+
+.description {
+  padding: 1rem;
+}
+
+.signature h1, .description h1, .specifications h1 {
+  margin-bottom: 0.5rem;
+}
+
+.specifications>div {
+  padding: 1rem;
+  position: relative;
+}

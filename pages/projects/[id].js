@@ -8,7 +8,10 @@ import ReactMap, {prepareData} from '@components/ReactMap'
 import { BiCopy } from "react-icons/bi";
 import { mean } from 'mathjs';
 import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, EmailIcon, FacebookIcon, LinkedinIcon, TwitterIcon } from "react-share";
-import { useState } from 'react';
+import { useRef, useState, useEffect, useCallback } from "react";
+import ReactToPrint from "react-to-print";
+
+import Certificate from "@components/Certificate";
 
 
 export default function Project({ project }) {
@@ -19,6 +22,34 @@ export default function Project({ project }) {
         setCopied(true);
         setTimeout(() => { setCopied(false) }, 1000)
     }
+    const componentRef = useRef(null);
+    const onBeforeGetContentResolve = useRef(null);
+    const [loading, setLoading] = useState(false);
+    const handleAfterPrint = useCallback(() => { console.log("`onAfterPrint` called"); }, []);
+    const handleBeforePrint = useCallback(() => { console.log("`onBeforePrint` called"); }, []);
+    const handleOnBeforeGetContent = useCallback(() => {
+        console.log("`onBeforeGetContent` called");
+        setLoading(true);
+        return new Promise((resolve) => {
+            onBeforeGetContentResolve.current = resolve;
+            setTimeout(() => {
+                setLoading(false);
+                resolve();
+            }, 500);
+        });
+    }, [setLoading]);
+
+    useEffect(() => {
+        if (typeof onBeforeGetContentResolve.current === "function") { onBeforeGetContentResolve.current(); }
+    }, [onBeforeGetContentResolve.current]);
+
+    const reactToPrintContent = useCallback(() => { return componentRef.current; }, [componentRef.current]);
+    const reactToPrintTrigger = useCallback(() => {
+        return (<button className="button"> Imprimer le certificat </button>); // eslint-disable-line max-len
+    }, []);
+
+
+
 
     return (
         <Layout
@@ -89,9 +120,9 @@ export default function Project({ project }) {
                 <div className={styles.label}> <LabelProject project={project}/></div>
                 <div className={styles.explainer}>
                     <p><span className={styles.node}></span>Les noeuds représentent le nombre de partenaires.</p>
+                    <p><span className={styles.legend} style={{ backgroundColor: project.colors[0] }}></span>Matériaux sourcés et responsables.</p>
                     <p><span className={styles.legend} style={{ backgroundColor: project.colors[1] }}></span>Conception ouverte et perenne.</p>
                     <p><span className={styles.legend} style={{ backgroundColor: project.colors[2] }}></span>Fabrication locale et sociale.</p>
-                    <p><span className={styles.legend} style={{ backgroundColor: project.colors[0] }}></span>Matériaux sourcés et responsables.</p>
                 </div>
                 <div className={styles.share}>
                     <h2>Share</h2>
@@ -128,6 +159,8 @@ export default function Project({ project }) {
                         </TwitterShareButton>
                         
                     </div>
+                    <div>
+                    </div>
 
                     <div className={styles.embed}>
                         <span onClick={() => { addToClipboard(`<iframe src="https://re-label.eu/projects/label/${project.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`) }}>
@@ -135,9 +168,20 @@ export default function Project({ project }) {
                         </span>
                         <textarea readOnly type={"text"} value={`<iframe src="https://re-label.eu/projects/label/${project.id}" name="relabel" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="300px" width="240px" allowfullscreen></iframe>`} />
                     </div>
+                        <ReactToPrint
+                            content={reactToPrintContent}
+                            documentTitle={`re-label | ${project.name}`}
+                            onAfterPrint={handleAfterPrint}
+                            onBeforeGetContent={handleOnBeforeGetContent}
+                            onBeforePrint={handleBeforePrint}
+                            removeAfterPrint
+                            trigger={reactToPrintTrigger}
+                        />
                 </div>
 
             </div>
+
+                <Certificate ref={componentRef} project={project} className={styles.certificate}/>
         </Layout>
     );
 }

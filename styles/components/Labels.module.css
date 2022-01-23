@@ -230,9 +230,3 @@
   align-items: center;
   overflow: hidden;
 }
-
-@media print {
-  .labelP, .labelS, .labelC {
-    font-size: 8px !important;
-  }
-}

@@ -11,7 +11,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
-  grid-template-areas: "label label label label date" "label label label label designer" "label label label label designer" "label label label label designer" "name name name name name";
+  grid-template-areas: "label label label label date""label label label label designer""label label label label designer""label label label label designer""name name name name name";
   overflow: hidden;
   max-width: 500px;
   width: 100%;
@@ -72,14 +72,14 @@
   position: absolute;
   width: 150%;
   transform-origin: 0% 0%;
-  transform: rotate( -45deg);
+  transform: rotate(-45deg);
   bottom: calc(-1 * var(--borderWidth-lg));
   left: 0;
 }
 
 .date>p {
   font-size: 0.9em;
-  padding: 0.4em;
+  padding: 0.6em;
   position: absolute;
 }
 
@@ -105,10 +105,4 @@
   text-transform: uppercase;
   color: var(--primary);
   width: auto;
-}
-
-@media print {
-  .label {
-    font-size: 8px !important;
-  }
 }

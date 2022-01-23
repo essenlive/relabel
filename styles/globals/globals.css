@@ -40,6 +40,17 @@ html, body {
 
 }
 
+.button {
+  background: var(--white);
+  padding: 0.5rem 1rem;
+  border: var(--primary) solid var(--borderWidth-lg);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--coolGray-100);
+}
+
 
 button {
   background: none;
@@ -82,9 +93,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary) !important;
 }
 
-@page {
-  size: A5 portrait;
-}
+
+
+
+
 
 @media print {
   html, body {
@@ -95,49 +107,9 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
   }
-}
 
-path {
-  transform-origin: 50% 0%;
-}
-
-.background--custom {
-  display: none;
-  background-color: #FFFFFF;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  top: 0;
-  left: 0;
-}
-
-@keyframes path0 {
-  0% {
-    transform: rotate(-60deg);
-  }
-
-  100% {
-    transform: rotate(60deg);
-  }
-}
-
-@keyframes path1 {
-  0% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-20deg);
-  }
-}
-
-@keyframes path2 {
-  0% {
-    transform: rotate(30deg);
-  }
-
-  100% {
-    transform: rotate(-30deg);
+  @page {
+    margin: 2cm;
+    size: A4 landscape;
   }
 }

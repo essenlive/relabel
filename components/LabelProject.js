@@ -7,7 +7,6 @@ const P5Wrapper = dynamic(() => import('react-p5-wrapper'), { ssr: false })
 
 
 export default function LabelProduction({ project, bordered }) {
-    // let partnersLength = Array.from(new Set([...project.designers, ...project.workshops, ...project.suppliers, ...project.others]))
 
     let score = scoring(project);
     project.data = {
