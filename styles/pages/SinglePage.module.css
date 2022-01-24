@@ -286,15 +286,18 @@
     border-bottom-right-radius: 16px;
     background: rgba(255, 255, 255, 0.5);
 }
-.share button{
+
+.print {
     width: 100%;
     text-align: center;
     margin-top: 1rem;
 }
-.certif{
+
+.certif {
     display: none;
 }
-.visible{
+
+.visible {
     display: block;
 }
 
@@ -320,5 +323,9 @@
     .label>*:first-child {
         border: none;
         max-width: 100%;
+    }
+
+    .print {
+        display: none;
     }
 }

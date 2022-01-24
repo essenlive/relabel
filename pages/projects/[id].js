@@ -45,7 +45,7 @@ export default function Project({ project }) {
 
     const reactToPrintContent = useCallback(() => { return componentRef.current; }, [componentRef.current]);
     const reactToPrintTrigger = useCallback(() => {
-        return (<button className="button"> Imprimer le certificat </button>); // eslint-disable-line max-len
+        return (<button className={classNames(styles.print,"button")}> Imprimer le certificat </button>); // eslint-disable-line max-len
     }, []);
 
 
