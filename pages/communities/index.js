@@ -33,8 +33,8 @@ export default function Communities({ communities }) {
           )
         })}
       <Card
-        title={"La votre ?"}
-        description={"Vous faites partie d'une communauté qui peuvre pour des pratiques plus reponsables et solidaires dans la fabrication et la production ?"}
+        title={"La vôtre ?"}
+        description={"Vous faites partie d'une communauté qui oeuvre pour des pratiques plus reponsables et solidaires dans la fabrication et la production ?"}
         link={{ path: `/communities/add`, text: "Proposer une communauté" }}
       />
 

@@ -13,6 +13,7 @@
 - [ ] Ajouter des filtres sur les index
 - [ ] Display data as tags
 - [ ] Display time spent
+- [ ] Add search bar
 
 ### Cleanup
 
