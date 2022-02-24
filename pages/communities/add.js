@@ -15,7 +15,6 @@ import { Inputs } from '@components/Inputs';
 import Tags from '@components/Tags';
 
 import {getColors, seed} from '@libs/getColors';
-import airtable_api from '@libs/airtable_api';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -242,18 +241,4 @@ export default function AddCommunities() {
             </Formik>
         </Layout>
     );
-}
-
-
-export async function getStaticProps() {
-    let cities = await airtable_api.getCommunities();
-    cities = Array.from(new Set(cities.map((el, i) => (el.cities)).flat()))
-    cities = cities.map((el) => ({ value: el, label: el }))
-    const formOverrides = {
-        "cities": { "options": cities },
-        "colors": { "initial": getColors(seed()), }
-    }
-
-    return {props: { formOverrides }, revalidate: 1}
-
 }

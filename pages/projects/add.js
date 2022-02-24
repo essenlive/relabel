@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react';
 import Confetti from 'react-confetti'
 import classNames from 'classnames';
+import useSWR from 'swr'
 
 import styles from "@styles/pages/Form.module.css";
 
@@ -13,12 +14,25 @@ import { Inputs } from '@components/Inputs';
 import Layout from '@components/Layout'
 import Tags from '@components/Tags';
 
-import airtable_api from '@libs/airtable_api.js'
 import { getColors, seed } from '@libs/getColors';
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function AddProject({ formOverrides }) {
     const [sending, setSending] = useState(false)
     const router = useRouter()
+
+    const { data, error } = useSWR('/api/get/structures', fetcher)
+
+    if (error) return <div>Failed to load</div>
+    if (!data) return <div>Loading...</div>
+
+
+    let suppliersOptions = data.filter((el) => el.typologies.indexOf("stockage") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    let designersOptions = data.filter((el) => el.typologies.indexOf("designer") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    let workshopsOptions = data.filter((el) => el.typologies.indexOf("atelier") >= 0).map((el) => ({ value: el.id, label: el.name }));
+    let othersOptions = data.filter((el) => el.typologies.indexOf("autre") >= 0).map((el) => ({ value: el.id, label: el.name }));
+
+
 
     const Form = [
         {
@@ -118,7 +132,7 @@ export default function AddProject({ formOverrides }) {
         description: "Les structures qui ont porté la conception.",
         suffix: "",
         required: false,
-        options: formOverrides.designers.options,
+        options: designersOptions,
         group: "meta"
     },
     {
@@ -131,7 +145,7 @@ export default function AddProject({ formOverrides }) {
         description: "Les structures qui ont porté la fabrication.",
         suffix: "",
         required: false,
-        options: formOverrides.workshops.options,
+        options: workshopsOptions,
         group: "meta"
     },
     {
@@ -144,7 +158,7 @@ export default function AddProject({ formOverrides }) {
         description: "Les structures qui ont fourni les matières premières.",
         suffix: "",
         required: false,
-        options: formOverrides.suppliers.options,
+        options: suppliersOptions,
         group: "meta"
     },
     {
@@ -157,7 +171,7 @@ export default function AddProject({ formOverrides }) {
         description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
         suffix: "",
         required: false,
-        options: formOverrides.others.options,
+        options: othersOptions,
         group: "meta"
     },
     {
@@ -197,7 +211,7 @@ export default function AddProject({ formOverrides }) {
         name: "colors",
         schema: Yup.array().of(Yup.string()),
         type: "button",
-        initial: formOverrides.colors.initial,
+        initial: getColors(seed()),
         placeholder: "",
         prefix: "Changer les couleurs",
         suffix: "",
@@ -758,24 +772,4 @@ export default function AddProject({ formOverrides }) {
             </Formik>
         </Layout>
     );
-}
-
-
-export async function getStaticProps() {
-    let structures = await airtable_api.getStructures();
-    let suppliersOptions = structures.filter((el) => el.typologies.indexOf("stockage") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    let designersOptions = structures.filter((el) => el.typologies.indexOf("designer") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    let workshopsOptions = structures.filter((el) => el.typologies.indexOf("atelier") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    let othersOptions = structures.filter((el) => el.typologies.indexOf("autre") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    
-
-    const formOverrides = {
-        "suppliers": { "options": suppliersOptions },
-        "designers": { "options": designersOptions },
-        "workshops": { "options": workshopsOptions },
-        "others": { "options": othersOptions },
-        "colors": { "initial": getColors(seed()), }
-    }
-
-    return { props: { formOverrides }, revalidate: 1 }
 }

@@ -5,9 +5,10 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/router'
 import Confetti from 'react-confetti'
 import { useState } from 'react';
+import useSWR from 'swr'
 
 import { getColors, seed } from '@libs/getColors';
-import airtable_api from '@libs/airtable_api.js'
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 import Layout from '@components/Layout'
 import LabelStructure from '@components/LabelStructure';
@@ -19,6 +20,13 @@ import styles from "@styles/pages/Form.module.css";
 export default function AddStructure({ formOverrides }) {
     const router = useRouter()
     const [sending, setSending] = useState(false)
+
+    const { data, error } = useSWR('/api/get/communities', fetcher)
+
+    if (error) return <div>Failed to load</div>
+    if (!data) return <div>Loading...</div>
+
+    let communities = data.map((el, i) => ({ value: el.id, label: el.name }))
 
     // Form datas
     let Form = [
@@ -44,7 +52,7 @@ export default function AddStructure({ formOverrides }) {
             description: "Les communautées dont votre structure fait partie.",
             suffix: "",
             required: true,
-            options: formOverrides.communities.options,
+            options: communities,
             group: "meta"
         },
         {
@@ -169,7 +177,7 @@ export default function AddStructure({ formOverrides }) {
             name: "colors",
             schema: Yup.array().of(Yup.string()),
             type: "button",
-            initial: formOverrides.colors.initial,
+            initial: getColors(seed()),
             placeholder: "",
             prefix: "Changer les couleurs",
             suffix: "",
@@ -319,16 +327,4 @@ export default function AddStructure({ formOverrides }) {
             </Formik>
         </Layout>
     );
-}
-
-
-export async function getStaticProps() {
-    //Prepare form options ovverides
-    let communities = await airtable_api.getCommunities({ status: true });
-    communities = communities.map((el, i) => ({ value: el.id, label: el.name }))
-    const formOverrides = {
-        "communities" : { "options" : communities},
-        "colors" : {"initial": getColors(seed()),}
-    }
-    return { props: { formOverrides }, revalidate: 1 }
 }
