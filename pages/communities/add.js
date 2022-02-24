@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
 
 import styles from "@styles/pages/Form.module.css";
 
@@ -16,12 +17,24 @@ import Tags from '@components/Tags';
 import {getColors, seed} from '@libs/getColors';
 import airtable_api from '@libs/airtable_api';
 
-export default function AddCommunities({ formOverrides }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+export default function AddCommunities() {
+
     const router = useRouter()
     const [sending, setSending] = useState(false)
+    const { data, error } = useSWR('/api/get/communities', fetcher)
+
+    if (error) return <div>Failed to load</div>
+    if (!data) return <div>Loading...</div>
+
+    let cities = Array.from(new Set(data.map((el, i) => (el.cities)).flat()))
+    cities = cities.map((el) => ({ value: el, label: el }))
+
+
     const Form = [{
         name: "name",
-        description : "Le nom de votre communauté.",
+        description: "Le nom de votre communauté.",
         schema: Yup.string().required('Requis'),
         type: "shortText",
         initial: "",
@@ -65,7 +78,7 @@ export default function AddCommunities({ formOverrides }) {
         description: "La liste des villes qui composent votre communauté.",
         suffix: "",
         required: true,
-        options: formOverrides.cities.options,
+        options: cities,
         group: "meta"
     },
     {
@@ -96,29 +109,30 @@ export default function AddCommunities({ formOverrides }) {
         name: "colors",
         schema: Yup.array().of(Yup.string()),
         type: "button",
-        initial: formOverrides.colors.initial,
+        initial: getColors(seed()),
         placeholder: "",
         prefix: "Changer les couleurs",
         suffix: "",
         required: true,
         handler: [getColors, seed],
         group: "meta"
-        },
-        {
-            name: "rgpd",
-            schema: Yup.boolean().oneOf([true], 'Vous devez accepter la clause RGPD').required('Requis'),
-            type: "checkbox",
-            initial: "",
-            placeholder: "",
-            prefix: "Avertissement données personnelles.",
-            description: "Les informations demandées sont utilisées pour le fonctionnement du site et le réferencement des projets et peuvent donner lieu à exercice du droit individuel d’accès auprès des gestionnaire dans les conditions prévues par la loi. Elles ne seront ni cédées ni diffusées en dehors des données présentes sur la plateforme.",
-            suffix: "J'accepte ces conditions",
-            required: true,
-            group: "rgpd"
-        }
+    },
+    {
+        name: "rgpd",
+        schema: Yup.boolean().oneOf([true], 'Vous devez accepter la clause RGPD').required('Requis'),
+        type: "checkbox",
+        initial: "",
+        placeholder: "",
+        prefix: "Avertissement données personnelles.",
+        description: "Les informations demandées sont utilisées pour le fonctionnement du site et le réferencement des projets et peuvent donner lieu à exercice du droit individuel d’accès auprès des gestionnaire dans les conditions prévues par la loi. Elles ne seront ni cédées ni diffusées en dehors des données présentes sur la plateforme.",
+        suffix: "J'accepte ces conditions",
+        required: true,
+        group: "rgpd"
+    }
     ]
     let schema = {}; Form.forEach((el, i) => { schema[el.name] = el.schema })
-    let initialValues = {} ; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    let initialValues = {}; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    
 
     const submit = async (fields, formik) => {
         setSending(true)
