@@ -14,13 +14,14 @@
 - [ ] Display data as tags
 - [ ] Display time spent
 - [ ] Add search bar
-- [ ] Use SWR for forms
+- [x] Use SWR for forms
 
 ### Cleanup
 
 - [ ] Add tests
 - [ ] Bloquer l'update labels carte
 - [ ] Image optimizer @buildtime
+- [ ] Cleanup loading forms
 - [x] Cleanup prisma schema
 
 

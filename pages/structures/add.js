@@ -3,9 +3,11 @@ import Link from 'next/link'
 import classNames from 'classnames';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router'
-import Confetti from 'react-confetti'
 import { useState } from 'react';
 import useSWR from 'swr'
+
+import dynamic from 'next/dynamic'
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
 
 import { getColors, seed } from '@libs/getColors';
 const fetcher = (...args) => fetch(...args).then((res) => res.json())

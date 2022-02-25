@@ -3,9 +3,10 @@ import * as Yup from 'yup';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react';
-import Confetti from 'react-confetti'
 import classNames from 'classnames';
 import useSWR from 'swr'
+import dynamic from 'next/dynamic'
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
 
 import styles from "@styles/pages/Form.module.css";
 

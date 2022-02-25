@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import Confetti from 'react-confetti'
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import dynamic from 'next/dynamic'
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
 
 import styles from "@styles/pages/Form.module.css";
 
