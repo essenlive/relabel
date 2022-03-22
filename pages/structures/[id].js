@@ -1,4 +1,3 @@
-import airtable_api from '@libs/airtable_api';
 import Layout from '@components/Layout'
 import classNames from 'classnames';
 import styles from "@styles/pages/SinglePage.module.css";
@@ -8,6 +7,7 @@ import LabelStructure from '@components/LabelStructure';
 import { BiCopy } from "react-icons/bi";
 import {EmailShareButton,FacebookShareButton,LinkedinShareButton,TwitterShareButton,EmailIcon,FacebookIcon,LinkedinIcon,TwitterIcon} from "react-share";
 import { useState } from 'react';
+import prisma, { serialize } from '@libs/prisma'
 
 export default function Structure({structure}) {
     
@@ -18,7 +18,8 @@ export default function Structure({structure}) {
         setTimeout(()=>{setCopied(false)}, 1000)
     }
 
-    return (<Layout 
+    return (
+    <Layout 
             meta = {{
                 title: structure.name,
                 description: structure.description ? structure.description : null,
@@ -133,30 +134,33 @@ export default function Structure({structure}) {
 
 
 export async function getStaticProps({ params }) {
-    let structure = await airtable_api.getStructures({ id: params.id });
+    let structure = await prisma.structure.findMany({ where: { id: params.id } });
     structure = structure[0];
-    
-    structure.communities = await Promise.all(structure.communities.map(async (community) => {
-        let communityEntity = await airtable_api.getCommunities({ id: community });
-        return communityEntity[0]
-    }))
+    let projects = await prisma.project.findMany();
+    let communities = await prisma.community.findMany();
+
+    structure.communities = structure.communities.map((communityId) => {
+        let community = communities.filter((el) => el.id === communityId);
+        return community[0]
+    })
+
     structure.projects = [...structure.projects_designer, ...structure.projects_supplier, ...structure.projects_workshop, ...structure.projects_other]
     structure.projects = [...new Set(structure.projects)]
-    
-    structure.projects = await Promise.all(structure.projects.map(async (el) => {
-        let project = await airtable_api.getProjects({ id: el });
+    structure.projects = structure.projects.map((projectId) => {
+        let project = projects.filter((el) => el.id === projectId);
         return project[0]
-    }))
-    
+    })
+
+
     return {
-        props: {structure},
-        revalidate: 1,
-    };
+        props: { structure: serialize(structure) },
+        revalidate: 1
+    }
 }
 
 
 export async function getStaticPaths() {
-    let paths = await airtable_api.getStructures();
-    paths = paths.map((el) => ({ params: { id: el.id } }))
+    let structures = await prisma.structure.findMany();
+    let paths = structures.map((structure) => ({ params: { id: structure.id } }))
     return { paths: paths, fallback: "blocking" };
 }

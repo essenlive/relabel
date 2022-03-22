@@ -19,11 +19,11 @@ import Tags from '@components/Tags';
 
 import styles from "@styles/pages/Form.module.css";
 
-export default function AddStructure({ formOverrides }) {
+export default function AddStructure() {
     const router = useRouter()
     const [sending, setSending] = useState(false)
 
-    const { data, error } = useSWR('/api/get/communities', fetcher)
+    const { data, error } = useSWR('/api/communities', fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -47,7 +47,7 @@ export default function AddStructure({ formOverrides }) {
         {
             name: "communities",
             schema: Yup.array().of(Yup.object().nullable()).required('Requis'),
-            type: "creatableSelect",
+            type: "multiSelect",
             initial: [],
             placeholder: "",
             prefix: "Communautée.s",
@@ -137,6 +137,10 @@ export default function AddStructure({ formOverrides }) {
                 {
                     value: "stockage",
                     label: "Stockage"
+                },
+                {
+                    value: "autre",
+                    label: "Partenaire"
                 }
             ],
             group: "data"
@@ -210,25 +214,12 @@ export default function AddStructure({ formOverrides }) {
         // Deep copy field object to keep it clean when submitting
         let data = new Object;
         Object.assign(data, fields)
-
-        // Filter new communities to create them in airtable beforehand, and get their airtable ids
-        let newCommunities = fields.communities.filter((el) => el.__isNew__).map((el) => ({name : el.label}))
-        if (newCommunities.length > 0) {  
-            let newCommunitiesId = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify(newCommunities), headers: { 'Content-Type': 'application/json' } })
-            newCommunitiesId = await newCommunitiesId.json()
-            data.communities = data.communities.map((communities) => {
-                if (!communities.__isNew__) return communities.value
-                let community = newCommunitiesId.filter((community) => community.fields.name === communities.label)
-                return community[0].id
-            });
-        }
         data.communities = fields.communities.map((el) => el.value)
-
         // Prepare illustrations Urls
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
 
         // Send to airtable and redirect to newly created page
-        let record = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        let record = await fetch('/api/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         // setTimeout(() => { formik.setSubmitting(false); console.log("timeout"); }, 1000)
         router.push(`/structures/${record[0].id}`);

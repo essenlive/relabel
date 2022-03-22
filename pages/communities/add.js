@@ -23,14 +23,13 @@ export default function AddCommunities() {
 
     const router = useRouter()
     const [sending, setSending] = useState(false)
-    const { data, error } = useSWR('/api/get/communities', fetcher)
+    const { data, error } = useSWR('/api/communities', fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
     let cities = Array.from(new Set(data.map((el, i) => (el.cities)).flat()))
     cities = cities.map((el) => ({ value: el, label: el }))
-
 
     const Form = [{
         name: "name",
@@ -140,7 +139,7 @@ export default function AddCommunities() {
         let data = new Object;
         Object.assign(data, fields)
         data.cities = fields.cities.map((el) => el.value)
-        let record = await fetch('/api/create/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        let record = await fetch('/api/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         // setTimeout(() => { formik.setSubmitting(false); console.log("timeout"); }, 1000)
         router.push(`/communities/${record[0].id}`);

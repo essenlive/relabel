@@ -18,22 +18,14 @@ import Tags from '@components/Tags';
 import { getColors, seed } from '@libs/getColors';
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function AddProject({ formOverrides }) {
+export default function AddProject() {
     const [sending, setSending] = useState(false)
     const router = useRouter()
 
-    const { data, error } = useSWR('/api/get/structures', fetcher)
+    const { data, error } = useSWR('/api/structures', fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
-
-
-    let suppliersOptions = data.filter((el) => el.typologies.indexOf("stockage") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    let designersOptions = data.filter((el) => el.typologies.indexOf("designer") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    let workshopsOptions = data.filter((el) => el.typologies.indexOf("atelier") >= 0).map((el) => ({ value: el.id, label: el.name }));
-    let othersOptions = data.filter((el) => el.typologies.indexOf("autre") >= 0).map((el) => ({ value: el.id, label: el.name }));
-
-
 
     const Form = [
         {
@@ -126,53 +118,53 @@ export default function AddProject({ formOverrides }) {
     {
         name: "designers",
         schema: Yup.array().of(Yup.object()),
-        type: "creatableSelect",
+        type: "multiSelect",
         initial: [],
         placeholder: "",
         prefix: "Designer.s",
         description: "Les structures qui ont porté la conception.",
         suffix: "",
         required: false,
-        options: designersOptions,
+        options: data,
         group: "meta"
     },
     {
         name: "workshops",
         schema: Yup.array().of(Yup.object()),
-        type: "creatableSelect",
+        type: "multiSelect",
         initial: [],
         placeholder: "",
         prefix: "Ateliers/lieux de fabrication",
         description: "Les structures qui ont porté la fabrication.",
         suffix: "",
         required: false,
-        options: workshopsOptions,
+        options: data,
         group: "meta"
     },
     {
         name: "suppliers",
         schema: Yup.array().of(Yup.object()),
-        type: "creatableSelect",
+        type: "multiSelect",
         initial: [],
         placeholder: "",
         prefix: "Ressourceries/fournisseurs",
         description: "Les structures qui ont fourni les matières premières.",
         suffix: "",
         required: false,
-        options: suppliersOptions,
+        options: data,
         group: "meta"
     },
     {
         name: "others",
         schema: Yup.array().of(Yup.object()),
-        type: "creatableSelect",
+        type: "multiSelect",
         initial: [],
         placeholder: "",
         prefix: "Partenaires",
         description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
         suffix: "",
         required: false,
-        options: othersOptions,
+        options: data,
         group: "meta"
     },
     {
@@ -579,34 +571,8 @@ export default function AddProject({ formOverrides }) {
         Object.assign(data, fields)
         data.team = fields.team.map((el) => el.value)
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
-        let newStructures = Array.from(new Set([
-            ...fields.designers.filter((el) => el.__isNew__).map((el) => (el.label)),
-            ...fields.workshops.filter((el) => el.__isNew__).map((el) => (el.label)),
-            ...fields.suppliers.filter((el) => el.__isNew__).map((el) => (el.label))
-        ])).map((el) => ({ name: el }))
-
-        if (newStructures.length > 0) {
-
-            let newStructuresId = await fetch('/api/create/structures', { method: 'POST', body: JSON.stringify(newStructures), headers: { 'Content-Type': 'application/json' } })
-            newStructuresId = await newStructuresId.json()
-            data.designers = data.designers.map((designers) => {
-                if (!designers.__isNew__) return designers.value
-                let structure = newStructuresId.filter((structure) => structure.fields.name === designers.label)
-                return structure[0].id
-            });
-            data.workshops = data.workshops.map((workshops) => {
-                if (!workshops.__isNew__) return workshops.value
-                let structure = newStructuresId.filter((structure) => structure.fields.name === workshops.label)
-                return structure[0].id
-            });
-            data.suppliers = data.suppliers.map((suppliers) => {
-                if (!suppliers.__isNew__) return suppliers.value
-                let structure = newStructuresId.filter((structure) => structure.fields.name === suppliers.label)
-                return structure[0].id
-            });
-
-        }
-        let record = await fetch('/api/create/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+       
+        let record = await fetch('/api/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
         console.log(record);
         // setTimeout(()=>{formik.setSubmitting(false); console.log("timeout");}, 1000)

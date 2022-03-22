@@ -1,6 +1,6 @@
-import airtable_api from '@libs/airtable_api.js'
 import LabelCommunity from '@components/LabelCommunity';
 import styles from '@styles/pages/Embeds.module.css'
+import prisma, { serialize } from '@libs/prisma'
 
 
 export default function label({ community }) {
@@ -17,19 +17,26 @@ export default function label({ community }) {
 
 
 export async function getStaticProps({ params }) {
-    let community = await airtable_api.getCommunities({ id: params.id });
+    let community = await prisma.community.findMany({ where: { id: params.id } });
     community = community[0];
-    community.structures = await Promise.all(community.structures.map(async (el) => {
-        let structure = await airtable_api.getStructures({ id: el });
+    let structures = await prisma.structure.findMany();
+
+
+    community.structures = community.structures.map((structureId) => {
+        let structure = structures.filter((el) => el.id === structureId);
+        structure[0].communities = [{ name: community.name }];
         return structure[0]
-    }))
+    })
+
     return {
-        props: {community},
+        props: { community: serialize(community) },
         revalidate: 1
     }
 }
+
+
 export async function getStaticPaths() {
-    let paths = await airtable_api.getCommunities();
-    paths = paths.map((el) => ({ params: { id: el.id } }))
-    return { paths: paths, fallback: false };
+    let communities = await prisma.community.findMany();
+    let paths = communities.map((community) => ({ params: { id: community.id } }))
+    return { paths: paths, fallback: "blocking" };
 }

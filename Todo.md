@@ -1,15 +1,5 @@
 ## Todo / Backlog
 
-### Done
-
-- [x] Correct sticky visualisations
-- [x] Add links in iframe
-- [x] Umami
-- [x] Open Graph data and SEO
-- [x] Generateur de cartels
-
-### Next
-
 - [ ] Ajouter des filtres sur les index
 - [ ] Display data as tags
 - [ ] Display time spent

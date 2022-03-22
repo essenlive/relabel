@@ -1,7 +1,7 @@
 import Layout from '@components/Layout';
-import airtable_api from '@libs/airtable_api.js'
 import LabelProject from '@components/LabelProject';
 import Card from '@components/Card';
+import prisma, { serialize } from '@libs/prisma'
 
 export default function Projects({ projects }) {
   
@@ -41,15 +41,20 @@ export default function Projects({ projects }) {
   );
 }
 
-
 export async function getStaticProps() {
-  let projects = await airtable_api.getProjects();
-  projects = await Promise.all(projects.map(async (project) => {
-    project.designers = await Promise.all(project.designers.map(async (structure) => {
-      let structureEntity = await airtable_api.getStructures({ id: structure });
-      return structureEntity
-    }))
+  let projects = await prisma.project.findMany();
+  let structures = await prisma.structure.findMany();
+
+  projects = projects.map((project) => {
+    project.designers = project.designers.map((structureId) => {
+      let structure = structures.filter((el) => el.id === structureId);
+      return structure[0]
+    })
     return project
-  }))
-  return { props: { projects }, revalidate: 1 }
+  })
+
+  return {
+    props: { projects : serialize(projects) },
+    revalidate: 1
+  }
 }

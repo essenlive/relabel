@@ -1,4 +1,3 @@
-import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
 import LabelProject from '@components/LabelProject';
 import styles from "@styles/pages/SinglePage.module.css";
@@ -11,6 +10,7 @@ import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShar
 import { useRef, useState, useEffect, useCallback } from "react";
 import ReactToPrint from "react-to-print";
 import classNames from 'classnames';
+import prisma, { serialize } from '@libs/prisma'
 
 import Certificate from "@components/Certificate";
 
@@ -192,40 +192,39 @@ export default function Project({ project }) {
 
 
 
-export async function getStaticProps({params}) {
-    let project = await airtable_api.getProjects({ id: params.id });
+export async function getStaticProps({ params }) {
+    let project = await prisma.project.findMany({ where: { id: params.id } });
     project = project[0];
+    let structures = await prisma.structure.findMany();
+    let communities = await prisma.community.findMany();
 
     project.structures = [...project.designers, ...project.suppliers, ...project.workshops, ...project.others]
     project.structures = [...new Set(project.structures)]
 
-
-    project.structures = await Promise.all(project.structures.map(async (structure) => {
-        let structureEntity = await airtable_api.getStructures({ id: structure });
-        structureEntity = structureEntity[0]
-        structureEntity.communities = await Promise.all(structureEntity.communities.map(async (community) => {
-            let communityEntity = await airtable_api.getCommunities({ id: community });
-            return communityEntity[0]
-        }))
-        structureEntity.typologies = []
-        if (project.designers.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "designer"]
-        if (project.suppliers.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "stockage"]
-        if (project.others.indexOf(structure) >= 0) structureEntity.typologies = [...structureEntity.typologies, "autre"]
-        if (project.workshops.indexOf(structure) >= 0)  structureEntity.typologies = [...structureEntity.typologies, "atelier"]
-        return structureEntity
-    }))
-
-
+    project.structures = project.structures.map((structureId) => {
+        let structure = structures.filter((el) => el.id === structureId);
+        structure = structure[0];
+        structure.communities = structure.communities.map((communityId) => {
+            let community = communities.filter((el) => el.id === communityId);
+            return community[0]
+        })
+        structure.typologies = []
+        if (project.designers.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "designer"]
+        if (project.suppliers.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "stockage"]
+        if (project.others.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "autre"]
+        if (project.workshops.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "atelier"]
+        return structure
+    })
 
     project.mapData = prepareData(project.structures)
 
     return {
-        props: {project},
+        props: {project : serialize(project)},
         revalidate: 1,
     }
 }
 export async function getStaticPaths() {
-    let paths = await airtable_api.getProjects();
-    paths = paths.map((el) => ({ params: { id: el.id } }))
+    let projects = await prisma.project.findMany();
+    let paths = projects.map((project) => ({ params: { id: project.id } }))
     return { paths: paths, fallback: "blocking" };
 }

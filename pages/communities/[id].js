@@ -1,4 +1,3 @@
-import airtable_api from '@libs/airtable_api.js'
 import Layout from '@components/Layout'
 import classNames from "classnames"
 import styles from "@styles/pages/SinglePage.module.css";
@@ -11,6 +10,7 @@ import {mean} from 'mathjs';
 import { createMap } from '@libs/getColors';
 import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, EmailIcon, FacebookIcon, LinkedinIcon, TwitterIcon } from "react-share";
 import { useState } from 'react';
+import prisma, { serialize } from '@libs/prisma'
 
 
 export default function Community({community}) {
@@ -147,25 +147,28 @@ export default function Community({community}) {
 
 
 export async function getStaticProps({ params }) {
-    let community = await airtable_api.getCommunities({ id: params.id });
+
+    let community = await prisma.community.findMany({ where: { id: params.id} });
     community = community[0];
-    community.structures = await Promise.all(community.structures.map(async (el) => {
-        let structure = await airtable_api.getStructures({ id: el });
-        structure[0].communities = [{name : community.name}];
+    let structures = await prisma.structure.findMany();
+    
+    community.structures = community.structures.map((structureId) => {
+        let structure = structures.filter((el) => el.id === structureId);
+        structure[0].communities = [{ name: community.name }];
         return structure[0]
-    }))
+    })
 
     community.mapData = prepareData(community.structures)
-
-
     
     return {
-        props: {community},
+        props: {community : serialize(community)},
         revalidate: 1
     }
 }
+
+
 export async function getStaticPaths() {
-    let paths = await airtable_api.getCommunities();
-    paths = paths.map((el) => ({ params: { id: el.id } }))
+    let communities = await prisma.community.findMany();
+    let paths = communities.map((community) => ({ params: { id: community.id } }))
     return { paths: paths, fallback: "blocking" };
 }

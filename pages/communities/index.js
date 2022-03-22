@@ -1,7 +1,7 @@
 import Layout from '@components/Layout';
-import airtable_api from '@libs/airtable_api.js'
 import LabelCommunity from '@components/LabelCommunity';
 import Card from '@components/Card';
+import prisma, {serialize} from '@libs/prisma'
 
 
 export default function Communities({ communities }) {
@@ -44,17 +44,19 @@ export default function Communities({ communities }) {
 
 
 export async function getStaticProps() {
-  let communities = await airtable_api.getCommunities({ status: true });
-  
-  communities = await Promise.all(communities.map(async (community) => {
-    community.structures = await Promise.all(community.structures.map(async (structure) => {
-      let structureEntity = await airtable_api.getStructures({ id: structure });
-      return structureEntity[0]
-    }))
-    return community
-  }))
+  let communities = await prisma.community.findMany({where : {status : true}});
+  let structures = await prisma.structure.findMany();
 
+  communities = communities.map((community) => {
+    community.structures = community.structures.map((structureId) => {
+      let structure = structures.filter((el) => el.id === structureId);
+      return structure[0]
+    })
+    return community
+  })
+  
   return {
-    props: { communities },
-    revalidate: 1 }
+    props: { communities: serialize(communities) },
+    revalidate: 1
+  }
 }

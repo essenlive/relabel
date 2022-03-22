@@ -1,6 +1,6 @@
-import airtable_api from '@libs/airtable_api.js'
 import LabelProject from '@components/LabelProject';
 import styles from '@styles/pages/Embeds.module.css'
+import prisma, { serialize } from '@libs/prisma'
 
 
 export default function Project({project}) {
@@ -15,25 +15,23 @@ export default function Project({project}) {
     );
 }
 
-   
-
-
 
 export async function getStaticProps({ params }) {
-    let project = await airtable_api.getProjects({ id: params.id });
+    let project = await prisma.project.findMany({ where: { id: params.id } });
     project = project[0];
-    project.designers = await Promise.all(project.designers.map(async (structure) => {
-        let structureEntity = await airtable_api.getStructures({ id: structure });
-        return structureEntity[0]
-    }))
-    
+    let structures = await prisma.structure.findMany();
+    project.designers = project.designers.map((structureId) => {
+        let structure = structures.filter((el) => el.id === structureId);
+        return structure[0]
+    })
+
     return {
-        props: {project},
+        props: { project: serialize(project) },
         revalidate: 1,
     }
 }
 export async function getStaticPaths() {
-    let paths = await airtable_api.getProjects();
-    paths = paths.map((el) => ({ params: { id: el.id } }))
-    return { paths: paths, fallback: false };
+    let projects = await prisma.project.findMany();
+    let paths = projects.map((project) => ({ params: { id: project.id } }))
+    return { paths: paths, fallback: "blocking" };
 }
