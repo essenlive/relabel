@@ -108,7 +108,7 @@ export default function Project({ project }) {
 
                     {project.structures.length > 0 && (
                     <ReactMap 
-                        structures={project.mapData}
+                        structures={prepareData(project.structures)}
                         colorMap={project.colors}
                         initialViewport={{
                             latitude: mean(project.structures.map(el => el.latitude)),
@@ -209,14 +209,13 @@ export async function getStaticProps({ params }) {
             return community[0]
         })
         structure.typologies = []
-        if (project.designers.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "designer"]
-        if (project.suppliers.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "stockage"]
-        if (project.others.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "autre"]
-        if (project.workshops.indexOf(structure) >= 0) structure.typologies = [...structure.typologies, "atelier"]
+        if (project.designers.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "designer"]
+        if (project.suppliers.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "stockage"]
+        if (project.others.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "autre"]
+        if (project.workshops.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "atelier"]
+        console.log(structure);
         return structure
     })
-
-    project.mapData = prepareData(project.structures)
 
     return {
         props: {project : serialize(project)},
