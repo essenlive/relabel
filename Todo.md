@@ -13,6 +13,8 @@
 - [x] Cleanup loading forms
 - [x] Cleanup prisma schema
 - [x] Remove label bugs
+- [ ] Check all forms
+- [ ] Clean all visual bugs
 
 
 ### Short Term

@@ -6,6 +6,7 @@ import Card from '@components/Card';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, workshopsLayer, othersLayer, suppliersLayer, designersLayer } from '@libs/layers';
 import Tags from '@components/Tags';
 import {createMap} from '@libs/getColors'
+import classNames from 'classnames';
 
 export function prepareData(structureList){
   let data = {}
@@ -36,7 +37,7 @@ export function prepareData(structureList){
   }
 }
 
-export default function ReactMap({ structures, initialViewport, colorMap = ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]}) {
+export default function ReactMap({ className, structures, initialViewport, colorMap = ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]}) {
   if (!initialViewport) {
     initialViewport = {
       latitude: 48.85658,
@@ -124,6 +125,7 @@ export default function ReactMap({ structures, initialViewport, colorMap = ["#D3
       mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOXTOKEN}
       width="100%"
       height="100%"
+      className= {classNames(className)}
       mapStyle="mapbox://styles/essen/cjtsfp7dc00201fmfl8jllc3k"
       onViewportChange={(viewport) => setViewport(viewport)}
       interactiveLayerIds={[clusterLayer.id, unclusteredPointLayer.id]}

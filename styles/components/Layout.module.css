@@ -29,7 +29,7 @@
   padding: 0 2rem 4rem;
 }
 
-.fullWidth{
+.fullWidth {
   max-width: 100%;
 }
 
@@ -69,6 +69,7 @@
     width: 100%;
     min-height: calc(100vh - 170px);
   }
+
 }
 
 @media print {
