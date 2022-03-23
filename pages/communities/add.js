@@ -1,144 +1,36 @@
 import Link from 'next/link'
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import dynamic from 'next/dynamic'
-const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
-
 import styles from "@styles/pages/Form.module.css";
-
 import Layout from '@components/Layout'
 import LabelCommunity from '@components/LabelCommunity';
 import { Inputs } from '@components/Inputs';
 import Tags from '@components/Tags';
-
-import {getColors, seed} from '@libs/getColors';
-
+import { communityForm } from '@libs/formsData';
+import dynamic from 'next/dynamic'
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function AddCommunities() {
 
+export default function AddCommunities() {
     const router = useRouter()
     const [sending, setSending] = useState(false)
     const { data, error } = useSWR('/api/communities', fetcher)
-
     if (error) return <div>Failed to load</div>
-
-    let cities;
     if (data){
-        cities = Array.from(new Set(data.map((el, i) => (el.cities)).flat()))
-        cities = cities.map((el) => ({ value: el, label: el }))        
+        let cities = Array.from(new Set(data.map((el, i) => (el.cities)).flat()))
+        cities = cities.map((el) => ({ value: el, label: el }))
+        communityForm.inputs.map((input) => {
+            if (['cities'].indexOf(input.name) >= 0) input.options = cities;
+            return input
+        })     
     }
-
-
-    const Form = [{
-        name: "name",
-        description: "Le nom de votre communauté.",
-        schema: Yup.string().required('Requis'),
-        type: "shortText",
-        initial: "",
-        placeholder: "Ma communauté",
-        prefix: "Nom",
-        suffix: "",
-        required: true,
-        group: "meta"
-    },
-    {
-        name: "year",
-        schema: Yup.date().default(function () { return new Date().getFullYear(); }),
-        type: "number",
-        initial: new Date().getFullYear(),
-        placeholder: new Date().getFullYear(),
-        prefix: "Année de création",
-        description: "L'année durant laquelle vous avez monté votre communauté.",
-        suffix: "",
-        required: true,
-        group: "meta"
-    },
-    {
-        name: "description",
-        schema: Yup.string().required('Requis'),
-        type: "text",
-        initial: "",
-        placeholder: "Nous cherchons à ...",
-        prefix: "Courte description",
-        description: "En une ou deux phrases, ce qui rassemble votre communauté.",
-        suffix: "",
-        required: true,
-        group: "meta"
-        },
-        {
-            name: "cities",
-            schema: Yup.array().of(Yup.object().required('Requis')).nullable(),
-            type: "creatableSelect",
-            initial: [],
-            placeholder: cities ? "Paris, Lyon" : "Loading",
-            prefix: "Villes dans la communauté",
-            description: "La liste des villes qui composent votre communauté.",
-            suffix: "",
-            required: true,
-            options: cities ? cities : [],
-            group: "meta"
-        },
-        {
-        name: "contact",
-        schema: Yup.string().email('Email incorrect').required('Requis'),
-        type: "mail",
-        initial: "",
-        placeholder: "contact@mail.org",
-        prefix: "Contact du référent",
-        description: "L'adresse mail d'un référent pour avoir plus d'informations. (Ne sera pas visible sur le site.)",
-        suffix: "",
-        required: true,
-        group: "meta"
-    },
-    {
-        name: "website",
-        schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
-        type: "url",
-        initial: "",
-        placeholder: "https://sitedelacommunauté.org",
-        description: "L'url de votre site internet si vous en avez un.",
-        prefix: "Site internet",
-        suffix: "",
-        required: false,
-        group: "meta"
-    },
-    {
-        name: "colors",
-        schema: Yup.array().of(Yup.string()),
-        type: "button",
-        initial: getColors(seed()),
-        placeholder: "",
-        prefix: "Changer les couleurs",
-        suffix: "",
-        required: true,
-        handler: [getColors, seed],
-        group: "meta"
-    },
-    {
-        name: "rgpd",
-        schema: Yup.boolean().oneOf([true], 'Vous devez accepter la clause RGPD').required('Requis'),
-        type: "checkbox",
-        initial: "",
-        placeholder: "",
-        prefix: "Avertissement données personnelles.",
-        description: "Les informations demandées sont utilisées pour le fonctionnement du site et le réferencement des projets et peuvent donner lieu à exercice du droit individuel d’accès auprès des gestionnaire dans les conditions prévues par la loi. Elles ne seront ni cédées ni diffusées en dehors des données présentes sur la plateforme.",
-        suffix: "J'accepte ces conditions",
-        required: true,
-        group: "rgpd"
-    }
-    ]
-    let schema = {}; Form.forEach((el, i) => { schema[el.name] = el.schema })
-    let initialValues = {}; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
-    
 
     const submit = async (fields, formik) => {
         setSending(true)
-
         let data = new Object;
         Object.assign(data, fields)
         data.cities = fields.cities.map((el) => el.value)
@@ -157,8 +49,8 @@ export default function AddCommunities() {
             padded
         >
             <Formik
-                initialValues={initialValues}
-                validationSchema={Yup.object().shape(schema)}
+                initialValues={communityForm.initialValues}
+                validationSchema={communityForm.schema}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
@@ -185,7 +77,7 @@ export default function AddCommunities() {
                                 {props.isSubmitting  && <div className={styles.sending}><h3>C'est envoyé</h3></div>}
                                 <h2>Présentation de la communauté</h2>
                                 <div>
-                                    {Form.map((input, i) => (
+                                    {communityForm.inputs.map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}

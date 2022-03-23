@@ -1,229 +1,47 @@
 import { Formik } from 'formik';
 import Link from 'next/link'
 import classNames from 'classnames';
-import * as Yup from 'yup';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
 import useSWR from 'swr'
-
-import dynamic from 'next/dynamic'
-const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
-
-import { getColors, seed } from '@libs/getColors';
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
-
+import { structureForm } from '@libs/formsData';
 import Layout from '@components/Layout'
 import LabelStructure from '@components/LabelStructure';
 import { Inputs } from '@components/Inputs';
 import Tags from '@components/Tags';
-
 import styles from "@styles/pages/Form.module.css";
+import dynamic from 'next/dynamic'
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false })
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function AddStructure() {
     const router = useRouter()
     const [sending, setSending] = useState(false)
-
     const { data, error } = useSWR('/api/communities', fetcher)
-
     if (error) return <div>Failed to load</div>
-
-    let communities;
-    if (data) { communities = data.map((el) => ({ value: el.id, label: el.name })) }
-
-    // Form datas
-    let Form = [
-        {
-            name: "name",
-            schema: Yup.string().required('Requis'),
-            type: "shortText",
-            initial: "",
-            placeholder: "Nom",
-            prefix: "Nom",
-            description: "Le nom de votre structure.",
-            suffix: "",
-            required: true,
-            group: "meta"
-        },
-        {
-            name: "communities",
-            schema: Yup.array().of(Yup.object().nullable()).required('Requis'),
-            type: "multiSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Communautée.s",
-            description: "Les communautées dont votre structure fait partie.",
-            suffix: "",
-            required: true,
-            options: communities ? communities : [],
-            group: "meta"
-        },
-        {
-            name: "adress",
-            schema: Yup.string().required('Requis'),
-            type: "adress",
-            initial: "",
-            placeholder: "15 rue ...",
-            prefix: "Adresse",
-            description: "L'adresse de votre structure.",
-            suffix: "",
-            required: true,
-            group: "meta"
-        },
-        {
-            name: "description",
-            schema: Yup.string().required('Requis'),
-            type: "text",
-            initial: "",
-            placeholder: "Notre structure propose ...",
-            prefix: "Description",
-            description: "Qui êtes vous et quelles sont vos valeurs ?",
-            suffix: "",
-            required: true,
-            group: "meta"
-        },
-        {
-            name: "status",
-            schema: Yup.string().required('Requis'),
-            type: "select",
-            initial: "",
-            placeholder: "",
-            prefix: "Statut",
-            suffix: "",
-            description: "Le statut juridique de votre structure.",
-            required: true,
-            options: [
-                {
-                    value: "association",
-                    label: "Association"
-                },
-                {
-                    value: "entreprise",
-                    label: "Entreprise"
-                },
-                {
-                    value: "cooperative",
-                    label: "Coopérative"
-                },
-                {
-                    value: "institution",
-                    label: "Institution"
-                },
-                {
-                    value: "indépendant",
-                    label: "Indépendant"
-                }
-            ],
-            group: "data"
-        },
-        {
-            name: "typologies",
-            schema: Yup.array().of(Yup.string().required('Requis')),
-            type: "multiSelect",
-            initial: [],
-            placeholder: "",
-            prefix: "Activités",
-            description: "La ou les activités de votre structure.",
-            suffix: "",
-            required: true,
-            options: [
-                {
-                    value: "designer",
-                    label: "Designer"
-                },
-                {
-                    value: "atelier",
-                    label: "Atelier"
-                },
-                {
-                    value: "stockage",
-                    label: "Stockage"
-                },
-                {
-                    value: "autre",
-                    label: "Partenaire"
-                }
-            ],
-            group: "data"
-        },
-        {
-            name: "contact",
-            schema: Yup.string().email('Email incorrect').required('Requis'),
-            type: "mail",
-            initial: "",
-            placeholder: "contact@mail.org",
-            description: "L'adresse mail d'un référent pour avoir plus d'informations. (Ne sera pas visible sur le site.)",
-            prefix: "Contact",
-            suffix: "",
-            required: true,
-            group: "meta"
-        },
-        {
-            name: "website",
-            schema: Yup.string().url("Url incorrecte, pensez à ajouter : https://"),
-            type: "url",
-            initial: "",
-            placeholder: "sitedelacommunauté.org",
-            prefix: "Site internet",
-            description: "L'url de votre site internet si vous en avez un.",
-            suffix: "",
-            group: "meta"
-        },
-        {
-            name: "illustrations",
-            schema: Yup.array().of(Yup.string().url()).nullable(),
-            type: "images",
-            initial: [],
-            placeholder: "",
-            prefix: "Illustrations",
-            description: "Une ou plusieurs images pour illustrer votre structure.",
-            suffix: "",
-            group: "meta"
-        },
-        {
-            name: "colors",
-            schema: Yup.array().of(Yup.string()),
-            type: "button",
-            initial: getColors(seed()),
-            placeholder: "",
-            prefix: "Changer les couleurs",
-            suffix: "",
-            required: true,
-            handler: [getColors, seed],
-            group: "meta"
-        },
-        {
-            name: "rgpd",
-            schema: Yup.boolean().oneOf([true], 'Vous devez accepter la clause RGPD').required('Requis'),
-            type: "checkbox",
-            initial: "",
-            placeholder: "",
-            prefix: "Avertissement données personnelles.",
-            description: "Les informations demandées sont utilisées pour le fonctionnement du site et le réferencement des projets et peuvent donner lieu à exercice du droit individuel d’accès auprès des gestionnaire dans les conditions prévues par la loi. Elles ne seront ni cédées ni diffusées en dehors des données présentes sur la plateforme.",
-            suffix: "J'accepte ces conditions",
-            required: true,
-            group: "rgpd"
-        }
-    ]
-    let schema = {}; Form.forEach((el, i) => { schema[el.name] = el.schema })
-    let initialValues = {}; Form.forEach((el, i) => { initialValues[el.name] = el.initial })
+    if (data) { 
+        let communities = data.map((el) => ({ value: el.id, label: el.name }))
+        structureForm.inputs.map((input) => {
+            if (['communities'].indexOf(input.name) >= 0) input.options = communities;
+            return input
+        }) 
+    }
 
     // Submit form handler
-    const submit = async (fields, formik) => {
+    const submit = async fields => {
         setSending(true)
-
         // Deep copy field object to keep it clean when submitting
         let data = new Object;
         Object.assign(data, fields)
         data.communities = fields.communities.map((el) => el.value)
         // Prepare illustrations Urls
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
-
         // Send to airtable and redirect to newly created page
         let record = await fetch('/api/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
-        // setTimeout(() => { formik.setSubmitting(false); console.log("timeout"); }, 1000)
         router.push(`/structures/${record[0].id}`);
     }
+    
     return (
         <Layout
             meta={{
@@ -234,8 +52,8 @@ export default function AddStructure() {
             padded
         >
             <Formik
-                initialValues={initialValues}
-                validationSchema={Yup.object().shape(schema)}
+                initialValues={structureForm.initialValues}
+                validationSchema={structureForm.schema}
                 onSubmit={(values, formik) => { submit(values, formik) }}>
                 {(props) => {
                     return (
@@ -263,7 +81,7 @@ export default function AddStructure() {
                                 </div>}
                                 <h2>Référencer une structure</h2>
                                 <div>
-                                    {Form.map((input, i) => (
+                                    {structureForm.inputs.map((input, i) => (
                                         <Inputs
                                             key={i}
                                             input={input}

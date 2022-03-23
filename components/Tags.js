@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import styles from "@styles/components/Tags.module.css";
 
-const Tags = ({tags, colorMap, className}) => {
+const Tags = ({tags, colorMap, className, light, dark}) => {
 
     if (!(colorMap instanceof Map)) {
         let colors = colorMap ? colorMap : ["var(--yellow-400)", "var(--lightBlue-400)", "var(--green-400)", "var(--rose-400)", "var(--pink-400)", "var(--cyan-400)"];

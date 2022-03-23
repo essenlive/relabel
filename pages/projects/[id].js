@@ -13,6 +13,7 @@ import classNames from 'classnames';
 import prisma, { serialize } from '@libs/prisma'
 
 import Certificate from "@components/Certificate";
+import Tags from '@components/Tags';
 
 
 export default function Project({ project }) {
@@ -94,6 +95,7 @@ export default function Project({ project }) {
                         <h3>Fabrication</h3>
                         <p><b>Ateliers</b> : {project.structures.filter(el => el.typologies.indexOf("atelier") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
                         <p><b>Expertises</b> : {project.fab_expertise}</p>
+                        <Tags tags={['un', 'deux', 'trois', 'quatre']} colorMap={['#fff000']}/>
                         <p><b>Fabrication locale</b> : {project.fab_local}</p>
                         <p><b>Outils</b> : {project.fab_tools}</p>
                         <p><b>Social</b> : {project.fab_social}</p>
