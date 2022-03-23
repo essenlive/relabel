@@ -26,6 +26,10 @@ export default function AddProject() {
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
+    let structures;
+    if (data) {
+        structures = data.map((el) => ({ value: el.id, label: el.name }));
+    }
 
     const Form = [
         {
@@ -125,7 +129,7 @@ export default function AddProject() {
         description: "Les structures qui ont porté la conception.",
         suffix: "",
         required: false,
-        options: data,
+        options: structures,
         group: "meta"
     },
     {
@@ -138,7 +142,7 @@ export default function AddProject() {
         description: "Les structures qui ont porté la fabrication.",
         suffix: "",
         required: false,
-        options: data,
+        options: structures,
         group: "meta"
     },
     {
@@ -151,7 +155,7 @@ export default function AddProject() {
         description: "Les structures qui ont fourni les matières premières.",
         suffix: "",
         required: false,
-        options: data,
+        options: structures,
         group: "meta"
     },
     {
@@ -164,7 +168,7 @@ export default function AddProject() {
         description: "Les structures partenaires qui vous ont accompagnés, institutions, incubateurs...",
         suffix: "",
         required: false,
-        options: data,
+        options: structures,
         group: "meta"
     },
     {

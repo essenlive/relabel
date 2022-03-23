@@ -11,7 +11,7 @@
 - [ ] Add tests
 - [ ] Bloquer l'update labels carte
 - [ ] Image optimizer @buildtime
-- [ ] Cleanup loading forms
+- [x] Cleanup loading forms
 - [x] Cleanup prisma schema
 - [x] Remove label bugs
 

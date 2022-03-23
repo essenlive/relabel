@@ -26,10 +26,13 @@ export default function AddCommunities() {
     const { data, error } = useSWR('/api/communities', fetcher)
 
     if (error) return <div>Failed to load</div>
-    if (!data) return <div>Loading...</div>
 
-    let cities = Array.from(new Set(data.map((el, i) => (el.cities)).flat()))
-    cities = cities.map((el) => ({ value: el, label: el }))
+    let cities;
+    if (data){
+        cities = Array.from(new Set(data.map((el, i) => (el.cities)).flat()))
+        cities = cities.map((el) => ({ value: el, label: el }))        
+    }
+
 
     const Form = [{
         name: "name",
@@ -66,21 +69,21 @@ export default function AddCommunities() {
         suffix: "",
         required: true,
         group: "meta"
-    },
-    {
-        name: "cities",
-        schema: Yup.array().of(Yup.object().required('Requis')).nullable(),
-        type: "creatableSelect",
-        initial: [],
-        placeholder: "Paris, Lyon",
-        prefix: "Villes dans la communauté",
-        description: "La liste des villes qui composent votre communauté.",
-        suffix: "",
-        required: true,
-        options: cities,
-        group: "meta"
-    },
-    {
+        },
+        {
+            name: "cities",
+            schema: Yup.array().of(Yup.object().required('Requis')).nullable(),
+            type: "creatableSelect",
+            initial: [],
+            placeholder: cities ? "Paris, Lyon" : "Loading",
+            prefix: "Villes dans la communauté",
+            description: "La liste des villes qui composent votre communauté.",
+            suffix: "",
+            required: true,
+            options: cities ? cities : [],
+            group: "meta"
+        },
+        {
         name: "contact",
         schema: Yup.string().email('Email incorrect').required('Requis'),
         type: "mail",
@@ -141,7 +144,6 @@ export default function AddCommunities() {
         data.cities = fields.cities.map((el) => el.value)
         let record = await fetch('/api/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
         record = await record.json()
-        // setTimeout(() => { formik.setSubmitting(false); console.log("timeout"); }, 1000)
         router.push(`/communities/${record[0].id}`);
     }
 

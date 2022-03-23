@@ -26,9 +26,9 @@ export default function AddStructure() {
     const { data, error } = useSWR('/api/communities', fetcher)
 
     if (error) return <div>Failed to load</div>
-    if (!data) return <div>Loading...</div>
 
-    let communities = data.map((el, i) => ({ value: el.id, label: el.name }))
+    let communities;
+    if (data) { communities = data.map((el) => ({ value: el.id, label: el.name })) }
 
     // Form datas
     let Form = [
@@ -54,7 +54,7 @@ export default function AddStructure() {
             description: "Les communautées dont votre structure fait partie.",
             suffix: "",
             required: true,
-            options: communities,
+            options: communities ? communities : [],
             group: "meta"
         },
         {
