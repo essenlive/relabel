@@ -25,7 +25,7 @@ export default function AddProject() {
     const { data, error } = useSWR('/api/structures', fetcher)
 
     if (error) return <div>Failed to load</div>
-    if (!data) return <div>Loading...</div>
+
     let structures;
     if (data) {
         structures = data.map((el) => ({ value: el.id, label: el.name }));

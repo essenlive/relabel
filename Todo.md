@@ -3,7 +3,6 @@
 - [ ] Ajouter des filtres sur les index
 - [ ] Display data as tags
 - [ ] Display time spent
-- [ ] Add search bar
 - [x] Use SWR for forms
 
 ### Cleanup
@@ -19,6 +18,8 @@
 ### Short Term
 
 - [x] Good Practices
+- [ ] Add search bar
+- [ ] Add reflowOS integration
 
 ### Long Term
 
