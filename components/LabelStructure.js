@@ -55,7 +55,7 @@ const Sketch = ({ structure }) => {
         let total = others + suppliers + designers + workshops;
         total = 15;
 
-        let comMemberships = structure.data.memberships;
+        let comMemberships = structure.data.memberships >= 4 ? 4 : structure.data.memberships;
 
 
         let [c1, c2, c3, c4] = structure.colors ? structure.colors : ["#D3494E", "#FFE5AD", "#13BBAF", "#7BC8F6"]

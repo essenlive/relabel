@@ -13,11 +13,12 @@
 - [ ] Image optimizer @buildtime
 - [ ] Cleanup loading forms
 - [x] Cleanup prisma schema
+- [x] Remove label bugs
 
 
 ### Short Term
 
-- [ ] Good Practices
+- [x] Good Practices
 
 ### Long Term
 

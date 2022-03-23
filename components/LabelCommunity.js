@@ -84,7 +84,7 @@ const Sketch = ({ community }) => {
 
             initAvailableColors()
             initNodes(nbCases)
-            initPartnerNodes(community.structures.length);
+            initPartnerNodes(community.structures.length >= 25 ? 25 : community.structures.length);
         }
 
         // Fill colorStack colorstack 
