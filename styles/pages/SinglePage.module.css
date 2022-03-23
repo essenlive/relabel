@@ -140,45 +140,26 @@
 .detail {
     grid-area: detail;
     border: var(--primary) var(--borderWidth-lg) solid;
+    border-bottom: none;
     border-top: none;
     background-color: var(--white);
-    display: grid;
-    gap: 0px 0px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: "materials design""fab partners";
-}
-
-.materials {
-    grid-area: materials;
-    border-right: var(--primary) var(--borderWidth-lg) solid;
-    border-bottom: var(--primary) var(--borderWidth-lg) solid;
-}
-
-.design {
-    grid-area: design;
-    border-bottom: var(--primary) var(--borderWidth-lg) solid;
-}
-
-.fab {
-    grid-area: fab;
-    border-right: var(--primary) var(--borderWidth-lg) solid;
-}
-
-.partners {
-    grid-area: partners;
+    display: flex;
+    flex-direction: column;
 }
 
 .detail>div {
     padding: 1rem;
+    border-bottom: var(--primary) var(--borderWidth-lg) solid;
 }
 
 .detail>div>* {
     padding-bottom: 0.25rem;
 }
 
-.detail a {
-    margin-left: 0.25rem;
+.detail b {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    display: block;
 }
 
 

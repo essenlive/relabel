@@ -1,7 +1,7 @@
 ## Todo / Backlog
 
 - [ ] Ajouter des filtres sur les index
-- [ ] Display data as tags
+- [x] Display data as tags
 - [ ] Display time spent
 - [x] Use SWR for forms
 

@@ -11,13 +11,30 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import ReactToPrint from "react-to-print";
 import classNames from 'classnames';
 import prisma, { serialize } from '@libs/prisma'
+import { projectForm } from '@libs/formsData';
 
 import Certificate from "@components/Certificate";
 import Tags from '@components/Tags';
 
+const ProjectAttributes = ({ name, options, selection, key, baseColor, accentColor}) => {
+    selection = [selection].flat();
+    let indexes=[];
+    selection.forEach((selection)=>{
+        indexes.push(options.indexOf(selection))
+    })
+    
+    let colorMap = new Array(options.length).fill(baseColor);
+    indexes.forEach((index) => { if (index < options.length && index >= 0) { colorMap[index] = accentColor } })
+    return(
+        <div key={key}>
+            <p><b>{name}</b></p>
+            <Tags tags={options} colorMap={colorMap} dark/>
+        </div>
+    )
+}
+
 
 export default function Project({ project }) {
-
     let [copied, setCopied] = useState(false)
     function addToClipboard(text) {
         navigator.clipboard.writeText(text);
@@ -77,32 +94,63 @@ export default function Project({ project }) {
                 <div className={styles.detail}>
                     <div className={styles.materials}>
                         <h3>Materiaux</h3>
-                        <p><b>Fournisseurs</b> : {project.structures.filter(el=>el.typologies.indexOf("stockage")>=0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
-                        <p><b>Source</b> : {project.material_source}</p>
-                        <p><b>Qualité</b> : {project.material_quality}</p>
-                        <p><b>Origine</b> : {project.material_origin}</p>
-                        <p><b>Chutes</b> : {project.material_leftovers}</p>
+                        <div>
+                            <b>Fournisseurs</b>
+                            {project.structures.filter(el=>el.typologies.indexOf("stockage")>=0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}
+                        </div>
+
+                        {projectForm.inputs.filter(el => el.group === "material").map((input, i) => (
+                            <ProjectAttributes
+                            key={i}
+                            name={input.prefix}
+                            options={input.options.map(el => el.value) }
+                            selection={project[input.name]}
+                                baseColor={"--gray-100"}
+                                accentColor={project.colors[0]}
+                            />
+                        ))}
                     </div>
                     <div className={styles.design}>
                         <h3>Conception</h3>
-                        <p><b>Designers</b> : {project.structures.filter(el => el.typologies.indexOf("designer") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
-                        <p><b>Réplicabilité</b> : {project.design_replicability}</p>
-                        <p><b>Collaboratif</b> : {project.design_sharable}</p>
-                        <p><b>Réparable</b> : {project.design_reparable}</p>
-                        <p><b>Durable</b> : {project.design_durabtility}</p>
+                        <div>
+                            <b>Designers</b>
+                            {project.structures.filter(el => el.typologies.indexOf("designer") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}
+                        </div>
+
+                        {projectForm.inputs.filter(el => el.group === "design").map((input, i) => (
+                            <ProjectAttributes
+                                key={i}
+                                name={input.prefix}
+                                options={input.options.map(el => el.value)}
+                                selection={project[input.name]}
+                                baseColor={"--gray-100"}
+                                accentColor={project.colors[1]}
+                            />
+                        ))}
                     </div>
                     <div className={styles.fab}>
                         <h3>Fabrication</h3>
-                        <p><b>Ateliers</b> : {project.structures.filter(el => el.typologies.indexOf("atelier") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
-                        <p><b>Expertises</b> : {project.fab_expertise}</p>
-                        <Tags tags={['un', 'deux', 'trois', 'quatre']} colorMap={['#fff000']}/>
-                        <p><b>Fabrication locale</b> : {project.fab_local}</p>
-                        <p><b>Outils</b> : {project.fab_tools}</p>
-                        <p><b>Social</b> : {project.fab_social}</p>
+                        <div>
+                            <b>Ateliers</b>
+                            {project.structures.filter(el => el.typologies.indexOf("atelier") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}
+                        </div>
+                        {projectForm.inputs.filter(el => el.group === "fab").map((input, i) => (
+                            <ProjectAttributes
+                                key={i}
+                                name={input.prefix}
+                                options={input.options.map(el => el.value)}
+                                selection={project[input.name]}
+                                baseColor={"--gray-100"}
+                                accentColor={project.colors[2]}
+                            />
+                        ))}
                     </div>
                     <div className={styles.partners}>
-                        <h3>Partenaires</h3>
-                        <p><b>Partenaires</b> : { project.structures.filter(el => el.typologies.indexOf("autre") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}</p>
+                        <h3>Soutien</h3>
+                        <div>
+                            <b>Partenaires</b>
+                            { project.structures.filter(el => el.typologies.indexOf("autre") >= 0).map(el => (<span className='link' key={el.id}><Link href={`/structures/${el.id}`}>{el.name}</Link></span>))}
+                        </div>
 
                     </div>
                 </div>
