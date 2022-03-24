@@ -1,31 +1,22 @@
-.structures {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-}
-
-.map {
-    width: 60%;
-}
-
 .list {
-    width: 40%;
     background: var(--white);
-    border-left: var(--primary) var(--borderWidth-lg) solid;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-top: 100px;
 }
 
 .listItem {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 6rem;
+    height: 7rem;
     overflow: hidden;
-    border-top: var(--primary) var(--borderWidth-lg) solid;
     justify-content: space-between;
+    border-right: var(--primary) var(--borderWidth-lg) solid;
+
+}
+
+.listItem:not(:first-child) {
+    border-top: var(--primary) var(--borderWidth-lg) solid;
 }
 
 .listItem img {
@@ -43,6 +34,7 @@
 
 .listItemInfo h4 {
     margin-bottom: 0.5rem;
+    height: 2rem;
 }
 
 .picker {
@@ -76,32 +68,48 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    left: 2rem;
+    justify-content: top;
+    right: 2rem;
     bottom: 2rem;
     border: var(--primary) var(--borderWidth-lg) solid;
+    width: 30%;
+    max-height: 80%;
+}
+
+.infos h3 {
+    padding: 1rem;
 }
 
 .add {
+    border-bottom: var(--primary) var(--borderWidth-lg) solid;
     padding: 1rem;
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+}
+
+.add:hover {
+    background-color: var(--white);
+    color: var(--primary);
 }
 
 .filters {
-    padding: 1rem;
+    display: flex;
+    flex-direction: row;
     border-bottom: var(--primary) var(--borderWidth-lg) solid;
 }
 
-.filters>* {
-    margin-bottom: 0.5rem;
+.filter {
+    padding: 0 1rem 1rem 1rem;
 }
 
-.filters ul {
+.filter ul {
     list-style: none;
 }
 
-.filters li {
+.filter li {
     cursor: pointer;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
 }
 
 
@@ -119,17 +127,18 @@
 @media (--screen-sm) {
     .infos {
         left: 2rem;
+        right: 2rem;
+        height: auto;
+        width: auto;
+        border-bottom: none;
     }
 
     .structures {
         display: block;
     }
 
-    .list {
+    .list, .infos h3, .filters {
         display: none;
     }
 
-    .filters {
-        display: none;
-    }
 }

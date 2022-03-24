@@ -2,12 +2,10 @@
 
 - [ ] Ajouter des filtres sur les index
 - [x] Display data as tags
-- [ ] Display time spent
 - [x] Use SWR for forms
 
 ### Cleanup
 
-- [ ] Add tests
 - [ ] Bloquer l'update labels carte
 - [ ] Image optimizer @buildtime
 - [x] Cleanup loading forms
@@ -20,7 +18,6 @@
 ### Short Term
 
 - [x] Good Practices
-- [ ] Add search bar
 - [ ] Add reflowOS integration
 
 ### Long Term
@@ -28,3 +25,6 @@
 - [ ] Claim ownership of Productions
 - [ ] Authentication - Clerk
 - [ ] Translation - Toglee
+- [ ] Display time spent
+- [ ] Add tests
+- [ ] Add search bar
