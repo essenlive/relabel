@@ -163,6 +163,12 @@
 }
 
 
+.detail a {
+    margin-right: 0.5rem;
+    line-height: 1.2;
+}
+
+
 
 .map {
     grid-area: map;
