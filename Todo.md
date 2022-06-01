@@ -1,16 +1,17 @@
 ## Todo / Backlog
 
-- [ ] Ajouter des filtres sur les index
+- [x] Ajouter des filtres sur les index
+- [ ] Ajouter des filtres sur les projets
 - [x] Display data as tags
 - [x] Use SWR for forms
 
 ### Cleanup
 
-- [ ] Bloquer l'update labels carte
-- [ ] Image optimizer @buildtime
 - [x] Cleanup loading forms
 - [x] Cleanup prisma schema
 - [x] Remove label bugs
+- [ ] Bloquer l'update labels carte
+- [ ] Image optimizer @buildtime
 - [ ] Check all forms
 - [ ] Clean all visual bugs
 

@@ -70,6 +70,7 @@
     flex-direction: column;
     padding: 1rem;
     border: var(--primary) var(--borderWidth-lg) solid;
+    width: 100%;
     border-top: none;
 }
 
@@ -167,7 +168,20 @@
     margin-right: 0.5rem;
     line-height: 1.2;
 }
-
+.sponsor {
+    border-top: var(--primary) var(--borderWidth-lg) solid;
+    width: calc(100% + 2rem);
+    margin: 0 -1rem -1rem -1rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.sponsor img{
+    /* margin-right: 2rem; */
+    height: 4rem;
+}
 
 
 .map {

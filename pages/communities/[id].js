@@ -15,7 +15,6 @@ import prisma, { serialize } from '@libs/prisma'
 
 export default function Community({community}) {
 
-
     let [copied, setCopied] = useState(false)
     function addToClipboard(text) {
         navigator.clipboard.writeText(text);
@@ -34,17 +33,30 @@ export default function Community({community}) {
 
             <div className={styles.communityBanner}>
                 <div className={styles.title}>
-                    {community.name && (<h1> {community.name} </h1>)}
+                    {community.name && (<h1> {community.id === "rec1PaAXbW2aQik2p" ? "25 juin Portes ouvertes des fabriques innovantes" : community.name} </h1>)}
                     {community.cities && (<h2>{community.cities.map((el,i) => (<span key={i}>{el}  </span>))}</h2>)}
                 </div>
                 <div className={styles.description}>
                     {community.description && (<p> {community.description} </p>)}
                     {community.website && (
-                        <p className={"link"}> 
-                        <Link href={community.website}> Voir le site</Link>
+                        <p className={"link"}>
+                            <Link href={community.website}> Voir le site</Link>
                         </p>
                     )}
+                {community.id === "rec1PaAXbW2aQik2p" && (
+                   <div className={styles.sponsor}>
+                            <h3>Partenaires</h3> 
+                            <a href='https://www.paris.fr/' target="_blank">
+                                <img src='https://upload.wikimedia.org/wikipedia/fr/f/fd/Ville_de_Paris_logo_2019.svg' />
+                            </a>
+                            <a href='https://arcinnovation.fr/' target="_blank">
+                                <img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4Snx6zcWTASBCXj7ZJSEnQHaDC%26pid%3DApi&f=1'/> 
+                            </a>
+
+                    </div>
+                    )}
                 </div>
+
 
 
                 <div className={styles.structures}>
