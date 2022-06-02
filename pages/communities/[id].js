@@ -45,7 +45,6 @@ export default function Community({community}) {
                     )}
                 {community.id === "rec1PaAXbW2aQik2p" && (
                    <div className={styles.sponsor}>
-                            <h3>Partenaires</h3> 
                             <a href='https://www.paris.fr/' target="_blank">
                                 <img src='https://upload.wikimedia.org/wikipedia/fr/f/fd/Ville_de_Paris_logo_2019.svg' />
                             </a>

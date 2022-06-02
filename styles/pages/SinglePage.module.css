@@ -176,11 +176,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 .sponsor img{
     /* margin-right: 2rem; */
     height: 4rem;
+    margin-right: 2rem;
 }
 
 
