@@ -1,6 +1,7 @@
 .structureBanner, .communityBanner, .projectBanner {
     display: grid;
     gap: 0px 0px;
+    position: relative;
 }
 
 .structureBanner {
@@ -11,8 +12,8 @@
 
 .communityBanner {
     grid-template-columns: 320px 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    grid-template-areas: ". title title title""label description description description""label structures structures structures""explainer structures structures structures""share map map map"". map map map";
+    grid-template-rows: 320px auto auto auto auto;
+    grid-template-areas: "illu title title title""label description description description""label structures structures structures""explainer structures structures structures""share map map map"". map map map";
 }
 
 .projectBanner {
@@ -182,6 +183,19 @@
     /* margin-right: 2rem; */
     height: 4rem;
     margin-right: 2rem;
+}
+.illu{
+    border-top: var(--primary) var(--borderWidth-lg) solid;
+    border-left: var(--primary) var(--borderWidth-lg) solid;
+    grid-area: illu;
+    width: 100%;
+    height: 100%;
+
+}
+.illu img{
+    grid-area: illu;
+    width: 100%;
+    height: 100%;
 }
 
 
