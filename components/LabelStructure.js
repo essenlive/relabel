@@ -87,7 +87,7 @@ const Sketch = ({ structure }) => {
             let base = p5.sin(45) * dim / 2;
             let end = p5.sin(45) * (dim / 2 + (width - dim) / 2);
             let directions = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
-            p5.shuffle(directions, true)
+            // p5.shuffle(directions, true)
             p5.push();
             p5.stroke(empty);
             p5.strokeWeight(ep);
@@ -100,7 +100,8 @@ const Sketch = ({ structure }) => {
         }
 
         function projects(d) {
-            let startValue = p5.random(1);
+            let startValue = 1;
+            // let startValue = p5.random(1);
             let range = 0;
 
             range = others / total;

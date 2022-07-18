@@ -122,6 +122,8 @@ const Sketch = ({project}) => {
             while (compteur < partnerNodes) {
                 let togglei = p5.floor(p5.random(1, nbCases - 1));
                 let togglej = p5.floor(p5.random(1, nbCases - 1));
+                // let togglei = p5.floor(compteur / (nbCases - 1) + 1);
+                // let togglej = p5.floor(compteur % ( nbCases - 1) + 1);
                 if (noeuds[togglei][togglej] == false) {
                     noeuds[togglei][togglej] = true;
                     compteur++;
