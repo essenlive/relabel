@@ -10,7 +10,7 @@ import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShar
 import { useRef, useState, useEffect, useCallback } from "react";
 import ReactToPrint from "react-to-print";
 import classNames from 'classnames';
-import prisma, { serialize } from '@libs/prisma'
+import prisma, { manageImages, serialize } from '@libs/prisma';
 import { projectForm } from '@libs/formsData';
 
 import Certificate from "@components/Certificate";
@@ -245,8 +245,10 @@ export default function Project({ project }) {
 export async function getStaticProps({ params }) {
     let project = await prisma.project.findMany({ where: { id: params.id } });
     project = project[0];
+    project.illustrations = await Promise.all(project.illustrations.map(async (illu, i) => await manageImages(illu, project.name, i)))
     let structures = await prisma.structure.findMany();
     let communities = await prisma.community.findMany();
+
 
     project.structures = [...project.designers, ...project.suppliers, ...project.workshops, ...project.others]
     project.structures = [...new Set(project.structures)]
@@ -263,7 +265,6 @@ export async function getStaticProps({ params }) {
         if (project.suppliers.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "stockage"]
         if (project.others.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "autre"]
         if (project.workshops.indexOf(structureId) >= 0) structure.typologies = [...structure.typologies, "atelier"]
-        console.log(structure);
         return structure
     })
 

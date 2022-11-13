@@ -2,7 +2,7 @@ import Layout from '@components/Layout'
 import styles from "@styles/pages/Structures.module.css";
 import Link from 'next/link'
 import ReactMap, { prepareData } from '@components/ReactMap'
-import prisma, { serialize } from '@libs/prisma'
+import prisma, { manageImages, serialize } from '@libs/prisma';
 import { useState } from 'react';
 import Tags from '@components/Tags';
 
@@ -152,6 +152,10 @@ export default function Structures({ structures, communities }) {
 export async function getStaticProps() {
   let communities = await prisma.community.findMany();
   let structures = await prisma.structure.findMany();
+  structures = await Promise.all(structures.map(async (structure) => {
+    structure.illustrations = await Promise.all(structure.illustrations.map(async (illu, i) => await manageImages(illu, structure.name, i)))
+    return structure
+  }))
 
   structures = structures.map((structure) => {
     structure.communities = structure.communities.map((communityId) => {

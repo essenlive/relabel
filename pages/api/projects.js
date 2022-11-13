@@ -6,7 +6,7 @@ export default async (req, res) => {
         try {
             let data = await prisma.project.findMany();
             //Added own filter function instead of Prisma because of Boolean parsing
-            let filteredData = filter(data, req.query)            
+            let filteredData = filter(data, req.query)
             res.status(200).json(filteredData)
         } catch (error) {
             console.error(error)

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import Airtable from 'airtable'
+import fs from 'fs';
 
 // Avoid instantiating too many instances of Prisma in development
 // https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices#problem
@@ -59,3 +60,27 @@ export function serialize(data) {
     return JSON.parse(JSON.stringify(data))
 }
 
+
+
+
+export async function manageImages(url, name, id) {
+
+    const normalizeName = (name, id) => {
+        name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, " ").toLowerCase().replace(/\ /g, "_");
+        return `${name}-${id}.png`
+    }
+    const filename = normalizeName(name, id);
+    if (!fs.existsSync(`./public/assets/illustrations/${filename}`)) {
+        let res = await fetch(url, {
+            headers: { Authorization: `Bearer ${process.env.AIRTABLE_APIKEY}` }
+        })
+
+        // To do, check for any file format
+        // let extension = "png";
+        // if (res.headers.get('content-type').indexOf("webp") >= 0) extension = "webp";
+        // if (res.headers.get('content-type').indexOf("jpg") >= 0 ) extension = "jpg";
+        res.body.pipe(fs.createWriteStream(`./public/assets/illustrations/${filename}`))
+        console.log(`downloading image ${filename}`);
+    }
+    return `/assets/illustrations/${filename}`
+}

@@ -7,7 +7,8 @@ import LabelStructure from '@components/LabelStructure';
 import { BiCopy } from "react-icons/bi";
 import {EmailShareButton,FacebookShareButton,LinkedinShareButton,TwitterShareButton,EmailIcon,FacebookIcon,LinkedinIcon,TwitterIcon} from "react-share";
 import { useState } from 'react';
-import prisma, { serialize } from '@libs/prisma'
+import prisma, { manageImages, serialize } from '@libs/prisma';
+
 
 export default function Structure({structure}) {
     
@@ -136,6 +137,8 @@ export default function Structure({structure}) {
 export async function getStaticProps({ params }) {
     let structure = await prisma.structure.findMany({ where: { id: params.id } });
     structure = structure[0];
+    structure.illustrations = await Promise.all(structure.illustrations.map(async (illu, i) => await manageImages(illu, structure.name, i)))
+   
     let projects = await prisma.project.findMany();
     let communities = await prisma.community.findMany();
 

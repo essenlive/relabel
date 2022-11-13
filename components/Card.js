@@ -3,9 +3,9 @@ import Tags from '@components/Tags'
 import Link from 'next/link'
 import styles from "@styles/components/Card.module.css";
 
-const Card = ({ title, description, tags, colorMap, link, image, children, className }) => {
+const Card = ({ title, description, tags, colorMap, link, image, children, className, key }) => {
     return (
-        <div className={classNames(className, styles.card)}>
+        <div key={key} className={classNames(className, styles.card)}>
             {children && children}
             <div className={styles.verso}>
                 {image && image.src &&

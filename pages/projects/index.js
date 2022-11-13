@@ -1,7 +1,8 @@
 import Layout from '@components/Layout';
 import LabelProject from '@components/LabelProject';
 import Card from '@components/Card';
-import prisma, { serialize } from '@libs/prisma'
+import prisma, { manageImages, serialize } from '@libs/prisma';
+
 
 export default function Projects({ projects }) {
   
@@ -19,10 +20,10 @@ export default function Projects({ projects }) {
         {projects.map((project, i) => {
           return (
           <Card
-            key={i}
+              key={i}
               title={project.name}
               tags={[project.typology]}
-              image={{src:project.illustrations[0], alt:project.name}}
+              image={{ src: project.illustrations[0], alt:project.name}}
               link={{path:`/projects/${project.id}`, text:"Voir le projet"}}
               colorMap={project.colors}
             >
@@ -44,6 +45,13 @@ export default function Projects({ projects }) {
 export async function getStaticProps() {
   let projects = await prisma.project.findMany();
   let structures = await prisma.structure.findMany();
+
+
+  projects = await Promise.all(projects.map(async (project) => {
+    project.illustrations = await Promise.all(project.illustrations.map(async (illu, i) => await manageImages(illu, project.name, i)))
+    return project
+  }))
+ 
 
   projects = projects.map((project) => {
     project.designers = project.designers.map((structureId) => {
