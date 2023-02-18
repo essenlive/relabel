@@ -34,12 +34,12 @@ export default function Manifesto() {
         <div className={styles.items}>
           <div> 
             <h2>Des productions responsables</h2>
-            <p>Re-Label met en avant des productions responsables et vertueuses qui contribuent au developpement d'une nouvelle manière de procuire et consommer.</p>
+            <p>Re-Label met en avant des productions responsables et vertueuses qui contribuent au développement d'une nouvelle manière de produire et consommer.</p>
             <p className={"link"}><Link href="/projects">Voir les productions</Link></p> 
           </div>
           <div>
             <h2>Des structures engagées</h2>
-            <p>Re-Label cartographie les structures qui contribuent et porte ces projets pour valoriser leur démarche collaborative.</p>
+            <p>Re-Label cartographie les structures qui contribuent et portent ces projets pour valoriser leur démarche collaborative.</p>
             <p className={"link"}><Link href="/structures">Voir la carte des structures</Link></p>
           </div>
           <div>
