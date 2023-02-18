@@ -25,6 +25,7 @@ export default function Communities({ communities }) {
               description={community.description}
               colorMap={community.colors }
               link={{ path: `/communities/${community.id}`, text: "Voir la communauté" }}
+              id={community.id}
             >
               <LabelCommunity
                 community={community}
