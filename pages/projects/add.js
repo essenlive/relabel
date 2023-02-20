@@ -35,7 +35,7 @@ export default function AddProject() {
     const submit = async fields => {
         setSending(true)
         let data = new Object; Object.assign(data, fields)
-        
+        console.log(data);
         data.team = fields.team.map((el) => el.value)
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
        

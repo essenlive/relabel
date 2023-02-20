@@ -91,7 +91,7 @@ let projectInputs = [
     },
     {
         name: "designers",
-        schema: Yup.array().of(Yup.object()),
+        schema: Yup.array().of(Yup.string()),
         type: "multiSelect",
         initial: [],
         placeholder: "",
@@ -104,7 +104,7 @@ let projectInputs = [
     },
     {
         name: "workshops",
-        schema: Yup.array().of(Yup.object()),
+        schema: Yup.array().of(Yup.string()),
         type: "multiSelect",
         initial: [],
         placeholder: "",
@@ -117,7 +117,7 @@ let projectInputs = [
     },
     {
         name: "suppliers",
-        schema: Yup.array().of(Yup.object()),
+        schema: Yup.array().of(Yup.string()),
         type: "multiSelect",
         initial: [],
         placeholder: "",
@@ -130,7 +130,7 @@ let projectInputs = [
     },
     {
         name: "others",
-        schema: Yup.array().of(Yup.object()),
+        schema: Yup.array().of(Yup.string()),
         type: "multiSelect",
         initial: [],
         placeholder: "",
