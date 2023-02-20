@@ -37,9 +37,9 @@ export default function AddStructure() {
         // Prepare illustrations Urls
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
         // Send to airtable and redirect to newly created page
-        let record = await fetch('/api/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
-        record = await record.json()
-        router.push(`/structures/${record[0].id}`);
+        await fetch('/api/structures', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        await fetch('/api/build', { method: 'GET' })
+        router.push(`/`);
     }
     
     return (

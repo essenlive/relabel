@@ -34,9 +34,9 @@ export default function AddCommunities() {
         let data = new Object;
         Object.assign(data, fields)
         data.cities = fields.cities.map((el) => el.value)
-        let record = await fetch('/api/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
-        record = await record.json()
-        router.push(`/communities/${record[0].id}`);
+        await fetch('/api/communities', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        await fetch('/api/build', { method: 'GET' })
+        router.push(`/`);
     }
 
     return (

@@ -39,9 +39,9 @@ export default function AddProject() {
         data.team = fields.team.map((el) => el.value)
         data.illustrations = data.illustrations.map(el => ({ "url": el }))
        
-        let record = await fetch('/api/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
-        record = await record.json()
-        router.push(`/projects/${record[0].id}`);
+        await fetch('/api/projects', { method: 'POST', body: JSON.stringify([data]), headers: { 'Content-Type': 'application/json' } })
+        await fetch('/api/build', { method: 'GET' })
+        router.push(`/`);
 
     }
     return (
